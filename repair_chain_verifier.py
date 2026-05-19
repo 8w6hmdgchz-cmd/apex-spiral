@@ -102,11 +102,32 @@ class RepairChainVerifier:
                 result["can_proceed"] = False
                 result["warning"] = "历史失败次数过多，建议人工介入"
             
-            self._save_checkpoint(RepairStage.REPAIR, repair_content, result)
+            # 保存检查结果供后续阶段使用
+            self._save_checkpoint(RepairStage.INIT, repair_content, result)
+            
+            # 如果不能执行，记录为skipped
+            if not result["can_proceed"]:
+                result["stage"] = "skipped"
+                self._log_chain(RepairStage.FAILED, repair_content, result, metadata)
+                return result
+            
             self._log_chain(RepairStage.REPAIR, repair_content, result, metadata)
             return result
         
         elif stage == "repair":
+            # 检查是否从pre阶段通过
+            checkpoint = self._load_checkpoint()
+            if checkpoint and checkpoint.get("metadata", {}).get("can_proceed") == False:
+                # 被pre阻止，不执行repair
+                result = {
+                    "stage": "skipped",
+                    "content": repair_content,
+                    "executed": False,
+                    "reason": "blocked_by_pre_check"
+                }
+                self._log_chain(RepairStage.FAILED, repair_content, result, metadata)
+                return result
+            
             # 修复执行：记录并创建断点
             result = {
                 "stage": "repair",
@@ -181,6 +202,7 @@ class RepairChainVerifier:
         stats = {
             "total_repairs": len(history),
             "completed": len([h for h in history if h.get("stage") in ["complete", "confirm"]]),
+            "skipped": len([h for h in history if h.get("stage") in ["skipped", "failed"]]),
             "failed": len([h for h in history if h.get("stage") == "failed"]),
             "avg_improvement": 0.0
         }
