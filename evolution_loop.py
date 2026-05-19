@@ -107,10 +107,13 @@ class EvolutionLoop:
         else:
             # 最近一次适应度
             last_fit = self.fitness_history[-1]
-            # 适应度增长
+            # 适应度增长 = 历史惯性90% + 当前贡献10%
             fitness = max(0.0, min(1.0, last_fit * 0.9 + awake_value / 10.0 * 0.1))
         
         self.fitness_history.append(fitness)
+        # 立即保存fitness历史
+        with open(FITNESS_FILE, "a") as f:
+            f.write(f"{fitness}\n")
         return fitness
     
     def select(self) -> List[float]:
