@@ -571,12 +571,12 @@ PY
 )
 # === LangChain链式验证基因融合: 修复→验证→确认 ===
 CHAIN_VERIFY_SCRIPT="$LOG_DIR/repair_chain_verifier.py"
-CHAIN_VERIFY_SCORE=$(python3 - <<'PYEOF'
+CHAIN_VERIFY_SCORE=$(python3 - <<PYEOF
 import sys, subprocess
 try:
     script = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/repair_chain_verifier.py"
-    # 执行修复前检查
-    repair_content = "iter_$ITER: BUG=$BUG_CODE, FIX=$FIX_ACTION"
+    # 修复内容使用实际值（shell变量在heredoc展开）
+    repair_content = f"iter_${ITER}: BUG=${BUG_CODE}, FIX=${FIX_ACTION}"
     r1 = subprocess.run([sys.executable, script, "verify", repair_content, "pre"], 
                        capture_output=True, timeout=5)
     r2 = subprocess.run([sys.executable, script, "verify", repair_content, "repair"], 
