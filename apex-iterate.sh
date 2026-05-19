@@ -501,7 +501,26 @@ elif bug_code == "B2":
 elif bug_code == "B3":
     xi=min(1.0, xi + fix_effect/10)
 elif bug_code == "B4":
-    gamma=min(2.0, gamma + fix_effect/10 + env_pressure * 0.1)
+    # DEAP进化循环增强（调用Python子进程）
+    import subprocess, os
+    try:
+        script = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/evolution_loop.py"
+        current_gamma = gamma
+        awake_val = 7.0  # 预估
+        env_p = env_pressure
+        
+        # 先评估当前
+        subprocess.run([sys.executable, script, "evaluate", str(current_gamma), str(awake_val)], 
+                       capture_output=True, timeout=5)
+        # 再进化
+        r = subprocess.run([sys.executable, script, "evolve", str(env_p), str(current_gamma)],
+                          capture_output=True, text=True, timeout=5)
+        evolved_gamma = float(r.stdout.strip().split(":")[1].strip())
+        deap_boost = (evolved_gamma - current_gamma) * 0.5
+    except:
+        deap_boost = 0.0
+    
+    gamma=min(2.0, gamma + fix_effect/10 + env_pressure * 0.1 + deap_boost)
 elif bug_code == "B5":
     psi=min(1.0, psi + fix_effect/20 + psi_external_boost*0.5 + memory_boost*0.5)
     nabla=min(1.0, nabla + fix_effect/20)
