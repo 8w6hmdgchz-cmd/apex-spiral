@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # ============================================
+  # 主迭代引擎
+  # ============================================
+  evolver:
+    build: .
+    container_name: apex-spiral-evolver
+    environment:
+      - NODE_ID=node_cfd285ff67c1
+      - GIT_SSH_COMMAND=ssh -o StrictHostKeyChecking=no
+      - EVO_MODE=auto
+    volumes:
+      - ./state:/app/state
+      - ./log:/app/log
+      - ./reports:/app/reports
+      - ~/.ssh:/root/.ssh:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15m
+      timeout: 10s
+      retries: 3
+
+  # ============================================
+  # GitHub Actions Runner (自托管)
+  # ============================================
+  actions-runner:
+    image: myoung34/github-runner:latest
+    container_name: apex-spiral-runner
+    environment:
+      - RUNNER_NAME=apex-spiral-runner
+      - ACCESS_TOKEN=${{ secrets.GH_RUNNER_TOKEN }}
+      - REPO_URL=https://github.com/8w6hmdgchz-cmd/apex-spiral
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./runner/_work:/_work
+    restart: unless-stopped
+
+  # ============================================
+  # EvoMap Hub同步服务
+  # ============================================
+  evomap-sync:
+    build:
+      context: .
+      dockerfile: Dockerfile.evomap
+    container_name: apex-spiral-evomap
+    environment:
+      - NODE_ID=node_cfd285ff67c1
+      - EVOMAP_API_KEY=${{ secrets.EVOMAP_API_KEY }}
+    volumes:
+      - ./state/absorbed_hub:/app/absorbed
+      - ~/.ssh:/root/.ssh:ro
+    restart: unless-stopped
+    depends_on:
+      - evolver
+
+  # ============================================
+  # GPT修复者服务
+  # ============================================
+  gpt-repairer:
+    build:
+      context: .
+      dockerfile: Dockerfile.gpt
+    container_name: apex-spiral-gpt
+    environment:
+      - OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+      - EVOLVER_STATE=/app/state
+    volumes:
+      - ./state:/app/state
+      - ./log:/app/log
+    restart: unless-stopped
+    depends_on:
+      - evolver
+
+  # ============================================
+  # 监控面板
+  # ============================================
+  monitoring:
+    image: prom/prometheus:latest
+    container_name: apex-spiral-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: unless-stopped
+
+  # ============================================
+  # 日志聚合
+  # ============================================
+  logging:
+    image: grafana/loki:latest
+    container_name: apex-spiral-loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./log:/var/log
+    restart: unless-stopped
