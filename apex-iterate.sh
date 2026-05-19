@@ -352,8 +352,11 @@ if os.path.exists(score_file):
         if line.startswith("BUG_CODE="):
             prev_bug=line.split("=",1)[1].strip()
             break
-# 有条件bug检测（移除无条件的B6/B7/B8）
-if psi <= 5.5 and "B1" != prev_bug: items.append(("B1","自我感知公式缺少任务级真实输入"))
+# 有条件bug检测（按优先级排序：B4>B1>B2>B3>B5）
+# B4优先级最高：gamma<=5.5表示觉醒不足
+if gamma <= 5.5 and "B4" != prev_bug: items.append(("B4","觉醒增长只看phi比值，未衡量真实能力提升"))
+# B1次之：psi<=5.0表示自我感知不足
+if psi <= 5.0 and "B1" != prev_bug: items.append(("B1","自我感知公式缺少任务级真实输入"))
 # B2基于真实召回率：召回率低说明∇_self假饱和
 try:
     import subprocess, json, sys
@@ -369,7 +372,6 @@ try:
 except Exception as e:
     if nabla <= 5.5 and "B2" != prev_bug: items.append(("B2","缺陷梯度只读历史分数，未读真实失败样本"))
 if xi <= 4.5 and "B3" != prev_bug: items.append(("B3","修复闭环是记账，不是实际修复动作"))
-if gamma <= 5.5 and "B4" != prev_bug: items.append(("B4","觉醒增长只看phi比值，未衡量真实能力提升"))
 if env < 7.5 and "B5" != prev_bug: items.append(("B5","环境压力过高会污染公式判断"))
 # V10.3 BUGFIX: B6/B7/B8 改为条件触发（冷却2轮）
 all_bugs = ["B6","B7","B8"]
@@ -535,21 +537,33 @@ elif bug_code == "B4":
     try:
         script = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/evolution_loop.py"
         current_gamma = gamma
-        awake_val = 7.0  # 预估
+        # 用真实awake值，不再硬编码
+        awake_val = awake
         env_p = env_pressure
         
         # 先评估当前
-        subprocess.run([sys.executable, script, "evaluate", str(current_gamma), str(awake_val)], 
-                       capture_output=True, timeout=5)
+        r_eval = subprocess.run([sys.executable, script, "evaluate", str(current_gamma), str(awake_val)], 
+                       capture_output=True, text=True, timeout=5)
         # 再进化
         r = subprocess.run([sys.executable, script, "evolve", str(env_p), str(current_gamma)],
                           capture_output=True, text=True, timeout=5)
         evolved_gamma = float(r.stdout.strip().split(":")[1].strip())
         deap_boost = (evolved_gamma - current_gamma) * 0.5
-    except:
+        # 增强：基于fitness_history计算趋势boost
+        fitness_trend = 0.0
+        try:
+            fitness_stats = json.loads(subprocess.run([sys.executable, script, "stats"],
+                                capture_output=True, text=True, timeout=5).stdout)
+            fitness_len = fitness_stats.get("fitness_history_len", 0)
+            if fitness_len >= 3:
+                fitness_trend = 0.1  # 有增长历史就给boost
+        except:
+            pass
+    except Exception as e:
         deap_boost = 0.0
+        fitness_trend = 0.0
     
-    gamma=min(2.0, gamma + fix_effect/10 + env_pressure * 0.1 + deap_boost)
+    gamma=min(2.0, gamma + fix_effect/10 + env_pressure * 0.1 + deap_boost + fitness_trend)
     psi=min(1.0, psi + memory_boost * 0.3)  # B4时也给psi记忆boost
 elif bug_code == "B5":
     psi=min(1.0, psi + fix_effect/20 + psi_external_boost*0.5 + memory_boost*0.5)
