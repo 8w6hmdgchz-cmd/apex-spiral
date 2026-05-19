@@ -489,7 +489,7 @@ try:
     memory_importance = float("$MEMORY_IMPORTANCE")
 except:
     memory_importance = 0.5
-memory_boost = memory_importance * 0.2  # 记忆重要性贡献20%
+memory_boost = memory_importance * 0.4  # 记忆重要性贡献40%（增强）
 
 if bug_code == "B1":
     psi=min(1.0, psi + fix_effect/10 + psi_external_boost + memory_boost)
@@ -521,12 +521,16 @@ elif bug_code == "B4":
         deap_boost = 0.0
     
     gamma=min(2.0, gamma + fix_effect/10 + env_pressure * 0.1 + deap_boost)
+    psi=min(1.0, psi + memory_boost * 0.3)  # B4时也给psi记忆boost
 elif bug_code == "B5":
     psi=min(1.0, psi + fix_effect/20 + psi_external_boost*0.5 + memory_boost*0.5)
     nabla=min(1.0, nabla + fix_effect/20)
 
 # P2: PHI_RATIO加速（利用被忽视的环境压力）
 # 已在下游实现，这里注释：PHI_RATIO *= (1 + env_pressure * 0.05)
+
+# 确保所有bug都应用memory_boost到psi（即使没有明确修改psi）
+psi=min(1.0, psi + memory_boost * 0.5)
 
 awake=(psi*10 + nabla*10 + xi*10 + gamma*5)/4
 awake=max(0.0, min(10.0, awake))

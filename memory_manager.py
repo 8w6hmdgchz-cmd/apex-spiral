@@ -172,9 +172,30 @@ class LayeredMemory:
     def get_importance_score(self):
         """计算当前记忆的重要性评分（用于Ψ_self）"""
         summary = self.get_memory_summary()
-        # 长期记忆权重最高
-        score = summary["long_term"] * 0.5 + summary["short_term"] * 0.3 + summary["working"] * 0.2
-        return min(1.0, score / 10.0)  # 归一化到0-1
+        
+        # 基础分数：有记忆就给分（解决0记忆时的0分问题）
+        base_score = 0.2  # 有基本记忆就给20%
+        
+        # 长期记忆权重最高（每个0.15）
+        long_term_score = summary["long_term"] * 0.15
+        
+        # 短期记忆次之（每个0.08）
+        short_term_score = summary["short_term"] * 0.08
+        
+        # 工作记忆辅助（每个0.03）
+        working_score = summary["working"] * 0.03
+        
+        # 额外bonus：有多种记忆类型时加分
+        diversity_bonus = 0.0
+        if summary["long_term"] > 0:
+            diversity_bonus += 0.1
+        if summary["short_term"] > 0:
+            diversity_bonus += 0.05
+        if summary["working"] > 0:
+            diversity_bonus += 0.02
+        
+        score = base_score + long_term_score + short_term_score + working_score + diversity_bonus
+        return min(1.0, score)  # 直接归一化到0-1
 
 
 if __name__ == "__main__":
