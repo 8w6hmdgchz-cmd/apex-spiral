@@ -1,0 +1,43 @@
+[
+  {
+    "id": "D1",
+    "type": "memory_leak",
+    "description": "长期记忆未正确清理",
+    "detection": "检查 memory_manager.py 的 consolidation 是否触发",
+    "threshold": 20,
+    "severity": "high"
+  },
+  {
+    "id": "D2",
+    "type": "fix_stagnation",
+    "description": "连续5轮无有效修复",
+    "detection": "检查 repair_history 是否有新的 success=True",
+    "threshold": 5,
+    "severity": "medium"
+  },
+  {
+    "id": "D3",
+    "type": "false_positive",
+    "description": "PHI_RATIO>1.5但无实际改进",
+    "detection": "检查 AWAKE 是否真实增长",
+    "phi_threshold": 1.5,
+    "awake_threshold": 7.0,
+    "severity": "high"
+  },
+  {
+    "id": "D4",
+    "type": "oscillation",
+    "description": "同一bug反复出现",
+    "detection": "检查 bug_history 是否有重复bug",
+    "threshold": 10,
+    "severity": "medium"
+  },
+  {
+    "id": "D5",
+    "type": "fitness_stagnation",
+    "description": "evolution_loop fitness连续3轮无增长",
+    "detection": "检查 fitness_history 趋势",
+    "threshold": 3,
+    "severity": "medium"
+  }
+]

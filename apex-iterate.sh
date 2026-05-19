@@ -337,7 +337,7 @@ A_EXPECTED=$(printf '%s' "$PHASE_A" | cut -d'|' -f6)
 A_RATIO=$(printf '%s' "$PHASE_A" | cut -d'|' -f7)
 
 BUG_REVIEW=$(python3 - <<PY
-import os
+import os, sys
 items=[]
 psi=float("${A_PSI:-0}")
 nabla=float("${A_NABLA:-0}")
@@ -354,7 +354,20 @@ if os.path.exists(score_file):
             break
 # 有条件bug检测（移除无条件的B6/B7/B8）
 if psi <= 5.5 and "B1" != prev_bug: items.append(("B1","自我感知公式缺少任务级真实输入"))
-if nabla <= 5.5 and "B2" != prev_bug: items.append(("B2","缺陷梯度只读历史分数，未读真实失败样本"))
+# B2基于真实召回率：召回率低说明∇_self假饱和
+try:
+    import subprocess, json, sys
+    r = subprocess.run([sys.executable, "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/defect_detector.py", "detect"],
+                      capture_output=True, text=True, timeout=5)
+    result = json.loads(r.stdout.strip())
+    true_recall = result.get("recall", 0.5)
+    detected_count = result.get("count", 0)
+    # 召回率<0.3或没检测到任何缺陷 → B2
+    condition = (true_recall < 0.3 or detected_count == 0) and "B2" != prev_bug
+    if condition:
+        items.append(("B2","缺陷梯度只读历史分数，未读真实失败样本"))
+except Exception as e:
+    if nabla <= 5.5 and "B2" != prev_bug: items.append(("B2","缺陷梯度只读历史分数，未读真实失败样本"))
 if xi <= 4.5 and "B3" != prev_bug: items.append(("B3","修复闭环是记账，不是实际修复动作"))
 if gamma <= 5.5 and "B4" != prev_bug: items.append(("B4","觉醒增长只看phi比值，未衡量真实能力提升"))
 if env < 7.5 and "B5" != prev_bug: items.append(("B5","环境压力过高会污染公式判断"))
@@ -494,8 +507,24 @@ memory_boost = memory_importance * 0.4  # 记忆重要性贡献40%（增强）
 if bug_code == "B1":
     psi=min(1.0, psi + fix_effect/10 + psi_external_boost + memory_boost)
 elif bug_code == "B2":
-    nabla=min(1.0, nabla + fix_effect/10)
-    # P1: ∇_self引入"发现难度梯度"，不再假饱和
+    # P1: ∇_self用真实召回率计算，不再假饱和
+    try:
+        import subprocess
+        r = subprocess.run([sys.executable, "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/defect_detector.py", "detect"],
+                          capture_output=True, text=True, timeout=5)
+        import json
+        result = json.loads(r.stdout.strip())
+        true_recall = result.get("recall", 0.5)  # 召回率0-1
+        detected_count = result.get("count", 0)
+        # 召回率高 → ∇_self高（能发现缺陷）
+        # 召回率低 → ∇_self低（假饱和，需要修正）
+        nabla = min(1.0, max(0.1, true_recall + 0.3))  # 基础0.3 + 召回率
+        if detected_count == 0:
+            nabla = 0.5  # 没缺陷=健康，∇_self降到0.5
+    except:
+        nabla=min(1.0, nabla + fix_effect/10)
+    
+    # P1: ∇_self引入"发现难度梯度"
     nabla_stagnation_penalty = 0.05 if nabla >= 0.95 else 0.0
     nabla = max(0.1, nabla - nabla_stagnation_penalty)
 elif bug_code == "B3":
