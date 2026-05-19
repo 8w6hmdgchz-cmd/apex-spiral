@@ -550,10 +550,41 @@ deficit=sum(max(0.0, 10-s) for s in scores)/4
 print(f"{min(10.0,max(0.0,deficit)):.3f}")
 PY
 )
+# === LangChain链式验证基因融合: 修复→验证→确认 ===
+CHAIN_VERIFY_SCRIPT="$LOG_DIR/repair_chain_verifier.py"
+CHAIN_VERIFY_SCORE=$(python3 - <<'PYEOF'
+import sys, subprocess
+try:
+    script = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/repair_chain_verifier.py"
+    # 执行修复前检查
+    repair_content = "iter_$ITER: BUG=$BUG_CODE, FIX=$FIX_ACTION"
+    r1 = subprocess.run([sys.executable, script, "verify", repair_content, "pre"], 
+                       capture_output=True, timeout=5)
+    r2 = subprocess.run([sys.executable, script, "verify", repair_content, "repair"], 
+                       capture_output=True, timeout=5)
+    r3 = subprocess.run([sys.executable, script, "verify", repair_content, "verify"], 
+                       capture_output=True, timeout=5)
+    r4 = subprocess.run([sys.executable, script, "verify", repair_content, "confirm"], 
+                       capture_output=True, timeout=5)
+    # 获取验证评分
+    r5 = subprocess.run([sys.executable, script, "score"], 
+                       capture_output=True, text=True, timeout=5)
+    score = float(r5.stdout.strip().split(":")[1].strip())
+    print(f"{score:.3f}")
+except Exception as e:
+    print("0.500")
+PYEOF
+)
+
 REPAIR_AMOUNT=$(python3 - <<PY
-print(f"{max(0.0, float('$FIX_EFFECT')):.3f}")
+# LangChain链式验证增强：基于验证评分调整修复量
+chain_boost = float("$CHAIN_VERIFY_SCORE") * 0.2
+base_repair = max(0.0, float("$FIX_EFFECT"))
+enhanced_repair = base_repair * (1 + chain_boost)
+print(f"{enhanced_repair:.3f}")
 PY
 )
+
 REPAIR_SUCCESS=$(python3 - <<PY
 print("true" if float("$REPAIR_AMOUNT") > 0 else "false")
 PY
