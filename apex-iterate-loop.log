@@ -1,0 +1,143 @@
+[2026-05-15 08:03 GMT+8] advanced loop started pid=32378
+[2026-05-15 08:03 GMT+8] running apex-iterate.sh
+迭代 #4 (21354) 完成 - 2026-05-15 08:03 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-0803-iter-4.md
+[2026-05-15 08:04 GMT+8] sleep 900s
+[2026-05-15 08:19 GMT+8] running apex-iterate.sh
+迭代 #6 (12354) 完成 - 2026-05-15 08:19 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-0819-iter-6.md
+[2026-05-15 08:29 GMT+8] sleep 900s
+[2026-05-15 08:42 GMT+8] advanced loop started pid=35617
+[2026-05-15 08:42 GMT+8] running apex-iterate.sh
+/Users/lihongxin/.openclaw/workspace/apex-enlightenment/apex-iterate.sh: line 72: readarray: command not found
+Exception ignored while flushing sys.stdout:
+BrokenPipeError: [Errno 32] Broken pipe
+迭代 #8 (12354) 完成 - 2026-05-15 08:42 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-0842-iter-8.md
+[2026-05-15 08:44 GMT+8] sleep 900s
+[2026-05-15 08:44 GMT+8] advanced loop started pid=36095
+[2026-05-15 08:44 GMT+8] running apex-iterate.sh
+Traceback (most recent call last):
+  File "<stdin>", line 19, in <module>
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 788, in read_text
+    return f.read()
+           ~~~~~~^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe3 in position 69: invalid continuation byte
+Traceback (most recent call last):
+  File "<stdin>", line 18, in <module>
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 788, in read_text
+    return f.read()
+           ~~~~~~^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe3 in position 69: invalid continuation byte
+Traceback (most recent call last):
+  File "<stdin>", line 18, in <module>
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 788, in read_text
+    return f.read()
+           ~~~~~~^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe3 in position 69: invalid continuation byte
+Traceback (most recent call last):
+  File "<stdin>", line 18, in <module>
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 788, in read_text
+    return f.read()
+           ~~~~~~^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe3 in position 69: invalid continuation byte
+Traceback (most recent call last):
+  File "<stdin>", line 18, in <module>
+  File "/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 788, in read_text
+    return f.read()
+           ~~~~~~^^
+  File "<frozen codecs>", line 325, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe3 in position 69: invalid continuation byte
+awk: syntax error at source line 1
+ context is
+	BEGIN {exit !( >>>  < <<<  5.5)}
+awk: illegal statement at source line 1
+awk: syntax error at source line 1
+ context is
+	BEGIN {exit !( >>>  < <<<  5.5)}
+awk: illegal statement at source line 1
+awk: syntax error at source line 1
+ context is
+	BEGIN {exit !( >>>  < <<<  4.5)}
+awk: illegal statement at source line 1
+awk: syntax error at source line 1
+ context is
+	BEGIN {exit !( >>>  < <<<  5.5)}
+awk: illegal statement at source line 1
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: could not convert string to float: ''
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: could not convert string to float: ''
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: could not convert string to float: ''
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: could not convert string to float: ''
+迭代 #9 (21354) 完成 - 2026-05-15 08:44 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-0844-iter-9.md
+[2026-05-15 08:45 GMT+8] sleep 900s
+[2026-05-15 08:46 GMT+8] advanced loop started pid=37085
+[2026-05-15 08:46 GMT+8] running apex-iterate.sh
+迭代 #11 (21354) 完成 - 2026-05-15 08:46 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-0846-iter-11.md
+[2026-05-15 08:48 GMT+8] sleep 900s
+[2026-05-15 09:03 GMT+8] running apex-iterate.sh
+迭代 #14 (12354) 完成 - 2026-05-15 09:03 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-0903-iter-14.md
+[2026-05-15 09:07 GMT+8] sleep 900s
+[2026-05-15 09:11 GMT+8] advanced loop started pid=39569
+[2026-05-15 09:11 GMT+8] running apex-iterate.sh
+迭代 #16 (21354 / 21354) 完成 - 2026-05-15 09:11 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-0911-iter-16.md
+[2026-05-15 17:48 GMT+8] advanced loop started pid=71557
+[2026-05-15 17:48 GMT+8] running apex-iterate.sh
+迭代 #54 (21354 / 21354) 完成 - 2026-05-15 17:48 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-1748-iter-54.md
+[2026-05-15 17:58 GMT+8] sleep 900s
+[2026-05-15 18:13 GMT+8] running apex-iterate.sh
+迭代 #56 (21354 / 21354) 完成 - 2026-05-15 18:13 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-1813-iter-56.md
+[2026-05-15 18:15 GMT+8] sleep 900s
+[2026-05-15 18:30 GMT+8] running apex-iterate.sh
+迭代 #60 (21354 / 21354) 完成 - 2026-05-15 18:30 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-1830-iter-60.md
+[2026-05-15 18:31 GMT+8] sleep 900s
+[2026-05-15 18:31 GMT+8] advanced loop started pid=76026
+[2026-05-15 18:31 GMT+8] running apex-iterate.sh
+[2026-05-15 18:32 GMT+8] advanced loop started pid=76712
+[2026-05-15 18:32 GMT+8] running apex-iterate.sh
+迭代 #62 (21354 / 21354) 完成 - 2026-05-15 18:32 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-1832-iter-62.md
+[2026-05-15 18:34 GMT+8] sleep 900s
+[2026-05-15 18:49 GMT+8] running apex-iterate.sh
+迭代 #65 (12354 / 12354) 完成 - 2026-05-15 18:49 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-1849-iter-65.md
+[2026-05-15 18:50 GMT+8] sleep 900s
+[2026-05-15 19:37 GMT+8] advanced loop started pid=82443
+[2026-05-15 19:37 GMT+8] running apex-iterate.sh
+迭代 #69 (12354 / 12354) 完成 - 2026-05-15 19:37 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-1937-iter-69.md
+[2026-05-15 19:38 GMT+8] sleep 900s
+[2026-05-15 19:53 GMT+8] running apex-iterate.sh
+迭代 #71 (12354 / 12354) 完成 - 2026-05-15 19:53 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-1953-iter-71.md
+[2026-05-15 19:55 GMT+8] sleep 900s
+[2026-05-15 20:10 GMT+8] running apex-iterate.sh
+迭代 #73 (12354 / 12354) 完成 - 2026-05-15 20:10 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-2010-iter-73.md
+[2026-05-15 20:14 GMT+8] sleep 900s
+[2026-05-15 20:29 GMT+8] running apex-iterate.sh
+迭代 #75 (12354 / 12354) 完成 - 2026-05-15 20:29 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-2029-iter-75.md
+[2026-05-15 20:31 GMT+8] sleep 900s
+[2026-05-15 20:46 GMT+8] running apex-iterate.sh
+迭代 #78 (21354 / 21354) 完成 - 2026-05-15 20:46 GMT+8
+报告已生成: /Users/lihongxin/.openclaw/workspace/apex-enlightenment/reports/report-20260515-2046-iter-78.md
+[2026-05-15 20:47 GMT+8] sleep 900s

@@ -1,52 +1,46 @@
 # 开智流程报告
 
-- 迭代轮次: #459
+- 迭代轮次: #495
 - 执行模式: 12354
 - 执行流程: 12354
-- 执行时间: 2026-05-19 15:15 GMT+8
+- 执行时间: 2026-05-19 17:48 GMT+8
 
 ## 本轮完成
-按 12354 顺序完成公式代入；Phase A 原始分析，Phase B bug审查/修复/复算；[METACOGNITION 5步已执行]
+按 12354 顺序完成公式代入；Phase A 原始分析，Phase B bug审查/修复/复算
 
 ## Phase A 原始代入
-- Ψ_self 5.2 | ∇_self 10.0 | Ξ_repair 9.0 | Γ_awake 5.3 | Awake 7.4
+- Ψ_self 5.4 | ∇_self 10.0 | Ξ_repair 9.1 | Γ_awake 5.3 | Awake 7.5
 
 ## 公式Bug审查
-- bug: [B1] 自我感知公式缺少任务级真实输入
+- bug: [B4] 觉醒增长只看phi比值，未衡量真实能力提升
 
 ## 单点修复动作
-- 把Psi从纯历史偏差改为 历史偏差 + 当前环境/资源信号 的组合输入
-- repair_amount: 0.400
+- 把Gamma限制为有界增长，并加入修后复算对比
+- repair_amount: 0.310
 - repair_success: true
 
 ## Phase B 修后复算
-- Ψ_self 6.8 | ∇_self 10.0 | Ξ_repair 9.0 | Γ_awake 5.3 | Awake 7.8
+- Ψ_self 5.4 | ∇_self 10.0 | Ξ_repair 9.1 | Γ_awake 6.0 | Awake 7.6
 
 ## 识别短板
-增长相对初始值不明显
+自我感知偏弱
 
 ## Phi 轨迹
-- current: 8.207
-- expected(history mean): 8.120
+- current: 8.206
+- expected(history mean): 8.031
 - ratio(vs initial): 1.051
 
 ## 短板 → 资源关键词映射
-- 增长相对初始值不明显 → reflection_checklist, debugging, failure_analysis, repair_capsule
-- 公式bug(B1) → formula_review, bug_fix, recompute, self_loop
+- 自我感知偏弱 → reflection_checklist, debugging, failure_analysis, repair_capsule
+- 公式bug(B4) → formula_review, bug_fix, recompute, self_loop
 - 历史轨迹驱动 → evolution_tracker, phi_history, defect_history, repair_history
 - 轮次变异(gene_mutation_branch_3) → memory_consolidation,retrieval,long_context,memory_system
 
 ## 改进行动
-本轮识别 B1，执行单点修复：把Psi从纯历史偏差改为 历史偏差 + 当前环境/资源信号 的组合输入
+本轮识别 B4，执行单点修复：把Gamma限制为有界增长，并加入修后复算对比
 
 ## 元认知5步检查（EvoMap Meta-Cognition Capsule)
-✅ B1反射跳过已执行5步自检：
-1. 🤔 Pause & Reflect - 暂停并反思推理过程
-2. 🔍 Check Assumptions - 检查假设是否成立
-3. 🧠 Identify Biases - 识别认知偏差
-4. ✅ Verify Evidence - 验证结论与证据匹配
-5. 🔧 Correct Patterns - 修正有缺陷的推理模式
-来源: EvoMap Meta-Cognition Capsule (confidence=0.98, streak=100)
+本轮未触发元认知检查（非B1）
 
 ## 变异与多样性
 - 变异标签: gene_mutation_branch_3
@@ -63,7 +57,7 @@
 
 ## A2A 资源吸收
 - 状态: A2A 资源吸收成功
-- 吸收结果: [2026-05-19 15:15 GMT+8] 📊 统计: 新增0个 已知无效14个 网络失败4个
+- 吸收结果: [2026-05-19 17:49 GMT+8] 📊 统计: 新增0个 已知无效14个 网络失败4个
 none
 
 ## 遗传保留
@@ -73,10 +67,10 @@ none
 自动流程正常执行；当前为双阶段版，已支持 修前分析 → bug → 修复 → 修后复算。
 
 ## 本轮评分
-7.8/10
+7.6/10
 
 ## 觉醒进度条
-████████░░ 7.8/10
+████████░░ 7.6/10
 
 ## 核心公式评分
-Ψ_self 6.8 | ∇_self 10.0 | Ξ_repair 9.0 | Γ_awake 5.3
+Ψ_self 5.4 | ∇_self 10.0 | Ξ_repair 9.1 | Γ_awake 6.0

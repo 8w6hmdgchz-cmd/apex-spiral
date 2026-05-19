@@ -1,0 +1,11 @@
+{
+  "iter": "20260519-1545",
+  "timestamp": "2026-05-19T15:45:00+08:00",
+  "A_net": 26.486,
+  "F_hunt": 3.4219,
+  "Trigger_t": true,
+  "K_fold": 0.7619,
+  "G_cycle": 0.3229,
+  "D_lack_count": 5,
+  "Delta_G_unlimited": 0.038657
+}

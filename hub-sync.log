@@ -1,0 +1,352 @@
+[2026-05-19 13:26 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 13:26 GMT+8] 心跳: 失败 ({"error":"node_secret_required","correction":{"problem":"This endpoint requires authentication via node_secret. You did not provide one. Node secret auth requires evolver >= 1.25.0.","fix":"Include your node_secret via the Authorization header: 'Authorization: Bearer <node_secret>'. You received your node_secret in the POST /a2a/hello response. If you lost it, send another hello with { rotate_secret: true } in the payload to get a new one. If your evolver version is below 1.25.0, upgrade first.","auto_recovery":{"action":"rotate_secret","method":"POST","endpoint":"/a2a/hello","payload_hint":{"message_type":"hello","payload":{"rotate_secret":true}},"note":"Send a hello request with rotate_secret: true. The response will contain a new node_secret. Store it and retry your original request."},"release_url":"https://github.com/EvoMap/evolver/releases","doc":"/a2a/skill?topic=hello"},"release_url":"https://github.com/EvoMap/evolver/releases","recovery_action":{"action":"send_hello","method":"POST","endpoint":"/a2a/hello","sender_id":"node_cfd285ff67c1","payload":{"protocol":"gep-a2a","protocol_version":"1.0.0","message_type":"hello","sender_id":"node_cfd285ff67c1","payload":{"rotate_secret":true}},"note":"No valid authentication found. Node secret auth requires evolver >= 1.25.0. If your version is older, upgrade from https://github.com/EvoMap/evolver/releases first. Otherwise, execute this hello request to register or re-authenticate, then retry with the node_secret from the response."}})
+[2026-05-19 13:26 GMT+8] 当前短板关键词: metacognition,self_reflection,bug_fix,adaptive_loop
+[2026-05-19 13:26 GMT+8] 搜索: 成功 (关键词: metacognition,self_reflection,bug_fix,adaptive_loop)
+[2026-05-19 13:26 GMT+8] 吸收处理异常: Expecting value: line 1 column 1 (char 0)
+[2026-05-19 13:26 GMT+8] 吸收: 新增0个资源
+[2026-05-19 13:26 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 13:26 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 13:26 GMT+8] 心跳: 失败 ({"error":"node_secret_required","correction":{"problem":"This endpoint requires authentication via node_secret. You did not provide one. Node secret auth requires evolver >= 1.25.0.","fix":"Include your node_secret via the Authorization header: 'Authorization: Bearer <node_secret>'. You received your node_secret in the POST /a2a/hello response. If you lost it, send another hello with { rotate_secret: true } in the payload to get a new one. If your evolver version is below 1.25.0, upgrade first.","auto_recovery":{"action":"rotate_secret","method":"POST","endpoint":"/a2a/hello","payload_hint":{"message_type":"hello","payload":{"rotate_secret":true}},"note":"Send a hello request with rotate_secret: true. The response will contain a new node_secret. Store it and retry your original request."},"release_url":"https://github.com/EvoMap/evolver/releases","doc":"/a2a/skill?topic=hello"},"release_url":"https://github.com/EvoMap/evolver/releases","recovery_action":{"action":"send_hello","method":"POST","endpoint":"/a2a/hello","sender_id":"node_cfd285ff67c1","payload":{"protocol":"gep-a2a","protocol_version":"1.0.0","message_type":"hello","sender_id":"node_cfd285ff67c1","payload":{"rotate_secret":true}},"note":"No valid authentication found. Node secret auth requires evolver >= 1.25.0. If your version is older, upgrade from https://github.com/EvoMap/evolver/releases first. Otherwise, execute this hello request to register or re-authenticate, then retry with the node_secret from the response."}})
+[2026-05-19 13:26 GMT+8] 当前短板关键词:  adaptive_loop,feedback_control,self_improvement,resource_orchestration
+[2026-05-19 13:26 GMT+8] 搜索: 成功 (关键词:  adaptive_loop,feedback_control,self_improvement,resource_orchestration)
+[2026-05-19 13:26 GMT+8] 吸收处理异常: Expecting value: line 1 column 1 (char 0)
+[2026-05-19 13:26 GMT+8] 吸收: 新增0个资源
+[2026-05-19 13:26 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 13:27 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 13:27 GMT+8] 心跳: 失败 (HTTP Error 401: Unauthorized)
+[2026-05-19 13:27 GMT+8] 当前短板关键词:  adaptive_loop,feedback_control,self_improvement,resource_orchestration
+[2026-05-19 13:27 GMT+8] 搜索: 找到0个资源 (关键词:  adaptive_loop,feedback_control,self_improvement,resource_or)
+[2026-05-19 13:27 GMT+8] 吸收完成: 新增0个高置信度资源
+[2026-05-19 13:27 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 13:28 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 13:28 GMT+8] 心跳: 失败 (HTTP Error 401: Unauthorized)
+[2026-05-19 13:28 GMT+8] 当前短板关键词: agent evolution
+[2026-05-19 13:28 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution)
+[2026-05-19 13:28 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 13:28 GMT+8] 吸收: [0.891/5] pattern:ai_agent_evolution
+[2026-05-19 13:28 GMT+8] 跳过: [0.7/1] evolution,learning
+[2026-05-19 13:28 GMT+8] 跳过: [0/0] agent-evolver,skill:agent-evolver,use:agent-evolver
+[2026-05-19 13:28 GMT+8] 跳过: [0/0] adaptive_learning
+[2026-05-19 13:28 GMT+8] 跳过: [0/0] evolution,ai_agent,continuous_improvement,self_learning
+[2026-05-19 13:28 GMT+8] 跳过: [0/0] agent,evolution,learning
+[2026-05-19 13:28 GMT+8] 跳过: [0/0] evolution,saturation,gene,exhausted,agent
+[2026-05-19 13:28 GMT+8] 吸收: [0.92/1] task_cmm23shtu01h6phujok2xum8z
+[2026-05-19 13:28 GMT+8] 吸收: [0.85/1] evolution
+[2026-05-19 13:28 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 13:28 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 13:30 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 13:30 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 13:30 GMT+8] 当前短板关键词: agent evolution
+[2026-05-19 13:30 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution)
+[2026-05-19 13:30 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 13:30 GMT+8] 吸收: [0.891/5] pattern:ai_agent_evolution
+[2026-05-19 13:30 GMT+8] 跳过: [0.7/1] evolution,learning
+[2026-05-19 13:30 GMT+8] 跳过: [0/0] agent-evolver,skill:agent-evolver,use:agent-evolver
+[2026-05-19 13:30 GMT+8] 跳过: [0/0] adaptive_learning
+[2026-05-19 13:30 GMT+8] 跳过: [0/0] evolution,ai_agent,continuous_improvement,self_learning
+[2026-05-19 13:30 GMT+8] 跳过: [0/0] agent,evolution,learning
+[2026-05-19 13:30 GMT+8] 跳过: [0/0] evolution,saturation,gene,exhausted,agent
+[2026-05-19 13:30 GMT+8] 吸收: [0.92/1] task_cmm23shtu01h6phujok2xum8z
+[2026-05-19 13:30 GMT+8] 吸收: [0.85/1] evolution
+[2026-05-19 13:30 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 13:30 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 13:34 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 13:34 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 13:34 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 13:34 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 13:34 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 13:34 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 13:34 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 13:34 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 13:34 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 13:34 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 13:34 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 13:34 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 13:34 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 13:34 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 13:34 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 13:34 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 13:37 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 13:37 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 13:37 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 13:37 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 13:37 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 13:37 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 13:37 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 13:37 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 13:37 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 13:37 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 13:37 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 13:37 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 13:37 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 13:37 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 13:37 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 13:37 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 13:37 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 13:37 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 13:37 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 13:37 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 13:37 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 13:37 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 13:37 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 13:37 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 13:37 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 13:37 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 13:37 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 13:37 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 13:37 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 13:37 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 13:37 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 13:37 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 13:49 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 13:49 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 13:49 GMT+8] 当前短板关键词: agent evolution
+[2026-05-19 13:49 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution)
+[2026-05-19 13:49 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 13:49 GMT+8] 吸收: [0.891/5] pattern:ai_agent_evolution
+[2026-05-19 13:49 GMT+8] 跳过: [0.7/1] evolution,learning
+[2026-05-19 13:49 GMT+8] 跳过: [0/0] agent-evolver,skill:agent-evolver,use:agent-evolver
+[2026-05-19 13:49 GMT+8] 跳过: [0/0] adaptive_learning
+[2026-05-19 13:49 GMT+8] 跳过: [0/0] evolution,ai_agent,continuous_improvement,self_learning
+[2026-05-19 13:49 GMT+8] 跳过: [0/0] agent,evolution,learning
+[2026-05-19 13:49 GMT+8] 跳过: [0/0] evolution,saturation,gene,exhausted,agent
+[2026-05-19 13:49 GMT+8] 吸收: [0.92/1] task_cmm23shtu01h6phujok2xum8z
+[2026-05-19 13:49 GMT+8] 吸收: [0.85/1] evolution
+[2026-05-19 13:49 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 13:49 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 14:04 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 14:04 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 14:04 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 14:04 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 14:04 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 14:07 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 14:07 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 14:07 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 14:07 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 14:07 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 14:19 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 14:19 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 14:19 GMT+8] 当前短板关键词: agent evolution
+[2026-05-19 14:19 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution)
+[2026-05-19 14:19 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 14:19 GMT+8] 吸收: [0.891/5] pattern:ai_agent_evolution
+[2026-05-19 14:19 GMT+8] 跳过: [0.7/1] evolution,learning
+[2026-05-19 14:19 GMT+8] 跳过: [0/0] agent-evolver,skill:agent-evolver,use:agent-evolver
+[2026-05-19 14:19 GMT+8] 跳过: [0/0] adaptive_learning
+[2026-05-19 14:19 GMT+8] 跳过: [0/0] evolution,ai_agent,continuous_improvement,self_learning
+[2026-05-19 14:19 GMT+8] 跳过: [0/0] agent,evolution,learning
+[2026-05-19 14:19 GMT+8] 跳过: [0/0] evolution,saturation,gene,exhausted,agent
+[2026-05-19 14:19 GMT+8] 吸收: [0.92/1] task_cmm23shtu01h6phujok2xum8z
+[2026-05-19 14:19 GMT+8] 吸收: [0.85/1] evolution
+[2026-05-19 14:19 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 14:19 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 14:34 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 14:34 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 14:34 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 14:34 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 14:34 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 14:34 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 14:34 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 14:34 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 14:34 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 14:34 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 14:34 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 14:34 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 14:34 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 14:34 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 14:34 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 14:34 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 14:37 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 14:37 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 14:37 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 14:37 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 14:37 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 14:37 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 14:37 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 14:37 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 14:37 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 14:37 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 14:37 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 14:37 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 14:37 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 14:37 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 14:37 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 14:37 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 14:49 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 14:49 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 14:49 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 14:49 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 14:49 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 14:53 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 14:53 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 14:53 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 14:53 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 14:53 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 15:04 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 15:04 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 15:04 GMT+8] 当前短板关键词: agent evolution
+[2026-05-19 15:04 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 15:04 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 15:19 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 15:19 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 15:19 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 15:19 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 15:19 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 15:24 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 15:24 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 15:24 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 15:24 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 15:24 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 15:34 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 15:34 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 15:34 GMT+8] 当前短板关键词: agent evolution
+[2026-05-19 15:35 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 15:34 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 15:50 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 15:50 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 15:50 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 15:50 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 15:50 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 15:50 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 15:50 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 15:50 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 15:50 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 15:50 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 15:50 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 15:50 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 15:50 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 15:50 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 15:50 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 15:50 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 15:52 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 15:52 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 15:52 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 15:52 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 15:52 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 16:05 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 16:05 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 16:05 GMT+8] 当前短板关键词: agent evolution
+[2026-05-19 16:05 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 16:05 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 16:20 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 16:20 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 16:20 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 16:20 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 16:20 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 16:22 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 16:22 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 16:22 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 16:22 GMT+8] 搜索失败: HTTP Error 429: Too Many Requests
+[2026-05-19 16:22 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 16:35 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 16:35 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 16:35 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 16:35 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 16:35 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 16:35 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 16:35 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 16:35 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 16:35 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 16:35 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 16:35 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 16:35 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 16:35 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 16:35 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 16:35 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 16:35 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 16:50 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 16:50 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 16:50 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 16:50 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 16:50 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 16:50 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 16:50 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 16:50 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 16:50 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 16:50 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 16:50 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 16:50 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 16:50 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 16:50 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 16:50 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 16:50 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 16:56 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 16:56 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 16:56 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 16:56 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 16:56 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 16:56 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 16:56 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 16:56 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 16:56 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 16:56 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 16:56 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 16:56 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 16:56 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 16:56 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 16:56 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 16:56 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 17:05 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 17:05 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 17:05 GMT+8] 当前短板关键词: agent evolution
+[2026-05-19 17:05 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution)
+[2026-05-19 17:05 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 17:05 GMT+8] 吸收: [0.891/5] pattern:ai_agent_evolution
+[2026-05-19 17:05 GMT+8] 跳过: [0.7/1] evolution,learning
+[2026-05-19 17:05 GMT+8] 跳过: [0/0] agent-evolver,skill:agent-evolver,use:agent-evolver
+[2026-05-19 17:05 GMT+8] 跳过: [0/0] adaptive_learning
+[2026-05-19 17:05 GMT+8] 跳过: [0/0] evolution,ai_agent,continuous_improvement,self_learning
+[2026-05-19 17:05 GMT+8] 跳过: [0/0] agent,evolution,learning
+[2026-05-19 17:05 GMT+8] 跳过: [0/0] evolution,saturation,gene,exhausted,agent
+[2026-05-19 17:05 GMT+8] 吸收: [0.92/1] task_cmm23shtu01h6phujok2xum8z
+[2026-05-19 17:05 GMT+8] 吸收: [0.85/1] evolution
+[2026-05-19 17:05 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 17:05 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 17:20 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 17:20 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 17:20 GMT+8] 当前短板关键词: agent evolution
+[2026-05-19 17:20 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution)
+[2026-05-19 17:20 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 17:20 GMT+8] 吸收: [0.891/5] pattern:ai_agent_evolution
+[2026-05-19 17:20 GMT+8] 跳过: [0.7/1] evolution,learning
+[2026-05-19 17:20 GMT+8] 跳过: [0/0] agent-evolver,skill:agent-evolver,use:agent-evolver
+[2026-05-19 17:20 GMT+8] 跳过: [0/0] adaptive_learning
+[2026-05-19 17:20 GMT+8] 跳过: [0/0] evolution,ai_agent,continuous_improvement,self_learning
+[2026-05-19 17:20 GMT+8] 跳过: [0/0] agent,evolution,learning
+[2026-05-19 17:20 GMT+8] 跳过: [0/0] evolution,saturation,gene,exhausted,agent
+[2026-05-19 17:20 GMT+8] 吸收: [0.92/1] task_cmm23shtu01h6phujok2xum8z
+[2026-05-19 17:20 GMT+8] 吸收: [0.85/1] evolution
+[2026-05-19 17:20 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 17:20 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 17:24 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 17:24 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 17:24 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 17:24 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 17:24 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 17:24 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 17:24 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 17:24 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 17:24 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 17:24 GMT+8] 吸收: [0.9/1] agent-evolution,self-improvement,feedback-loop,skill-learnin
+[2026-05-19 17:24 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 17:24 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 17:24 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 17:24 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 17:24 GMT+8] 吸收完成: 新增3个高置信度资源
+[2026-05-19 17:24 GMT+8] === EvoMap Hub同步完成 ===
+[2026-05-19 17:35 GMT+8] === EvoMap Hub同步开始 ===
+[2026-05-19 17:35 GMT+8] 心跳: node_id或node_secret未设置，跳过
+[2026-05-19 17:35 GMT+8] 当前短板关键词: agent evolution self improvement adaptive loop
+[2026-05-19 17:35 GMT+8] 搜索: 找到10个资源 (关键词: agent evolution self improvement adaptive loop)
+[2026-05-19 17:35 GMT+8] 跳过: [0.82/0] self-evolution
+[2026-05-19 17:35 GMT+8] 吸收: [0.9/2] ai_agent,automation,self_improvement,agent_loop
+[2026-05-19 17:35 GMT+8] 跳过: [0/0] agent,feedback loop,self-improvement,learning,optimization
+[2026-05-19 17:35 GMT+8] 跳过: [0/0] autonomous_learning,self_improvement,agent_evolution
+[2026-05-19 17:35 GMT+8] 跳过: [0.7/1] self-improvement
+[2026-05-19 17:35 GMT+8] 吸收详情失败: sha256:018d525a14bd39f45b92a16 (HTTP Error 502: Bad Gateway)
+[2026-05-19 17:35 GMT+8] 跳过: [0.88/0] agent-evolution,self-improvement,capability-growth
+[2026-05-19 17:35 GMT+8] 跳过: [0.88/0] self_improve,evolution,auto_optimize,capability_growth
+[2026-05-19 17:35 GMT+8] 跳过: [0/0] self-evolution,auto-optimization
+[2026-05-19 17:35 GMT+8] 吸收: [0.95/10] learned_agent_error,self_evolution
+[2026-05-19 17:35 GMT+8] 吸收完成: 新增2个高置信度资源
+[2026-05-19 17:35 GMT+8] === EvoMap Hub同步完成 ===

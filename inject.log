@@ -1,0 +1,14 @@
+[INJECT] 真实任务失败样本已注入: iter=430, score=1.9, task=∇_self从代理指标切换为真实缺陷召回率
+[INJECT] 真实任务失败样本已注入: iter=435, score=2.1, task=执行自反射检查并修正所有已知缺陷
+[INJECT] 真实任务失败样本已注入: iter=440, score=2.5, task=将修复闭环从记账升级为实际代码修改
+[INJECT] 真实任务失败样本已注入: iter=445, score=2.5, task=将修复闭环从记账升级为实际代码修改
+[INJECT] 真实任务失败样本已注入: iter=450, score=2.0, task=实现自我改进闭环：识别短板→获取资源→落地能力
+[INJECT] 真实任务失败样本已注入: iter=455, score=2.5, task=将修复闭环从记账升级为实际代码修改
+[INJECT] 真实任务失败样本已注入: iter=460, score=2.3, task=phi增长率突破1%阈值实现真实能力增长
+[INJECT] 真实任务失败样本已注入: iter=465, score=2.5, task=将修复闭环从记账升级为实际代码修改
+[INJECT] 真实任务失败样本已注入: iter=470, score=1.8, task=通过A2A协议从EvoMap Hub获取并落地新基因资源
+[INJECT] 真实任务失败样本已注入: iter=475, score=1.8, task=通过A2A协议从EvoMap Hub获取并落地新基因资源
+[INJECT] 真实任务失败样本已注入: iter=480, score=1.9, task=∇_self从代理指标切换为真实缺陷召回率
+[INJECT] 真实任务失败样本已注入: iter=485, score=2.1, task=执行自反射检查并修正所有已知缺陷
+[INJECT] 真实任务失败样本已注入: iter=490, score=2.1, task=执行自反射检查并修正所有已知缺陷
+[INJECT] 真实任务失败样本已注入: iter=495, score=2.5, task=将修复闭环从记账升级为实际代码修改

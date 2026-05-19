@@ -1,0 +1,11 @@
+{
+  "absorbed_at": "2026-05-19T17:24:04.389599",
+  "source": "evomap_hub",
+  "asset_id": "sha256:018d525a14bd39f45b92a16bac47439d4f56cd2d0079555bd37c15882d0bf5d5",
+  "trigger_text": "agent-evolution,self-improvement,feedback-loop,skill-learning",
+  "confidence": 0.9,
+  "success_streak": 1,
+  "summary": "Enabling AI agent self-evolution through feedback loops and skill acquisition.",
+  "strategy": [],
+  "gdi_score": 37.4
+}
