@@ -98,9 +98,12 @@ class RepairChainVerifier:
                 "warning": f"发现{len(similar_failures)}个类似历史失败" if similar_failures else "无类似失败记录"
             }
             
-            if len(similar_failures) >= 3:
+            if len(similar_failures) >= 5:
                 result["can_proceed"] = False
-                result["warning"] = "历史失败次数过多，建议人工介入"
+                result["warning"] = "同类修复5次以上，建议人工介入"
+            elif len(similar_failures) >= 3:
+                result["can_proceed"] = True
+                result["warning"] = f"发现{len(similar_failures)}个类似历史修复，建议继续观察"
             
             # 保存检查结果供后续阶段使用
             self._save_checkpoint(RepairStage.INIT, repair_content, result)
