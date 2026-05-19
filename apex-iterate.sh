@@ -572,19 +572,33 @@ PY
 # === LangChain链式验证基因融合: 修复→验证→确认 ===
 CHAIN_VERIFY_SCRIPT="$LOG_DIR/repair_chain_verifier.py"
 CHAIN_VERIFY_SCORE=$(python3 - <<PYEOF
-import sys, subprocess
+import sys, subprocess, json
 try:
     script = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/repair_chain_verifier.py"
     # 修复内容使用实际值（shell变量在heredoc展开）
     repair_content = f"iter_${ITER}: BUG=${BUG_CODE}, FIX=${FIX_ACTION}"
     r1 = subprocess.run([sys.executable, script, "verify", repair_content, "pre"], 
-                       capture_output=True, timeout=5)
-    r2 = subprocess.run([sys.executable, script, "verify", repair_content, "repair"], 
-                       capture_output=True, timeout=5)
-    r3 = subprocess.run([sys.executable, script, "verify", repair_content, "verify"], 
-                       capture_output=True, timeout=5)
-    r4 = subprocess.run([sys.executable, script, "verify", repair_content, "confirm"], 
-                       capture_output=True, timeout=5)
+                       capture_output=True, text=True, timeout=5)
+    
+    # 检查pre结果，如果被阻止则跳过后续阶段
+    skipped = False
+    try:
+        pre_result = json.loads(r1.stdout)
+        if pre_result.get("can_proceed") == False:
+            # 被阻止，跳过repair/verify/confirm，直接给低分
+            print("0.100")
+            skipped = True
+    except:
+        pass
+    
+    if not skipped:
+        r2 = subprocess.run([sys.executable, script, "verify", repair_content, "repair"], 
+                           capture_output=True, timeout=5)
+        r3 = subprocess.run([sys.executable, script, "verify", repair_content, "verify"], 
+                           capture_output=True, timeout=5)
+        r4 = subprocess.run([sys.executable, script, "verify", repair_content, "confirm"], 
+                           capture_output=True, timeout=5)
+    
     # 获取验证评分
     r5 = subprocess.run([sys.executable, script, "score"], 
                        capture_output=True, text=True, timeout=5)
@@ -597,10 +611,19 @@ PYEOF
 
 REPAIR_AMOUNT=$(python3 - <<PY
 # LangChain链式验证增强：基于验证评分调整修复量
-chain_boost = float("$CHAIN_VERIFY_SCORE") * 0.2
-base_repair = max(0.0, float("$FIX_EFFECT"))
-enhanced_repair = base_repair * (1 + chain_boost)
-print(f"{enhanced_repair:.3f}")
+# CHAIN_VERIFY_SCORE可能有换行，先用bash处理
+import subprocess, sys
+try:
+    # 直接重新获取score（避免shell变量换行问题）
+    script = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/repair_chain_verifier.py"
+    r = subprocess.run([sys.executable, script, "score"], capture_output=True, text=True, timeout=5)
+    score_str = r.stdout.strip().split(":")[1].strip()
+    chain_boost = float(score_str) * 0.2
+    base_repair = max(0.0, float("$FIX_EFFECT"))
+    enhanced_repair = base_repair * (1 + chain_boost)
+    print(f"{enhanced_repair:.3f}")
+except:
+    print("0.300")
 PY
 )
 

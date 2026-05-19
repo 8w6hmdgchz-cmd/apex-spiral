@@ -88,7 +88,10 @@ class RepairChainVerifier:
         if stage == "pre":
             # 修复前检查：查询历史是否有类似失败
             history = self._get_recent_history()
-            similar_failures = [h for h in history if self._content_similar(repair_content, h.get("content", ""))]
+            # 只统计同类修复中的失败次数，不统计成功的
+            similar_failures = [h for h in history 
+                                if self._content_similar(repair_content, h.get("content", ""))
+                                and h.get("stage") in ["failed", "skipped"]]
             
             result = {
                 "stage": "pre",
