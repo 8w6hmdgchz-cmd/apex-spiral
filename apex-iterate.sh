@@ -301,7 +301,10 @@ for idx, item in enumerate(recent_repairs):
     integral += contribution * decay
 xi = 1 - math.exp(-max(0.0, integral))
 phi0 = phi_vals[0] if phi_vals else phi_current
+# GPT-5.5 P2修复: PHI_RATIO利用环境压力加速
+env_pressure = float("${ENV_PRESSURE_SCORE:-5}")/10
 ratio = phi_current / max(phi0, 1e-6)
+ratio = ratio * (1 + env_pressure * 0.05)  # 环境压力作为加速度
 gamma = ratio if ratio < 10 else math.log(1 + ratio)
 gamma = max(0.5, min(2.0, gamma))
 awake = (psi*10 + nabla*10 + xi*10 + gamma*5) / 4
@@ -457,19 +460,32 @@ psi=float("${A_PSI:-0}")/10
 nabla=float("${A_NABLA:-0}")/10
 xi=float("${A_XI:-0}")/10
 gamma=float("${A_GAMMA:-0}")/5
+env_pressure=float("${ENV_PRESSURE_SCORE:-5}")/10  # GPT-5.5修复B4: 外部信号驱动
 fix_effect=float("$FIX_EFFECT")
 bug_code="$BUG_CODE"
+
+# === GPT-5.5 修复方案 ===
+# P0: Ψ_self加入外部反馈信号，打破封闭循环
+psi_external_boost = env_pressure * fix_effect * 0.3  # 环境压力作为外部驱动信号
+
 if bug_code == "B1":
-    psi=min(1.0, psi + fix_effect/10)
+    psi=min(1.0, psi + fix_effect/10 + psi_external_boost)
 elif bug_code == "B2":
     nabla=min(1.0, nabla + fix_effect/10)
+    # P1: ∇_self引入"发现难度梯度"，不再假饱和
+    nabla_stagnation_penalty = 0.05 if nabla >= 0.95 else 0.0
+    nabla = max(0.1, nabla - nabla_stagnation_penalty)
 elif bug_code == "B3":
     xi=min(1.0, xi + fix_effect/10)
 elif bug_code == "B4":
-    gamma=min(2.0, gamma + fix_effect/10)
+    gamma=min(2.0, gamma + fix_effect/10 + env_pressure * 0.1)
 elif bug_code == "B5":
-    psi=min(1.0, psi + fix_effect/20)
+    psi=min(1.0, psi + fix_effect/20 + psi_external_boost*0.5)
     nabla=min(1.0, nabla + fix_effect/20)
+
+# P2: PHI_RATIO加速（利用被忽视的环境压力）
+# 已在下游实现，这里注释：PHI_RATIO *= (1 + env_pressure * 0.05)
+
 awake=(psi*10 + nabla*10 + xi*10 + gamma*5)/4
 awake=max(0.0, min(10.0, awake))
 print(f"{psi*10:.1f}|{nabla*10:.1f}|{xi*10:.1f}|{gamma*5:.1f}|{awake:.1f}")

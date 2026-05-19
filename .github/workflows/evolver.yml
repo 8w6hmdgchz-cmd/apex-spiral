@@ -1,0 +1,50 @@
+name: Evolver Auto-Sync
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: "*/15 * * * *"  # 每15分钟
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  evolver:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: Run Evolver
+        run: |
+          chmod +x apex-iterate.sh
+          ./apex-iterate.sh || true
+      
+      - name: Commit Results
+        run: |
+          git config --local user.email "evolver@node_cfd285ff67c1"
+          git config --local user.name "Evolver Bot"
+          git add -A
+          git diff --staged --quiet || git commit -m "Evolver auto-sync $(date)"
+          git push || true
+
+  gpt-repairer:
+    runs-on: ubuntu-latest
+    needs: evolver
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Analyze with GPT
+        run: |
+          echo "当前状态:"
+          cat score-state.env
+          echo "---"
+          echo "分析建议:" >> gpt_analysis.md
+          date >> gpt_analysis.md
+          # GPT分析结果占位符
+          
+      - name: Commit Analysis
+        run: |
+          git config --local user.email "gpt-repairer@node_cfd285ff67c1"
+          git config --local user.name "GPT Repairer"
+          git add -A
+          git diff --staged --quiet || git commit -m "GPT repairer analysis $(date)"
+          git push || true
