@@ -58,6 +58,7 @@ type SkillBank struct {
 	Cards      map[string]*SkillCard `json:"cards"`
 	BankPath   string               `json:"bank_path"`
 	MaxSkills  int                  `json:"max_skills"`
+	UseCount   int                  `json:"use_count"`
 }
 
 func NewSkillBank(path string) *SkillBank {
@@ -356,4 +357,96 @@ func main() {
 
 	// 持久化技能库
 	ss.Bank.Save()
+}
+
+// ============================================================
+// 多跳推理 + SkillBank演进闭环
+// ============================================================
+
+// MultiHopChain: 多跳技能链
+type MultiHopChain struct {
+    ChainID      string
+    Hops        []*HopResult
+    FinalAnswer string
+    Confidence  float64
+}
+
+type HopResult struct {
+    HopID   int
+    SkillID string
+    Query   string
+    Result  string
+    Success bool
+}
+
+// MultiHopSkills: 内置多跳技能链
+var MultiHopSkills = map[string][]string{
+    "formula_analysis": {"apex_formula", "apex_doubt", "search_general"},
+    "bug_fix":         {"apex_doubt", "search_general", "apex_reflection"},
+    "evolution":       {"apex_evolution", "apex_skill_fetch", "apex_formula"},
+    "memory_sync":     {"apex_github_sync", "apex_skill_fetch", "apex_metacognition"},
+}
+
+// ExecuteMultiHop: 多跳执行
+func (ss *SearchSkill) ExecuteMultiHop(query string, skillChain []string) *MultiHopChain {
+    chain := &MultiHopChain{
+        ChainID: fmt.Sprintf("chain_%d", time.Now().Unix()),
+        Hops:    make([]*HopResult, 0),
+    }
+
+    for i, skillID := range skillChain {
+        hop := &HopResult{
+            HopID:   i + 1,
+            SkillID: skillID,
+            Query:   query,
+        }
+
+        // 执行单跳
+        card := ss.Bank.Cards[skillID]
+        actQuery := ss.Bank.Read(card, query)
+        results := ss.actExecute(actQuery, card)
+        hop.Result = strings.Join(results, "; ")
+        hop.Success = len(results) > 0
+
+        chain.Hops = append(chain.Hops, hop)
+        query = hop.Result // 下一跳用上一跳结果
+    }
+
+    // Fusion: 多跳结果融合 (占位)
+    chain.FinalAnswer = fmt.Sprintf("[MultiHop with %d hops]", len(chain.Hops))
+    chain.Confidence = calculateChainConfidence(chain.Hops)
+
+    return chain
+}
+
+func calculateChainConfidence(hops []*HopResult) float64 {
+    if len(hops) == 0 {
+        return 0.0
+    }
+    successCount := 0
+    for _, h := range hops {
+        if h.Success {
+            successCount++
+        }
+    }
+    return float64(successCount) / float64(len(hops))
+}
+
+// pruneLowPerforming: 淘汰低效技能
+func (sb *SkillBank) pruneLowPerforming() {
+    for id, card := range sb.Cards {
+        if card.UseCount > 10 && card.SuccessRate < 0.3 {
+            delete(sb.Cards, id)
+            fmt.Printf("Pruned: %s (rate=%.2f)\n", id, card.SuccessRate)
+        }
+    }
+}
+
+// autoCheckpoint: 自动保存
+func (sb *SkillBank) autoCheckpoint() {
+    sb.UseCount++
+    if sb.UseCount%100 == 0 {
+        sb.Save()
+        fmt.Printf("SkillBank checkpoint at use=%d\n", sb.UseCount)
+    }
 }
