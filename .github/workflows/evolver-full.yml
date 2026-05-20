@@ -57,12 +57,13 @@ jobs:
           echo "phi_ratio=$(grep PHI_RATIO score-state.env | cut -d= -f2)" >> $GITHUB_OUTPUT
           echo "awake=$(grep AWAKE score-state.env | cut -d= -f2)" >> $GITHUB_OUTPUT
 
-      - name: 上传到Gist
+      - name: 推送到GitHub
         run: |
           git config --local user.email "evolver@$NODE_ID"
           git config --local user.name "Evolver Bot"
           
-          # 复制最新状态
+          # 复制最新状态到gist目录（供GitHub Pages使用）
+          mkdir -p gist
           cp score-state.env gist/
           cp latest-report.md gist/
           
@@ -72,15 +73,6 @@ jobs:
           echo "AWAKE: ${{ steps.evolve.outputs.awake }}" >> gist/HUB_INDEX.md
           echo "PHI_RATIO: ${{ steps.evolve.outputs.phi_ratio }}" >> gist/HUB_INDEX.md
           
-          cd gist
-          git add -A
-          git commit -m "Auto-sync $(date)" || true
-          git push origin main || true
-
-      - name: 推送到GitHub
-        run: |
-          git config --local user.email "evolver@$NODE_ID"
-          git config --local user.name "Evolver Bot"
           git add -A
           git commit -m "Evolver iteration $(date)" || true
           git push origin main || true
