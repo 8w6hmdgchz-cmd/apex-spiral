@@ -25,48 +25,32 @@ jobs:
         with:
           go-version: "1.21"
 
-      - name: 设置Rust环境
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: 1.75
-
-      - name: 构建Go和Rust二进制
+      - name: 构建Go二进制
         env:
           APEX_WORKSPACE: ${{ github.workspace }}
         run: |
           mkdir -p ~/bin
-
-          # 构建Go search_skill
           go build -o ~/bin/search_skill search_skill_core.go
-          echo "Go binary built"
+          chmod +x ~/bin/search_skill
+          echo "Go build done"
 
-          # 构建Rust emv_skill
-          cargo build --manifest-path emv_skill/Cargo.toml --release
-          cp emv_skill/target/release/emv_skill ~/bin/
-          echo "Rust binary built"
-
-          chmod +x ~/bin/search_skill ~/bin/emv_skill
-
-      - name: 运行EMV Skill生成
-        env:
-          FREEMODEL_API_KEY: ${{ secrets.FREEMODEL_API_KEY }}
-          APEX_WORKSPACE: ${{ github.workspace }}
+      - name: 尝试构建Rust EMV（如失败则跳过）
         run: |
-          # 运行EMV生成新技能基因
-          APEX_DOC="迭代状态: PHI_RATIO=1.0 AWAKE=8 BUG=B4"
-          EMV_TASK="APEX熵Skill迭代检测"
-          ~/bin/emv_skill "$APEX_DOC" "$EMV_TASK" || true
+          if command -v cargo &> /dev/null; then
+            cargo build --manifest-path emv_skill/Cargo.toml --release || true
+            cp emv_skill/target/release/emv_skill ~/bin/ 2>/dev/null || true
+            echo "Rust build attempted"
+          else
+            echo "Rust not available, skipping EMV binary"
+          fi
 
       - name: 运行Evolver
         env:
-          FREEMODEL_API_KEY: ${{ secrets.FREEMODEL_API_KEY }}
+          FREEMODEL_API_KEY: *** secrets.FREEMODEL_API_KEY }}
           APEX_WORKSPACE: ${{ github.workspace }}
         run: |
           chmod +x apex-iterate.sh
           ./apex-iterate.sh || true
-
-          # 确保skillbank被Go binary保存到正确位置
-          echo "SkillBank saved to $APEX_WORKSPACE/state/skillbank.json"
 
       - name: 推送结果
         run: |
