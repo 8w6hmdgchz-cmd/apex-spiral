@@ -3,7 +3,12 @@
 # Phase A: 原始代入分析
 # Phase B: 公式bug审查 → 单点修复 → 修后复算 → 吸收
 
-set -u
+set -eu
+
+# 默认值（CI环境可能没有这些变量）
+: "${GITHUB_BYPASS_IP:=}"
+: "${GITHUB_TOKEN:=}"
+: "${FREEMODEL_API_KEY:=${FREEMODEL_API_KEY_BACKUP:-}}"
 
 LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
 LOG_FILE="$LOG_DIR/iteration.log"
