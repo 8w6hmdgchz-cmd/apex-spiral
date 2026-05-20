@@ -14,14 +14,19 @@ jobs:
   evolve:
     runs-on: ubuntu-latest
     outputs:
-      phi_ratio: ${{ steps.evolve.outputs.phi_ratio }}
-      awake: ${{ steps.evolve.outputs.awake }}
+      phi_ratio: ${{ fromJSON(steps.evolve.outputs.result).phi_ratio }}
+      awake: ${{ fromJSON(steps.evolve.outputs.result).awake }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: 设置Go环境
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.21"
 
       - name: 构建Go和Rust二进制
         run: |
@@ -30,15 +35,6 @@ jobs:
           # 构建Go search_skill
           go build -o ~/bin/search_skill search_skill_core.go
           echo "Go binary built"
-
-          # 构建Rust emv_skill (如果Cargo可用)
-          if command -v cargo &> /dev/null; then
-            cargo build --manifest-path emv_skill/Cargo.toml --release
-            cp emv_skill/target/release/emv_skill ~/bin/
-            echo "Rust binary built"
-          else
-            echo "Rust not available, skipping emv_skill"
-          fi
 
           chmod +x ~/bin/search_skill ~/bin/emv_skill 2>/dev/null || true
 
@@ -50,8 +46,10 @@ jobs:
           chmod +x apex-iterate.sh
           ./apex-iterate.sh || true
 
-          echo "phi_ratio=$(grep PHI_RATIO score-state.env | cut -d= -f2)" >> $GITHUB_OUTPUT
-          echo "awake=$(grep AWAKE score-state.env | cut -d= -f2)" >> $GITHUB_OUTPUT
+          # 输出JSON格式结果供后续job使用
+          PHI=$(grep PHI_RATIO score-state.env | cut -d= -f2)
+          AWAKE=$(grep AWAKE score-state.env | cut -d= -f2)
+          echo "result={\"phi_ratio\":\"$PHI\",\"awake\":\"$AWAKE\"}" >> $GITHUB_OUTPUT
 
       - name: 推送结果
         run: |
