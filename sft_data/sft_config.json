@@ -1,0 +1,23 @@
+{
+  "model_name": "gpt-5",
+  "training_type": "SFT_two_phase",
+  "phase1": {
+    "name": "trajectory_pretraining",
+    "data_file": "emv_trajectories.jsonl",
+    "epochs": 3,
+    "lr": 1e-05,
+    "batch_size": 4,
+    "max_seq_len": 2048
+  },
+  "phase2": {
+    "name": "skill_conditioned_finetuning",
+    "data_file": "emv_trajectories.jsonl",
+    "epochs": 5,
+    "lr": 5e-06,
+    "batch_size": 2,
+    "max_seq_len": 4096,
+    "skill_labels": true
+  },
+  "output_dir": "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/sft_data",
+  "wandb_project": "apex-sft"
+}

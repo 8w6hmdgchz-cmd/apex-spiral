@@ -183,6 +183,57 @@ func (sb *SkillBank) Load() error {
 	return json.Unmarshal(data, &sb.Cards)
 }
 
+// LoadEMVSkills: 从EMV skillbank加载技能基因并转换为SkillCard格式
+func (sb *SkillBank) LoadEMVSkills(emvPath string) error {
+	data, err := os.ReadFile(emvPath)
+	if err != nil {
+		return err // EMV技能库不存在，静默跳过
+	}
+
+	// EMV格式: []SkillGene
+	type EMVSkillGene struct {
+		GeneID         string   `json:"gene_id"`
+		Name           string   `json:"name"`
+		Description    string   `json:"description"`
+		TriggerPatterns []string `json:"trigger_patterns"`
+		Action         string   `json:"action"`
+		SuccessCount   uint32   `json:"success_count"`
+		FailureCount   uint32   `json:"failure_count"`
+		TotalReward    float64  `json:"total_reward"`
+		Generation     uint32   `json:"generation"`
+	}
+
+	var emvGenes []EMVSkillGene
+	if err := json.Unmarshal(data, &emvGenes); err != nil {
+		return err
+	}
+
+	for _, gene := range emvGenes {
+		if gene.GeneID == "" || gene.Name == "" {
+			continue
+		}
+		// 转换成功率
+		total := float64(gene.SuccessCount + gene.FailureCount)
+		sr := 0.5
+		if total > 0 {
+			sr = float64(gene.SuccessCount) / total
+		}
+		// 转换fitness
+		fitness := sr*0.8 + gene.TotalReward/100.0*0.2
+
+		card := &SkillCard{
+			SkillID:     "emv_" + gene.GeneID[:12],
+			Trigger:     gene.TriggerPatterns,
+			Action:      gene.Action,
+			OutputFmt:   "emv_gene: " + gene.Name,
+			SuccessRate: sr,
+			Fitness:     fitness,
+		}
+		sb.Cards[card.SkillID] = card
+	}
+	return nil
+}
+
 // ============================================================
 // 4. SearchSkill 主执行器
 // ============================================================
@@ -401,6 +452,12 @@ func main() {
 	// 加载内置技能库
 	if len(ss.Bank.Cards) == 0 {
 		ss.Bank = DefaultSkillBank()
+	}
+
+	// 加载EMV技能基因
+	emvPath := "/tmp/emv_skillbank.json"
+	if _, err := os.Stat(emvPath); err == nil {
+		ss.Bank.LoadEMVSkills(emvPath)
 	}
 
 	// 构建请求

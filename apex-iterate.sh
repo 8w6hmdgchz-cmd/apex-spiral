@@ -821,6 +821,29 @@ echo "核心公式评分: $CORE_SCORES" >> "$LOG_FILE"
 SEARCH_SKILL_OUTPUT=$(~/bin/search_skill -q "迭代#$ITER PHI_RATIO=$PHI_RATIO AWAKE=$AWAKE BUG=$BUG_CODE" -s apex_formula 2>/dev/null || echo '{"error": "search_skill调用失败"}')
 echo "Go核心: $SEARCH_SKILL_OUTPUT" >> "$LOG_FILE"
 
+# === EMV熵Skill: 生成新技能 ===
+if [ -f ~/bin/emv_skill ]; then
+    APEX_DOC=$(cat << 'APEXDOC'
+APEX公式代入自检：分析任务前先代入自身能力差距
+APEX四要素：Ψ自我、∇梯度、Ξ修复、Γ进化
+步骤1代入自己：明确当前任务需要的能力和自己现有能力的差距
+步骤2代入公式：用APEX四要素(Ψ∇ΞΓ)照镜子找出当前短板
+步骤3举一反三：检查claim是否混淆了事实和推断
+步骤4查记忆：memory_search检索MEMORY.md和相关经验
+步骤5选择路由：REPAIR修复短板/OPTIMIZE优化流程/EXPLORE探索新方案
+APEX主公式：ΔG=(Λ×Θ×K×ξ×Ψ×Φ)/(H×T×ε)
+Φ正反馈强化：成功行为增加权重形成正向循环
+Ξ修复机制：失败案例触发自我修正和策略调整
+Gini增益选择：用基尼不纯度评估技能质量选择最优
+迭代#$ITER: PHI_RATIO=$PHI_RATIO AWAKE=$AWAKE BUG=$BUG_CODE REPAIR=$REPAIR_AMOUNT
+APEXDOC
+    )
+    # 用当前evolver状态构建任务
+    EMV_TASK="迭代#$ITER APEX自检 PHI_RATIO=$PHI_RATIO BUG=$BUG_CODE"
+    EMV_OUTPUT=$(echo "$APEX_DOC" | FREEMODEL_API_KEY="$FREEMODEL_API_KEY" ~/bin/emv_skill "$APEX_DOC" "$EMV_TASK" 2>/dev/null || echo "EMV调用失败")
+    echo "EMV技能: $EMV_OUTPUT" >> "$LOG_FILE"
+fi
+
 cat > "$REPORT_FILE" <<EOF
 # 开智流程报告
 
