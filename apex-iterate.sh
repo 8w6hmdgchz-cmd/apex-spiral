@@ -817,6 +817,10 @@ echo "本轮评分: $ROUND_SCORE" >> "$LOG_FILE"
 echo "觉醒进度条: $PROGRESS_BAR" >> "$LOG_FILE"
 echo "核心公式评分: $CORE_SCORES" >> "$LOG_FILE"
 
+# === APEX Go核心调用: search_skill ===
+SEARCH_SKILL_OUTPUT=$(~/bin/search_skill -q "迭代#$ITER PHI_RATIO=$PHI_RATIO AWAKE=$AWAKE BUG=$BUG_CODE" -s apex_formula 2>/dev/null || echo '{"error": "search_skill调用失败"}')
+echo "Go核心: $SEARCH_SKILL_OUTPUT" >> "$LOG_FILE"
+
 cat > "$REPORT_FILE" <<EOF
 # 开智流程报告
 
