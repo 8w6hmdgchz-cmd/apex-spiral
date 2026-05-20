@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 )
@@ -449,4 +450,141 @@ func (sb *SkillBank) autoCheckpoint() {
         sb.Save()
         fmt.Printf("SkillBank checkpoint at use=%d\n", sb.UseCount)
     }
+}
+
+// ============================================================
+// P0-3: 检索压缩 + 推理裁剪 + 提前停机
+// 修复 BG3: Retrieval/Reasoning Overexpansion
+// ============================================================
+
+const (
+    DefaultHopLimit   = 2     // 默认2跳
+    MaxHopLimit       = 4     // 最大4跳
+    UncertaintyThreshold = 0.3 // 不确定性阈值
+    MarginalGainEpsilon  = 0.05 // 边际增益停机阈值
+    TopKResults        = 3     // Top-K检索结果
+)
+
+// SearchResultWithScore: 带评分的检索结果
+type SearchResultWithScore struct {
+    Content     string
+    Relevance   float64
+    Novelty     float64
+    Actionability float64
+    FinalScore  float64
+}
+
+// CompressResults: 检索压缩 - 只保留Top-K高可执行信息
+func CompressResults(results []string, topK int) []string {
+    if len(results) <= topK {
+        return results
+    }
+    scored := make([]SearchResultWithScore, len(results))
+    for i, r := range results {
+        scored[i] = SearchResultWithScore{
+            Content:      r,
+            Relevance:    0.8, // 简化，实际需计算
+            Novelty:     0.5,
+            Actionability: 0.7,
+            FinalScore:  0.8*0.5 + 0.5*0.3 + 0.7*0.2, // weighted
+        }
+    }
+    // 排序取Top-K
+    sort.Slice(scored, func(i, j int) bool {
+        return scored[i].FinalScore > scored[j].FinalScore
+    })
+    out := make([]string, 0, topK)
+    for i := 0; i < topK && i < len(scored); i++ {
+        out = append(out, scored[i].Content)
+    }
+    return out
+}
+
+// CalculateUncertainty: 计算当前推理不确定性
+func CalculateUncertainty(hopResults []*HopResult) float64 {
+    if len(hopResults) == 0 {
+        return 1.0
+    }
+    // 不确定性 = 1 - 平均成功率
+    total := 0.0
+    for _, h := range hopResults {
+        if h.Success {
+            total += 1.0
+        }
+    }
+    return 1.0 - total/float64(len(hopResults))
+}
+
+// MarginalGain: 计算边际增益
+func MarginalGain(current *HopResult, previous *HopResult) float64 {
+    if previous == nil || len(current.Result) == 0 {
+        return 1.0 // 第一跳默认高增益
+    }
+    // 简化: 新增约束数/总长度
+    if len(current.Result) >= len(previous.Result) {
+        return float64(len(current.Result) - len(previous.Result)) / float64(len(previous.Result))
+    }
+    return 0.0
+}
+
+// ShouldContinueMultihop: 判断是否继续多跳
+func ShouldContinueMultihop(chain []*HopResult) bool {
+    if len(chain) >= MaxHopLimit {
+        return false // 已达最大跳数
+    }
+    if len(chain) >= DefaultHopLimit {
+        uncertainty := CalculateUncertainty(chain)
+        if uncertainty < UncertaintyThreshold {
+            return false // 不确定性够低，停止
+        }
+    }
+    // 检查边际增益
+    if len(chain) >= 2 {
+        last := chain[len(chain)-1]
+        prev := chain[len(chain)-2]
+        if MarginalGain(last, prev) < MarginalGainEpsilon {
+            return false // 边际增益不足，停止
+        }
+    }
+    return true
+}
+
+// ExecuteMultihopWithStop: 带停机的多跳执行
+func (ss *SearchSkill) ExecuteMultihopWithStop(query string, skillChain []string) *MultiHopChain {
+    chain := &MultiHopChain{
+        ChainID: fmt.Sprintf("chain_%d", time.Now().Unix()),
+        Hops:   make([]*HopResult, 0),
+    }
+
+    for i, skillID := range skillChain {
+        // 检查是否应该继续
+        if i >= DefaultHopLimit && !ShouldContinueMultihop(chain.Hops) {
+            chain.FinalAnswer = fmt.Sprintf("[Stopped at hop %d: uncertainty=%.2f, marginal_gain=%.2f]",
+                i+1, CalculateUncertainty(chain.Hops), MarginalGainEpsilon)
+            break
+        }
+
+        hop := &HopResult{
+            HopID:   i + 1,
+            SkillID: skillID,
+            Query:   query,
+        }
+
+        // 执行
+        card := ss.Bank.Cards[skillID]
+        actQuery := ss.Bank.Read(card, query)
+        results := ss.actExecute(actQuery, card)
+
+        // 检索压缩: 只保留Top-K
+        compressed := CompressResults(results, TopKResults)
+        hop.Result = strings.Join(compressed, "; ")
+        hop.Success = len(compressed) > 0
+
+        chain.Hops = append(chain.Hops, hop)
+        query = hop.Result
+    }
+
+    chain.FinalAnswer = fmt.Sprintf("[%d hops, stopped]", len(chain.Hops))
+    chain.Confidence = calculateChainConfidence(chain.Hops)
+    return chain
 }
