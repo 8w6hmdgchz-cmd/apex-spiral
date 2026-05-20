@@ -84,18 +84,33 @@ Gini增益选择：用基尼不纯度评估技能质量选择最优"#,
         println!("最优分裂增益: {:.4}", gain);
     }
 
-    // 测试ReplayBuffer
-    println!("\n=== 跨时间重放测试 ===");
-    let mut buffer = ReplayBuffer::new(100);
+    // 测试ReplayBuffer + SWRs机制
+    println!("\n=== SWRs跨时间重放测试 ===");
+    let mut buffer = ReplayBuffer::with_threshold(100, 0.7);
+
+    // 模拟：添加一些任务，有的触发SWRs，有的低于阈值
     buffer.add(emv_skill::ReplayTask {
         task: task.to_string(),
         best_gene_id: best_gene.clone(),
         success: true,
+        fitness: 0.9, // 高fitness，触发SWRs
         timestamp: std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
             .unwrap().as_secs(),
     });
-    println!("重放缓冲: {} 个任务", buffer.len());
+    buffer.add(emv_skill::ReplayTask {
+        task: "低优先级任务".to_string(),
+        best_gene_id: "low_fitness_gene".to_string(),
+        success: false,
+        fitness: 0.3, // 低fitness，不触发SWRs
+        timestamp: std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap().as_secs(),
+    });
+
+    println!("SWRs阈值: 0.7, 重放缓冲: {} 个任务 (低fitness已过滤)", buffer.len());
+    println!("SWRs触发检测 (fitness=0.9): {}", buffer.swr_triggered(0.9));
+    println!("SWRs触发检测 (fitness=0.5): {}", buffer.swr_triggered(0.5));
 
     // 保存技能库
     if let Err(e) = emv.save_skillbank(skillbank_path) {

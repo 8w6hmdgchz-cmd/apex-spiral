@@ -428,10 +428,15 @@ impl EMVCycle {
 // 6. 跨时间重放机制
 // ============================================================
 
+/// 跨时间重放 - SWRs机制
+/// Sharp-Wave Ripples (SWRs) = 大脑睡眠时的记忆重放机制
+/// AI实现: 高fitness技能触发SWRs巩固到长期SkillBank
 #[derive(Debug, Clone)]
 pub struct ReplayBuffer {
     tasks: Vec<ReplayTask>,
     buffer_size: usize,
+    swr_threshold: f64,     // SWRs触发阈值 (fitness > 此值才重放)
+    consolidation_count: u32,
 }
 
 #[derive(Debug, Clone)]
@@ -439,6 +444,7 @@ pub struct ReplayTask {
     pub task: String,
     pub best_gene_id: String,
     pub success: bool,
+    pub fitness: f64,      // SWRs需要fitness来决定是否触发重放
     pub timestamp: u64,
 }
 
@@ -447,30 +453,72 @@ impl ReplayBuffer {
         Self {
             tasks: vec![],
             buffer_size,
+            swr_threshold: 0.7,
+            consolidation_count: 0,
+        }
+    }
+
+    pub fn with_threshold(buffer_size: usize, swr_threshold: f64) -> Self {
+        Self {
+            tasks: vec![],
+            buffer_size,
+            swr_threshold,
+            consolidation_count: 0,
         }
     }
 
     pub fn add(&mut self, task: ReplayTask) {
-        self.tasks.push(task);
-        if self.tasks.len() > self.buffer_size {
-            self.tasks.remove(0);
+        // SWRs选择性：只加入fitness超过阈值的任务
+        if task.fitness >= self.swr_threshold {
+            self.tasks.push(task);
+            if self.tasks.len() > self.buffer_size {
+                self.tasks.remove(0);
+            }
         }
     }
 
     pub fn len(&self) -> usize { self.tasks.len() }
+    pub fn consolidation_count(&self) -> u32 { self.consolidation_count }
 
-    /// 重放：避免对抗性崩溃
+    /// SWRs触发检测
+    pub fn swr_triggered(&self, fitness: f64) -> bool {
+        fitness >= self.swr_threshold
+    }
+
+    /// 执行SWRs巩固：高fitness技能从短期缓冲巩固到长期存储
+    /// 类似大脑：海马体 → 新皮层的记忆迁移
+    pub fn consolidate(&mut self, skillbank: &mut HashMap<String, SkillGene>) -> Vec<String> {
+        use std::time::{SystemTime, UNIX_EPOCH};
+        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
+
+        let candidates: Vec<_> = self.tasks.iter()
+            .filter(|t| now - t.timestamp < 7200 && t.fitness >= self.swr_threshold)
+            .collect();
+
+        let mut consolidated = vec![];
+        for task in candidates {
+            if let Some(gene) = skillbank.get_mut(&task.best_gene_id) {
+                gene.generation += 1;
+                gene.total_reward += 0.1;
+                consolidated.push(task.best_gene_id.clone());
+                self.consolidation_count += 1;
+            }
+        }
+        self.tasks.retain(|t| !consolidated.contains(&t.best_gene_id));
+        consolidated
+    }
+
+    /// 重放样本（SWRs选择性重放）
     pub fn replay_sample(&self) -> Option<&ReplayTask> {
         use std::time::{SystemTime, UNIX_EPOCH};
         let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
 
-        // 随机选一个近期任务重放
-        let recent: Vec<_> = self.tasks.iter()
-            .filter(|t| now - t.timestamp < 3600) // 1小时内
+        let candidates: Vec<_> = self.tasks.iter()
+            .filter(|t| now - t.timestamp < 3600 && t.fitness >= self.swr_threshold)
             .collect();
 
-        if recent.is_empty() { None }
-        else { Some(recent[rand_index(recent.len())]) }
+        if candidates.is_empty() { None }
+        else { Some(candidates[rand_index(candidates.len())]) }
     }
 }
 
