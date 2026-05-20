@@ -397,7 +397,7 @@ impl EMVCycle {
 
     /// 获取最佳技能
     pub fn best_gene(&self) -> Option<&SkillGene> {
-        self.genes.values().max_by(|a, b| a.fitness().partial_cmp(&b.fitness()).unwrap())
+        self.genes.values().max_by(|a, b| a.fitness().partial_cmp(&b.fitness()).unwrap_or(std::cmp::Ordering::Equal))
     }
 
     /// 获取所有技能
@@ -489,7 +489,7 @@ impl ReplayBuffer {
     /// 类似大脑：海马体 → 新皮层的记忆迁移
     pub fn consolidate(&mut self, skillbank: &mut HashMap<String, SkillGene>) -> Vec<String> {
         use std::time::{SystemTime, UNIX_EPOCH};
-        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
+        let now = SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_secs()).unwrap_or(0);
 
         let candidates: Vec<_> = self.tasks.iter()
             .filter(|t| now - t.timestamp < 7200 && t.fitness >= self.swr_threshold)
@@ -511,7 +511,7 @@ impl ReplayBuffer {
     /// 重放样本（SWRs选择性重放）
     pub fn replay_sample(&self) -> Option<&ReplayTask> {
         use std::time::{SystemTime, UNIX_EPOCH};
-        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
+        let now = SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_secs()).unwrap_or(0);
 
         let candidates: Vec<_> = self.tasks.iter()
             .filter(|t| now - t.timestamp < 3600 && t.fitness >= self.swr_threshold)
@@ -524,13 +524,13 @@ impl ReplayBuffer {
 
 fn rand_index(max: usize) -> usize {
     use std::time::{SystemTime, UNIX_EPOCH};
-    let seed = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_nanos() as usize;
+    let seed = SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_nanos() as usize).unwrap_or(0);
     seed % max
 }
 
 fn uuid_v4() -> String {
     use std::time::{SystemTime, UNIX_EPOCH};
-    let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_nanos();
+    let ts = SystemTime::now().duration_since(UNIX_EPOCH).map(|d| d.as_nanos()).unwrap_or(0);
     format!("{:x}-{:x}", ts, rand_index(99999))
 }
 
