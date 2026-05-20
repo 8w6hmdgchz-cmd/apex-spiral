@@ -822,7 +822,8 @@ SEARCH_SKILL_OUTPUT=$(~/bin/search_skill -q "迭代#$ITER PHI_RATIO=$PHI_RATIO A
 echo "Go核心: $SEARCH_SKILL_OUTPUT" >> "$LOG_FILE"
 
 # === EMV熵Skill: 生成新技能 ===
-if [ -f ~/bin/emv_skill ]; then
+EMV_API_KEY="${FREEMODEL_API_KEY:-${FREEMODEL_API_KEY_BACKUP:-}}"
+if [ -n "$EMV_API_KEY" ] && [ -f ~/bin/emv_skill ]; then
     APEX_DOC=$(cat << 'APEXDOC'
 APEX公式代入自检：分析任务前先代入自身能力差距
 APEX四要素：Ψ自我、∇梯度、Ξ修复、Γ进化
@@ -835,13 +836,22 @@ APEX主公式：ΔG=(Λ×Θ×K×ξ×Ψ×Φ)/(H×T×ε)
 Φ正反馈强化：成功行为增加权重形成正向循环
 Ξ修复机制：失败案例触发自我修正和策略调整
 Gini增益选择：用基尼不纯度评估技能质量选择最优
-迭代#$ITER: PHI_RATIO=$PHI_RATIO AWAKE=$AWAKE BUG=$BUG_CODE REPAIR=$REPAIR_AMOUNT
+迭代#ITER: PHI_RATIO=PHI_RATIO AWAKE=AWAKE BUG=BUG_CODE REPAIR=REPAIR_AMOUNT
 APEXDOC
     )
+    # 替换占位符
+    APEX_DOC=$(echo "$APEX_DOC" | sed \
+        -e "s/ITER/$ITER/g" \
+        -e "s/PHI_RATIO/$PHI_RATIO/g" \
+        -e "s/AWAKE/$AWAKE/g" \
+        -e "s/BUG_CODE/$BUG_CODE/g" \
+        -e "s/REPAIR_AMOUNT/$REPAIR_AMOUNT/g")
     # 用当前evolver状态构建任务
     EMV_TASK="迭代#$ITER APEX自检 PHI_RATIO=$PHI_RATIO BUG=$BUG_CODE"
-    EMV_OUTPUT=$(echo "$APEX_DOC" | FREEMODEL_API_KEY="$FREEMODEL_API_KEY" ~/bin/emv_skill "$APEX_DOC" "$EMV_TASK" 2>/dev/null || echo "EMV调用失败")
+    EMV_OUTPUT=$(echo "$APEX_DOC" | FREEMODEL_API_KEY="$EMV_API_KEY" ~/bin/emv_skill "$APEX_DOC" "$EMV_TASK" 2>/dev/null || echo "EMV调用失败")
     echo "EMV技能: $EMV_OUTPUT" >> "$LOG_FILE"
+else
+    echo "EMV技能: 跳过（无API key或emv_skill不存在）" >> "$LOG_FILE"
 fi
 
 cat > "$REPORT_FILE" <<EOF
