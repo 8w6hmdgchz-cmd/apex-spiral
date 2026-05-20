@@ -8,6 +8,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -234,12 +235,24 @@ func (ss *SearchSkill) Execute(req *SearchRequest) *SearchResult {
 // actExecute: Act阶段执行 (核心逻辑，Go实现)
 func (ss *SearchSkill) actExecute(query string, skill *SkillCard) []string {
 	// 实际实现: 对接 Mem0 / EvoMap / WebFetch
-	// 此处为内存缓存演示
+	// 此处为内存缓存演示 + APEX内置响应
 	key := query
 	if cached, ok := ss.MemCache[key]; ok {
 		return cached
 	}
-	return nil // 无缓存，返回空
+
+	// APEX内置响应: 当skill匹配时返回结构化数据
+	if skill != nil && strings.Contains(skill.SkillID, "apex") {
+		// 构建3秒自检响应
+		response := fmt.Sprintf(
+			"[APEX分析] skill=%s | query=%s | "+
+				"5步自检: 1.代入自己 2.代入公式 3.举一反三 4.查记忆 5.选择路由 | "+
+				"ΔG=(Λ×Θ×K×ξ×Ψ×Φ)/(H×T×ε)",
+			skill.SkillID, query)
+		return []string{response}
+	}
+
+	return nil
 }
 
 // prefetchRelated: 预加载相关技能 (后台)
@@ -333,26 +346,32 @@ func DefaultSkillBank() *SkillBank {
 // ============================================================
 
 func main() {
+	// CLI接口
+	queryPtr := flag.String("q", "APEX公式代入自检", "查询内容")
+	skillPtr := flag.String("s", "", "指定技能")
+	modePtr := flag.String("m", "auto", "模式: auto/multihop/single")
+	flag.Parse()
+
 	// 初始化 SearchSkill
 	home := os.Getenv("HOME")
 	bankPath := filepath.Join(home, ".openclaw", "workspace", "apex-enlightenment", "state", "skillbank.json")
 	ss := NewSearchSkill(bankPath)
 
-	// 加载内置技能库 (如果为空)
+	// 加载内置技能库
 	if len(ss.Bank.Cards) == 0 {
 		ss.Bank = DefaultSkillBank()
 	}
 
-	// 执行演示
+	// 构建请求
 	req := &SearchRequest{
-		Query: "分析这个问题，代入APEX公式",
-		Intent: "formula_check",
-		Mode:  "auto",
+		Query: *queryPtr,
+		Intent: *skillPtr,
+		Mode:  *modePtr,
 	}
 
 	result := ss.Execute(req)
 
-	// 输出结果
+	// 输出JSON结果
 	data, _ := json.MarshalIndent(result, "", "  ")
 	fmt.Println(string(data))
 
