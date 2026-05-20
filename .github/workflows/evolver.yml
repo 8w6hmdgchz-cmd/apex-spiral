@@ -1,50 +1,138 @@
-name: Evolver Auto-Sync
+name: Apex-Spiral Evolver Full System
 
 on:
   push:
     branches: [ main ]
   schedule:
     - cron: "*/15 * * * *"  # 每15分钟
-  workflow_dispatch:  # 手动触发
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '运行模式'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - gpt-repair
+          - gene-sync
+
+env:
+  NODE_ID: node_cfd285ff67c1
+  FREEMODEL_API_KEY: ${{ secrets.FREEMODEL_API_KEY }}
 
 jobs:
-  evolver:
+  evolve:
     runs-on: ubuntu-latest
+    outputs:
+      phi_ratio: ${{ steps.evolve.outputs.phi_ratio }}
+      awake: ${{ steps.evolve.outputs.awake }}
+      iteration: ${{ steps.evolve.outputs.iteration }}
+
     steps:
-      - uses: actions/checkout@v3
-        
-      - name: Run Evolver
+      - name: Checkout with SSH
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ssh-key: ${{ secrets.GH_SSH_KEY }}
+
+      - name: 设置SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.GH_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: 运行Evolver
+        id: evolve
+        env:
+          FREEMODEL_API_KEY: ${{ secrets.FREEMODEL_API_KEY }}
         run: |
           chmod +x apex-iterate.sh
           ./apex-iterate.sh || true
-      
-      - name: Commit Results
+
+          # 提取状态
+          echo "phi_ratio=$(grep PHI_RATIO score-state.env | cut -d= -f2)" >> $GITHUB_OUTPUT
+          echo "awake=$(grep AWAKE score-state.env | cut -d= -f2)" >> $GITHUB_OUTPUT
+          echo "iteration=$(cat counter.txt 2>/dev/null || echo '0')" >> $GITHUB_OUTPUT
+
+      - name: 推送结果
         run: |
-          git config --local user.email "evolver@node_cfd285ff67c1"
+          git config --local user.email "evolver@$NODE_ID"
           git config --local user.name "Evolver Bot"
+
           git add -A
-          git diff --staged --quiet || git commit -m "Evolver auto-sync $(date)"
-          git push || true
+          git commit -local user.name "Evolver Bot"
+          git commit --allow-empty -m "Evolver $(date) iter#${GITHUB_RUN_NUMBER}" || true
+          git push origin main || echo "推送失败（可能无changes）"
 
   gpt-repairer:
     runs-on: ubuntu-latest
-    needs: evolver
+    needs: evolve
+    if: github.event.inputs.mode == 'gpt-repair' || github.event.inputs.mode == 'auto'
+
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Analyze with GPT
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.GH_SSH_KEY }}
+
+      - name: GPT-5.5 分析
+        env:
+          FREEMODEL_API_KEY: ${{ secrets.FREEMODEL_API_KEY }}
         run: |
-          echo "当前状态:"
+          echo "=== 当前状态 ==="
           cat score-state.env
-          echo "---"
-          echo "分析建议:" >> gpt_analysis.md
-          date >> gpt_analysis.md
-          # GPT分析结果占位符
-          
-      - name: Commit Analysis
+          echo ""
+          echo "=== GPT-5 分析 ==="
+
+          # 调用freemodel GPT-5 API
+          RESPONSE=$(curl -s --connect-timeout 30 -X POST https://api.freemodel.dev/v1/chat/completions \
+            -H "Authorization: Bearer $FREEMODEL_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"model\": \"gpt-5\",
+              \"messages\": [{
+                \"role\": \"system\",
+                \"content\": \"你是AI evolver公式修复专家。分析当前状态并提出具体修复建议。简短回复。\"
+              }, {
+                \"role\": \"user\",
+                \"content\": \"score-state:\n$(cat score-state.env)\"
+              }],
+              \"max_tokens\": 500
+            }")
+
+          echo "$RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['choices'][0]['message']['content'])" 2>/dev/null || echo "GPT调用失败"
+
+      - name: 推送分析
         run: |
-          git config --local user.email "gpt-repairer@node_cfd285ff67c1"
+          git config --local user.email "gpt-repairer@$NODE_ID"
           git config --local user.name "GPT Repairer"
           git add -A
-          git diff --staged --quiet || git commit -m "GPT repairer analysis $(date)"
-          git push || true
+          git commit --allow-empty -m "GPT repairer $(date)" || true
+          git push origin main || echo "推送失败"
+
+  gene-sync:
+    runs-on: ubuntu-latest
+    needs: evolve
+    if: github.event.inputs.mode == 'gene-sync' || github.event.inputs.mode == 'auto'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 同步基因（只读）
+        run: |
+          mkdir -p evolution-genes
+          # 只clone公开仓库，不依赖SSH key
+          git clone --depth 1 https://github.com/DEAP/deap.git evolution-genes/deap 2>/dev/null || true
+          echo "=== 基因同步完成 ==="
+          ls evolution-genes/ 2>/dev/null || echo "无"
+
+      - name: 更新文档
+        run: |
+          echo "## 基因同步 $(date)" >> EVOLUTION_GENES.md
+          ls evolution-genes/ >> EVOLUTION_GENES.md 2>/dev/null
+          git add -A
+          git commit --allow-empty -m "基因同步 $(date)" || true
+          git push origin main || echo "推送失败"
