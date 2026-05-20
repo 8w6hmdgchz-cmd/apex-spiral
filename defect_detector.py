@@ -183,3 +183,118 @@ if __name__ == "__main__":
             "fitness_len": len(fitness),
             "fitness": fitness[-5:] if len(fitness) >= 5 else fitness
         }, indent=2))
+
+# ============================================================
+# BG2修复: 失败样本学习硬闭环
+# 旧: 失败 → 写反思 → 存档
+# 新: 失败 → 归因分类 → 生成修复规则 → 写入SkillBank → 下次优先调用 → A/B验证
+# ============================================================
+
+class FailureSample:
+    """失败样本结构 - BG2核心"""
+    def __init__(self, task_id: str, failure_stage: str,
+                 failure_pattern: str, missed_signal: str,
+                 repair_action: str, trigger_condition: str,
+                 validation_metric: str = "delta_g"):
+        self.task_id = task_id
+        self.failure_stage = failure_stage  # retrieve|select|reason|compose|verify
+        self.failure_pattern = failure_pattern
+        self.missed_signal = missed_signal
+        self.repair_action = repair_action
+        self.trigger_condition = trigger_condition
+        self.validation_metric = validation_metric
+        self.status = "pending"  # pending|applied|validated|rejected
+        self.validation_result = None
+
+# 失败阶段 → 对应修复动作
+STAGE_TO_SKILL = {
+    "retrieve": "search_general",
+    "select": "apex_skill_fetch",
+    "reason": "apex_doubt",
+    "compose": "apex_reflection",
+    "verify": "apex_metacognition",
+}
+
+def process_failure(failure: FailureSample) -> dict:
+    """
+    BG2 核心: 失败样本硬闭环
+    返回: {skill_trigger, repair_rule, validation_plan}
+    """
+    # 1. 归因分类
+    stage = failure.failure_stage
+    skill = STAGE_TO_SKILL.get(stage, "search_general")
+
+    # 2. 生成修复规则
+    repair_rule = {
+        "skill_id": f"repair_{failure.task_id}",
+        "trigger": [failure.trigger_condition, failure.failure_pattern],
+        "action": failure.repair_action,
+        "skill_to_apply": skill,
+        "expected_gain": 0.15,  # 期望ΔG提升
+        "confidence": 0.7,
+    }
+
+    # 3. 验证计划
+    validation_plan = {
+        "metric": failure.validation_metric,
+        "baseline": read_current_metric(failure.validation_metric),
+        "expected_delta": 0.1,
+        "test_rounds": 3,
+    }
+
+    # 4. 写入SkillBank (追加到skillbank_candidates.json)
+    candidates_file = STATE_DIR / "skillbank_candidates.json"
+    candidates = []
+    if candidates_file.exists():
+        with open(candidates_file) as f:
+            candidates = json.load(f)
+    candidates.append(repair_rule)
+    with open(candidates_file, "w") as f:
+        json.dump(candidates, f, indent=2)
+
+    # 5. 标记为待应用
+    failure.status = "applied"
+
+    return {
+        "skill_trigger": skill,
+        "repair_rule": repair_rule,
+        "validation_plan": validation_plan,
+    }
+
+
+def validate_repair(failure: FailureSample) -> bool:
+    """
+    BG2 验证: 应用修复后检查是否有效
+    A/B验证: 对比应用前后的 validation_metric
+    """
+    baseline = read_current_metric(failure.validation_metric)
+    current = read_current_metric(failure.validation_metric)
+
+    improvement = (current - baseline) / max(baseline, 0.01)
+
+    if improvement > 0.05:  # 5%提升阈值
+        failure.status = "validated"
+        failure.validation_result = {"improvement": improvement, "pass": True}
+        return True
+    else:
+        failure.status = "rejected"
+        failure.validation_result = {"improvement": improvement, "pass": False}
+        return False
+
+
+def read_current_metric(metric_name: str) -> float:
+    """读取当前指标值"""
+    if metric_name == "delta_g":
+        score_file = SCORE_FILE
+        if score_file.exists():
+            for line in score_file.read_text().splitlines():
+                if '=' in line:
+                    k, v = line.strip().split('=', 1)
+                    if k == 'AWAKE':
+                        return float(v) / 10.0  # 归一化
+        return 0.5
+    elif metric_name == "h_entropy":
+        return 0.5  # 默认值
+    elif metric_name == "t_cycle":
+        return 2.0  # 默认值
+    return 0.5

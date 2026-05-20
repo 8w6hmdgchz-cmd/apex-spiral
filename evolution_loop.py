@@ -96,19 +96,60 @@ class EvolutionLoop:
         with open(EVOLUTION_LOG, "a") as f:
             f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
     
-    def evaluate(self, gamma_value: float, awake_value: float) -> float:
+    def evaluate(self, gamma_value: float, awake_value: float,
+                  h_entropy: float = None, t_cycle: float = None,
+                  xi_anti: float = None, epsilon_repair: float = None,
+                  phi_feedback: float = None, lambda_root: float = 0.95,
+                  theta_llm: float = 0.75, k_master: float = 0.80) -> float:
         """
-        评估适应度
-        适应度 = awake增长 * gamma贡献权重
+        评估适应度 - BG1修复版
+        新优化目标: ΔG / (H × T) - 信息密度 × 迭代速度
+        
+        旧: fitness = last_fit * 0.9 + awake / 10.0 * 0.1  (只看AWAKE)
+        新: fitness = ΔG / (H × T × ε)  (多维协同优化)
+        
+        所有新功能必须通过增益门控:
+        - ΔG 上升?  (ΔG > 0)
+        - H 下降?   (信息密度提升)
+        - T 下降?   (迭代加快)
+        - ξ 上升?  (幻觉减少)
+        - ε 上升?  (自修复增强)
         """
-        # 基于AWAKE和gamma的相关性计算适应度
+        # 加载状态文件获取真实H/T
+        state_env = Path(__file__).parent / "score-state.env"
+        if state_env.exists():
+            content = state_env.read_text()
+            for line in content.splitlines():
+                if '=' in line:
+                    k, v = line.strip().split('=', 1)
+                    if k == 'H_ENTROPY': h_entropy = float(v)
+                    elif k == 'T_CYCLE': t_cycle = float(v)
+                    elif k == 'XI_ANTI': xi_anti = float(v)
+                    elif k == 'EPSILON_REPAIR': epsilon_repair = float(v)
+                    elif k == 'PHI_FEEDBACK': phi_feedback = float(v)
+                    elif k == 'LAMBDA_ROOT': lambda_root = float(v)
+        
+        # 默认值(确保不为0)
+        h_entropy = max(h_entropy or 0.5, 0.01)
+        t_cycle = max(t_cycle or 2.0, 0.1)
+        xi_anti = xi_anti or 0.7
+        epsilon_repair = epsilon_repair or 0.8
+        phi_feedback = phi_feedback or 0.75
+        
+        # 计算ΔG (简化版APEX主公式)
+        # ΔG = (Λ × Θ × K × ξ × Ψ × Φ) / (H × T × ε)
+        psi_host = awake_value / 10.0  # Ψ来自AWAKE
+        delta_g = (lambda_root * theta_llm * k_master * xi_anti * psi_host * phi_feedback) / (h_entropy * t_cycle * epsilon_repair)
+        
+        # 归一化到[0,1]
+        delta_g_normalized = max(0.0, min(1.0, delta_g))
+        
         if not self.fitness_history:
-            fitness = 0.5
+            fitness = delta_g_normalized
         else:
-            # 最近一次适应度
             last_fit = self.fitness_history[-1]
-            # 适应度增长 = 历史惯性90% + 当前贡献10%
-            fitness = max(0.0, min(1.0, last_fit * 0.9 + awake_value / 10.0 * 0.1))
+            # 新: 80%权重给ΔG, 20%给历史惯性
+            fitness = max(0.0, min(1.0, last_fit * 0.2 + delta_g_normalized * 0.8))
         
         self.fitness_history.append(fitness)
         # 立即保存fitness历史
