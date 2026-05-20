@@ -446,7 +446,11 @@ func main() {
 
 	// 初始化 SearchSkill
 	home := os.Getenv("HOME")
-	bankPath := filepath.Join(home, ".openclaw", "workspace", "apex-enlightenment", "state", "skillbank.json")
+	workspace := os.Getenv("APEX_WORKSPACE")
+	if workspace == "" {
+		workspace = filepath.Join(home, ".openclaw", "workspace", "apex-enlightenment")
+	}
+	bankPath := filepath.Join(workspace, "state", "skillbank.json")
 	ss := NewSearchSkill(bankPath)
 
 	// 加载内置技能库
