@@ -10,7 +10,14 @@ set -eu
 : "${GITHUB_TOKEN:=}"
 : "${FREEMODEL_API_KEY:=${FREEMODEL_API_KEY_BACKUP:-}}"
 
-LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
+# LOG_DIR: CI环境用GITHUB_WORKSPACE，本地开发用Mac路径
+if [ -d "/Users/lihongxin/.openclaw/workspace/apex-enlightenment" ]; then
+    LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
+elif [ -n "${GITHUB_WORKSPACE:-}" ]; then
+    LOG_DIR="${GITHUB_WORKSPACE}"
+else
+    LOG_DIR="$(cd "$(dirname "$0")" && pwd)"
+fi
 LOG_FILE="$LOG_DIR/iteration.log"
 COUNTER_FILE="$LOG_DIR/counter.txt"
 REPORT_DIR="$LOG_DIR/reports"
