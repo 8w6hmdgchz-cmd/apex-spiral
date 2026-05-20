@@ -1,0 +1,71 @@
+{
+  "iter": "20260520-0445",
+  "timestamp": "2026-05-20T04:47:10.992267+08:00",
+  "A_net": 3.8505,
+  "F_hunt": 0.2393,
+  "Trigger_t": true,
+  "K_fold": 1.6585,
+  "G_cycle": 0.1083,
+  "D_lack_count": 3,
+  "Delta_G_unlimited": 0.262011,
+  "details": {
+    "A_net_breakdown": {
+      "记忆系统": 0.624,
+      "长上下文": 0.492,
+      "进化算法": 0.5387,
+      "图神经网络": 0.3187,
+      "任务编排": 0.5419,
+      "自我改进": 0.4212,
+      "多Agent系统": 0.3143,
+      "Agent框架": 0.3117,
+      "强化学习": 0.288
+    },
+    "trigger_conditions": {
+      "iter_gt_3": true,
+      "bug_exists": true,
+      "repair_signal": true,
+      "a2a_network": true
+    },
+    "short_boards": [
+      [
+        "增长相对初始值不明显",
+        1.051,
+        1.0
+      ],
+      [
+        "失败率过高",
+        60.8424336973479,
+        25
+      ],
+      [
+        "待处理资源过多",
+        43,
+        25
+      ]
+    ],
+    "shortest_board": "增长相对初始值不明显",
+    "shortest_board_score": 1.051,
+    "D_lack_impact": 0.2255,
+    "bug_code": "B4",
+    "bug_desc": "觉醒增长只看phi比值，未衡量真实能力提升",
+    "repair_amount": 0.311,
+    "phi_current": 8.205,
+    "phi_ratio": 1.051,
+    "iter_count": 579,
+    "mode": "12354",
+    "phase_a": {
+      "psi_self": 5.0,
+      "nabla_self": 10.0,
+      "xi_repair": 9.1,
+      "gamma_awake": 5.3,
+      "awake": 7.3
+    },
+    "phase_b": {
+      "psi_self": 6.6,
+      "nabla_self": 10.0,
+      "xi_repair": 9.1,
+      "gamma_awake": 6.0,
+      "awake": 7.9
+    }
+  }
+}

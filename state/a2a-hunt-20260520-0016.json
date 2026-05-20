@@ -1,0 +1,54 @@
+{
+  "iter": "20260520-0016",
+  "timestamp": "2026-05-20T00:16:51.486767+08:00",
+  "A_net": 2.415,
+  "F_hunt": 0.4242,
+  "Trigger_t": true,
+  "K_fold": 1.1,
+  "G_cycle": 0.5269,
+  "D_lack_count": 2,
+  "Delta_G_unlimited": 0.839774,
+  "details": {
+    "A_net_breakdown": {
+      "记忆系统": 0.459,
+      "长上下文": 0.13,
+      "进化算法": 0.484,
+      "图神经网络": 0.408,
+      "任务编排": 0.459,
+      "自我改进": 0.13,
+      "多Agent系统": 0.115,
+      "Agent框架": 0.107,
+      "强化学习": 0.122
+    },
+    "trigger_conditions": {
+      "iter_gt_3": true,
+      "bug_exists": true,
+      "repair_signal": true,
+      "a2a_network": true
+    },
+    "short_boards": [
+      [
+        "失败率过高",
+        39,
+        25
+      ],
+      [
+        "phi趋势下降",
+        7.506,
+        7.972666666666666
+      ]
+    ],
+    "shortest_board": "失败率过高",
+    "shortest_board_score": 1.56,
+    "bug_code": "B4",
+    "repair_amount": 0.414,
+    "absorbed_count": 25,
+    "failed_count": 39,
+    "pending_count": 43,
+    "phi_current": 7.506,
+    "phi_mean": 7.972666666666666,
+    "iter_count": 51,
+    "mode": "21354",
+    "D_lack_impact": 0.4
+  }
+}

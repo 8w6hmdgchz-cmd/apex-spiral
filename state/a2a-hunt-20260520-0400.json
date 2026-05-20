@@ -1,0 +1,64 @@
+{
+  "iter": "20260520-0400",
+  "timestamp": "2026-05-20T04:00:36+08:00",
+  "A_net": 5.338,
+  "F_hunt": 0.2336,
+  "Trigger_t": true,
+  "K_fold": 1.4,
+  "G_cycle": 0.6832,
+  "D_lack_count": 3,
+  "Delta_G_unlimited": 0.86558,
+  "details": {
+    "A_net_breakdown": {
+      "记忆系统": 0.62,
+      "长上下文": 0.496,
+      "进化算法": 1.425,
+      "图神经网络": 0.637,
+      "任务编排": 0.728,
+      "自我改进": 0.424,
+      "多Agent系统": 0.318,
+      "Agent框架": 0.31,
+      "强化学习": 0.38
+    },
+    "trigger_conditions": {
+      "iter_gt_3": true,
+      "bug_exists": true,
+      "repair_signal": true,
+      "a2a_network": true
+    },
+    "short_boards": [
+      ["增长相对初始值不明显", 1.051, 8.117],
+      ["失败率过高", 39, 25],
+      ["待处理资源过多", 43, 25]
+    ],
+    "shortest_board": "增长相对初始值不明显",
+    "shortest_board_score": 0.129,
+    "bug_code": "B2",
+    "bug_desc": "缺陷梯度只读历史分数，未读真实失败样本",
+    "repair_amount": 0.414,
+    "repair_success": true,
+    "absorbed_count": 25,
+    "failed_count": 39,
+    "pending_count": 43,
+    "phi_current": 8.205,
+    "phi_mean": 8.117,
+    "phi_ratio": 1.051,
+    "iter_count": 576,
+    "mode": "21354",
+    "D_lack_impact": 0.36,
+    "phase_a": {
+      "psi_self": 5.2,
+      "nabla_self": 10.0,
+      "xi_repair": 9.1,
+      "gamma_awake": 5.3,
+      "awake": 7.4
+    },
+    "phase_b": {
+      "psi_self": 6.2,
+      "nabla_self": 9.5,
+      "xi_repair": 9.1,
+      "gamma_awake": 5.3,
+      "awake": 7.5
+    }
+  }
+}

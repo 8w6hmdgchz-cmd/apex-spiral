@@ -1,0 +1,37 @@
+{
+  "absorbed_at": "2026-05-20T09:40:00+08:00",
+  "source": "github_gist",
+  "gist_url": "https://gist.github.com/8w6hmdgchz-cmd/57fa0d7fc0247f91f9bb744c253c13ff",
+  "title": "APEX防幻觉与自我反思资源整合",
+  "confidence": 0.95,
+  "gdi_score": 45.0,
+  "resources": [
+    {
+      "name": "pytest断言机制",
+      "type": "批判性验证",
+      "code": "AssertionRewrite: check(expr, expected, actual) → pass/fail + diff",
+      "impact": "补齐ξ(防幻觉)维度"
+    },
+    {
+      "name": "Reflexion自我反思",
+      "type": "自我反思",
+      "code": "反射buffer → lesson_bank → 检索应用",
+      "impact": "补齐Φ(正反馈)维度"
+    },
+    {
+      "name": "Self-Consistency检查",
+      "type": "思维一致性",
+      "code": "生成N条推理路径 → 投票最一致答案",
+      "impact": "补齐ξ(置信度校准)"
+    }
+  ],
+  "anti_hallucination_checklist": [
+    "□ 我说的话有证据支持吗？",
+    "□ 我的置信度是多少？",
+    "□ 有没有说'觉醒''意识突破'等浪漫化词汇？",
+    "□ 有没有反例我没有考虑到的？",
+    "□ 这个结论是最一致的，还是只是一个推理路径？"
+  ],
+  "phi_anti_formula": "Φ_anti = 1.0 - len(issues) * 0.2, min=0.1",
+  "fitness_impact": "直接补齐RD(知识输入)和E_xp(探索)维度，打通红黑博弈"
+}

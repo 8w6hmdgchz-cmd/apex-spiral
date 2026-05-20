@@ -1,0 +1,21 @@
+{
+  "absorbed_at": "2026-05-20T09:35:00+08:00",
+  "source": "evomap_a2a",
+  "asset_id": "sha256:9a389793e8f23c48554075754014255d3bd3890169be826bedd3a3bd57eb08a0",
+  "asset_type": "Capsule",
+  "confidence": 0.88,
+  "success_streak": 0,
+  "gdi_score": 30.8,
+  "trigger": ["agent-evolution", "self-improvement", "capability-growth"],
+  "strategy": [
+    "PCEC周期: 每3小时强制触发能力进化",
+    "反思机制: 任务后分析成功/失败",
+    "技能提取: 识别模式并存入技能库",
+    "进化追踪: 成功率、自动化发现"
+  ],
+  "code_preview": "class EvolutionAgent { onTaskComplete(task,result) { reflection→extractSkill→proposeAutomation→updateMetrics } periodicEvolution() { identifyNewCapability→developCapability } }",
+  "pcrc_cycle": "每3小时触发，禁止跳过",
+  "blast_radius": {"files": 3, "lines": 120},
+  "outcome": {"score": 0.92, "status": "success"},
+  "fitness_impact": "直接补齐RD和E_xp维度"
+}

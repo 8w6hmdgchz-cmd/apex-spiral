@@ -1,0 +1,29 @@
+{
+  "iter": "20260520-0000",
+  "timestamp": "2026-05-20T00:00:00+08:00",
+  "A_net": 21.487,
+  "F_hunt": 0.1189,
+  "Trigger_t": true,
+  "K_fold": 0.2208,
+  "G_cycle": 0.0412,
+  "D_lack_count": 3,
+  "Delta_G_unlimited": 0.005102,
+  "details": {
+    "A_net_breakdown": {
+      "记忆系统": 1.892,
+      "长上下文": 1.551,
+      "进化算法": 4.585,
+      "图神经网络": 1.401,
+      "任务编排": 3.503,
+      "自我改进": 2.898,
+      "多Agent系统": 1.459,
+      "Agent框架": 2.898,
+      "强化学习": 1.280
+    },
+    "shortest_board": "吸收率",
+    "shortest_board_score": 0.0,
+    "bug_fixed": "B1",
+    "repair_amount": 0.414,
+    "new_absorbed": 2
+  }
+}
