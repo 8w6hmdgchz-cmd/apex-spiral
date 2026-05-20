@@ -42,3 +42,4 @@
 [INJECT] 真实任务失败样本已注入: iter=635, score=2.1, task=执行自反射检查并修正所有已知缺陷
 [INJECT] 真实任务失败样本已注入: iter=640, score=1.9, task=∇_self从代理指标切换为真实缺陷召回率
 [INJECT] 真实任务失败样本已注入: iter=645, score=2.3, task=phi增长率突破1%阈值实现真实能力增长
+[INJECT] 真实任务失败样本已注入: iter=650, score=1.9, task=∇_self从代理指标切换为真实缺陷召回率
