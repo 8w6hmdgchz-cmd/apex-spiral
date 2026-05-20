@@ -321,6 +321,18 @@ phi0 = phi_vals[0] if phi_vals else phi_current
 env_pressure = float("${ENV_PRESSURE_SCORE:-5}")/10
 ratio = phi_current / max(phi0, 1e-6)
 ratio = ratio * (1 + env_pressure * 0.05)  # 环境压力作为加速度
+# GPT-5.5 修复B4: 相位重锁与反馈阻尼
+# PHI_RATIO目标区间[0.98, 1.02]，超出则施加阻尼力
+target_range = (0.98, 1.02)
+if ratio > target_range[1]:
+    # 超出上限：反馈阻尼，将ratio拉回1.0附近
+    overshoot = ratio - target_range[1]
+    ratio = ratio - overshoot * 0.5  # 阻尼系数0.5
+elif ratio < target_range[0]:
+    # 超出下限：允许适当回升
+    undershoot = target_range[0] - ratio
+    ratio = ratio + undershoot * 0.3
+ratio = max(0.5, min(2.0, ratio))  # 硬约束保护
 gamma = ratio if ratio < 10 else math.log(1 + ratio)
 gamma = max(0.5, min(2.0, gamma))
 awake = (psi*10 + nabla*10 + xi*10 + gamma*5) / 4
