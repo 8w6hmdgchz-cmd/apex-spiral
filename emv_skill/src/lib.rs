@@ -57,6 +57,18 @@ impl SkillGene {
         let recency = 1.0; // 简化：实际可用时间衰减
         sr * recency + self.total_reward / 100.0
     }
+
+    /// 保存到JSON文件
+    pub fn save_to_file(&self, path: &str) -> Result<(), String> {
+        let json = serde_json::to_string_pretty(self).map_err(|e| e.to_string())?;
+        std::fs::write(path, json).map_err(|e| e.to_string())
+    }
+
+    /// 从JSON文件加载
+    pub fn load_from_file(path: &str) -> Result<Self, String> {
+        let content = std::fs::read_to_string(path).map_err(|e| e.to_string())?;
+        serde_json::from_str(&content).map_err(|e| e.to_string())
+    }
 }
 
 // ============================================================
@@ -198,25 +210,90 @@ pub struct Challenger;
 impl Challenger {
     pub fn extract_skills(&self, document: &str) -> Vec<SkillGene> {
         let mut skills = vec![];
-        // 简化：从文档提取"技能模式"
         let lines: Vec<&str> = document.lines().collect();
         for (i, line) in lines.iter().enumerate() {
-            if line.contains("步骤") || line.contains("流程") || line.contains("方法") {
+            let trimmed = line.trim();
+            if trimmed.is_empty() { continue; }
+            if trimmed.contains("步骤") || trimmed.contains("流程") || trimmed.contains("方法") || trimmed.contains("APEX") {
                 let name = format!("skill_{}", i);
-                skills.push(SkillGene::new(&name, line, line));
+                let mut gene = SkillGene::new(&name, trimmed, trimmed);
+                // 提取触发词：从行中提取关键概念
+                let triggers: Vec<String> = trimmed
+                    .split(|c: char| c == ':' || c == '-' || c == '：')
+                    .filter(|s| !s.trim().is_empty())
+                    .map(|s| s.trim().to_string())
+                    .filter(|s| s.len() > 1 && s.len() < 50)
+                    .collect();
+                gene.trigger_patterns = triggers;
+                skills.push(gene);
             }
+        }
+        if skills.is_empty() {
+            // fallback: 把整篇文档当作一个技能
+            let mut gene = SkillGene::new("skill_doc", "文档技能", document);
+            gene.trigger_patterns = document
+                .split(|c: char| c.is_whitespace() || c == '：' || c == '-')
+                .filter(|s| s.len() > 2)
+                .map(|s| s.to_string())
+                .take(10)
+                .collect();
+            skills.push(gene);
         }
         skills
     }
 }
 
 /// Reasoner: 解题 - 多智能体自博弈推理
-pub struct Reasoner;
+pub struct Reasoner {
+    api_key: String,
+}
 
 impl Reasoner {
+    pub fn new(api_key: &str) -> Self {
+        Self { api_key: api_key.to_string() }
+    }
+
+    /// 调用GPT-5进行真实推理
+    pub fn solve_with_gpt(&self, skill: &SkillGene, task: &str) -> (bool, f64) {
+        use std::process::Command;
+
+        let task_esc = task.replace('"', "'");
+        let action_esc = skill.action.replace('"', "'");
+
+        // 构建JSON payload
+        let json_body = format!(
+            "{{\"model\": \"gpt-5\", \"messages\": [{{\"role\": \"user\", \"content\": \"任务: {}\n技能: {}\n判断技能是否匹配？返回JSON: {{\\\"match\\\": true/false}}\"}}], \"max_tokens\": 100}}",
+            task_esc, action_esc
+        );
+
+        let output = Command::new("curl")
+            .args([
+                "-s", "--connect-timeout", "10",
+                "-X", "POST",
+                "https://api.freemodel.dev/v1/chat/completions",
+                "-H", &format!("Authorization: Bearer {}", self.api_key),
+                "-H", "Content-Type: application/json",
+                "-d", &json_body,
+            ])
+            .output();
+
+        match output {
+            Ok(out) => {
+                let response = String::from_utf8_lossy(&out.stdout);
+                if response.contains("\"match\": true") || response.contains("\"match\":true") {
+                    return (true, 1.0);
+                } else if response.contains("\"match\": false") || response.contains("\"match\":false") {
+                    return (false, -0.5);
+                }
+            }
+            Err(_) => {}
+        }
+        let success = skill.trigger_patterns.iter().any(|p| task.contains(p));
+        (success, if success { 0.5 } else { -0.3 })
+    }
+
+    /// 简化推理（无GPT时）
     pub fn solve(&self, skill: &SkillGene, task: &str) -> (bool, f64) {
-        // 简化：模拟推理过程
-        // 实际应调用LLM进行推理
         let success = skill.trigger_patterns.iter().any(|p| task.contains(p));
         let reward = if success { 1.0 } else { -0.5 };
         (success, reward)
@@ -265,14 +342,18 @@ pub struct EMVCycle {
 }
 
 impl EMVCycle {
-    pub fn new() -> Self {
+    pub fn new_with_gpt(api_key: &str) -> Self {
         Self {
             challenger: Challenger,
-            reasoner: Reasoner,
+            reasoner: Reasoner::new(api_key),
             judge: Judge::new(),
             genes: HashMap::new(),
             iteration: 0,
         }
+    }
+
+    pub fn new() -> Self {
+        Self::new_with_gpt("")
     }
 
     /// 执行一轮EMV循环
@@ -285,10 +366,14 @@ impl EMVCycle {
             self.genes.insert(skill.gene_id.clone(), skill.clone());
         }
 
-        // 2. Reasoner解题：每个技能都试一遍
+        // 2. Reasoner解题：每个技能都试一遍（优先用GPT）
         let mut updates: Vec<(String, bool, f64)> = vec![];
         for (gene_id, gene) in &self.genes {
-            let (success, reward) = self.reasoner.solve(gene, task);
+            let (success, reward) = if !self.reasoner.api_key.is_empty() {
+                self.reasoner.solve_with_gpt(gene, task)
+            } else {
+                self.reasoner.solve(gene, task)
+            };
             updates.push((gene_id.clone(), success, reward));
         }
 
@@ -318,6 +403,24 @@ impl EMVCycle {
     /// 获取所有技能
     pub fn all_genes(&self) -> &HashMap<String, SkillGene> {
         &self.genes
+    }
+
+    /// 保存所有技能到JSON文件
+    pub fn save_skillbank(&self, path: &str) -> Result<(), String> {
+        let genes: Vec<&SkillGene> = self.genes.values().collect();
+        let json = serde_json::to_string_pretty(&genes).map_err(|e| e.to_string())?;
+        std::fs::write(path, json).map_err(|e| e.to_string())
+    }
+
+    /// 从JSON文件加载技能库
+    pub fn load_skillbank(&mut self, path: &str) -> Result<usize, String> {
+        let content = std::fs::read_to_string(path).map_err(|e| e.to_string())?;
+        let genes: Vec<SkillGene> = serde_json::from_str(&content).map_err(|e| e.to_string())?;
+        let count = genes.len();
+        for gene in genes {
+            self.genes.insert(gene.gene_id.clone(), gene);
+        }
+        Ok(count)
     }
 }
 

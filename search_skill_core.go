@@ -11,6 +11,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -208,6 +209,16 @@ func (ss *SearchSkill) Execute(req *SearchRequest) *SearchResult {
 		Query:   req.Query,
 	}
 
+	// EMV模式: 调用Rust EMV框架进行技能基因选择
+	if req.Mode == "emv" {
+		result.SkillID = "emv_skill"
+		output := ss.callEMVSkill(req.Query)
+		result.Results = []string{output}
+		result.Success = output != ""
+		result.LatencyMs = time.Since(start).Milliseconds()
+		return result
+	}
+
 	// Select: 选择最优技能
 	selectedSkill := ss.Bank.Select(req.Query)
 	if selectedSkill != nil {
@@ -230,6 +241,36 @@ func (ss *SearchSkill) Execute(req *SearchRequest) *SearchResult {
 	go ss.prefetchRelated(req.Query)
 
 	return result
+}
+
+// callEMVSkill: 调用Rust EMV框架
+func (ss *SearchSkill) callEMVSkill(query string) string {
+	// 构建APEX文档片段
+	doc := `APEX公式代入自检：分析任务前先代入自身能力差距
+APEX四要素：Ψ自我、∇梯度、Ξ修复、Γ进化
+步骤1代入自己：明确当前任务需要的能力和自己现有能力的差距
+步骤2代入公式：用APEX四要素(Ψ∇ΞΓ)照镜子找出当前短板
+步骤3举一反三：检查claim是否混淆了事实和推断
+步骤4查记忆：memory_search检索MEMORY.md和相关经验
+步骤5选择路由：REPAIR修复短板/OPTIMIZE优化流程/EXPLORE探索新方案
+APEX主公式：ΔG=(Λ×Θ×K×ξ×Ψ×Φ)/(H×T×ε)
+Φ正反馈强化：成功行为增加权重形成正向循环
+Ξ修复机制：失败案例触发自我修正和策略调整
+Gini增益选择：用基尼不纯度评估技能质量选择最优`
+
+	// 调用emv_skill二进制
+	apiKey := os.Getenv("FREEMODEL_API_KEY")
+	if apiKey == "" {
+		return "EMV模式需要FREEMODEL_API_KEY环境变量"
+	}
+
+	cmd := exec.Command("/Users/lihongxin/bin/emv_skill", doc, query)
+	cmd.Env = append(os.Environ(), "FREEMODEL_API_KEY="+apiKey)
+	out, err := cmd.Output()
+	if err != nil {
+		return fmt.Sprintf("EMV调用失败: %v", err)
+	}
+	return string(out)
 }
 
 // actExecute: Act阶段执行 (核心逻辑，Go实现)
