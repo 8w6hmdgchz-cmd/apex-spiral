@@ -23,6 +23,25 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 构建Go和Rust二进制
+        run: |
+          mkdir -p ~/bin
+
+          # 构建Go search_skill
+          go build -o ~/bin/search_skill search_skill_core.go
+          echo "Go binary built"
+
+          # 构建Rust emv_skill (如果Cargo可用)
+          if command -v cargo &> /dev/null; then
+            cargo build --manifest-path emv_skill/Cargo.toml --release
+            cp emv_skill/target/release/emv_skill ~/bin/
+            echo "Rust binary built"
+          else
+            echo "Rust not available, skipping emv_skill"
+          fi
+
+          chmod +x ~/bin/search_skill ~/bin/emv_skill 2>/dev/null || true
+
       - name: 运行Evolver
         id: evolve
         env:
@@ -41,28 +60,3 @@ jobs:
           git add -A
           git commit -m "Evolver $(date)" || true
           git push origin main || echo "推送失败（无changes或凭据不足）"
-
-  gpt-repairer:
-    runs-on: ubuntu-latest
-    needs: evolve
-    if: github.event.inputs.mode == 'gpt-repair'
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: GPT分析
-        if: secrets.FREEMODEL_API_KEY != ''
-        env:
-          FREEMODEL_API_KEY: ${{ secrets.FREEMODEL_API_KEY }}
-        run: |
-          echo "=== 状态 ==="
-          cat score-state.env
-
-      - name: 推送分析
-        run: |
-          git config --local user.email "gpt-repairer@node_cfd285ff67c1"
-          git config --local user.name "GPT Repairer"
-          git add -A
-          git commit -m "GPT repairer $(date)" || true
-          git push origin main || echo "推送失败"
