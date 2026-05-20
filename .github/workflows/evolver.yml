@@ -46,7 +46,7 @@ jobs:
 
       - name: 运行Evolver
         env:
-          FREEMODEL_API_KEY: *** secrets.FREEMODEL_API_KEY }}
+          FREEMODEL_API_KEY: ${{ secrets.FREEMODEL_API_KEY }}
           APEX_WORKSPACE: ${{ github.workspace }}
         run: |
           chmod +x apex-iterate.sh
