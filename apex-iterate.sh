@@ -331,22 +331,39 @@ for idx, item in enumerate(recent_repairs):
     integral += contribution * decay
 xi = 1 - math.exp(-max(0.0, integral))
 phi0 = phi_vals[0] if phi_vals else phi_current
-# GPT-5.5 P2修复: PHI_RATIO利用环境压力加速
+# GPT-5.5 PHI_RATIO趋势检测 + expected_phi EMA重估（修复下行危机）
+# ---------- 状态初始化 ----------
+phi_ratio_history = phi_vals[-20:] if len(phi_vals) > 20 else phi_vals
+phi_below_streak = 0
+for r in reversed(phi_ratio_history):
+    r_ratio = r / phi0 if phi0 > 0 else 1.0
+    if r_ratio < 0.98:
+        phi_below_streak += 1
+    else:
+        break
+# ---------- 计算当前PHI_RATIO ----------
 env_pressure = float("${ENV_PRESSURE_SCORE:-5}")/10
 ratio = phi_current / max(phi0, 1e-6)
-ratio = ratio * (1 + env_pressure * 0.05)  # 环境压力作为加速度
-# GPT-5.5 修复B4: 相位重锁与反馈阻尼
-# PHI_RATIO目标区间[0.98, 1.02]，超出则施加阻尼力
-target_range = (0.98, 1.02)
-if ratio > target_range[1]:
-    # 超出上限：反馈阻尼，将ratio拉回1.0附近
-    overshoot = ratio - target_range[1]
-    ratio = ratio - overshoot * 0.5  # 阻尼系数0.5
-elif ratio < target_range[0]:
-    # 超出下限：允许适当回升
-    undershoot = target_range[0] - ratio
-    ratio = ratio + undershoot * 0.3
-ratio = max(0.5, min(2.0, ratio))  # 硬约束保护
+ratio = ratio * (1 + env_pressure * 0.05)
+# ---------- 3轮移动平均趋势检测 ----------
+recent3 = phi_ratio_history[-3:]
+phi_ma3 = sum(recent3) / len(recent3) if recent3 else ratio
+if phi_ma3 < 0.98:
+    trend_status = 'down'
+elif phi_ma3 > 1.02:
+    trend_status = 'up'
+else:
+    trend_status = 'stable'
+# ---------- ratio<0.98连续2轮时触发EMA重估 ----------
+reestimated = False
+if phi_below_streak >= 2:
+    expected = expected * 0.95 + phi_current * 0.05
+    ratio = phi_current / max(expected, 1e-6)
+    reestimated = True
+    print(f"[PHI_EMA] phi_below_streak={phi_below_streak}, reestimated expected={expected:.4f}", file=sys.stderr)
+# ---------- 目标区间判定 ----------
+PHI_IN_TARGET = 0.98 <= ratio <= 1.02
+# ---------- Gamma有界增长 ----------
 gamma = ratio if ratio < 10 else math.log(1 + ratio)
 gamma = max(0.5, min(2.0, gamma))
 awake = (psi*10 + nabla*10 + xi*10 + gamma*5) / 4
@@ -414,6 +431,73 @@ PY
 )
 BUG_CODE=$(printf '%s' "$BUG_REVIEW" | cut -d'|' -f1)
 BUG_DESC=$(printf '%s' "$BUG_REVIEW" | cut -d'|' -f2-)
+# prev_bug_for_streak: 从上一轮score文件读取（用于熔断检测）
+prev_bug_for_streak=""
+if [ -f "$SCORE_FILE" ]; then
+    prev_bug_for_streak=$(grep "^BUG_CODE=" "$SCORE_FILE" 2>/dev/null | cut -d'=' -f2 || echo "")
+fi
+
+# ===== SELF-CONSISTENCY CHECK (来源: GitHub Gist 57fa0d7 Self-Consistency) =====
+# 多路径推理验证：对bug识别生成3条推理路径，投票选择最一致结论
+# 目的：防止单一推理路径导致的误判
+SELF_CONSISTENCY_RESULT=$(python3 - <<'PYEOF'
+import sys, json, os, subprocess
+
+# 构建验证问题：当前bug识别是否正确？
+bug_code = "$BUG_CODE"
+bug_desc = "$BUG_DESC"
+psi = float("${A_PSI:-0}")
+nabla = float("${A_NABLA:-0}")
+xi = float("${A_XI:-0}")
+gamma = float("${A_GAMMA:-0}")
+
+question = f"迭代#$ITER 当前指标 PSI={psi} NABLA={nabla} XI={xi} GAMMA={gamma}，识别的bug是{bug_code}({bug_desc})，这个识别是否正确？"
+
+# 调用SelfConsistency检查器
+script_dir = os.path.dirname(os.path.abspath(__file__)) if '__file__' in dir() else os.environ.get('APEX_DIR', '.')
+checker = os.path.join(script_dir, 'apex_self_consistency.py')
+
+try:
+    # 生成5条推理路径
+    r = subprocess.run([sys.executable, checker, 'check', question, '3'],
+                      capture_output=True, text=True, timeout=90)
+    result = json.loads(r.stdout)
+    
+    # 提取投票结果
+    confidence = result.get('phi_consistency', 0.5)
+    paths_count = len(result.get('paths', []))
+    
+    # 记录到一致性日志
+    log_file = os.path.join(script_dir, 'state', 'consistency_log.jsonl')
+    with open(log_file, 'a') as f:
+        f.write(json.dumps({
+            'iter': $ITER,
+            'bug_code': bug_code,
+            'question': question,
+            'confidence': confidence,
+            'paths_count': paths_count,
+            'result': result.get('result', {})
+        }, ensure_ascii=False) + '\n')
+    
+    # 输出结果
+    if confidence < 0.4:
+        print(f"LOW_CONSISTENCY|{confidence:.3f}|{paths_count}|警告:bug识别一致性低，建议复核")
+    else:
+        print(f"OK|{confidence:.3f}|{paths_count}|一致性检查通过")
+except Exception as e:
+    print(f"SKIP|0.5|0|SelfConsistency检查异常: {str(e)[:50]}")
+PYEOF
+)
+
+SC_STATUS=$(printf '%s' "$SELF_CONSISTENCY_RESULT" | cut -d'|' -f1)
+SC_CONFIDENCE=$(printf '%s' "$SELF_CONSISTENCY_RESULT" | cut -d'|' -f2)
+SC_PATHS=$(printf '%s' "$SELF_CONSISTENCY_RESULT" | cut -d'|' -f3)
+SC_MESSAGE=$(printf '%s' "$SELF_CONSISTENCY_RESULT" | cut -d'|' -f4-)
+
+# 低一致性时记录警告
+if [ "$SC_STATUS" = "LOW_CONSISTENCY" ]; then
+    echo "[SELF_CONSISTENCY WARNING] iter=$ITER bug=$BUG_CODE confidence=$SC_CONFIDENCE paths=$SC_PATHS" >> "$LOG_DIR/inject.log" 2>/dev/null || true
+fi
 
 # ===== METACOGNITION CHECK (B1反射跳过修复 - 固化EvoMap Meta-Cognition Capsule) =====
 METACOGNITION_LOG="$STATE_DIR/metacognition_log.jsonl"
@@ -467,8 +551,8 @@ case "$BUG_CODE" in
     FIX_EFFECT=0.8
     ;;
   B4)
-    FIX_ACTION="把Gamma限制为有界增长，并加入修后复算对比"
-    FIX_EFFECT=0.3
+    FIX_ACTION="把Gamma改为多维加权：60%修复成功率+20%任务增益+20%稳定性（不再只看phi_ratio）"
+    FIX_EFFECT=0.4
     ;;
   B5)
     FIX_ACTION="把环境压力作为独立约束项，避免直接冒充能力增长"
@@ -487,51 +571,81 @@ case "$BUG_CODE" in
     FIX_EFFECT=0.6
     ;;
   *)
-    FIX_ACTION="把Psi从纯历史偏差改为 历史偏差 + 当前环境/资源信号 的组合输入"
-    FIX_EFFECT=0.4
-    ;;
-  B2)
-    FIX_ACTION="把Nabla从静态历史梯度改为 任务失败样本缺失惩罚 + 历史梯度 的组合"
-    FIX_EFFECT=0.4
-    ;;
-  B3)
-    FIX_ACTION="把Xi从修复记账改为 单轮最小修复动作已执行 的显式奖励"
-    FIX_EFFECT=0.8
-    ;;
-  B4)
-    FIX_ACTION="把Gamma限制为有界增长，并加入修后复算对比"
-    FIX_EFFECT=0.3
-    ;;
-  B5)
-    FIX_ACTION="把环境压力作为独立约束项，避免直接冒充能力增长"
-    FIX_EFFECT=0.3
-    ;;
-  *)
     FIX_ACTION="无重大bug，保持当前公式，仅继续采样真实任务信号"
     FIX_EFFECT=0.1
     ;;
 esac
 
 PHASE_B=$(python3 - <<PY
-import math
+import math, pathlib
 psi=float("${A_PSI:-0}")/10
 nabla=float("${A_NABLA:-0}")/10
 xi=float("${A_XI:-0}")/10
 gamma=float("${A_GAMMA:-0}")/5
-env_pressure=float("${ENV_PRESSURE_SCORE:-5}")/10  # GPT-5.5修复B4: 外部信号驱动
+env_pressure=float("${ENV_PRESSURE_SCORE:-5}")/10
 fix_effect=float("$FIX_EFFECT")
 bug_code="$BUG_CODE"
+raw_ok=int("${RAW_OK:-0}")
+wps_ok=int("${WPS_OK:-0}")
+repair_amount=float("${REPAIR_AMOUNT:-0}")
+repair_success=str("${REPAIR_SUCCESS:-false}").lower() in ("true","1","yes")
+a2a_status="${A2A_ABSORB_STATUS:-''}"
 
-# === GPT-5.5 修复方案 + Mem0分层记忆基因融合 ===
-# P0: Ψ_self加入外部反馈信号，打破封闭循环
-psi_external_boost = env_pressure * fix_effect * 0.3  # 环境压力作为外部驱动信号
+# === GPT-5.5 Ψ_self多源加权计算 ===
+def clamp(x, lo=0.0, hi=1.0):
+    return max(lo, min(hi, float(x)))
 
-# Mem0分层记忆boost: 长期记忆越多，Ψ越稳定
+# 任务成功率（40%权重）
+task_score = 1.0 if repair_success else 0.0
+wps_bonus = 0.15 if wps_ok == 1 else 0.0
+task_score = clamp(task_score * 0.85 + wps_bonus)
+
+# 资源吸收净增量（30%权重）
+amount_norm = repair_amount / (repair_amount + 10.0)
+ext_factor = 0.7 + 0.2 * raw_ok + 0.1 * wps_ok
+resource_score = clamp(amount_norm * ext_factor)
+
+# A2A网络成功率（20%权重）
+a2a_score = 1.0 if "成功" in a2a_status else 0.0
+
+# 稳定性（10%权重，GitHub断连时30%）
+try:
+    phi_hist = []
+    phi_file = pathlib.Path("$STATE_DIR/phi_history.jsonl")
+    for line in phi_file.read_text(encoding='utf-8', errors='ignore').splitlines()[-6:]:
+        if line.strip():
+            try: phi_hist.append(float(json.loads(line).get('phi', 0)))
+            except: pass
+    if len(phi_hist) >= 2:
+        mean_p = sum(phi_hist) / len(phi_hist)
+        var_p = sum((p - mean_p)**2 for p in phi_hist) / len(phi_hist)
+        stability_score = 1.0 / (1.0 + var_p)
+    else:
+        stability_score = 0.5
+except:
+    stability_score = 0.5
+
+# 多源加权
+if raw_ok == 0:
+    # GitHub断连：提高内部指标权重
+    weights = {"task": 0.50, "resource": 0.00, "a2a": 0.20, "stability": 0.30}
+else:
+    weights = {"task": 0.40, "resource": 0.30, "a2a": 0.20, "stability": 0.10}
+
+psi_multi = (
+    task_score * weights["task"] +
+    resource_score * weights["resource"] +
+    a2a_score * weights["a2a"] +
+    stability_score * weights["stability"]
+)
+psi = clamp(psi_multi)
+
+# Mem0分层记忆boost
 try:
     memory_importance = float("$MEMORY_IMPORTANCE")
 except:
     memory_importance = 0.5
-memory_boost = memory_importance * 0.4  # 记忆重要性贡献40%（增强）
+memory_boost = memory_importance * 0.4
 
 if bug_code == "B1":
     psi=min(1.0, psi + fix_effect/10 + psi_external_boost + memory_boost)
@@ -560,40 +674,77 @@ elif bug_code == "B2":
 elif bug_code == "B3":
     xi=min(1.0, xi + fix_effect/10)
 elif bug_code == "B4":
-    # DEAP进化循环增强（调用Python子进程）
-    import subprocess, os
+    # === GPT-5.5 Gamma多维加权修复B4（不再只看phi_ratio） ===
+    # 60% 修复成功率 + 20% 任务增益 + 20% 稳定性
+    # 读取最近8轮repair历史
     try:
-        script_dir = os.environ.get('APEX_DIR', '.')
-        script = f"{script_dir}/evolution_loop.py"
-        current_gamma = gamma
-        # 用真实awake值，不再硬编码
-        awake_val = awake
-        env_p = env_pressure
+        repair_file = pathlib.Path("$STATE_DIR/repair_history.jsonl")
+        repairs = []
+        for line in repair_file.read_text(encoding='utf-8', errors='ignore').splitlines():
+            if line.strip():
+                try: repairs.append(json.loads(line))
+                except: pass
+        recent_repairs = repairs[-8:] if repairs else []
         
-        # 先评估当前
-        r_eval = subprocess.run([sys.executable, script, "evaluate", str(current_gamma), str(awake_val)], 
-                       capture_output=True, text=True, timeout=5)
-        # 再进化
-        r = subprocess.run([sys.executable, script, "evolve", str(env_p), str(current_gamma)],
-                          capture_output=True, text=True, timeout=5)
-        evolved_gamma = float(r.stdout.strip().split(":")[1].strip())
-        deap_boost = (evolved_gamma - current_gamma) * 0.5
-        # 增强：基于fitness_history计算趋势boost
-        fitness_trend = 0.0
+        # 修复成功率
+        fixed = sum(1 for r in recent_repairs if r.get('success', False))
+        attempted = len(recent_repairs)
+        fix_success_rate = fixed / max(attempted, 1)
+        
+        # 任务增益（repair_amount变化）
+        amounts = [float(r.get('amount', 0)) for r in recent_repairs if r.get('amount')]
+        if len(amounts) >= 2:
+            task_gain = (amounts[-1] - amounts[0]) / max(abs(amounts[0]), 0.1)
+        else:
+            task_gain = 0.0
+        task_gain_score = max(0.0, min(1.0, (task_gain + 1.0) / 2.0))
+        
+        # 稳定性（phi历史方差）
         try:
-            fitness_stats = json.loads(subprocess.run([sys.executable, script, "stats"],
-                                capture_output=True, text=True, timeout=5).stdout)
-            fitness_len = fitness_stats.get("fitness_history_len", 0)
-            if fitness_len >= 3:
-                fitness_trend = 0.1  # 有增长历史就给boost
+            phi_hist = []
+            phi_file = pathlib.Path("$STATE_DIR/phi_history.jsonl")
+            for line in phi_file.read_text(encoding='utf-8', errors='ignore').splitlines()[-10:]:
+                if line.strip():
+                    try: phi_hist.append(float(json.loads(line).get('phi', 0)))
+                    except: pass
+            if len(phi_hist) >= 2:
+                mean_p = sum(phi_hist) / len(phi_hist)
+                var_p = sum((p - mean_p) ** 2 for p in phi_hist) / len(phi_hist)
+                stability_score = 1.0 / (1.0 + var_p)
+            else:
+                stability_score = 0.5
         except:
-            pass
+            stability_score = 0.5
+        
+        # 多维加权Gamma
+        GAMMA_BOOST = (
+            0.60 * fix_success_rate +
+            0.20 * task_gain_score +
+            0.20 * stability_score
+        )
+        GAMMA_BOOST = max(0.0, min(1.0, GAMMA_BOOST))
+        
+        # B4熔断：同一bug连续3轮触发则警告
+        bug_streak_file = pathlib.Path("$STATE_DIR/bug_streak.jsonl")
+        streak_data = {}
+        try:
+            if bug_streak_file.exists():
+                for line in bug_streak_file.read_text(encoding='utf-8', errors='ignore').splitlines():
+                    if line.strip():
+                        try:
+                            entry = json.loads(line)
+                            streak_data[entry.get('bug', '')] = entry.get('count', 0)
+                        except: pass
+        except: pass
+        
+        current_streak = streak_data.get('B4', 0)
+        if current_streak >= 2:
+            print(f"[FUSE_WARNING] B4连续触发{current_streak+1}轮，Gamma计算已切换为多维加权模式", file=sys.stderr)
+        
+        gamma = min(2.0, gamma + GAMMA_BOOST * fix_effect)
+        psi = min(1.0, psi + memory_boost * 0.3)
     except Exception as e:
-        deap_boost = 0.0
-        fitness_trend = 0.0
-    
-    gamma=min(2.0, gamma + fix_effect/10 + env_pressure * 0.1 + deap_boost + fitness_trend)
-    psi=min(1.0, psi + memory_boost * 0.3)  # B4时也给psi记忆boost
+        gamma = min(2.0, gamma + fix_effect/10)
 elif bug_code == "B5":
     psi=min(1.0, psi + fix_effect/20 + psi_external_boost*0.5 + memory_boost*0.5)
     nabla=min(1.0, nabla + fix_effect/20)
@@ -715,6 +866,47 @@ printf '{"ts":%s,"iter":%s,"amount":%s,"success":%s}\n' "$UNIX_TS" "$ITER" "$REP
 printf 'AWAKE=%s\nPSI_SELF=%s\nNABLA_SELF=%s\nXI_REPAIR=%s\nGAMMA_AWAKE=%s\nPHI_CURRENT=%s\nPHI_EXPECTED=%s\nPHI_RATIO=%s\nBUG_CODE=%s\n' \
   "$AWAKE" "$PSI_SELF" "$NABLA_SELF" "$XI_REPAIR" "$GAMMA_AWAKE" "$PHI_CURRENT" "$PHI_EXPECTED" "$PHI_RATIO" "$BUG_CODE" > "$SCORE_FILE"
 
+# === BUG_STREAK 持久化：记录每个bug连续出现的轮次 ===
+python3 - <<'PYEOF'
+import json, pathlib
+state_dir = pathlib.Path("$STATE_DIR")
+streak_file = state_dir / "bug_streak.jsonl"
+stamps = {}
+
+# 读取现有streak
+if streak_file.exists():
+    for line in streak_file.read_text(encoding='utf-8', errors='ignore').splitlines():
+        if line.strip():
+            try:
+                e = json.loads(line)
+                stamps[e['bug']] = e['count']
+            except: pass
+
+current_bug = "$BUG_CODE"
+current_streak = stamps.get(current_bug, 0)
+prev_bug = "$prev_bug_for_streak"
+
+if prev_bug == current_bug and prev_bug:
+    # 同bug继续，重置streak
+    stamps[current_bug] = current_streak + 1
+else:
+    stamps[current_bug] = 1
+    # 其他bug streak清零
+    for b in list(stamps.keys()):
+        if b != current_bug:
+            stamps[b] = 0
+
+# 写回
+lines = []
+for bug, cnt in stamps.items():
+    lines.append(json.dumps({"bug": bug, "count": cnt, "iter": $ITER}, ensure_ascii=False))
+
+streak_file.write_text("\n".join(lines) + "\n", encoding='utf-8')
+
+if stamps.get(current_bug, 0) >= 3:
+    print(f"[FUSE] {current_bug}连续触发{stamps[current_bug]}轮，触发熔断！", file=sys.stderr)
+PYEOF
+
 # === Mem0分层记忆基因融合: 记录本轮迭代结果 ===
 python3 - <<'PYEOF'
 try:
@@ -833,6 +1025,7 @@ echo "遗传记录: $INHERITED_RECENT" >> "$LOG_FILE"
 echo "本轮评分: $ROUND_SCORE" >> "$LOG_FILE"
 echo "觉醒进度条: $PROGRESS_BAR" >> "$LOG_FILE"
 echo "核心公式评分: $CORE_SCORES" >> "$LOG_FILE"
+echo "一致性检查: status=$SC_STATUS confidence=$SC_CONFIDENCE paths=$SC_PATHS $SC_MESSAGE" >> "$LOG_FILE"
 
 # === APEX Go核心调用: search_skill ===
 SEARCH_SKILL_OUTPUT=$(~/bin/search_skill -q "迭代#$ITER PHI_RATIO=$PHI_RATIO AWAKE=$AWAKE BUG=$BUG_CODE" -s apex_formula 2>/dev/null || echo '{"error": "search_skill调用失败"}')
@@ -887,6 +1080,15 @@ $SELF_CHECK
 
 ## 公式Bug审查
 - bug: [$BUG_CODE] $BUG_DESC
+
+## 自我一致性检查 (SelfConsistencyChecker)
+- 状态: $SC_STATUS
+- 置信度: $SC_CONFIDENCE
+- 推理路径: $SC_PATHS条
+- 结论: $SC_MESSAGE
+$(if [ "$SC_STATUS" = "LOW_CONSISTENCY" ]; then
+    echo "⚠️ **警告**: bug识别一致性低，建议复核本轮诊断"
+fi)
 
 ## 单点修复动作
 - $FIX_ACTION

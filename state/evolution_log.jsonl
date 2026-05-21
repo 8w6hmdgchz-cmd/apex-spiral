@@ -42,3 +42,8 @@
 {"action": "mutate", "details": {"original": 0.5, "mutated": 0.5296209388620188, "sigma": 0.15000000000000002}, "timestamp": 1779181533.200309, "population_avg": 0.5}
 {"action": "mutate", "details": {"original": 0.5, "mutated": 0.44511321258835074, "sigma": 0.15000000000000002}, "timestamp": 1779181533.2003782, "population_avg": 0.5}
 {"action": "evolve", "details": {"best": 0.5296209388620188, "avg": 0.4877892190418069}, "timestamp": 1779181533.200491, "population_avg": 0.4877892190418069}
+{"action": "select", "details": {"selected": [0.5, 0.5296209388620188, 0.5296209388620188, 0.5296209388620188, 0.5]}, "timestamp": 1779327166.932226, "population_avg": 0.5148104694310094}
+{"action": "crossover", "details": {"parent1": 0.5, "parent2": 0.5, "child1": 0.5, "child2": 0.5}, "timestamp": 1779327166.9323132, "population_avg": 0.5148104694310094}
+{"action": "crossover", "details": {"parent1": 0.5296209388620188, "parent2": 0.5, "child1": 0.5045232722274913, "child2": 0.5250976666345275}, "timestamp": 1779327166.9325619, "population_avg": 0.5148104694310094}
+{"action": "mutate", "details": {"original": 0.5296209388620188, "mutated": 0.2896242264898614, "sigma": 0.15000000000000002}, "timestamp": 1779327166.932655, "population_avg": 0.5148104694310094}
+{"action": "evolve", "details": {"best": 0.5296209388620188, "avg": 0.49081079819379364}, "timestamp": 1779327166.932797, "population_avg": 0.49081079819379364}

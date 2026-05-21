@@ -1,0 +1,124 @@
+name: Gist State Sync
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [sync-requested]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 下载Gist状态文件
+        env:
+          GIST_ID: ${{ secrets.GIST_ID }}
+        run: |
+          echo "GIST_ID: $GIST_ID"
+          if [ -z "$GIST_ID" ]; then
+            echo "GIST_ID未设置，跳过同步"
+            exit 0
+          fi
+          
+          # 从Gist CDN读取各状态文件
+          BASE="https://gist.githubusercontent.com/8w6hmdgchz-cmd/${GIST_ID}/raw"
+          
+          mkdir -p state
+          
+          curl -sL --max-time 30 "${BASE}/counter.txt" -o counter.txt || true
+          curl -sL --max-time 30 "${BASE}/score-state.env" -o score-state.env || true
+          curl -sL --max-time 30 "${BASE}/phi_history.jsonl" -o state/phi_history.jsonl || true
+          curl -sL --max-time 30 "${BASE}/defect_history.jsonl" -o state/defect_history.jsonl || true
+          curl -sL --max-time 30 "${BASE}/repair_history.jsonl" -o state/repair_history.jsonl || true
+          curl -sL --max-time 30 "${BASE}/bug_streak.jsonl" -o state/bug_streak.jsonl || true
+          curl -sL --max-time 30 "${BASE}/consistency_log.jsonl" -o state/consistency_log.jsonl || true
+          curl -sL --max-time 30 "${BASE}/lesson_bank.jsonl" -o state/lesson_bank.jsonl || true
+          curl -sL --max-time 30 "${BASE}/metacognition_log.jsonl" -o state/metacognition_log.jsonl || true
+          
+          echo "文件下载完成"
+          ls -la *.txt *.env *.jsonl state/*.jsonl 2>/dev/null || echo "无文件"
+
+      - name: 运行Evolver
+        env:
+          FREEMODEL_API_KEY: ${{ secrets.FREEMODEL_API_KEY }}
+          APEX_WORKSPACE: ${{ github.workspace }}
+        run: |
+          chmod +x apex-iterate.sh
+          ./apex-iterate.sh || true
+
+      - name: 上传Evolver状态到Gist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+        run: |
+          echo "准备上传状态到Gist..."
+          
+          # 准备要上传的文件
+          FILES_JSON=""
+          FIRST=true
+          
+          for f in counter.txt score-state.env latest-report.md \
+                   state/phi_history.jsonl state/defect_history.jsonl \
+                   state/repair_history.jsonl state/bug_streak.jsonl \
+                   state/consistency_log.jsonl state/lesson_bank.jsonl \
+                   state/metacognition_log.jsonl; do
+            if [ -f "$f" ]; then
+              CONTENT=$(cat "$f" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))' 2>/dev/null || echo '""')
+              FILENAME=$(basename "$f")
+              if [ "$FIRST" = true ]; then
+                FIRST=false
+              else
+                FILES_JSON+=","
+              fi
+              FILES_JSON+="\"$FILENAME\": {\"content\": $CONTENT}"
+            fi
+          done
+          
+          PAYLOAD=$(python3 -c "
+import json, sys
+files = {$FILES_JSON}
+result = {
+    'description': 'APEX Evolver State $(date '+%Y-%m-%d %H:%M')',
+    'public': False,
+    'files': files
+}
+print(json.dumps(result))
+")
+          
+          echo "Payload大小: ${#PAYLOAD} bytes"
+          
+          if [ -n "$GIST_ID" ]; then
+            RESP=$(curl -sL -w '\nHTTP:%{http_code}' -X PATCH \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "$PAYLOAD" \
+              "https://api.github.com/gists/$GIST_ID")
+            HTTP_CODE=$(echo "$RESP" | grep HTTP: | cut -d: -f2)
+            BODY=$(echo "$RESP" | sed '/HTTP:/d')
+            echo "Gist更新结果: HTTP $HTTP_CODE"
+            if [ "$HTTP_CODE" = "200" ]; then
+              echo "✅ Gist状态已更新"
+            else
+              echo "❌ $BODY" | head -3
+            fi
+          else
+            echo "GIST_ID未设置，跳过Gist上传"
+          fi
+
+      - name: 提交状态变更
+        run: |
+          git config --local user.email "evolver@apex-spiral"
+          git config --local user.name "Evolver Bot"
+          git add -A
+          git diff --cached --stat
+          git commit -m "Evolver $(date '+%Y-%m-%d %H:%M') [skip ci]" || true
+          git push origin main || echo "Push失败（无changes或无权限）"
