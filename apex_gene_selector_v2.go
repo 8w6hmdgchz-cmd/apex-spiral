@@ -1063,24 +1063,105 @@ func init() {
 	}
 }
 
-// SelectionPressure 选择压控制 — 淘汰低ΔG基因
+// GeneDependency 基因依赖关系
+type GeneDependency struct {
+	ParentID  string   `json:"parent_id"`  // 依赖的基因ID
+	ChildID   string   `json:"child_id"`   // 被依赖的基因ID
+	DepType   string   `json:"dep_type"`   // "cooperation"/"mutation"/"evolution"
+	Strength  float64  `json:"strength"`   // 依赖强度 0-1
+}
+
+// geneDependencies 全局基因依赖图
+var geneDependencies []*GeneDependency
+
+func init() {
+	geneDependencies = make([]*GeneDependency, 0)
+}
+
+// registerDependency 注册基因依赖
+func registerDependency(parentID, childID, depType string, strength float64) {
+	geneDependencies = append(geneDependencies, &GeneDependency{
+		ParentID: parentID,
+		ChildID:  childID,
+		DepType:  depType,
+		Strength: strength,
+	})
+}
+
+// findDependentGenes 找到依赖某个基因的所有基因
+func findDependentGenes(geneID string) []*Gene {
+	var dependents []*Gene
+	for _, dep := range geneDependencies {
+		if dep.ParentID == geneID {
+			dependents = append(dependents, findGeneByID(dep.ChildID))
+		}
+	}
+	return dependents
+}
+
+// findGeneByID 根据ID找基因
+func findGeneByID(geneID string) *Gene {
+	for _, g := range getDefaultGenes() {
+		if g.ID == geneID {
+			return g
+		}
+	}
+	return nil
+}
+
+// SelectionPressure 选择压控制 — 淘汰低ΔG基因（协同灭绝）
 func applySelectionPressure(genes []*Gene, minDeltaG float64) []*Gene {
 	if len(genes) <= 1 {
 		return genes
 	}
 
-	// 过滤掉ΔG过低的基因
+	// 标记要淘汰的基因
+	toRemove := make(map[string]bool)
+
+	// 第一轮：标记低ΔG基因
+	for _, g := range genes {
+		if g.DeltaG < minDeltaG && g.Source != "axiom" {
+			toRemove[g.ID] = true
+		}
+	}
+
+	// 第二轮：协同灭绝 — 依赖被淘汰基因的基因也要被淘汰
+	extinctionRound := 0
+	for {
+		newExtinctions := false
+		for _, g := range genes {
+			if toRemove[g.ID] {
+				continue // 已经被标记
+			}
+			// 检查是否有依赖的基因被淘汰
+			for _, dep := range geneDependencies {
+				if toRemove[dep.ParentID] && dep.ChildID == g.ID {
+					// 强依赖关系，依赖基因被淘汰自己也淘汰
+					if dep.Strength > 0.5 || dep.DepType == "mutation" {
+						toRemove[g.ID] = true
+						newExtinctions = true
+						fmt.Printf("[协同灭绝] %s 随依赖基因 %s 一起淘汰 (类型:%s, 强度:%.2f)\n",
+							g.Name, dep.ParentID, dep.DepType, dep.Strength)
+					}
+				}
+			}
+		}
+		extinctionRound++
+		if !newExtinctions || extinctionRound > 5 {
+			break // 没有新的淘汰或达到最大轮次
+		}
+	}
+
+	// 构建过滤后的基因列表
 	filtered := make([]*Gene, 0)
 	for _, g := range genes {
-		if g.DeltaG >= minDeltaG || g.Source == "axiom" {
-			// axiom基因永不淘汰
+		if !toRemove[g.ID] {
 			filtered = append(filtered, g)
 		}
 	}
 
-	// 如果过滤后太少，随机保留一些
+	// 如果过滤后太少，保留ΔG最高的一些
 	if len(filtered) < 3 && len(genes) >= 3 {
-		// 保留ΔG最高的一些
 		sort.Slice(genes, func(i, j int) bool {
 			return genes[i].DeltaG > genes[j].DeltaG
 		})
@@ -1250,6 +1331,8 @@ func applyGeneEvolution(genes []*Gene) []*Gene {
 		idx := rand.Intn(len(genes))
 		mutated := mutateGene(genes[idx])
 		evolutionGenes = append(evolutionGenes, mutated)
+		// 注册突变依赖：父基因→子基因
+		registerDependency(genes[idx].ID, mutated.ID, "mutation", 0.6)
 		fmt.Printf("[进化] 突变: %s → %s\n", genes[idx].Name, mutated.Name)
 	}
 
@@ -1260,6 +1343,9 @@ func applyGeneEvolution(genes []*Gene) []*Gene {
 		crossed := crossoverGene(genes[idx1], genes[idx2])
 		if len(evolutionGenes) < maxEvolutionGenes {
 			evolutionGenes = append(evolutionGenes, crossed)
+			// 注册交叉依赖：父基因1,2→子基因
+			registerDependency(genes[idx1].ID, crossed.ID, "crossover", 0.5)
+			registerDependency(genes[idx2].ID, crossed.ID, "crossover", 0.5)
 			fmt.Printf("[进化] 交叉: %s × %s → %s\n", genes[idx1].Name, genes[idx2].Name, crossed.Name)
 		}
 	}
