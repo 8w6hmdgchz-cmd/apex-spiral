@@ -614,6 +614,62 @@ func crossoverGene(gene1, gene2 *Gene) *Gene {
 	return &newGene
 }
 
+// applyGeneEvolution 应用基因进化：突变+交叉
+func applyGeneEvolution(genes []*Gene) []*Gene {
+	if len(genes) < 2 {
+		return genes
+	}
+
+	// 限制进化基因数量，防止无限膨胀
+	maxEvolutionGenes := 3
+	evolutionGenes := make([]*Gene, 0)
+
+	// 1. 随机选择1-2个基因进行突变
+	mutations := rand.Intn(2) + 1
+	for i := 0; i < mutations && len(evolutionGenes) < maxEvolutionGenes; i++ {
+		idx := rand.Intn(len(genes))
+		mutated := mutateGene(genes[idx])
+		evolutionGenes = append(evolutionGenes, mutated)
+		fmt.Printf("[进化] 突变: %s → %s\n", genes[idx].Name, mutated.Name)
+	}
+
+	// 2. 随机选择2个基因进行交叉
+	if len(genes) >= 2 {
+		idx1 := rand.Intn(len(genes))
+		idx2 := (idx1 + 1 + rand.Intn(len(genes)-1)) % len(genes)
+		crossed := crossoverGene(genes[idx1], genes[idx2])
+		if len(evolutionGenes) < maxEvolutionGenes {
+			evolutionGenes = append(evolutionGenes, crossed)
+			fmt.Printf("[进化] 交叉: %s × %s → %s\n", genes[idx1].Name, genes[idx2].Name, crossed.Name)
+		}
+	}
+
+	// 3. 记录进化轨迹
+	for _, g := range evolutionGenes {
+		entry := EvolutionEntry{
+			Timestamp: time.Now().Format(time.RFC3339),
+			Query:     "gene_evolution",
+			Task:      g.Source,
+			GeneID:    g.ID,
+			GeneName:  g.Name,
+			Score:     g.SuccessRate,
+			DeltaG:    g.DeltaG,
+			Type:      g.Source,
+		}
+		evolutionTrack = append(evolutionTrack, entry)
+	}
+
+	// 合并原基因和进化基因
+	result := make([]*Gene, 0, len(genes)+len(evolutionGenes))
+	result = append(result, genes...)
+	result = append(result, evolutionGenes...)
+
+	// 保存轨迹
+	saveEvolutionTrack()
+
+	return result
+}
+
 // ============ 进化轨迹记录 ============
 
 var evolutionTrack []EvolutionEntry
@@ -1155,6 +1211,9 @@ func SelectBestGene(req *SelectRequest) (*GeneSelectionResult, error) {
 			fmt.Printf("[EVM] 生成新基因: %s (评分: %.2f)\n", evmGene.ID, challenge.Score)
 		}
 	}
+
+	// 4.5 基因进化：突变+交叉
+	genes = applyGeneEvolution(genes)
 
 	// 5. 计算Gini增益
 	for _, gene := range genes {
