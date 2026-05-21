@@ -1,0 +1,250 @@
+{
+  "timestamp": "2026-05-22T00:20:00",
+  "genes": [
+    {
+      "type": "Gene",
+      "category": "bio_intelligence",
+      "name": "Bio Neuron System",
+      "signals_match": [
+        "membrane_potential",
+        "atp_energy",
+        "synaptic_plasticity",
+        "neurotransmitter",
+        "apoptosis",
+        "neurogenesis",
+        "dna_mutation"
+      ],
+      "summary": "类生物智能系统 - 模拟神经元膜电位/ATP能量/神经递质/突触可塑性/细胞凋亡/神经发生/DNA突变",
+      "strategy": [
+        "生物神经元发放",
+        "ATP能量代谢",
+        "Hebb学习",
+        "细胞凋亡",
+        "神经发生"
+      ],
+      "validation": [
+        "bio_neuron.go"
+      ],
+      "parameters": {
+        "fitness": 0.95,
+        "source": "apex-spiral/bio_neuron.go"
+      }
+    },
+    {
+      "type": "Gene",
+      "category": "neural_mechanism",
+      "name": "Synaptic Plasticity",
+      "signals_match": [
+        "synaptic_plasticity",
+        "coactivation",
+        "hebbian_learning"
+      ],
+      "summary": "突触可塑性 - 根据Hebb定律动态调整基因依赖强度,一起激活的基因连接加强",
+      "strategy": [
+        "记录共同激活",
+        "更新依赖强度",
+        "Hebbian learning"
+      ],
+      "validation": [
+        "updateDependencyStrength()"
+      ],
+      "parameters": {
+        "fitness": 0.90,
+        "source": "apex_gene_selector_v2.go"
+      }
+    },
+    {
+      "type": "Gene",
+      "category": "neural_mechanism",
+      "name": "Neural Oscillation",
+      "signals_match": [
+        "neural_oscillation",
+        "theta",
+        "alpha",
+        "beta",
+        "gamma"
+      ],
+      "summary": "神经振荡时序选择 - θ/α/β/γ节律影响基因选择优先级",
+      "strategy": [
+        "θ(4-8Hz)记忆编码强化EVM基因",
+        "α(8-12Hz)放松强化axiom基因",
+        "β(12-30Hz)清醒强化高ΔG基因",
+        "γ(>30Hz)学习强化fusion基因"
+      ],
+      "validation": [
+        "getOscillationPhase()",
+        "getOscillationInfluence()"
+      ],
+      "parameters": {
+        "fitness": 0.88,
+        "source": "apex_gene_selector_v2.go"
+      }
+    },
+    {
+      "type": "Gene",
+      "category": "neural_mechanism",
+      "name": "Lateral Inhibition",
+      "signals_match": [
+        "lateral_inhibition",
+        "winner_take_all",
+        "competition"
+      ],
+      "summary": "侧向抑制 - Winner-take-all机制,赢家无抑制,落后者按差距被抑制",
+      "strategy": [
+        "计算ΔG差距",
+        "应用抑制程度",
+        "基因竞争"
+      ],
+      "validation": [
+        "applyLateralInhibition()"
+      ],
+      "parameters": {
+        "fitness": 0.87,
+        "source": "apex_gene_selector_v2.go"
+      }
+    },
+    {
+      "type": "Gene",
+      "category": "neural_mechanism",
+      "name": "Neuro Modulation",
+      "signals_match": [
+        "neuro_modulation",
+        "dopamine",
+        "serotonin",
+        "acetylcholine"
+      ],
+      "summary": "神经调质 - 多巴胺/血清素/乙酰胆碱/GABA/谷氨酸调节基因激活状态",
+      "strategy": [
+        "多巴胺奖励emv基因",
+        "血清素压力抑制mutation基因",
+        "乙酰胆碱学习激活axiom基因",
+        "GABA平静抑制fusion基因"
+      ],
+      "validation": [
+        "applyNeuroModulation()"
+      ],
+      "parameters": {
+        "fitness": 0.85,
+        "source": "apex_gene_selector_v2.go"
+      }
+    },
+    {
+      "type": "Gene",
+      "category": "evolution",
+      "name": "Coextinction",
+      "signals_match": [
+        "coextinction",
+        "dependency_chain",
+        "species_extinction"
+      ],
+      "summary": "协同灭绝 - 基因依赖链式淘汰,父基因淘汰时强依赖子基因也淘汰",
+      "strategy": [
+        "标记依赖关系",
+        "链式检查",
+        "协同淘汰"
+      ],
+      "validation": [
+        "applyCoextinction()"
+      ],
+      "parameters": {
+        "fitness": 0.82,
+        "source": "apex_gene_selector_v2.go"
+      }
+    },
+    {
+      "type": "Gene",
+      "category": "evolution",
+      "name": "Gene Fusion",
+      "signals_match": [
+        "gene_fusion",
+        "complete_merge",
+        "hybrid"
+      ],
+      "summary": "基因融合 - 多个基因彻底融合成单一新基因,保留所有父基因特征",
+      "strategy": [
+        "选择2-3个基因",
+        "特征融合",
+        "新基因命名"
+      ],
+      "validation": [
+        "fuseGenes()"
+      ],
+      "parameters": {
+        "fitness": 0.80,
+        "source": "apex_gene_selector_v2.go"
+      }
+    },
+    {
+      "type": "Gene",
+      "category": "evolution",
+      "name": "Environmental Memory",
+      "signals_match": [
+        "env_memory",
+        "environment_record",
+        "domain_history"
+      ],
+      "summary": "环境记忆 - 记录历史环境变化对基因的影响,统计领域查询/ΔG/最佳基因",
+      "strategy": [
+        "记录每次查询环境",
+        "统计领域压力因子",
+        "影响基因选择"
+      ],
+      "validation": [
+        "EnvironmentRecord",
+        "recordEnvironment()"
+      ],
+      "parameters": {
+        "fitness": 0.83,
+        "source": "apex_gene_selector_v2.go"
+      }
+    },
+    {
+      "type": "Gene",
+      "category": "evolution",
+      "name": "Pretrain + Finetune",
+      "signals_match": [
+        "pretrain_finetune",
+        "freeze",
+        "transfer_learning"
+      ],
+      "summary": "预训练+微调 - axiom基因UsageCount>100冻结,新基因微调,冻结基因不受选择压影响",
+      "strategy": [
+        "冻结高频axiom基因",
+        "微调新基因",
+        "隔离冻结/微调基因"
+      ],
+      "validation": [
+        "applyPretrainFinetune()"
+      ],
+      "parameters": {
+        "fitness": 0.86,
+        "source": "apex_gene_selector_v2.go"
+      }
+    },
+    {
+      "type": "Gene",
+      "category": "phenotype",
+      "name": "Phenotypic Plasticity",
+      "signals_match": [
+        "phenotype_plasticity",
+        "adaptation",
+        "dynamic_strategy"
+      ],
+      "summary": "表型可塑性 - 同一基因根据query动态调整策略参数,不同query不同表现",
+      "strategy": [
+        "分析query特征",
+        "基因Adapt()方法",
+        "策略参数动态调整"
+      ],
+      "validation": [
+        "Gene.Adapt()",
+        "Phenotype"
+      ],
+      "parameters": {
+        "fitness": 0.91,
+        "source": "apex_gene_selector_v2.go"
+      }
+    }
+  ],
+  "total": 10
+}
