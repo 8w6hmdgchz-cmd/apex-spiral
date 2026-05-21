@@ -171,6 +171,76 @@ type Memory struct {
 	Tags         []string `json:"tags"`
 }
 
+// MemoryToGene 记忆到基因的映射
+type MemoryToGene struct {
+	MemoryID string   `json:"memory_id"`
+	GeneIDs  []string `json:"gene_ids"` // 相关基因ID列表
+	Boost    float64  `json:"boost"`    // 提升系数
+}
+
+// memoryGeneMap 记忆-基因映射表
+var memoryGeneMap = make(map[string]*MemoryToGene)
+
+// linkMemoryToGenes 将记忆关联到基因
+func linkMemoryToGenes(mem *Memory, genes []*Gene) {
+mtg := &MemoryToGene{
+	MemoryID: mem.ID,
+	GeneIDs:  make([]string, 0),
+	Boost:    mem.Importance * 0.2, // 重要性越高，提升越大
+}
+
+for _, g := range genes {
+	// 根据基因名称与记忆的关联度
+	if strings.Contains(strings.ToLower(g.Name), strings.ToLower(mem.Query)) ||
+		strings.Contains(strings.ToLower(mem.Response), strings.ToLower(g.Name)) {
+		mtg.GeneIDs = append(mtg.GeneIDs, g.ID)
+		mtg.Boost = math.Max(mtg.Boost, mem.Importance*0.5)
+	}
+}
+
+if len(mtg.GeneIDs) > 0 {
+	memoryGeneMap[mem.ID] = mtg
+	fmt.Printf("[记忆共享] 记忆%s关联%d个基因，提升%.2f\n", mem.ID, len(mtg.GeneIDs), mtg.Boost)
+}
+}
+
+// getGeneBoostFromMemory 获取记忆对基因的提升
+func getGeneBoostFromMemory(geneID string) float64 {
+	var maxBoost float64
+	for _, mtg := range memoryGeneMap {
+		for _, gid := range mtg.GeneIDs {
+			if gid == geneID {
+				maxBoost = math.Max(maxBoost, mtg.Boost)
+			}
+		}
+	}
+	return maxBoost
+}
+
+// applyMemoryBoostToGenes 应用记忆提升到基因
+func applyMemoryBoostToGenes(genes []*Gene, memories []*Memory) []*Gene {
+	if len(memories) == 0 || len(genes) == 0 {
+		return genes
+	}
+
+	boostedGenes := make([]*Gene, len(genes))
+	for i, g := range genes {
+		boost := getGeneBoostFromMemory(g.ID)
+		if boost > 0 {
+			boosted := *g
+			boosted.SuccessRate = math.Min(1.0, g.SuccessRate+boost)
+			boosted.ID = fmt.Sprintf("%s_mb", g.ID)
+			boosted.Source = "memory_boost"
+			boostedGenes[i] = &boosted
+			fmt.Printf("[记忆提升] %s 成功率: %.2f → %.2f\n", g.Name, g.SuccessRate, boosted.SuccessRate)
+		} else {
+			boostedGenes[i] = g
+		}
+	}
+
+	return boostedGenes
+}
+
 // Hippocampus 海马体
 type Hippocampus struct {
 	memories    map[string]*Memory
@@ -1090,6 +1160,146 @@ func saveEvolutionTrack() {
 	os.WriteFile(filePath, data, 0644)
 }
 
+// ============ 长期轨迹分析 ============
+
+// EvolutionStats 进化统计
+type EvolutionStats struct {
+	TotalQueries    int       `json:"total_queries"`
+	AvgDeltaG       float64   `json:"avg_delta_g"`
+	MaxDeltaG       float64   `json:"max_delta_g"`
+	MinDeltaG       float64   `json:"min_delta_g"`
+	GeneTypes       map[string]int `json:"gene_types"`
+	EvolutionTypes  map[string]int `json:"evolution_types"`
+	DeltaGTrend     []float64 `json:"delta_g_trend"`
+	CapabilityScore float64   `json:"capability_score"`
+}
+
+// analyzeEvolutionTrend 分析进化趋势
+func analyzeEvolutionTrend() *EvolutionStats {
+	if len(evolutionTrack) == 0 {
+		return &EvolutionStats{}
+	}
+
+	stats := &EvolutionStats{
+		TotalQueries:  len(evolutionTrack),
+		GeneTypes:     make(map[string]int),
+		EvolutionTypes: make(map[string]int),
+		DeltaGTrend:   make([]float64, 0),
+	}
+
+	var sumDeltaG float64
+	stats.MaxDeltaG = -999999
+	stats.MinDeltaG = 999999
+
+	for i, entry := range evolutionTrack {
+		// 统计基因类型
+		stats.GeneTypes[entry.Type]++
+		stats.EvolutionTypes[entry.Type]++
+
+		// 计算ΔG
+		stats.DeltaGTrend = append(stats.DeltaGTrend, entry.DeltaG)
+		sumDeltaG += entry.DeltaG
+
+		if entry.DeltaG > stats.MaxDeltaG {
+			stats.MaxDeltaG = entry.DeltaG
+		}
+		if entry.DeltaG < stats.MinDeltaG && entry.DeltaG > 0 {
+			stats.MinDeltaG = entry.DeltaG
+		}
+
+		// 每10条计算一次能力分数
+		if (i+1)%10 == 0 {
+			stats.CapabilityScore = calculateCapabilityScore(stats.DeltaGTrend)
+		}
+	}
+
+	if len(stats.DeltaGTrend) > 0 {
+		stats.AvgDeltaG = sumDeltaG / float64(len(stats.DeltaGTrend))
+	}
+
+	// 能力分数 = ΔG均值 * 进化速度 * 基因多样性
+	stats.CapabilityScore = calculateCapabilityScore(stats.DeltaGTrend)
+
+	return stats
+}
+
+// calculateCapabilityScore 计算能力分数
+func calculateCapabilityScore(trend []float64) float64 {
+	if len(trend) == 0 {
+		return 0
+	}
+
+	// 1. 平均ΔG
+	var sum float64
+	for _, d := range trend {
+		sum += d
+	}
+	avgDeltaG := sum / float64(len(trend))
+
+	// 2. ΔG趋势（最近10个vs之前）
+	trendScore := 0.5
+	if len(trend) >= 10 {
+		var recent, older float64
+		for i := len(trend) - 10; i < len(trend); i++ {
+			recent += trend[i]
+		}
+		for i := 0; i < len(trend)-10 && i < len(trend); i++ {
+			older += trend[i]
+		}
+		recent /= 10
+		older /= float64(math.Min(float64(10), float64(len(trend)-10)))
+		if older > 0 {
+			trendScore = recent / older
+		}
+	}
+
+	// 3. 稳定性（方差倒数）
+	stability := 1.0
+	if len(trend) > 1 {
+		var variance float64
+		for _, d := range trend {
+			diff := d - avgDeltaG
+			variance += diff * diff
+		}
+		variance /= float64(len(trend))
+		stability = 1.0 / (1.0 + variance)
+	}
+
+	// 综合评分
+	score := avgDeltaG * 0.4 * trendScore * 0.3 * stability * 0.3
+	return math.Round(score*100) / 100
+}
+
+// printEvolutionReport 打印进化报告
+func printEvolutionReport() {
+	stats := analyzeEvolutionTrend()
+
+	fmt.Println("\n========== 进化轨迹分析报告 ==========")
+	fmt.Printf("总记录数: %d\n", stats.TotalQueries)
+	fmt.Printf("ΔG均值: %.3f\n", stats.AvgDeltaG)
+	fmt.Printf("ΔG最大值: %.3f\n", stats.MaxDeltaG)
+	fmt.Printf("ΔG最小值: %.3f\n", stats.MinDeltaG)
+	fmt.Printf("能力分数: %.3f\n", stats.CapabilityScore)
+	fmt.Println("基因类型分布:")
+	for t, count := range stats.GeneTypes {
+		fmt.Printf("  %s: %d\n", t, count)
+	}
+	fmt.Println("======================================")
+}
+
+// getDeltaGTrend 获取ΔG变化趋势
+func getDeltaGTrend(limit int) []float64 {
+	if limit <= 0 || limit > len(evolutionTrack) {
+		limit = len(evolutionTrack)
+	}
+	trend := make([]float64, limit)
+	start := len(evolutionTrack) - limit
+	for i := start; i < len(evolutionTrack); i++ {
+		trend[i-start] = evolutionTrack[i].DeltaG
+	}
+	return trend
+}
+
 func generateTask(query string) string {
 	// Challenger出题 - 分析query生成相关任务
 	prompt := fmt.Sprintf(`你是APEX EVM系统的Challenger角色，负责根据用户查询生成挑战任务。
@@ -1779,8 +1989,15 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 		"status":  "ok",
 		"version": Version,
 		"service": "apex_gene_selector_v2",
-		"features": []string{"evm", "hippocampus", "claw", "rust_rf", "apex_delta_g"},
+		"features": []string{"evm", "hippocampus", "claw", "rust_rf", "apex_delta_g", "evolution", "drift", "isolation"},
 	})
+}
+
+func statsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	stats := analyzeEvolutionTrend()
+	stats.DeltaGTrend = getDeltaGTrend(50) // 最近50条
+	json.NewEncoder(w).Encode(stats)
 }
 
 func main() {
@@ -1789,6 +2006,7 @@ func main() {
 	fmt.Printf("Features: EVM熵Skill + 海马体SWRs + Claw + Rust RF + APEX ΔG\n")
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/v1/gene/select", httpHandler)
+	mux.HandleFunc("/api/v1/stats", statsHandler)
 	mux.HandleFunc("/health", healthHandler)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), mux))
 }
