@@ -17,10 +17,12 @@ import (
 	"io"
 	"log"
 	"math"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -350,11 +352,11 @@ func evmChallenge(query string) *ChallengeResult {
 	// Challenger出题
 	task := generateTask(query)
 
-	// Reasoner解题（模拟，实际会调用GPT）
-	answer := generateAnswer(task, query)
+	// Reasoner解题（调用GPT-5.5）
+	answer := callGPT5Reasoner(query, task)
 
-	// Judge评分
-	score := judgeAnswer(task, answer)
+	// Judge评分（调用GPT-5.5）
+	score := callGPT5Judge(query, task, answer)
 
 	// 产出技能
 	skill := Skill{
@@ -371,6 +373,9 @@ func evmChallenge(query string) *ChallengeResult {
 	// 加入重放缓冲
 	addToReplay(skill, task, answer, score)
 
+	// 记录轨迹
+	recordEvolutionTrack(query, task, score)
+
 	return &ChallengeResult{
 		Skill:  skill,
 		Answer: answer,
@@ -379,33 +384,355 @@ func evmChallenge(query string) *ChallengeResult {
 	}
 }
 
+// callGPT5Reasoner 调用GPT-5.5生成解题步骤
+func callGPT5Reasoner(query, task string) string {
+	prompt := fmt.Sprintf(`你是APEX EVM系统的Reasoner角色，负责解决任务并生成可复用的技能步骤。
+
+用户原始查询: %s
+生成的任务: %s
+
+请生成解决这个任务的具体步骤，格式要求：
+1. 用中文回答
+2. 生成4-8个具体步骤
+3. 每个步骤一行，以数字开头
+4. 步骤要具体可执行
+5. 步骤结尾用分号;分隔
+
+示例格式：
+1. 分析问题背景;2. 收集关键信息;3. 制定解决方案;4. 验证结果;
+
+请生成步骤:`, query, task)
+
+	payload := map[string]interface{}{
+		"model": "gpt-5.5",
+		"messages": []map[string]string{
+			{"role": "system", "content": "你是APEX EVM Reasoner，擅长生成可复用的技能步骤"},
+			{"role": "user", "content": prompt},
+		},
+		"max_tokens": 500,
+	}
+
+	body, _ := json.Marshal(payload)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, FreemodelAPI, bytes.NewReader(body))
+	if err != nil {
+		return generateFallbackAnswer(task)
+	}
+	req.Header.Set("Authorization", "Bearer "+FreemodelKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{Timeout: 30 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		return generateFallbackAnswer(task)
+	}
+	defer resp.Body.Close()
+
+	respBody, _ := io.ReadAll(resp.Body)
+	var result map[string]interface{}
+	if err := json.Unmarshal(respBody, &result); err != nil {
+		return generateFallbackAnswer(task)
+	}
+
+	choices, ok := result["choices"].([]interface{})
+	if !ok || len(choices) == 0 {
+		return generateFallbackAnswer(task)
+	}
+
+	choice := choices[0].(map[string]interface{})
+	msg := choice["message"].(map[string]interface{})
+	content := msg["content"].(string)
+
+	// 清理内容
+	content = strings.TrimSpace(content)
+	if len(content) < 10 {
+		return generateFallbackAnswer(task)
+	}
+
+	return content
+}
+
+// callGPT5Judge 调用GPT-5.5评判答案质量
+func callGPT5Judge(query, task, answer string) float64 {
+	prompt := fmt.Sprintf(`你是APEX EVM系统的Judge角色，负责评判解答的质量。
+
+用户查询: %s
+任务: %s
+解答:\n%s
+
+请评估这个解答的质量，返回0-1之间的分数：
+- 1.0: 非常优秀，步骤完整、具体、可执行
+- 0.8: 良好，步骤较完整
+- 0.6: 中等，步骤基本可执行但不完整
+- 0.4: 较差，步骤缺失或模糊
+- 0.2: 很差，基本无用
+- 0.0: 完全无用
+
+只返回一个数字，格式：0.XX
+
+分数:`, query, task, answer)
+
+	payload := map[string]interface{}{
+		"model": "gpt-5.5",
+		"messages": []map[string]string{
+			{"role": "system", "content": "你是APEX EVM Judge，擅长评判解答质量"},
+			{"role": "user", "content": prompt},
+		},
+		"max_tokens": 20,
+	}
+
+	body, _ := json.Marshal(payload)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, FreemodelAPI, bytes.NewReader(body))
+	if err != nil {
+		return 0.5
+	}
+	req.Header.Set("Authorization", "Bearer "+FreemodelKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{Timeout: 30 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		return 0.5
+	}
+	defer resp.Body.Close()
+
+	respBody, _ := io.ReadAll(resp.Body)
+	var result map[string]interface{}
+	if err := json.Unmarshal(respBody, &result); err != nil {
+		return 0.5
+	}
+
+	choices, ok := result["choices"].([]interface{})
+	if !ok || len(choices) == 0 {
+		return 0.5
+	}
+
+	choice := choices[0].(map[string]interface{})
+	msg := choice["message"].(map[string]interface{})
+	content := msg["content"].(string)
+
+	// 解析数字
+	content = strings.TrimSpace(content)
+	// 提取数字
+	re := regexp.MustCompile(`0?\.\d+`)
+	matches := re.FindString(content)
+	if matches != "" {
+		score, err := strconv.ParseFloat(matches, 64)
+		if err == nil && score >= 0 && score <= 1 {
+			return score
+		}
+	}
+
+	return 0.5
+}
+
+func generateFallbackAnswer(task string) string {
+	return fmt.Sprintf("1. 分析%s的核心需求;2. 收集相关信息;3. 制定执行计划;4. 逐步实施;5. 检查结果;6. 优化改进;", task)
+}
+
+// 基因突变 - 随机修改基因参数
+func mutateGene(gene *Gene) *Gene {
+	newGene := Gene{
+		ID:          fmt.Sprintf("%s_mut", gene.ID),
+		Name:        fmt.Sprintf("[Mut]%s", gene.Name),
+		Type:        gene.Type,
+		SuccessRate: gene.SuccessRate,
+		UsageCount:  gene.UsageCount,
+		GiniGain:    gene.GiniGain,
+		Features:    make([]float64, 7),
+		Source:      "mutation",
+	}
+
+	// 随机修改一个参数
+	mutationType := rand.Intn(5)
+	switch mutationType {
+	case 0:
+		// 突变成功率 ±10%
+		delta := (rand.Float64() - 0.5) * 0.2
+		newGene.SuccessRate = math.Max(0.1, math.Min(1.0, gene.SuccessRate+delta))
+	case 1:
+		// 突变使用次数
+		delta := rand.Intn(20) - 10
+		newGene.UsageCount = int(math.Max(0, float64(gene.UsageCount+delta)))
+	case 2:
+		// 突变Gini增益
+		delta := (rand.Float64() - 0.5) * 0.1
+		newGene.GiniGain = math.Max(0, gene.GiniGain+delta)
+	case 3:
+		// 降低难度
+		newGene.Features[2] = math.Max(0.1, gene.Features[2]-0.1)
+	case 4:
+		// 调整OOB评分
+		newGene.Features[3] = math.Max(0.1, math.Min(1.0, gene.Features[3]+(rand.Float64()-0.5)*0.1))
+	}
+
+	// 重新计算特征
+	newGene.Features[0] = newGene.SuccessRate
+	newGene.Features[1] = 0.8
+	newGene.Features[2] = gene.Features[2]
+	newGene.Features[3] = gene.Features[3]
+	newGene.Features[4] = float64(newGene.UsageCount)
+	newGene.Features[5] = newGene.GiniGain
+	newGene.Features[6] = 1.0
+
+	return &newGene
+}
+
+// 基因交叉 - 两个基因交叉产生新基因
+func crossoverGene(gene1, gene2 *Gene) *Gene {
+	newGene := *gene1
+	newGene.ID = fmt.Sprintf("%s_x_%s", gene1.ID[:8], gene2.ID[:8])
+	newGene.Name = fmt.Sprintf("[Cross]%s+%s", gene1.Name[:10], gene2.Name[:10])
+	newGene.Source = "crossover"
+
+	// 交叉继承
+	if rand.Float64() > 0.5 {
+		newGene.SuccessRate = gene2.SuccessRate
+	}
+	if rand.Float64() > 0.5 {
+		newGene.GiniGain = gene2.GiniGain
+	}
+	if rand.Float64() > 0.5 {
+		newGene.UsageCount = gene2.UsageCount
+	}
+
+	// 重新计算特征
+	newGene.Features = make([]float64, 7)
+	newGene.Features[0] = newGene.SuccessRate
+	newGene.Features[1] = 0.8
+	newGene.Features[2] = (gene1.Features[2] + gene2.Features[2]) / 2
+	newGene.Features[3] = (gene1.Features[3] + gene2.Features[3]) / 2
+	newGene.Features[4] = float64(newGene.UsageCount)
+	newGene.Features[5] = newGene.GiniGain
+	newGene.Features[6] = 1.0
+
+	return &newGene
+}
+
+// ============ 进化轨迹记录 ============
+
+var evolutionTrack []EvolutionEntry
+
+type EvolutionEntry struct {
+	Timestamp string  `json:"timestamp"`
+	Query     string  `json:"query"`
+	Task      string  `json:"task"`
+	GeneID    string  `json:"gene_id"`
+	GeneName  string  `json:"gene_name"`
+	Score     float64 `json:"score"`
+	DeltaG    float64 `json:"delta_g"`
+	Type      string  `json:"type"` // axiom/evm/mutation/crossover
+}
+
+func recordEvolutionTrack(query, task string, score float64) {
+	entry := EvolutionEntry{
+		Timestamp: time.Now().Format(time.RFC3339),
+		Query:     query,
+		Task:      task,
+		GeneID:    fmt.Sprintf("emv_gene_%03d", evmGeneCounter-1),
+		Score:     score,
+		DeltaG:    3.52,
+		Type:      "evm",
+	}
+	evolutionTrack = append(evolutionTrack, entry)
+
+	// 保存到文件
+	saveEvolutionTrack()
+}
+
+func saveEvolutionTrack() {
+	data, _ := json.MarshalIndent(struct {
+		Version string           `json:"version"`
+		Entries []EvolutionEntry `json:"entries"`
+	}{
+		Version: Version,
+		Entries: evolutionTrack,
+	}, "", "  ")
+
+	filePath := expandPath("~/Desktop/开智/evolution_track.json")
+	os.WriteFile(filePath, data, 0644)
+}
+
 func generateTask(query string) string {
-	// 简化版：根据query生成相关任务
+	// Challenger出题 - 分析query生成相关任务
+	prompt := fmt.Sprintf(`你是APEX EVM系统的Challenger角色，负责根据用户查询生成挑战任务。
+
+用户查询: %s
+
+请生成一个具体的、可执行的挑战任务，用于测试AI的问题解决能力。
+
+要求：
+1. 任务要具体，不是泛泛的问题
+2. 任务长度10-30字
+3. 用中文回答
+4. 只返回任务描述，不要解释
+
+任务:`, query)
+
+	payload := map[string]interface{}{
+		"model": "gpt-5.5",
+		"messages": []map[string]string{
+			{"role": "system", "content": "你是APEX EVM Challenger，擅长生成具体的挑战任务"},
+			{"role": "user", "content": prompt},
+		},
+		"max_tokens": 100,
+	}
+
+	body, _ := json.Marshal(payload)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, FreemodelAPI, bytes.NewReader(body))
+	if err != nil {
+		return fallbackTask(query)
+	}
+	req.Header.Set("Authorization", "Bearer "+FreemodelKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{Timeout: 30 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		return fallbackTask(query)
+	}
+	defer resp.Body.Close()
+
+	respBody, _ := io.ReadAll(resp.Body)
+	var result map[string]interface{}
+	if err := json.Unmarshal(respBody, &result); err != nil {
+		return fallbackTask(query)
+	}
+
+	choices, ok := result["choices"].([]interface{})
+	if !ok || len(choices) == 0 {
+		return fallbackTask(query)
+	}
+
+	choice := choices[0].(map[string]interface{})
+	msg := choice["message"].(map[string]interface{})
+	content := strings.TrimSpace(msg["content"].(string))
+
+	if len(content) < 5 {
+		return fallbackTask(query)
+	}
+
+	// 去掉可能的"任务:"前缀
+	content = strings.TrimPrefix(content, "任务:")
+	content = strings.TrimSpace(content)
+
+	return content
+}
+
+func fallbackTask(query string) string {
 	keywords := strings.Fields(query)
 	if len(keywords) > 0 {
-		return fmt.Sprintf("如何使用%s解决%s的问题", keywords[0], keywords[len(keywords)-1])
+		return fmt.Sprintf("如何使用%s解决%s相关问题", keywords[0], keywords[len(keywords)-1])
 	}
 	return fmt.Sprintf("解决用户问题: %s", query)
-}
-
-func generateAnswer(task, query string) string {
-	// 简化版：生成答案步骤
-	return fmt.Sprintf("1. 分析%s的上下文\n2. 提取关键信息\n3. 生成解决方案\n4. 验证结果", task)
-}
-
-func judgeAnswer(task, answer string) float64 {
-	// 简化版：基于答案长度和完整性评分
-	score := 0.5
-	if len(answer) > 50 {
-		score += 0.2
-	}
-	if strings.Contains(answer, "1.") && strings.Contains(answer, "2.") {
-		score += 0.2
-	}
-	if strings.Contains(answer, "验证") {
-		score += 0.1
-	}
-	return math.Min(1.0, score)
 }
 
 func extractTriggers(query string) []string {
