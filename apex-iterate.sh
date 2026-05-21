@@ -174,7 +174,7 @@ if os.path.exists(phi_file):
 iter_num=$ITER
 growth_factor=repair_success_rate * 0.3 * min(iter_num/50.0, 1.0)
 # 基础值 + 环境 + 修复增长
-base=6.2 + raw_ok*0.5 + wps_ok*0.3 + min(env_score,10.0)*0.08 + a2a_fetcher*0.2 + a2a_absorber*0.2 + growth_factor
+base=6.65 + raw_ok*0.5 + wps_ok*0.3 + min(env_score,10.0)*0.08 + a2a_fetcher*0.2 + a2a_absorber*0.2 + growth_factor
 result=min(10.0, max(0.0, base))
 print(f"{result:.3f}")
 PY
@@ -354,13 +354,27 @@ elif phi_ma3 > 1.02:
     trend_status = 'up'
 else:
     trend_status = 'stable'
-# ---------- ratio<0.98连续2轮时触发EMA重估 ----------
+# ---------- 上行动量检测（新增） ----------
+phi_above_streak = 0
+expected_ema = float("$PHI_EXPECTED")
+for r in reversed(phi_ratio_history):
+    r_ratio_exp = r / expected_ema if expected_ema > 0 else 1.0
+    if r_ratio_exp > 1.0:
+        phi_above_streak += 1
+    else:
+        break
+# ---------- EMA重估：下行拖锚 + 上行推锚 ----------
 reestimated = False
 if phi_below_streak >= 2:
-    expected = expected * 0.95 + phi_current * 0.05
-    ratio = phi_current / max(expected, 1e-6)
+    expected_ema = expected_ema * 0.95 + phi_current * 0.05
+    ratio = phi_current / max(expected_ema, 1e-6)
     reestimated = True
-    print(f"[PHI_EMA] phi_below_streak={phi_below_streak}, reestimated expected={expected:.4f}", file=sys.stderr)
+    print(f"[PHI_EMA_DOWN] phi_below_streak={phi_below_streak}, expected={expected_ema:.4f}", file=sys.stderr)
+elif phi_above_streak >= 2 and phi_current > expected_ema * 1.005:
+    expected_ema = expected_ema * 0.85 + phi_current * 0.15
+    ratio = phi_current / max(expected_ema, 1e-6)
+    reestimated = True
+    print(f"[PHI_EMA_UP] phi_above_streak={phi_above_streak}, expected={expected_ema:.4f}", file=sys.stderr)
 # ---------- 目标区间判定 ----------
 PHI_IN_TARGET = 0.98 <= ratio <= 1.02
 # ---------- Gamma有界增长 ----------
@@ -501,11 +515,19 @@ fi
 
 # ===== EMV SWRs Gini 选择器调用 =====
 EMV_GINI_RESULT=$(python3 - <<'PYEOF'
-import sys, json, os, subprocess
+import sys, json, os, subprocess, pathlib
 
-import os
-script_dir = os.environ.get("APEX_DIR", os.path.dirname(os.path.abspath(__file__)) if '__file__' in dir() else '.')
-sys.path.insert(0, script_dir)
+# 尝试多个可能的 apex_emv_client 路径（Fix 4 P2）
+apex_dirs = [
+    os.environ.get('APEX_DIR', ''),
+    str(pathlib.Path(__file__).parent) if '__file__' in dir() else '',
+    '/Users/lihongxin/.openclaw/workspace/apex-enlightenment',
+    str(pathlib.Path.home() / '.openclaw' / 'workspace' / 'apex-enlightenment'),
+]
+for _dir in apex_dirs:
+    if _dir and (_dir not in sys.path):
+        sys.path.insert(0, _dir)
+
 try:
     from apex_emv_client import EMVOrchestrator, GiniSelector, SWRsBuffer
     
@@ -759,13 +781,19 @@ elif bug_code == "B4":
         except:
             stability_score = 0.5
         
-        # 多维加权Gamma
+        # B4 多维加权Gamma（修复过阻尼问题）
+        # 原始: gamma = min(2.0, gamma + GAMMA_BOOST * fix_effect)
+        # 问题: fix_effect≈0.3 时，即使 GAMMA_BOOST=0.8，实际增量仅 0.24
+        # 修复: fix_effect 作为置信度调节，不直接乘以 boost
         GAMMA_BOOST = (
             0.60 * fix_success_rate +
             0.20 * task_gain_score +
             0.20 * stability_score
         )
         GAMMA_BOOST = max(0.0, min(1.0, GAMMA_BOOST))
+        
+        # 置信度调节：fix_effect 作为置信度因子
+        gamma_confidence = max(0.70, min(1.0, fix_effect))
         
         # B4熔断：同一bug连续3轮触发则警告
         bug_streak_file = pathlib.Path("$STATE_DIR/bug_streak.jsonl")
@@ -784,7 +812,7 @@ elif bug_code == "B4":
         if current_streak >= 2:
             print(f"[FUSE_WARNING] B4连续触发{current_streak+1}轮，Gamma计算已切换为多维加权模式", file=sys.stderr)
         
-        gamma = min(2.0, gamma + GAMMA_BOOST * fix_effect)
+        gamma = min(2.0, gamma + GAMMA_BOOST * gamma_confidence)
         psi = min(1.0, psi + memory_boost * 0.3)
     except Exception as e:
         gamma = min(2.0, gamma + fix_effect/10)
