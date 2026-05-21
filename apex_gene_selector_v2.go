@@ -788,7 +788,195 @@ func getGeneNames(genes []*Gene) []string {
 	return names
 }
 
-// applyGeneEvolution 应用基因进化：突变+交叉+合作
+// ============ 选择压控制 — 淘汰低ΔG基因 ============
+
+// GenePool 全局基因池，维护各领域基因
+type GenePool struct {
+	Pools map[string][]*Gene // key: domain
+	Mu    int
+}
+
+var globalGenePool *GenePool
+
+func init() {
+	globalGenePool = &GenePool{
+		Pools: make(map[string][]*Gene),
+		Mu:    1,
+	}
+}
+
+// SelectionPressure 选择压控制 — 淘汰低ΔG基因
+func applySelectionPressure(genes []*Gene, minDeltaG float64) []*Gene {
+	if len(genes) <= 1 {
+		return genes
+	}
+
+	// 过滤掉ΔG过低的基因
+	filtered := make([]*Gene, 0)
+	for _, g := range genes {
+		if g.DeltaG >= minDeltaG || g.Source == "axiom" {
+			// axiom基因永不淘汰
+			filtered = append(filtered, g)
+		}
+	}
+
+	// 如果过滤后太少，随机保留一些
+	if len(filtered) < 3 && len(genes) >= 3 {
+		// 保留ΔG最高的一些
+		sort.Slice(genes, func(i, j int) bool {
+			return genes[i].DeltaG > genes[j].DeltaG
+		})
+		keep := int(math.Min(float64(len(genes)), 5))
+		filtered = genes[:keep]
+	}
+
+	if len(filtered) < len(genes) {
+		fmt.Printf("[选择压] 淘汰%d个低ΔG基因，保留%d个\n", len(genes)-len(filtered), len(filtered))
+	}
+
+	return filtered
+}
+
+// ============ 领域隔离 — 不同domain基因独立进化 ============
+
+// DomainIsolation 领域隔离机制
+type DomainConfig struct {
+	Domains      []string
+	IsolationRate float64 // 隔离程度 0-1
+}
+
+var domainConfig = DomainConfig{
+	Domains:      []string{"programming", "travel", "finance", "general"},
+	IsolationRate: 0.7,
+}
+
+// getGeneDomain 根据基因名称推断领域
+func getGeneDomain(gene *Gene) string {
+	name := strings.ToLower(gene.Name)
+	if strings.Contains(name, "code") || strings.Contains(name, "api") || strings.Contains(name, "protocol") {
+		return "programming"
+	}
+	if strings.Contains(name, "travel") || strings.Contains(name, "booking") {
+		return "travel"
+	}
+	if strings.Contains(name, "finance") || strings.Contains(name, "money") {
+		return "finance"
+	}
+	return "general"
+}
+
+// getQueryDomain 根据查询推断领域
+func getQueryDomain(query string) string {
+	q := strings.ToLower(query)
+	if strings.ContainsAny(q, "编程|代码|程序|python|java|go|rust|javascript|函数|算法") {
+		return "programming"
+	}
+	if strings.ContainsAny(q, "旅行|旅游|机票|酒店|预订") {
+		return "travel"
+	}
+	if strings.ContainsAny(q, "金融|投资|股票|基金|理财") {
+		return "finance"
+	}
+	return "general"
+}
+
+// isolateGenesByDomain 领域隔离 — 只选择同领域基因
+func isolateGenesByDomain(genes []*Gene, queryDomain string) []*Gene {
+	if domainConfig.IsolationRate < 0.3 {
+		// 隔离率太低，不隔离
+		return genes
+	}
+
+	domainGenes := make([]*Gene, 0)
+	otherGenes := make([]*Gene, 0)
+
+	for _, g := range genes {
+		geneDomain := getGeneDomain(g)
+		if geneDomain == queryDomain {
+			domainGenes = append(domainGenes, g)
+		} else {
+			otherGenes = append(otherGenes, g)
+		}
+	}
+
+	// 按隔离率决定同领域基因比例
+	if len(domainGenes) > 0 {
+		domainRatio := domainConfig.IsolationRate
+		numFromDomain := int(math.Ceil(float64(len(genes)) * domainRatio))
+		numFromDomain = int(math.Min(float64(numFromDomain), float64(len(domainGenes))))
+
+		result := make([]*Gene, 0, numFromDomain+len(genes)-len(domainGenes))
+		result = append(result, domainGenes[:numFromDomain]...)
+		// 补充其他领域基因
+		for _, g := range otherGenes {
+			if len(result) < len(genes) {
+				result = append(result, g)
+			}
+		}
+
+		fmt.Printf("[领域隔离] 查询领域:%s, 同领域基因:%d/%d\n", queryDomain, numFromDomain, len(genes))
+		return result
+	}
+
+	return genes
+}
+
+// ============ 漂变机制 — 随机因素影响 ============
+
+// GeneticDrift 遗传漂变 — 随机因素对进化的影响
+type DriftConfig struct {
+	DriftRate   float64 // 漂变概率
+	DriftImpact float64 // 漂变影响程度
+}
+
+var driftConfig = DriftConfig{
+	DriftRate:   0.15, // 15%概率触发漂变
+	DriftImpact: 0.2,  // 漂变影响20%
+}
+
+// applyGeneticDrift 遗传漂变 — 随机提升或降低基因适应度
+func applyGeneticDrift(gene *Gene) *Gene {
+	if rand.Float64() > driftConfig.DriftRate {
+		return gene
+	}
+
+	drifted := *gene
+	drifted.ID = fmt.Sprintf("%s_drift", gene.ID)
+
+	// 随机选择影响的特征
+	driftType := rand.Intn(3)
+	driftDirection := 1.0
+	if rand.Float64() < 0.5 {
+		driftDirection = -1.0
+	}
+
+	switch driftType {
+	case 0:
+		// 漂变影响成功率
+		delta := driftConfig.DriftImpact * driftDirection * rand.Float64()
+		drifted.SuccessRate = math.Max(0.1, math.Min(1.0, gene.SuccessRate+delta))
+		fmt.Printf("[漂变] %s 成功率: %.2f → %.2f\n", gene.Name, gene.SuccessRate, drifted.SuccessRate)
+	case 1:
+		// 漂变影响Gini增益
+		delta := driftConfig.DriftImpact * driftDirection * rand.Float64() * 0.1
+		drifted.GiniGain = math.Max(0, gene.GiniGain+delta)
+		fmt.Printf("[漂变] %s GiniGain: %.3f → %.3f\n", gene.Name, gene.GiniGain, drifted.GiniGain)
+	case 2:
+		// 漂变影响使用次数（随机增减）
+		delta := int(driftConfig.DriftImpact * driftDirection * float64(gene.UsageCount+1))
+		drifted.UsageCount = int(math.Max(0, float64(gene.UsageCount+delta)))
+		fmt.Printf("[漂变] %s 使用次数: %d → %d\n", gene.Name, gene.UsageCount, drifted.UsageCount)
+	}
+
+	drifted.Features[0] = drifted.SuccessRate
+	drifted.Features[4] = float64(drifted.UsageCount)
+	drifted.Features[5] = drifted.GiniGain
+	drifted.Source = "drift"
+
+	return &drifted
+}
+
+// applyGeneEvolution 应用基因进化：突变+交叉+合作+漂变+选择压
 func applyGeneEvolution(genes []*Gene) []*Gene {
 	if len(genes) < 2 {
 		return genes
@@ -825,7 +1013,14 @@ func applyGeneEvolution(genes []*Gene) []*Gene {
 		}
 	}
 
-	// 4. 记录进化轨迹
+	// 4. 漂变机制 — 随机因素影响
+	for i, g := range genes {
+		if drifted := applyGeneticDrift(g); drifted != g {
+			genes[i] = drifted
+		}
+	}
+
+	// 5. 记录进化轨迹
 	for _, g := range evolutionGenes {
 		entry := EvolutionEntry{
 			Timestamp: time.Now().Format(time.RFC3339),
@@ -1395,6 +1590,13 @@ func SelectBestGene(req *SelectRequest) (*GeneSelectionResult, error) {
 
 	// 4.5 基因进化：突变+交叉
 	genes = applyGeneEvolution(genes)
+
+	// 4.6 领域隔离 — 根据查询领域选择基因
+	queryDomain := getQueryDomain(req.Query)
+	genes = isolateGenesByDomain(genes, queryDomain)
+
+	// 4.7 选择压控制 — 淘汰低ΔG基因
+	genes = applySelectionPressure(genes, 1.5)
 
 	// 5. 计算Gini增益
 	for _, gene := range genes {
