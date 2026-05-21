@@ -59,6 +59,192 @@ type Gene struct {
 	CreatedAt    string    `json:"created_at"`
 	LastUsed     string    `json:"last_used"`
 	Source       string    `json:"source"` // axiom/emv/memory
+
+	// 表型可塑性
+	BaseStrategy string            `json:"base_strategy"` // 基础策略
+	Parameters   map[string]float64 `json:"parameters"`   // 基准参数
+}
+
+// Phenotype 表型 — 基因根据环境的动态表现
+type Phenotype struct {
+	GeneID       string            `json:"gene_id"`
+	GeneName     string            `json:"gene_name"`
+	Query        string            `json:"query"`
+	Strategy     string            `json:"strategy"`
+	Parameters   map[string]float64 `json:"parameters"`
+	Confidence   float64           `json:"confidence"`
+	AdaptScore   float64           `json:"adapt_score"`
+}
+
+// Adapt 基因表型适应方法 — 根据query动态调整策略
+func (g *Gene) Adapt(query string) *Phenotype {
+	p := &Phenotype{
+		GeneID:     g.ID,
+		GeneName:   g.Name,
+		Query:      query,
+		Strategy:   g.BaseStrategy,
+		Parameters: make(map[string]float64),
+		Confidence: g.SuccessRate,
+	}
+
+	// 复制基础参数
+	for k, v := range g.Parameters {
+		p.Parameters[k] = v
+	}
+
+	// 分析query特征
+	queryLower := strings.ToLower(query)
+	queryLen := len(query)
+	isSimple := queryLen < 10
+	isComplex := queryLen > 30
+
+	// 根据基因类型和query特征动态调整参数
+	switch g.BaseStrategy {
+	case "expand_keywords":
+		// 根据query复杂度调整展开策略
+		if isSimple {
+			// 简单query需要更多展开
+			p.Parameters["expansion_ratio"] = 0.5
+			p.Parameters["depth"] = 3.0
+			p.Strategy = "quick_expand"
+		} else if isComplex {
+			// 复杂query需要深度展开
+			p.Parameters["expansion_ratio"] = 0.2
+			p.Parameters["depth"] = 4.0
+			p.Strategy = "deep_expand"
+		}
+		// 技术类query需要更多专业术语
+		if containsTechTerms(queryLower) {
+			p.Parameters["breadth"] = 5.0
+		}
+
+	case "trace_entities":
+		// 根据query长度调整实体追踪深度
+		if isSimple {
+			p.Parameters["entity_depth"] = 2.0
+			p.Strategy = "shallow_trace"
+		} else {
+			p.Parameters["entity_depth"] = 4.0
+			p.Strategy = "deep_trace"
+		}
+		// 学术类query需要高召回
+		if containsAcademicTerms(queryLower) {
+			p.Parameters["recall"] = 0.95
+		}
+
+	case "time_constrain":
+		// 根据紧迫性词调整时间限制
+		if containsUrgencyTerms(queryLower) {
+			p.Parameters["time_limit"] = 10.0
+			p.Parameters["urgency_weight"] = 0.9
+			p.Strategy = "urgent_mode"
+		} else if isComplex {
+			p.Parameters["time_limit"] = 60.0
+			p.Strategy = "extended_mode"
+		}
+
+	case "multi_source_merge":
+		// 根据query类型调整来源权重
+		if containsNewsTerms(queryLower) {
+			p.Parameters["source_weight"] = 0.9
+			p.Parameters["diversity"] = 0.9
+			p.Strategy = "news_mode"
+		} else if containsAcademicTerms(queryLower) {
+			p.Parameters["source_weight"] = 0.7
+			p.Parameters["conflict_resolve"] = 0.8
+			p.Strategy = "academic_mode"
+		}
+
+	case "context_backtrack":
+		// 根据对话深度调整回溯
+		if isSimple {
+			p.Parameters["backtrack_depth"] = 3.0
+			p.Parameters["context_window"] = 2.0
+			p.Strategy = "shallow_backtrack"
+		} else {
+			p.Parameters["backtrack_depth"] = 7.0
+			p.Parameters["context_window"] = 5.0
+			p.Strategy = "deep_backtrack"
+		}
+	}
+
+	// 计算适应度分数
+	p.AdaptScore = calculateAdaptScore(g, query, p)
+
+	return p
+}
+
+// containsTechTerms 检查是否包含技术术语
+func containsTechTerms(query string) bool {
+	techTerms := []string{"python", "java", "go", "rust", "javascript", "code", "编程", "算法", "api", "函数", "编程语言"}
+	for _, term := range techTerms {
+		if strings.Contains(query, term) {
+			return true
+		}
+	}
+	return false
+}
+
+// containsAcademicTerms 检查是否包含学术术语
+func containsAcademicTerms(query string) bool {
+	academicTerms := []string{"研究", "理论", "分析", "原理", "机制", "方法", "论文", "学术", "科学", "实验"}
+	for _, term := range academicTerms {
+		if strings.Contains(query, term) {
+			return true
+		}
+	}
+	return false
+}
+
+// containsUrgencyTerms 检查是否包含紧迫性术语
+func containsUrgencyTerms(query string) bool {
+	urgencyTerms := []string{"紧急", "马上", "立刻", "尽快", "急需", " deadline", "asap"}
+	for _, term := range urgencyTerms {
+		if strings.Contains(query, term) {
+			return true
+		}
+	}
+	return false
+}
+
+// containsNewsTerms 检查是否包含新闻类术语
+func containsNewsTerms(query string) bool {
+	newsTerms := []string{"最新", "新闻", "今日", "报道", "消息", "最近", "刚刚", "刚刚"}
+	for _, term := range newsTerms {
+		if strings.Contains(query, term) {
+			return true
+		}
+	}
+	return false
+}
+
+// calculateAdaptScore 计算适应度分数
+func calculateAdaptScore(gene *Gene, query string, p *Phenotype) float64 {
+	baseScore := gene.SuccessRate
+
+	// 简单query加成
+	if len(query) < 10 {
+		baseScore *= 1.1
+	}
+
+	// 匹配度加成
+	matchScore := 0.0
+	if containsTechTerms(strings.ToLower(query)) && strings.Contains(gene.BaseStrategy, "expand") {
+		matchScore += 0.1
+	}
+	if containsAcademicTerms(query) && strings.Contains(gene.BaseStrategy, "trace") {
+		matchScore += 0.1
+	}
+
+	// 参数合理性加成
+	paramBonus := 0.0
+	for _, v := range p.Parameters {
+		if v > 0 && v <= 10 {
+			paramBonus += 0.01
+		}
+	}
+
+	return math.Min(1.0, baseScore+matchScore+paramBonus)
 }
 
 // ClawContext Claw上下文分析结果
@@ -83,7 +269,9 @@ type RFPrediction struct {
 // GeneSelectionResult 基因选择结果
 type GeneSelectionResult struct {
 	SelectedGene     *Gene           `json:"selected_gene"`
+	SelectedPhenotype *Phenotype     `json:"selected_phenotype"` // 表型可塑性结果
 	AllGenes         []*Gene         `json:"all_genes_sorted"`
+	AllPhenotypes    []*Phenotype    `json:"all_phenotypes"`    // 所有候选表型
 	Confidence       float64         `json:"confidence"`
 	DeltaG           float64         `json:"delta_g"`
 	DeltaGDetailed   APEXDeltaG      `json:"delta_g_detailed"`
@@ -1823,7 +2011,15 @@ func SelectBestGene(req *SelectRequest) (*GeneSelectionResult, error) {
 		gene.Features[6] = timeDecay(gene.LastUsed)
 	}
 
-	// 6. Rust RF预测
+	// 6. 生成表型 — 表型可塑性
+	phenotypes := make([]*Phenotype, len(genes))
+	for i, gene := range genes {
+		phenotypes[i] = gene.Adapt(req.Query)
+		// 表型适应度影响基因的ΔG
+		genes[i].SuccessRate = math.Max(genes[i].SuccessRate, phenotypes[i].AdaptScore)
+	}
+
+	// 7. Rust RF预测
 	var rfPred *RFPrediction
 	if len(genes) > 0 && len(genes[0].Features) >= 7 {
 		rfPred, _ = callRustForest(genes[0].Features)
@@ -1831,7 +2027,7 @@ func SelectBestGene(req *SelectRequest) (*GeneSelectionResult, error) {
 		rfPred = &RFPrediction{OOBConfidence: OOBProb}
 	}
 
-	// 7. APEX ΔG计算并选择
+	// 8. APEX ΔG计算并选择
 	apexParams := calculateApexParams(claw, genes)
 	type scoredGene struct {
 		gene   *Gene
@@ -1848,18 +2044,20 @@ func SelectBestGene(req *SelectRequest) (*GeneSelectionResult, error) {
 	})
 	best := scoredGenes[0].gene
 
-	// 8. GPT-5.5推理
+	// 9. GPT-5.5推理
 	reasoning, _ := callGPT5ForReasoning(req.Query, claw, genes, best)
 
-	// 9. 海马体记忆保存（使用EVM结果）
+	// 10. 海马体记忆保存
 	if req.UseMemory && retrievedMemories == nil {
 		hippocampus.AddMemory(req.Query, reasoning, best.SuccessRate, []string{best.Type})
 	}
 
-	// 10. 构建结果
+	// 11. 构建结果
 	result := &GeneSelectionResult{
 		SelectedGene:     best,
+		SelectedPhenotype: phenotypes[0], // 第一个是best的表型
 		AllGenes:         make([]*Gene, len(genes)),
+		AllPhenotypes:    phenotypes,
 		Confidence:       rfPred.OOBConfidence,
 		DeltaG:           best.DeltaG,
 		DeltaGDetailed:   apexParams,
@@ -1939,13 +2137,62 @@ func timeDecay(lastUsed string) float64 {
 
 func getDefaultGenes() []*Gene {
 	return []*Gene{
-		{ID: "gene_001", Name: "keyword_expansion", Type: "axiom_gene", SuccessRate: 0.85, UsageCount: 1526, Features: []float64{0.85, 0.8, 0.3, OOBProb, 1526, 0.12, 1.0}, Source: "axiom"},
-		{ID: "gene_002", Name: "entity_tracing", Type: "axiom_gene", SuccessRate: 0.90, UsageCount: 892, Features: []float64{0.90, 0.85, 0.5, OOBProb, 892, 0.18, 0.9}, Source: "axiom"},
-		{ID: "gene_003", Name: "time_bounded", Type: "axiom_gene", SuccessRate: 0.75, UsageCount: 456, Features: []float64{0.75, 0.7, 0.4, OOBProb, 456, 0.08, 0.8}, Source: "axiom"},
-		{ID: "gene_004", Name: "multi_source", Type: "axiom_gene", SuccessRate: 0.88, UsageCount: 1205, Features: []float64{0.88, 0.82, 0.45, OOBProb, 1205, 0.15, 0.95}, Source: "axiom"},
-		{ID: "gene_005", Name: "contextual_backtrack", Type: "axiom_gene", SuccessRate: 0.72, UsageCount: 334, Features: []float64{0.72, 0.68, 0.6, OOBProb, 334, 0.06, 0.85}, Source: "axiom"},
-		{ID: "gene_006", Name: "a2a_protocol", Type: "emv_gene", SuccessRate: 0.77, UsageCount: 11, Features: []float64{0.77, 0.75, 0.55, OOBProb, 11, 0.10, 1.0}, Source: "emv"},
-		{ID: "gene_007", Name: "api_integration", Type: "emv_gene", SuccessRate: 0.79, UsageCount: 7, Features: []float64{0.79, 0.78, 0.5, OOBProb, 7, 0.11, 1.0}, Source: "emv"},
+		{
+			ID: "gene_001", Name: "keyword_expansion", Type: "axiom_gene",
+			SuccessRate: 0.85, UsageCount: 1526,
+			Features: []float64{0.85, 0.8, 0.3, OOBProb, 1526, 0.12, 1.0},
+			Source: "axiom",
+			BaseStrategy: "expand_keywords",
+			Parameters: map[string]float64{"expansion_ratio": 0.3, "depth": 2.0, "breadth": 3.0},
+		},
+		{
+			ID: "gene_002", Name: "entity_tracing", Type: "axiom_gene",
+			SuccessRate: 0.90, UsageCount: 892,
+			Features: []float64{0.90, 0.85, 0.5, OOBProb, 892, 0.18, 0.9},
+			Source: "axiom",
+			BaseStrategy: "trace_entities",
+			Parameters: map[string]float64{"entity_depth": 3.0, "relation_weight": 0.7, "recall": 0.85},
+		},
+		{
+			ID: "gene_003", Name: "time_bounded", Type: "axiom_gene",
+			SuccessRate: 0.75, UsageCount: 456,
+			Features: []float64{0.75, 0.7, 0.4, OOBProb, 456, 0.08, 0.8},
+			Source: "axiom",
+			BaseStrategy: "time_constrain",
+			Parameters: map[string]float64{"time_limit": 30.0, "priority_decay": 0.5, "urgency_weight": 0.6},
+		},
+		{
+			ID: "gene_004", Name: "multi_source", Type: "axiom_gene",
+			SuccessRate: 0.88, UsageCount: 1205,
+			Features: []float64{0.88, 0.82, 0.45, OOBProb, 1205, 0.15, 0.95},
+			Source: "axiom",
+			BaseStrategy: "multi_source_merge",
+			Parameters: map[string]float64{"source_weight": 0.8, "conflict_resolve": 0.6, "diversity": 0.7},
+		},
+		{
+			ID: "gene_005", Name: "contextual_backtrack", Type: "axiom_gene",
+			SuccessRate: 0.72, UsageCount: 334,
+			Features: []float64{0.72, 0.68, 0.6, OOBProb, 334, 0.06, 0.85},
+			Source: "axiom",
+			BaseStrategy: "context_backtrack",
+			Parameters: map[string]float64{"backtrack_depth": 5.0, "context_window": 3.0, "relevance_threshold": 0.4},
+		},
+		{
+			ID: "gene_006", Name: "a2a_protocol", Type: "emv_gene",
+			SuccessRate: 0.77, UsageCount: 11,
+			Features: []float64{0.77, 0.75, 0.55, OOBProb, 11, 0.10, 1.0},
+			Source: "emv",
+			BaseStrategy: "agent_negotiate",
+			Parameters: map[string]float64{"negotiate_rounds": 3.0, "consensus_threshold": 0.7, "bidirectional": 1.0},
+		},
+		{
+			ID: "gene_007", Name: "api_integration", Type: "emv_gene",
+			SuccessRate: 0.79, UsageCount: 7,
+			Features: []float64{0.79, 0.78, 0.5, OOBProb, 7, 0.11, 1.0},
+			Source: "emv",
+			BaseStrategy: "api_compose",
+			Parameters: map[string]float64{"timeout": 10.0, "retry_count": 3.0, "fallback_enabled": 1.0},
+		},
 	}
 }
 
@@ -1989,7 +2236,7 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 		"status":  "ok",
 		"version": Version,
 		"service": "apex_gene_selector_v2",
-		"features": []string{"evm", "hippocampus", "claw", "rust_rf", "apex_delta_g", "evolution", "drift", "isolation"},
+		"features": []string{"evm", "hippocampus", "claw", "rust_rf", "apex_delta_g", "evolution", "drift", "isolation", "phenotype_plasticity"},
 	})
 }
 
