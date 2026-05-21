@@ -503,7 +503,9 @@ fi
 EMV_GINI_RESULT=$(python3 - <<'PYEOF'
 import sys, json, os, subprocess
 
-sys.path.insert(0, "$LOG_DIR")
+import os
+script_dir = os.environ.get("APEX_DIR", os.path.dirname(os.path.abspath(__file__)) if '__file__' in dir() else '.')
+sys.path.insert(0, script_dir)
 try:
     from apex_emv_client import EMVOrchestrator, GiniSelector, SWRsBuffer
     
