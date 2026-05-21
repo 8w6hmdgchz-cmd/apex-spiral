@@ -57,3 +57,4 @@
 [INJECT] 真实任务失败样本已注入: iter=670, score=2.1, task=执行自反射检查并修正所有已知缺陷
 [INJECT] 真实任务失败样本已注入: iter=675, score=1.8, task=通过A2A协议从EvoMap Hub获取并落地新基因资源
 [INJECT] 真实任务失败样本已注入: iter=680, score=2.1, task=执行自反射检查并修正所有已知缺陷
+[INJECT] 真实任务失败样本已注入: iter=685, score=2.0, task=实现自我改进闭环：识别短板→获取资源→落地能力
