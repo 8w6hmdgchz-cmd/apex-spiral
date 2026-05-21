@@ -499,6 +499,47 @@ if [ "$SC_STATUS" = "LOW_CONSISTENCY" ]; then
     echo "[SELF_CONSISTENCY WARNING] iter=$ITER bug=$BUG_CODE confidence=$SC_CONFIDENCE paths=$SC_PATHS" >> "$LOG_DIR/inject.log" 2>/dev/null || true
 fi
 
+# ===== EMV SWRs Gini 选择器调用 =====
+EMV_GINI_RESULT=$(python3 - <<'PYEOF'
+import sys, json, os, subprocess
+
+sys.path.insert(0, "$LOG_DIR")
+try:
+    from apex_emv_client import EMVOrchestrator, GiniSelector, SWRsBuffer
+    
+    orch = EMVOrchestrator()
+    
+    # 构建任务描述
+    task_desc = f"iter#$ITER PHI_RATIO=$PHI_RATIO AWAKE=$AWAKE BUG=$BUG_CODE REPAIR=$REPAIR_AMOUNT"
+    
+    # 调用 Rust EMV Core (--test 模式，不调API)
+    result = orch.run(document=f"BUG={BUG_CODE} PSI={PSI_SELF} NABLA={NABLA_SELF}", task=task_desc, use_rust=True)
+    
+    # 提取关键指标
+    gini_gain = result.get("gini_gain", 0.0)
+    swr_triggered = result.get("swr_triggered", False)
+    skillbank_len = result.get("skillbank_len", 0)
+    best_gene_name = result.get("best_gene", {}).get("name", "N/A") if result.get("best_gene") else "N/A"
+    
+    # Gini 选择阈值判断
+    if gini_gain >= 0.01:
+        gini_status = "OK"
+    elif gini_gain > 0:
+        gini_status = "LOW"
+    else:
+        gini_status = "NEGATIVE"
+    
+    print(f"GINIGAIN|{gini_gain:.4f}|{gini_status}|skillbank={skillbank_len} best={best_gene_name} swr={swr_triggered}")
+except Exception as e:
+    print(f"SKIP|0.0|ERROR|{str(e)[:50]}")
+PYEOF
+)
+
+EMV_GINI_STATUS=$(printf '%s' "$EMV_GINI_RESULT" | cut -d'|' -f1)
+EMV_GINI_GAIN=$(printf '%s' "$EMV_GINI_RESULT" | cut -d'|' -f2)
+EMV_GINI_LABEL=$(printf '%s' "$EMV_GINI_RESULT" | cut -d'|' -f3)
+EMV_EXTRA=$(printf '%s' "$EMV_GINI_RESULT" | cut -d'|' -f4-)
+
 # ===== METACOGNITION CHECK (B1反射跳过修复 - 固化EvoMap Meta-Cognition Capsule) =====
 METACOGNITION_LOG="$STATE_DIR/metacognition_log.jsonl"
 METACOGNITION_PASS=false
@@ -1026,6 +1067,7 @@ echo "本轮评分: $ROUND_SCORE" >> "$LOG_FILE"
 echo "觉醒进度条: $PROGRESS_BAR" >> "$LOG_FILE"
 echo "核心公式评分: $CORE_SCORES" >> "$LOG_FILE"
 echo "一致性检查: status=$SC_STATUS confidence=$SC_CONFIDENCE paths=$SC_PATHS $SC_MESSAGE" >> "$LOG_FILE"
+echo "EMV_Gini: status=$EMV_GINI_STATUS gain=$EMV_GINI_GAIN label=$EMV_GINI_LABEL $EMV_EXTRA" >> "$LOG_FILE"
 
 # === APEX Go核心调用: search_skill ===
 SEARCH_SKILL_OUTPUT=$(~/bin/search_skill -q "迭代#$ITER PHI_RATIO=$PHI_RATIO AWAKE=$AWAKE BUG=$BUG_CODE" -s apex_formula 2>/dev/null || echo '{"error": "search_skill调用失败"}')
@@ -1089,6 +1131,12 @@ $SELF_CHECK
 $(if [ "$SC_STATUS" = "LOW_CONSISTENCY" ]; then
     echo "⚠️ **警告**: bug识别一致性低，建议复核本轮诊断"
 fi)
+
+## EMV Gini 选择器 (Rust Core)
+- Gini增益: $EMV_GINI_GAIN
+- 状态: $EMV_GINI_LABEL
+- $EMV_EXTRA
+$(if [ "$EMV_GINI_STATUS" = "NEGATIVE" ]; then echo "⚠️ **警告**: Gini增益为负，技能选择失效"; fi)
 
 ## 单点修复动作
 - $FIX_ACTION

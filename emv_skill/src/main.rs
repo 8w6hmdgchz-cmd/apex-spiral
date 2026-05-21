@@ -20,6 +20,8 @@ fn main() {
 
     // 解析命令行参数
     let args: Vec<String> = std::env::args().collect();
+    let is_test = args.iter().any(|a| a == "--test" || a == "-t");
+    
     let (document, task) = if args.len() >= 3 {
         (args[1].as_str(), args[2].as_str())
     } else {
@@ -40,8 +42,15 @@ Gini增益选择：用基尼不纯度评估技能质量选择最优"#,
         )
     };
 
+    let doc_preview: String = document.chars().take(40).collect();
+    println!("文档片段: {}...", doc_preview);
+    println!("\n任务: {}", task);
+
     // 初始化EMV循环
-    let mut emv = if api_key.is_empty() {
+    let mut emv = if is_test {
+        println!("⚡ 测试模式：跳过GPT API调用");
+        EMVCycle::new()
+    } else if api_key.is_empty() {
         println!("⚠️ 无GPT API key，使用简化推理");
         EMVCycle::new()
     } else {
@@ -49,19 +58,19 @@ Gini增益选择：用基尼不纯度评估技能质量选择最优"#,
         EMVCycle::new_with_gpt(&api_key)
     };
 
-    let doc_preview: String = document.chars().take(40).collect();
-    println!("文档片段: {}...", doc_preview);
-    println!("\n任务: {}", task);
-
     // 尝试加载已有技能库
     let skillbank_path = "/tmp/emv_skillbank.json";
     if let Ok(count) = emv.load_skillbank(skillbank_path) {
         println!("📚 已加载 {} 个已有技能", count);
     }
 
-    // 运行EMV循环
-    let (success, best_gene) = emv.run_cycle(document, task);
-    println!("结果: success={}, best_gene={}", success, best_gene);
+    // 运行EMV循环（测试模式下跳过API调用）
+    let (success, best_gene) = if is_test {
+        println!("[TEST] 跳过EMV循环（需要GPT API）");
+        (false, "test_gene_id".to_string())
+    } else {
+        emv.run_cycle(document, task)
+    };
 
     // 显示所有技能
     println!("\n当前技能库:");
