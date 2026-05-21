@@ -614,7 +614,181 @@ func crossoverGene(gene1, gene2 *Gene) *Gene {
 	return &newGene
 }
 
-// applyGeneEvolution 应用基因进化：突变+交叉
+// GeneInteraction 基因相互作用
+type GeneInteraction struct {
+	Gene1ID   string  `json:"gene1_id"`
+	Gene2ID   string  `json:"gene2_id"`
+	Synergy   float64 `json:"synergy"`   // 协同效应(0-1)
+	Coevolved bool    `json:"coevolved"` // 是否已协同进化
+}
+
+// cooperativeEvolve 合作进化 — 多个基因协同产生新功能
+func cooperativeEvolve(genes []*Gene) *Gene {
+	if len(genes) < 2 {
+		return nil
+	}
+
+	// 选择2-3个基因进行合作
+	numCooperators := 2 + rand.Intn(2) // 2或3个
+	if numCooperators > len(genes) {
+		numCooperators = len(genes)
+	}
+
+	// 随机选择参与合作的基因
+	indices := rand.Perm(len(genes))[:numCooperators]
+	cooperators := make([]*Gene, numCooperators)
+	for i, idx := range indices {
+		cooperators[i] = genes[idx]
+	}
+
+	// 计算协同效应
+	synergy := calculateSynergy(cooperators)
+
+	// 降低阈值更容易触发合作进化
+	if synergy < 0.2 {
+		// 协同效应太低，强制触发一个合作基因
+		synergy = 0.2 + rand.Float64()*0.3 // 0.2-0.5
+	}
+
+	// 创建合作基因
+	coevGene := &Gene{
+		ID:          fmt.Sprintf("coop_%d", time.Now().UnixNano()%10000),
+		Name:        generateCoopName(cooperators),
+		Type:        "coop_gene",
+		Source:      "cooperation",
+		Features:    make([]float64, 7),
+		CreatedAt:   time.Now().Format(time.RFC3339),
+	}
+
+	// 融合参与基因的优势特征
+	coevGene.SuccessRate = fuseSuccessRates(cooperators, synergy)
+	coevGene.UsageCount = 0
+	coevGene.GiniGain = synergy * 0.3 // 协同效应转化为Gini增益
+
+	// 计算合作基因特征
+	coevGene.Features[0] = coevGene.SuccessRate
+	coevGene.Features[1] = 0.8
+	coevGene.Features[2] = averageFeature(cooperators, 2)
+	coevGene.Features[3] = OOBProb
+	coevGene.Features[4] = 0
+	coevGene.Features[5] = coevGene.GiniGain
+	coevGene.Features[6] = 1.0
+
+	fmt.Printf("[合作] %s 协同 → %s (协同效应: %.2f)\n",
+		strings.Join(getGeneNames(cooperators), "+"), coevGene.Name, synergy)
+
+	return coevGene
+}
+
+// calculateSynergy 计算基因间的协同效应
+func calculateSynergy(genes []*Gene) float64 {
+	if len(genes) < 2 {
+		return 0
+	}
+
+	// 计算特征互补性
+	var complementarity float64
+	for i := 0; i < len(genes)-1; i++ {
+		for j := i + 1; j < len(genes); j++ {
+			// 成功率差异大 = 互补性强
+			rateDiff := math.Abs(genes[i].SuccessRate - genes[j].SuccessRate)
+			complementarity += rateDiff
+
+			// Gini增益差异 = 分化程度高
+			giniDiff := math.Abs(genes[i].GiniGain - genes[j].GiniGain)
+			complementarity += giniDiff
+		}
+	}
+
+	// 归一化 (0-1)
+	maxComplementarity := float64(len(genes) * 2)
+	synergy := math.Min(1.0, complementarity/maxComplementarity)
+
+	// 高成功率基因参与提升协同效应
+	var avgSuccessRate float64
+	for _, g := range genes {
+		avgSuccessRate += g.SuccessRate
+	}
+	avgSuccessRate /= float64(len(genes))
+	synergy *= (0.5 + avgSuccessRate*0.5)
+
+	return synergy
+}
+
+// fuseSuccessRates 融合多个基因的成功率
+func fuseSuccessRates(genes []*Gene, synergy float64) float64 {
+	if len(genes) == 0 {
+		return 0.5
+	}
+
+	// 加权平均，协同效应越高越强调互补性
+	var weightedSum float64
+	var totalWeight float64
+
+	for i, g := range genes {
+		// 权重 = 基础权重 + 协同贡献
+		weight := 1.0
+		for j, other := range genes {
+			if i != j {
+				// 与其他基因的互补性作为额外权重
+				complement := 1.0 - math.Abs(g.SuccessRate-other.SuccessRate)
+				weight += complement * synergy
+			}
+		}
+		weightedSum += g.SuccessRate * weight
+		totalWeight += weight
+	}
+
+	return math.Min(1.0, weightedSum/totalWeight)
+}
+
+// averageFeature 计算多个基因某个特征的平均值
+func averageFeature(genes []*Gene, featIdx int) float64 {
+	if len(genes) == 0 {
+		return 0.5
+	}
+	var sum float64
+	for _, g := range genes {
+		if featIdx < len(g.Features) {
+			sum += g.Features[featIdx]
+		}
+	}
+	return sum / float64(len(genes))
+}
+
+// generateCoopName 生成合作基因名称
+func generateCoopName(genes []*Gene) string {
+	names := getGeneNames(genes)
+	if len(names) == 0 {
+		return "[Coop]未知"
+	}
+	if len(names) == 1 {
+		return fmt.Sprintf("[Coop]%s", names[0])
+	}
+
+	// 组合前两个基因的名称
+	prefix := names[0]
+	if len(prefix) > 8 {
+		prefix = prefix[:8]
+	}
+	suffix := names[1]
+	if len(suffix) > 8 {
+		suffix = suffix[:8]
+	}
+
+	return fmt.Sprintf("[Coop]%s+%s", prefix, suffix)
+}
+
+// getGeneNames 获取基因名称列表
+func getGeneNames(genes []*Gene) []string {
+	names := make([]string, len(genes))
+	for i, g := range genes {
+		names[i] = g.Name
+	}
+	return names
+}
+
+// applyGeneEvolution 应用基因进化：突变+交叉+合作
 func applyGeneEvolution(genes []*Gene) []*Gene {
 	if len(genes) < 2 {
 		return genes
@@ -644,7 +818,14 @@ func applyGeneEvolution(genes []*Gene) []*Gene {
 		}
 	}
 
-	// 3. 记录进化轨迹
+	// 3. 合作进化 — 多个基因协同产生新功能
+	if coopGene := cooperativeEvolve(genes); coopGene != nil {
+		if len(evolutionGenes) < maxEvolutionGenes {
+			evolutionGenes = append(evolutionGenes, coopGene)
+		}
+	}
+
+	// 4. 记录进化轨迹
 	for _, g := range evolutionGenes {
 		entry := EvolutionEntry{
 			Timestamp: time.Now().Format(time.RFC3339),
