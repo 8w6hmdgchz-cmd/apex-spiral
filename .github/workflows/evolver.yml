@@ -24,6 +24,8 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.21"
+          cache: true
+          cache-dependency-path: go.sum
 
       - name: 构建Go二进制
         env:
@@ -54,8 +56,13 @@ jobs:
 
       - name: 推送结果
         run: |
+          set +e  # 允许命令失败，不中断workflow
           git config --local user.email "evolver@node_cfd285ff67c1"
           git config --local user.name "Evolver Bot"
-          git add -A
-          git commit -m "Evolver $(date)" || true
-          git push origin main || echo "推送失败（无changes）"
+          # 检查是否有可提交内容
+          if git diff --quiet HEAD -- . && git diff --quiet --cached -- .; then
+            echo "无内容变更，跳过提交"
+          else
+            git add -A
+            git commit -m "Evolver $(date)" && git push origin main || echo "推送失败"
+          fi
