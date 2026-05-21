@@ -437,6 +437,166 @@ type Hippocampus struct {
 	memoryFile  string
 }
 
+// EnvironmentRecord 环境记录 — 记录历史环境变化对基因的影响
+type EnvironmentRecord struct {
+	Timestamp   string            `json:"timestamp"`
+	Query       string            `json:"query"`
+	Domain      string            `json:"domain"`
+	GenesUsed   []string          `json:"genes_used"`
+	GeneStates  map[string]float64 `json:"gene_states"` // 基因在当前环境下的状态
+	DeltaG      float64           `json:"delta_g"`
+	EnvironmentFactor float64     `json:"env_factor"` // 环境压力因子
+}
+
+// EnvironmentMemory 环境记忆 — 记录历史环境变化
+type EnvironmentMemory struct {
+	records     []*EnvironmentRecord
+	maxRecords  int
+	currentDomain string
+	domainStats map[string]*DomainStats // 领域统计
+}
+
+// DomainStats 领域统计
+type DomainStats struct {
+	Domain     string  `json:"domain"`
+	QueryCount int     `json:"query_count"`
+	AvgDeltaG  float64 `json:"avg_delta_g"`
+	BestGenes  []string `json:"best_genes"`
+}
+
+// 环境记忆全局实例
+var envMemory *EnvironmentMemory
+
+func init() {
+	envMemory = &EnvironmentMemory{
+		records:    make([]*EnvironmentRecord, 0),
+		maxRecords: 1000,
+		domainStats: make(map[string]*DomainStats),
+	}
+}
+
+// recordEnvironment 记录当前环境对基因的影响
+func (em *EnvironmentMemory) recordEnvironment(query, domain string, genes []*Gene, deltaG float64) {
+	// 统计当前环境的基因状态
+	geneStates := make(map[string]float64)
+	geneIDs := make([]string, len(genes))
+	for i, g := range genes {
+		geneIDs[i] = g.ID
+		geneStates[g.ID] = g.SuccessRate
+	}
+
+	// 创建环境记录
+	record := &EnvironmentRecord{
+		Timestamp:   time.Now().Format(time.RFC3339),
+		Query:       query,
+		Domain:      domain,
+		GenesUsed:   geneIDs,
+		GeneStates:  geneStates,
+		DeltaG:      deltaG,
+		EnvironmentFactor: calculateEnvFactor(domain, query),
+	}
+
+	// 添加记录
+	em.records = append(em.records, record)
+
+	// 限制记录数量
+	if len(em.records) > em.maxRecords {
+		em.records = em.records[len(em.records)-em.maxRecords:]
+	}
+
+	// 更新领域统计
+	em.updateDomainStats(domain, deltaG, genes)
+}
+
+// calculateEnvFactor 计算环境压力因子
+func calculateEnvFactor(domain, query string) float64 {
+	factor := 1.0
+
+	// 领域压力
+	switch domain {
+	case "programming":
+		factor *= 1.2
+	case "finance":
+		factor *= 1.5
+	case "travel":
+		factor *= 1.1
+	}
+
+	// 查询复杂度压力
+	if len(query) > 30 {
+		factor *= 1.3
+	}
+
+	// 紧迫性压力
+	if strings.Contains(query, "紧急") || strings.Contains(query, "马上") {
+		factor *= 1.4
+	}
+
+	return factor
+}
+
+// updateDomainStats 更新领域统计
+func (em *EnvironmentMemory) updateDomainStats(domain string, deltaG float64, genes []*Gene) {
+	stats, exists := em.domainStats[domain]
+	if !exists {
+		stats = &DomainStats{
+			Domain:    domain,
+			QueryCount: 0,
+			AvgDeltaG:  0,
+			BestGenes:  make([]string, 0),
+		}
+		em.domainStats[domain] = stats
+	}
+
+	// 更新查询次数
+	stats.QueryCount++
+
+	// 更新平均ΔG
+	stats.AvgDeltaG = (stats.AvgDeltaG*float64(stats.QueryCount-1) + deltaG) / float64(stats.QueryCount)
+
+	// 记录最佳基因
+	if len(genes) > 0 && genes[0].DeltaG > 0 {
+		stats.BestGenes = append(stats.BestGenes, genes[0].ID)
+		if len(stats.BestGenes) > 10 {
+			stats.BestGenes = stats.BestGenes[len(stats.BestGenes)-10:]
+		}
+	}
+}
+
+// getEnvInfluence 获取环境对基因的影响
+func (em *EnvironmentMemory) getEnvInfluence(geneID, domain string) float64 {
+	// 检查该基因在同领域历史中的表现
+	var totalDeltaG float64
+	var count int
+
+	for _, record := range em.records {
+		if record.Domain == domain {
+			for _, gid := range record.GenesUsed {
+				if gid == geneID {
+					totalDeltaG += record.DeltaG
+					count++
+					break
+				}
+			}
+		}
+	}
+
+	if count == 0 {
+		return 1.0 // 默认无影响
+	}
+
+	avgDeltaG := totalDeltaG / float64(count)
+
+	// 如果历史表现好于平均，环境加成
+	if avgDeltaG > 2.0 {
+		return 1.2 // 20%加成
+	} else if avgDeltaG < 1.0 {
+		return 0.8 // 20%惩罚
+	}
+
+	return 1.0
+}
+
 // ============ 全局实例 ============
 
 var (
@@ -938,6 +1098,123 @@ func cooperativeEvolve(genes []*Gene) *Gene {
 	return coevGene
 }
 
+// fuseGenes 基因融合 — 多个基因彻底融合成单一新基因
+// 与交叉不同：融合是完全合并，所有父基因特征都保留
+func fuseGenes(genes []*Gene) *Gene {
+	if len(genes) < 2 {
+		return nil
+	}
+
+	// 只有当基因池足够大时才触发融合
+	if len(genes) < 4 {
+		return nil
+	}
+
+	// 融合概率较低
+	if rand.Float64() > 0.15 {
+		return nil
+	}
+
+	// 选择2-3个基因进行融合
+	numFusers := 2 + rand.Intn(2)
+	if numFusers > len(genes) {
+		numFusers = len(genes)
+	}
+	indices := rand.Perm(len(genes))[:numFusers]
+	fusers := make([]*Gene, numFusers)
+	for i, idx := range indices {
+		fusers[i] = genes[idx]
+	}
+
+	// 创建融合基因
+	fusedGene := &Gene{
+		ID:          fmt.Sprintf("fuse_%d", time.Now().UnixNano()%100000),
+		Name:        generateFusedName(fusers),
+		Type:        "fused_gene",
+		Source:      "fusion",
+		Features:    make([]float64, 7),
+		CreatedAt:   time.Now().Format(time.RFC3339),
+	}
+
+	// 1. 成功率：取所有父基因成功率的最大值（超可加性）
+	maxSR := 0.0
+	for _, g := range fusers {
+		if g.SuccessRate > maxSR {
+			maxSR = g.SuccessRate
+		}
+	}
+	// 融合增益：成功率略微提升（比最大值更高）
+	fusedGene.SuccessRate = math.Min(1.0, maxSR*1.1+0.05)
+
+	// 2. 使用次数：清零（新基因从0开始）
+	fusedGene.UsageCount = 0
+
+	// 3. GiniGain：取父基因最大值
+	maxGG := 0.0
+	for _, g := range fusers {
+		if g.GiniGain > maxGG {
+			maxGG = g.GiniGain
+		}
+	}
+	fusedGene.GiniGain = maxGG * 1.2 // 略微提升
+
+	// 4. 特征向量：取所有父基因特征的加权平均
+	fusedGene.Features[0] = fusedGene.SuccessRate
+	fusedGene.Features[1] = averageFeature(fusers, 1) // 平均基础成功率
+	fusedGene.Features[2] = averageFeature(fusers, 2) // 平均执行效率
+	fusedGene.Features[3] = OOBProb
+	fusedGene.Features[4] = 0 // 新的使用计数
+	fusedGene.Features[5] = fusedGene.GiniGain
+	fusedGene.Features[6] = 1.0
+
+	// 5. 表型可塑性：继承所有父基因的基础策略
+	fusedGene.BaseStrategy = "fused_strategy"
+	fusedGene.Parameters = make(map[string]float64)
+	// 收集所有父基因的参数
+	for _, g := range fusers {
+		if g.Parameters != nil {
+			for k, v := range g.Parameters {
+				key := fmt.Sprintf("%s_%s", g.Name, k)
+				fusedGene.Parameters[key] = v
+			}
+		}
+	}
+
+	// 注册融合依赖：所有父基因→融合基因
+	for _, g := range fusers {
+		registerDependency(g.ID, fusedGene.ID, "fusion", 0.7)
+	}
+
+	fmt.Printf("[基因融合] %s → %s (融合%d个基因)\n",
+		strings.Join(getGeneNames(fusers), "+"), fusedGene.Name, numFusers)
+
+	return fusedGene
+}
+
+// generateFusedName 生成融合基因名称
+func generateFusedName(genes []*Gene) string {
+	if len(genes) == 0 {
+		return "[Fuse]未知"
+	}
+	if len(genes) == 1 {
+		return fmt.Sprintf("[Fuse]%s", genes[0].Name)
+	}
+
+	// 取第一个和第二个基因的名称组合
+	names := getGeneNames(genes)
+	name1 := names[0]
+	name2 := names[1]
+
+	if len(name1) > 6 {
+		name1 = name1[:6]
+	}
+	if len(name2) > 6 {
+		name2 = name2[:6]
+	}
+
+	return fmt.Sprintf("[Fuse]%s~%s", name1, name2)
+}
+
 // calculateSynergy 计算基因间的协同效应
 func calculateSynergy(genes []*Gene) float64 {
 	if len(genes) < 2 {
@@ -1354,6 +1631,15 @@ func applyGeneEvolution(genes []*Gene) []*Gene {
 	if coopGene := cooperativeEvolve(genes); coopGene != nil {
 		if len(evolutionGenes) < maxEvolutionGenes {
 			evolutionGenes = append(evolutionGenes, coopGene)
+			registerDependency(genes[0].ID, coopGene.ID, "cooperation", 0.4)
+		}
+	}
+
+	// 3.5 基因融合 — 多个基因彻底融合成单一新基因
+	if fusedGene := fuseGenes(genes); fusedGene != nil {
+		if len(evolutionGenes) < maxEvolutionGenes {
+			evolutionGenes = append(evolutionGenes, fusedGene)
+			fmt.Printf("[基因融合] %s + %s → %s\n", genes[0].Name, genes[1].Name, fusedGene.Name)
 		}
 	}
 
@@ -2138,6 +2424,10 @@ func SelectBestGene(req *SelectRequest) (*GeneSelectionResult, error) {
 		hippocampus.AddMemory(req.Query, reasoning, best.SuccessRate, []string{best.Type})
 	}
 
+	// 10.5 环境记忆记录
+	domain := getQueryDomain(req.Query)
+	envMemory.recordEnvironment(req.Query, domain, genes, best.DeltaG)
+
 	// 11. 构建结果
 	result := &GeneSelectionResult{
 		SelectedGene:     best,
@@ -2322,7 +2612,7 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 		"status":  "ok",
 		"version": Version,
 		"service": "apex_gene_selector_v2",
-		"features": []string{"evm", "hippocampus", "claw", "rust_rf", "apex_delta_g", "evolution", "drift", "isolation", "phenotype_plasticity"},
+		"features": []string{"evm", "hippocampus", "claw", "rust_rf", "apex_delta_g", "evolution", "drift", "isolation", "phenotype_plasticity", "coextinction", "gene_fusion", "env_memory"},
 	})
 }
 
