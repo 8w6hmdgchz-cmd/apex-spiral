@@ -258,7 +258,7 @@ PY
 )
 
 PHASE_A=$(python3 - <<PY
-import json, math, pathlib
+import json, math, pathlib, sys
 state_dir = pathlib.Path("$STATE_DIR")
 phi_file = state_dir / "phi_history.jsonl"
 defect_file = state_dir / "defect_history.jsonl"
@@ -356,7 +356,7 @@ else:
     trend_status = 'stable'
 # ---------- 上行动量检测（新增） ----------
 phi_above_streak = 0
-expected_ema = float("$PHI_EXPECTED")
+expected_ema = expected  # PHI_EXPECTED not yet set at this point in script
 for r in reversed(phi_ratio_history):
     r_ratio_exp = r / expected_ema if expected_ema > 0 else 1.0
     if r_ratio_exp > 1.0:
@@ -454,7 +454,7 @@ fi
 # ===== SELF-CONSISTENCY CHECK (来源: GitHub Gist 57fa0d7 Self-Consistency) =====
 # 多路径推理验证：对bug识别生成3条推理路径，投票选择最一致结论
 # 目的：防止单一推理路径导致的误判
-SELF_CONSISTENCY_RESULT=$(python3 - <<'PYEOF'
+SELF_CONSISTENCY_RESULT=$(python3 - <<PYEOF
 import sys, json, os, subprocess
 
 # 构建验证问题：当前bug识别是否正确？
@@ -514,7 +514,7 @@ if [ "$SC_STATUS" = "LOW_CONSISTENCY" ]; then
 fi
 
 # ===== EMV SWRs Gini 选择器调用 =====
-EMV_GINI_RESULT=$(python3 - <<'PYEOF'
+EMV_GINI_RESULT=$(python3 - <<PYEOF
 import sys, json, os, subprocess, pathlib
 
 # 尝试多个可能的 apex_emv_client 路径（Fix 4 P2）
@@ -534,10 +534,10 @@ try:
     orch = EMVOrchestrator()
     
     # 构建任务描述
-    task_desc = f"iter#$ITER PHI_RATIO=$PHI_RATIO AWAKE=$AWAKE BUG=$BUG_CODE REPAIR=$REPAIR_AMOUNT"
+    task_desc = f"iter#$ITER PHI_RATIO=$A_RATIO AWAKE=$A_AWAKE BUG=$BUG_CODE REPAIR=${REPAIR_AMOUNT:-0}"
     
     # 调用 Rust EMV Core (--test 模式，不调API)
-    result = orch.run(document=f"BUG={BUG_CODE} PSI={PSI_SELF} NABLA={NABLA_SELF}", task=task_desc, use_rust=True)
+    result = orch.run(document=f"BUG={BUG_CODE} PSI={A_PSI} NABLA={A_NABLA}", task=task_desc, use_rust=True)
     
     # 提取关键指标
     gini_gain = result.get("gini_gain", 0.0)
@@ -571,7 +571,7 @@ METACOGNITION_STEPS=""
 
 if [ "$BUG_CODE" = "B1" ]; then
     # 5步元认知检查（来源：EvoMap Meta-Cognition Capsule, confidence=0.98, streak=100）
-    METACOGNITION_STEPS=$(python3 - <<'PYEOF'
+    METACOGNITION_STEPS=$(python3 - <<PYEOF
 import time, json, sys
 
 steps = [
@@ -938,7 +938,7 @@ printf 'AWAKE=%s\nPSI_SELF=%s\nNABLA_SELF=%s\nXI_REPAIR=%s\nGAMMA_AWAKE=%s\nPHI_
   "$AWAKE" "$PSI_SELF" "$NABLA_SELF" "$XI_REPAIR" "$GAMMA_AWAKE" "$PHI_CURRENT" "$PHI_EXPECTED" "$PHI_RATIO" "$BUG_CODE" > "$SCORE_FILE"
 
 # === BUG_STREAK 持久化：记录每个bug连续出现的轮次 ===
-python3 - <<'PYEOF'
+python3 - <<PYEOF
 import json, pathlib
 state_dir = pathlib.Path("$STATE_DIR")
 streak_file = state_dir / "bug_streak.jsonl"
@@ -979,7 +979,7 @@ if stamps.get(current_bug, 0) >= 3:
 PYEOF
 
 # === Mem0分层记忆基因融合: 记录本轮迭代结果 ===
-python3 - <<'PYEOF'
+python3 - <<PYEOF
 try:
     import sys, json, subprocess
     awake = float("$AWAKE") / 10.0
