@@ -63,6 +63,126 @@ type Gene struct {
 	// 表型可塑性
 	BaseStrategy string            `json:"base_strategy"` // 基础策略
 	Parameters   map[string]float64 `json:"parameters"`   // 基准参数
+
+	// 侧向抑制 — 神经竞争机制
+	InhibitionLevel float64 `json:"inhibition_level"` // 被抑制程度 0-1
+	IsFrozen        bool   `json:"is_frozen"`        // 是否被冻结(预训练)
+}
+
+// applyLateralInhibition 侧向抑制 — 增强基因间竞争
+// 原理：winner-take-all，被选中的基因抑制周围基因
+func applyLateralInhibition(genes []*Gene) {
+	if len(genes) < 2 {
+		return
+	}
+
+	// 按ΔG排序
+	sorted := make([]*Gene, len(genes))
+	copy(sorted, genes)
+	sort.Slice(sorted, func(i, j int) bool {
+		return sorted[i].DeltaG > sorted[j].DeltaG
+	})
+
+	//  winner-take-all: top基因抑制其他基因
+	winner := sorted[0]
+
+	// 抑制半径：影响所有基因
+	for _, g := range genes {
+		if g.ID == winner.ID {
+			g.InhibitionLevel = 0 // 赢家无抑制
+			continue
+		}
+
+		// ΔG差距越大，抑制越强
+		deltaGDiff := winner.DeltaG - g.DeltaG
+		inhibition := math.Min(0.5, deltaGDiff*0.1)
+		g.InhibitionLevel = inhibition
+	}
+
+	fmt.Printf("[侧向抑制] Winner: %s (ΔG=%.2f), 抑制了%d个基因\n",
+		winner.Name, winner.DeltaG, len(genes)-1)
+}
+
+// applyInhibitionToDeltaG 将抑制应用到ΔG计算
+func applyInhibitionToDeltaG(gene *Gene) float64 {
+	if gene.IsFrozen {
+		return gene.DeltaG // 冻结基因不受抑制影响
+	}
+	// 被抑制的基因ΔG降低
+	return gene.DeltaG * (1.0 - gene.InhibitionLevel)
+}
+
+// PretrainConfig 预训练配置
+type PretrainConfig struct {
+	FrozenGenes    map[string]bool // 冻结的基因
+	FinetuneEpochs int            // 微调轮次
+	FreezeThreshold float64       // 冻结阈值(UsageCount)
+}
+
+var pretrainConfig = &PretrainConfig{
+	FrozenGenes:    make(map[string]bool),
+	FinetuneEpochs: 5,
+	FreezeThreshold: 100, // 使用次数>100冻结
+}
+
+// shouldFreezeGene 判断基因是否应该冻结
+func shouldFreezeGene(gene *Gene) bool {
+	// axiom基因默认冻结(预训练知识)
+	if gene.Source == "axiom" && gene.UsageCount > int(pretrainConfig.FreezeThreshold) {
+		return true
+	}
+	return false
+}
+
+// freezeGene 冻结基因
+func freezeGene(geneID string) {
+	pretrainConfig.FrozenGenes[geneID] = true
+	fmt.Printf("[预训练] 冻结基因: %s\n", geneID)
+}
+
+// unfreezeGene 解冻基因
+func unfreezeGene(geneID string) {
+	delete(pretrainConfig.FrozenGenes, geneID)
+	fmt.Printf("[预训练] 解冻基因: %s\n", geneID)
+}
+
+// isGeneFrozen 检查基因是否冻结
+func isGeneFrozen(geneID string) bool {
+	if frozen, exists := pretrainConfig.FrozenGenes[geneID]; exists {
+		return frozen
+	}
+	return false
+}
+
+// applyPretrainFinetune 应用预训练+微调策略
+func applyPretrainFinetune(genes []*Gene) {
+	for _, g := range genes {
+		// 检查是否应该冻结
+		if shouldFreezeGene(g) && !isGeneFrozen(g.ID) {
+			freezeGene(g.ID)
+		}
+
+		// 设置冻结状态
+		g.IsFrozen = isGeneFrozen(g.ID)
+	}
+}
+
+// finetuneGene 微调基因参数
+func finetuneGene(gene *Gene, query string, success bool) {
+	if gene.IsFrozen {
+		return // 冻结基因不微调
+	}
+
+	// 微调逻辑：根据查询结果调整基因参数
+	if success {
+		// 成功：略微增强成功率
+		gene.SuccessRate = math.Min(1.0, gene.SuccessRate*1.05)
+		fmt.Printf("[微调] %s 成功，增强: %.3f\n", gene.Name, gene.SuccessRate)
+	} else {
+		// 失败：略微降低成功率
+		gene.SuccessRate = math.Max(0.1, gene.SuccessRate*0.95)
+		fmt.Printf("[微调] %s 失败，减弱: %.3f\n", gene.Name, gene.SuccessRate)
+	}
 }
 
 // Phenotype 表型 — 基因根据环境的动态表现
@@ -264,6 +384,180 @@ type RFPrediction struct {
 	Probabilities  []float64 `json:"probabilities"`
 	OOBConfidence  float64   `json:"oob_confidence"`
 	FeaturesUsed   []float64 `json:"features_used"`
+}
+
+// NeuralOscillation 神经振荡 — 时序选择机制
+type NeuralOscillation struct {
+	Phase    string  `json:"phase"`    // theta/alpha/beta/gamma
+	Frequency float64 `json:"frequency"` // Hz
+	Amplitude float64 `json:"amplitude"` // 振幅
+}
+
+// OscillationState 振荡状态
+type OscillationState struct {
+	currentPhase string
+	queryCount   int
+	phaseHistory []string
+}
+
+var oscillationState = &OscillationState{
+	currentPhase: "theta",
+	phaseHistory: make([]string, 0),
+}
+
+// getCurrentOscillation 获取当前神经振荡状态
+func getCurrentOscillation(queryCount int) *NeuralOscillation {
+	// θ (4-8Hz): 记忆编码，EVM自博弈
+	// α (8-12Hz): 放松，信息过滤
+	// β (12-30Hz): 清醒，主动思考
+	// γ (>30Hz): 学习，基因融合
+
+	var phase string
+	var frequency float64
+	var amplitude float64
+
+	cycle := queryCount % 20 // 20次查询一个周期
+
+	if cycle < 5 {
+		phase = "theta"
+		frequency = 6.0
+		amplitude = 0.8
+	} else if cycle < 10 {
+		phase = "alpha"
+		frequency = 10.0
+		amplitude = 0.6
+	} else if cycle < 15 {
+		phase = "beta"
+		frequency = 20.0
+		amplitude = 0.7
+	} else {
+		phase = "gamma"
+		frequency = 40.0
+		amplitude = 0.9
+	}
+
+	oscillationState.currentPhase = phase
+	oscillationState.queryCount = queryCount
+	oscillationState.phaseHistory = append(oscillationState.phaseHistory, phase)
+	if len(oscillationState.phaseHistory) > 100 {
+		oscillationState.phaseHistory = oscillationState.phaseHistory[1:]
+	}
+
+	return &NeuralOscillation{
+		Phase:    phase,
+		Frequency: frequency,
+		Amplitude: amplitude,
+	}
+}
+
+// getOscillationInfluence 根据神经振荡状态调整基因选择
+func getOscillationInfluence(phase string, gene *Gene) float64 {
+	switch phase {
+	case "theta":
+		// θ节律: 强化模式识别，有利于EVM基因
+		if gene.Source == "emv" {
+			return 1.3
+		}
+		return 1.0
+	case "alpha":
+		// α节律: 放松模式，有利于 axiom 基因
+		if gene.Source == "axiom" {
+			return 1.2
+		}
+		return 1.0
+	case "beta":
+		// β节律: 主动思考，有利于高ΔG基因
+		return 1.0 + gene.DeltaG*0.05
+	case "gamma":
+		// γ节律: 高频学习，有利于新产生的基因
+		if gene.Source == "cooperation" || gene.Source == "fusion" {
+			return 1.4
+		}
+		return 1.0
+	default:
+		return 1.0
+	}
+}
+
+// NeuroModulator 神经调质 — 类似于神经递质的调节作用
+// 多巴胺、血清素等调节神经元的激活状态
+type NeuroModulator struct {
+	Type       string  `json:"type"`        // dopamine/serotonin/acetylcholine/GABA
+	Level      float64 `json:"level"`       // 调质水平 0-1
+	Effect     string  `json:"effect"`      // excitatory/inhibitory
+	TargetGenes []string `json:"target_genes"` // 目标基因
+}
+
+// modulators 全局神经调质状态
+var modulators []*NeuroModulator
+
+func init() {
+	modulators = []*NeuroModulator{
+		{Type: "dopamine", Level: 0.5, Effect: "excitatory", TargetGenes: []string{"emv"}},
+		{Type: "serotonin", Level: 0.5, Effect: "inhibitory", TargetGenes: []string{"mutation"}},
+		{Type: "acetylcholine", Level: 0.6, Effect: "excitatory", TargetGenes: []string{"axiom"}},
+		{Type: "GABA", Level: 0.4, Effect: "inhibitory", TargetGenes: []string{"fusion"}},
+	}
+}
+
+// getModulatorEffect 获取神经调质对基因的影响
+func getModulatorEffect(gene *Gene) float64 {
+	effect := 1.0
+
+	for _, mod := range modulators {
+		for _, target := range mod.TargetGenes {
+			if strings.Contains(gene.Source, target) || strings.Contains(gene.Type, target) {
+				if mod.Effect == "excitatory" {
+					effect *= (1.0 + mod.Level*0.2) // 兴奋：+0-20%
+				} else {
+					effect *= (1.0 - mod.Level*0.2) // 抑制：-0-20%
+				}
+			}
+		}
+	}
+
+	return effect
+}
+
+// adjustModulators 根据查询特征调整神经调质
+func adjustModulators(query string) {
+	queryLower := strings.ToLower(query)
+
+	// 多巴胺：与奖励相关，有利于emv基因
+	if strings.Contains(queryLower, "成功") || strings.Contains(queryLower, "奖励") || strings.Contains(queryLower, "好") {
+		for _, mod := range modulators {
+			if mod.Type == "dopamine" {
+				mod.Level = math.Min(1.0, mod.Level+0.1)
+			}
+		}
+	}
+
+	// 血清素：与压力相关，抑制mutation
+	if strings.Contains(queryLower, "紧张") || strings.Contains(queryLower, "压力") || strings.Contains(queryLower, "焦虑") {
+		for _, mod := range modulators {
+			if mod.Type == "serotonin" {
+				mod.Level = math.Min(1.0, mod.Level+0.1)
+			}
+		}
+	}
+
+	// 乙酰胆碱：与学习相关，强化axiom
+	if strings.Contains(queryLower, "学习") || strings.Contains(queryLower, "教程") || strings.Contains(queryLower, "教育") {
+		for _, mod := range modulators {
+			if mod.Type == "acetylcholine" {
+				mod.Level = math.Min(1.0, mod.Level+0.1)
+			}
+		}
+	}
+
+	// GABA：与平静相关，抑制fusion
+	if strings.Contains(queryLower, "冷静") || strings.Contains(queryLower, "分析") || strings.Contains(queryLower, "思考") {
+		for _, mod := range modulators {
+			if mod.Type == "GABA" {
+				mod.Level = math.Min(1.0, mod.Level+0.1)
+			}
+		}
+	}
 }
 
 // GeneSelectionResult 基因选择结果
@@ -1351,8 +1645,12 @@ type GeneDependency struct {
 // geneDependencies 全局基因依赖图
 var geneDependencies []*GeneDependency
 
+// coactivation记录 — 记录基因共同激活次数(用于突触可塑性)
+var coactivationRecord map[string]int // key: "geneA@geneB"
+
 func init() {
 	geneDependencies = make([]*GeneDependency, 0)
+	coactivationRecord = make(map[string]int)
 }
 
 // registerDependency 注册基因依赖
@@ -1363,6 +1661,45 @@ func registerDependency(parentID, childID, depType string, strength float64) {
 		DepType:  depType,
 		Strength: strength,
 	})
+}
+
+// updateDependencyStrength 动态更新依赖强度 — 突触可塑性
+// 根据Hebb定律：一起激活的基因，连接加强；不一起激活，连接减弱
+func updateDependencyStrength(gene1, gene2 string, coactivated bool) {
+	key1 := fmt.Sprintf("%s@%s", gene1, gene2)
+	key2 := fmt.Sprintf("%s@%s", gene2, gene1)
+
+	if coactivated {
+		// 共同激活，加强连接
+		coactivationRecord[key1]++
+		coactivationRecord[key2] = coactivationRecord[key1]
+	} else {
+		// 不共同激活，减弱连接
+		coactivationRecord[key1] = int(float64(coactivationRecord[key1]) * 0.9)
+		coactivationRecord[key2] = coactivationRecord[key1]
+	}
+
+	// 更新geneDependencies中的Strength
+	for _, dep := range geneDependencies {
+		if (dep.ParentID == gene1 && dep.ChildID == gene2) ||
+			(dep.ParentID == gene2 && dep.ChildID == gene1) {
+			// 根据共同激活次数调整强度
+			coactCount := coactivationRecord[key1]
+			// 强度范围: 0.1 - 0.9
+			newStrength := 0.1 + math.Min(0.8, float64(coactCount)*0.1)
+			dep.Strength = newStrength
+			fmt.Printf("[突触可塑性] %s-%s 强度: %.2f\n", gene1, gene2, newStrength)
+		}
+	}
+}
+
+// getSynapticStrength 获取两个基因的突触强度
+func getSynapticStrength(gene1, gene2 string) float64 {
+	key := fmt.Sprintf("%s@%s", gene1, gene2)
+	if count, exists := coactivationRecord[key]; exists {
+		return 0.1 + math.Min(0.8, float64(count)*0.1)
+	}
+	return 0.3 // 默认强度
 }
 
 // findDependentGenes 找到依赖某个基因的所有基因
@@ -2391,6 +2728,23 @@ func SelectBestGene(req *SelectRequest) (*GeneSelectionResult, error) {
 		genes[i].SuccessRate = math.Max(genes[i].SuccessRate, phenotypes[i].AdaptScore)
 	}
 
+	// 6.1 神经振荡 — 时序选择机制
+	oscillation := getCurrentOscillation(len(oscillationState.phaseHistory))
+	for i, gene := range genes {
+		oscInfluence := getOscillationInfluence(oscillation.Phase, gene)
+		genes[i].SuccessRate *= oscInfluence
+	}
+
+	// 6.2 神经调质 — 激活/抑制调质
+	adjustModulators(req.Query)
+	for i, gene := range genes {
+		modEffect := getModulatorEffect(gene)
+		genes[i].SuccessRate *= modEffect
+	}
+
+	// 6.3 预训练+微调 — 冻结/微调基因
+	applyPretrainFinetune(genes)
+
 	// 7. Rust RF预测
 	var rfPred *RFPrediction
 	if len(genes) > 0 && len(genes[0].Features) >= 7 {
@@ -2409,12 +2763,26 @@ func SelectBestGene(req *SelectRequest) (*GeneSelectionResult, error) {
 	for i, gene := range genes {
 		adjParams := adjustApexParams(apexParams, gene)
 		gene.DeltaG = calculateDeltaG(adjParams)
+		// 应用侧向抑制
+		gene.DeltaG = applyInhibitionToDeltaG(gene)
 		scoredGenes[i] = scoredGene{gene: gene, deltaG: gene.DeltaG}
 	}
 	sort.Slice(scoredGenes, func(i, j int) bool {
 		return scoredGenes[i].deltaG > scoredGenes[j].deltaG
 	})
+
+	// 侧向抑制：在排序后应用
+	applyLateralInhibition(genes)
+
 	best := scoredGenes[0].gene
+
+	// 8.5 突触可塑性更新 — 共同激活的基因加强连接
+	for i, g := range genes {
+		for j := i + 1; j < len(genes); j++ {
+			coactivated := (g.ID == best.ID || genes[j].ID == best.ID)
+			updateDependencyStrength(g.ID, genes[j].ID, coactivated)
+		}
+	}
 
 	// 9. GPT-5.5推理
 	reasoning, _ := callGPT5ForReasoning(req.Query, claw, genes, best)
@@ -2612,7 +2980,7 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 		"status":  "ok",
 		"version": Version,
 		"service": "apex_gene_selector_v2",
-		"features": []string{"evm", "hippocampus", "claw", "rust_rf", "apex_delta_g", "evolution", "drift", "isolation", "phenotype_plasticity", "coextinction", "gene_fusion", "env_memory"},
+		"features": []string{"evm", "hippocampus", "claw", "rust_rf", "apex_delta_g", "evolution", "drift", "isolation", "phenotype_plasticity", "coextinction", "gene_fusion", "env_memory", "synaptic_plasticity", "neural_oscillation", "lateral_inhibition", "neuro_modulation", "pretrain_finetune"},
 	})
 }
 
