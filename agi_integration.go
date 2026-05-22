@@ -23,6 +23,14 @@ const (
 	PLANNER_URL  = "http://localhost:8098"
 )
 
+// ============ GPT-5.5 深度推理配置 ============
+
+const (
+	GPT55_API_URL = "https://api.freemodel.dev/v1/chat/completions"
+	GPT55_API_KEY = "Bearer fe_oa_2ef1df35ba1d091f99212ba121aeb5b4fd35edf8baaba7a9"
+	DELTA_G_THRESHOLD = 4.0  // ΔG阈值，低于此值触发GPT-5.5深度推理
+)
+
 // AGI整合请求
 type AGIRequest struct {
 	Query        string `json:"query"`         // 用户query
@@ -35,13 +43,21 @@ type AGIRequest struct {
 
 // AGI整合响应
 type AGIResponse struct {
-	Result       *AGIResult   `json:"result"`
-	MemoryUsed   []*MemoryUse `json:"memory_used,omitempty"`
-	Reflection   string       `json:"reflection,omitempty"`
-	Reasoning    string       `json:"reasoning,omitempty"`
-	Plan         *PlanSummary `json:"plan,omitempty"`
-	Insights     []string     `json:"insights"`
-	DeltaG       float64      `json:"delta_g"`
+	Result        *AGIResult    `json:"result"`
+	MemoryUsed    []*MemoryUse  `json:"memory_used,omitempty"`
+	Reflection    string        `json:"reflection,omitempty"`
+	Reasoning     string        `json:"reasoning,omitempty"`
+	Plan          *PlanSummary  `json:"plan,omitempty"`
+	Insights      []string      `json:"insights"`
+	DeltaG        float64       `json:"delta_g"`
+	GPT55Reasoning string       `json:"gpt55_reasoning,omitempty"` // GPT-5.5深度推理结果
+	GPT55Used     bool          `json:"gpt55_used"`                // 是否调用了GPT-5.5
+}
+
+type GPT55Result struct {
+	Reasoning   string  `json:"reasoning"`
+	Confidence  float64 `json:"confidence"`
+	SuggestedStrategy string `json:"suggested_strategy"`
 }
 
 type AGIResult struct {
@@ -120,6 +136,17 @@ func (e *AGIEngine) Process(req *AGIRequest) *AGIResponse {
 	apexResult := e.callAPEX(req.Query)
 	resp.DeltaG = apexResult.DeltaG
 	resp.Insights = append(resp.Insights, fmt.Sprintf("APEX选择: %s (ΔG=%.3f)", apexResult.Gene, apexResult.DeltaG))
+
+	// Step 6.5: GPT-5.5 深度推理 — 当ΔG低于阈值时触发
+	var gpt55Result *GPT55Result
+	if apexResult.DeltaG < DELTA_G_THRESHOLD {
+		gpt55Result = e.callGPT55DeepReasoning(req.Query, apexResult, bioResult, resp)
+		if gpt55Result != nil {
+			resp.GPT55Reasoning = gpt55Result.Reasoning
+			resp.GPT55Used = true
+			resp.Insights = append(resp.Insights, fmt.Sprintf("GPT-5.5深度推理: 置信度%.2f", gpt55Result.Confidence))
+		}
+	}
 
 	// Step 7: 综合决策
 	finalResult := e.synthesize(apexResult, bioResult, resp)
@@ -323,6 +350,12 @@ func (e *AGIEngine) synthesize(apex *ApexResult, bio *BioResult, resp *AGIRespon
 		}
 	}
 
+	// 参考GPT-5.5深度推理结果
+	if resp.GPT55Used && resp.GPT55Reasoning != "" {
+		strategy = fmt.Sprintf("%s [GPT55增强]", strategy)
+		executedBy = "gpt55_enhanced"
+	}
+
 	// 参考记忆
 	if len(resp.MemoryUsed) > 0 {
 		strategy = fmt.Sprintf("%s (基于%d条记忆)", strategy, len(resp.MemoryUsed))
@@ -338,6 +371,131 @@ func (e *AGIEngine) synthesize(apex *ApexResult, bio *BioResult, resp *AGIRespon
 		Strategy:   strategy,
 		ExecutedBy: executedBy,
 	}
+}
+
+// ============ GPT-5.5 深度推理 ============
+
+// callGPT55DeepReasoning 当APEX的ΔG低于阈值时调用GPT-5.5进行深度推理
+func (e *AGIEngine) callGPT55DeepReasoning(query string, apex *ApexResult, bio *BioResult, resp *AGIResponse) *GPT55Result {
+	// 构建深度推理的上下文
+	context := fmt.Sprintf(`当前任务分析:
+- 用户Query: %s
+- APEX选择的基因: %s (ΔG=%.3f, 低于阈值%.1f)
+- Bio神经元: %s
+- 可用的记忆: %d条
+- 反思结果: %s
+- 推理链: %s`,
+		query, apex.Gene, apex.DeltaG, DELTA_G_THRESHOLD,
+		func() string {
+			if bio != nil && bio.Active {
+				return bio.NeuronID
+			}
+			return "未激活"
+		}(),
+		len(resp.MemoryUsed),
+		resp.Reflection,
+		resp.Reasoning,
+	)
+
+	// 构建GPT-5.5请求
+	gpt55Req := map[string]interface{}{
+		"model": "gpt-5.5",
+		"messages": []map[string]string{
+			{
+				"role": "system",
+				"content": `你是一个深度推理专家。当APEX基因选择器的ΔG值低于阈值时（例如<4.0），表示当前的基因选择置信度不足，需要更深入的推理分析。
+
+请分析提供的上下文信息，进行深度推理，并给出：
+1. 更详细的推理过程
+2. 一个改进的策略建议
+3. 置信度评分（0-1）
+
+你的输出将作为AGI决策的额外输入。`,
+			},
+			{
+				"role": "user",
+				"content": context,
+			},
+		},
+		"temperature": 0.7,
+		"max_tokens": 1000,
+	}
+
+	// 发送请求到GPT-5.5
+	data, err := json.Marshal(gpt55Req)
+	if err != nil {
+		return nil
+	}
+
+	req, err := http.NewRequest("POST", GPT55_API_URL, bytes.NewBuffer(data))
+	if err != nil {
+		return nil
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", GPT55_API_KEY)
+
+	httpClient := &http.Client{Timeout: 60 * time.Second}
+	gptResp, err := httpClient.Do(req)
+	if err != nil {
+		return nil
+	}
+	defer gptResp.Body.Close()
+
+	var result map[string]interface{}
+	if err := json.NewDecoder(gptResp.Body).Decode(&result); err != nil {
+		return nil
+	}
+
+	// 解析GPT-5.5的响应
+	choices, ok := result["choices"].([]interface{})
+	if !ok || len(choices) == 0 {
+		return nil
+	}
+
+	choice, ok := choices[0].(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	message, ok := choice["message"].(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	gptContent, ok := message["content"].(string)
+	if !ok {
+		return nil
+	}
+
+	// 估算置信度（基于响应长度和质量指标）
+	confidence := 0.7
+	if len(gptContent) > 500 {
+		confidence = 0.85
+	}
+	if apex.DeltaG < 3.0 {
+		confidence = 0.9 // 更低的ΔG意味着更依赖GPT-5.5
+	}
+
+	return &GPT55Result{
+		Reasoning:          gptContent,
+		Confidence:         confidence,
+		SuggestedStrategy: extractStrategy(gptContent),
+	}
+}
+
+// extractStrategy 从GPT-5.5的推理中提取策略建议
+func extractStrategy(reasoning string) string {
+	// 简单的策略提取逻辑
+	// 实际应用中可以使用更复杂的NLP处理
+	if len(reasoning) > 100 {
+		// 返回前100个字符作为策略摘要
+		if len(reasoning) > 100 {
+			return reasoning[:100] + "..."
+		}
+		return reasoning
+	}
+	return reasoning
 }
 
 // ============ HTTP API ============
@@ -422,6 +580,8 @@ func main() {
 	fmt.Println("  :8096 Persistent Memory")
 	fmt.Println("  :8097 Reasoning Chain")
 	fmt.Println("  :8098 Planner")
+	fmt.Println("")
+	fmt.Printf("GPT-5.5 深度推理: ΔG阈值=%.1f, API=%s\n", DELTA_G_THRESHOLD, GPT55_API_URL)
 
 	http.ListenAndServe(":8099", mux)
 }
