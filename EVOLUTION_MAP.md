@@ -153,21 +153,42 @@
 当前状态 (Current Status)
 ═══════════════════════════════════════════════════════════════════════════════
 
-  Service         Port    Status
+  Service           Port    Status
   ─────────────────────────────────
-  APEX v2         8092    Running ✅
-  Bio Neuron      8093    Running ✅
-  Rust Forest     8091    Running ✅
+  APEX v2           8092    Running ✅
+  Bio Neuron        8093    Running ✅
+  Self Reflection   8094    Running ✅
+  Self Modifier     8095    Running ✅
+  Persistent Memory  8096    Running ✅
+  Reasoning Chain    8097    Running ✅
+  Planner           8098    Running ✅
+  AGI Integration   8099    Running ✅
+  Multimodal        8100    Running ✅
+  Embodied          8101    Running ✅
+  Conversation AGI  8102    Running ✅
 
-  Features: 18个
-  - evm, hippocampus, claw, rust_rf, apex_delta_g
-  - evolution, drift, isolation, phenotype_plasticity
-  - coextinction, gene_fusion, env_memory
-  - synaptic_plasticity, neural_oscillation, lateral_inhibition
-  - neuro_modulation, pretrain_finetune, bio_neuron
+  Total Services: 11
+  Total Genes: 20个正式基因
+
+═══════════════════════════════════════════════════════════════════════════════
+
+正式基因清单 (evolution_genes_v6.json)
+═══════════════════════════════════════════════════════════════════════════════
+
+  V1 基础 (3): claw, rust_rf, apex_delta          [fitness 0.85-0.90]
+  V2 进化 (7): mutation, crossover, cooperation,     [fitness 0.72-0.88]
+                fusion, drift, isolation, coextinction
+  V3 神经 (5): synaptic_plasticity, neural_         [fitness 0.85-0.90]
+                oscillation, lateral_inhibition,
+                neuro_modulation, pretrain_finetune
+  V4 记忆 (3): hippocampus, env_memory,             [fitness 0.83-0.92]
+                persistent_memory
+  V5 生物 (1): bio_neuron                          [fitness 0.95]
+  V6 元认知 (4): self_reflection, self_modifier,   [fitness 0.85-0.91]
+                 reasoning_chain, planner
 
   GitHub: github.com/8w6hmdgchz-cmd/apex-spiral
-  Commit: 426d7aa
+  Commit: 758ccc0
 
 ═══════════════════════════════════════════════════════════════════════════════
 
