@@ -1,0 +1,175 @@
+{
+  "timestamp": "2026-05-22T09:15:00Z",
+  "version": "6.1",
+  "description": "APEX Evolution Map 完整基因清单",
+  "genes": [
+    {
+      "id": "mutation",
+      "name": "Mutation",
+      "category": "Evolution",
+      "fitness": 0.85,
+      "description": "基因突变：10%概率随机改变基因参数",
+      "parameters": {"probability": 0.1, "mutation_rate": 0.15}
+    },
+    {
+      "id": "crossover",
+      "name": "Crossover",
+      "category": "Evolution",
+      "fitness": 0.88,
+      "description": "基因交叉：40%概率成功合并两个基因",
+      "parameters": {"probability": 0.4, "success_rate": 0.4}
+    },
+    {
+      "id": "cooperation",
+      "name": "Cooperation",
+      "category": "Evolution",
+      "fitness": 0.82,
+      "description": "协同合作：synergy>0.1时触发基因合作",
+      "parameters": {"synergy_threshold": 0.1}
+    },
+    {
+      "id": "fusion",
+      "name": "Gene Fusion",
+      "category": "Evolution",
+      "fitness": 0.80,
+      "description": "基因融合：彻底合并两个基因形成新策略",
+      "parameters": {"fitness_threshold": 0.7}
+    },
+    {
+      "id": "drift",
+      "name": "Genetic Drift",
+      "category": "Evolution",
+      "fitness": 0.75,
+      "description": "遗传漂变：15%概率随机丢失低适应度基因",
+      "parameters": {"probability": 0.15}
+    },
+    {
+      "id": "isolation",
+      "name": "Domain Isolation",
+      "category": "Evolution",
+      "fitness": 0.78,
+      "description": "领域隔离：70%概率限制同领域内竞争",
+      "parameters": {"isolation_rate": 0.7}
+    },
+    {
+      "id": "coextinction",
+      "name": "Coextinction",
+      "category": "Evolution",
+      "fitness": 0.72,
+      "description": "协同灭绝：依赖链断裂时链式淘汰",
+      "parameters": {"chain_effect": true}
+    },
+    {
+      "id": "synaptic_plasticity",
+      "name": "Synaptic Plasticity",
+      "category": "Neural",
+      "fitness": 0.90,
+      "description": "突触可塑性：Hebb学习规则强化共同激活的连接",
+      "parameters": {"learning_rate": 0.01, "hebb_window": 5}
+    },
+    {
+      "id": "neural_oscillation",
+      "name": "Neural Oscillation",
+      "category": "Neural",
+      "fitness": 0.88,
+      "description": "神经振荡：θ/α/β/γ四相节律影响决策",
+      "parameters": {"theta": 6.0, "alpha": 10.0, "beta": 20.0, "gamma": 40.0}
+    },
+    {
+      "id": "lateral_inhibition",
+      "name": "Lateral Inhibition",
+      "category": "Neural",
+      "fitness": 0.87,
+      "description": "侧向抑制：Winner-Take-All增强信号对比度",
+      "parameters": {"inhibition_strength": 0.3, "winner_threshold": 0.8}
+    },
+    {
+      "id": "neuro_modulation",
+      "name": "Neuro Modulation",
+      "category": "Neural",
+      "fitness": 0.85,
+      "description": "神经调质：多巴胺/血清素/乙酰胆碱/GABA调节",
+      "parameters": {"dopamine": 1.3, "serotonin": 0.9, "acetylcholine": 1.2, "gaba": 0.8}
+    },
+    {
+      "id": "pretrain_finetune",
+      "name": "Pretrain + Finetune",
+      "category": "Neural",
+      "fitness": 0.86,
+      "description": "预训练微调：axiom基因UsageCount>50后冻结",
+      "parameters": {"freeze_threshold": 50}
+    },
+    {
+      "id": "hippocampus",
+      "name": "Hippocampus Memory",
+      "category": "Memory",
+      "fitness": 0.92,
+      "description": "海马体SWRs记忆：Sharp Wave Ripples短期强化",
+      "parameters": {"swr_threshold": 0.7, "consolidation_rate": 0.05}
+    },
+    {
+      "id": "env_memory",
+      "name": "Environmental Memory",
+      "category": "Memory",
+      "fitness": 0.83,
+      "description": "环境记忆：感知上下文变化并适应",
+      "parameters": {"context_window": 10, "adaptation_rate": 0.1}
+    },
+    {
+      "id": "bio_neuron",
+      "name": "Bio Neuron System",
+      "category": "Bio",
+      "fitness": 0.95,
+      "description": "生物神经元：膜电位/ATP/神经递质/细胞凋亡/神经发生",
+      "parameters": {"membrane_potential": -70.0, "threshold": -55.0, "atp_max": 1000.0}
+    },
+    {
+      "id": "self_reflection",
+      "name": "Self Reflection",
+      "category": "Meta",
+      "fitness": 0.91,
+      "description": "自我反思：L1-L5五级反思机制",
+      "parameters": {"levels": 5, "metacognition_threshold": 0.7}
+    },
+    {
+      "id": "self_modifier",
+      "name": "Self Modifier",
+      "category": "Meta",
+      "fitness": 0.89,
+      "description": "自我修改：L1-L4四级修改能力",
+      "parameters": {"levels": 4, "modification_threshold": 0.6}
+    },
+    {
+      "id": "reasoning_chain",
+      "name": "Reasoning Chain",
+      "category": "Meta",
+      "fitness": 0.87,
+      "description": "多步推理链：自我追问和验证",
+      "parameters": {"max_depth": 10, "confidence_threshold": 0.5}
+    },
+    {
+      "id": "planner",
+      "name": "Goal Planner",
+      "category": "Meta",
+      "fitness": 0.85,
+      "description": "目标分解与规划：拓扑排序执行顺序",
+      "parameters": {"decomposition_depth": 5}
+    },
+    {
+      "id": "persistent_memory",
+      "name": "Persistent Memory",
+      "category": "Memory",
+      "fitness": 0.88,
+      "description": "持久记忆：JSON文件存储与检索",
+      "parameters": {"storage_path": "~/.hermes/memory", "max_entries": 10000}
+    }
+  ],
+  "evolution_stages": {
+    "v1": {"delta_g": 3.0, "genes": ["claw", "rust_rf", "apex_delta"]},
+    "v2": {"delta_g": 3.5, "genes": ["mutation", "crossover", "cooperation", "fusion", "drift", "isolation", "coextinction"]},
+    "v3": {"delta_g": 3.8, "genes": ["synaptic_plasticity", "neural_oscillation", "lateral_inhibition", "neuro_modulation", "pretrain_finetune"]},
+    "v4": {"delta_g": 4.0, "genes": ["hippocampus", "env_memory", "persistent_memory"]},
+    "v5": {"delta_g": 4.2, "genes": ["bio_neuron"]},
+    "v6": {"delta_g": 4.5, "genes": ["self_reflection", "self_modifier", "reasoning_chain", "planner"]}
+  }
+}
