@@ -31,11 +31,17 @@ type APEXState struct {
 
 // EvalDeltaG 计算 APEX ΔG
 func EvalDeltaG(s *APEXState) float64 {
-	numerator := s.Lambda * s.Theta * s.Kappa * s.Xi * s.Psi * s.Phi
-	denominator := s.H * s.T * s.Epsilon
-	if denominator == 0 {
+	// 参数范围校验，防止异常数据
+	if s.H <= 0 || s.T <= 0 || s.Epsilon <= 0 {
 		return 0
 	}
+	// 校验分子参数，防止 NaN/Inf
+	if math.IsNaN(s.Lambda) || math.IsNaN(s.Theta) || math.IsNaN(s.Kappa) ||
+		math.IsNaN(s.Xi) || math.IsNaN(s.Psi) || math.IsNaN(s.Phi) {
+		return 0
+	}
+	numerator := s.Lambda * s.Theta * s.Kappa * s.Xi * s.Psi * s.Phi
+	denominator := s.H * s.T * s.Epsilon
 	return numerator / denominator
 }
 
@@ -143,11 +149,11 @@ func Substitute(in *SubstitutionInput) *SubstitutionOutput {
 	// Ψ = 能力差距修正
 	psi := 1.0 - math.Min(1.0, math.Abs(in.Capability-in.History)/0.5)
 
-	// ξ = 资源调整置信度
-	xi := math.Min(1.0, in.Resource*0.5 + in.History*0.5)
+	// ξ = 资源调整置信度（添加下限裁剪）
+	xi := math.Min(1.0, math.Max(0.0, in.Resource*0.5+in.History*0.5))
 
-	// Φ = 正反馈基于历史表现
-	phi := in.History * 0.8
+	// Φ = 正反馈基于历史表现（添加上下限裁剪）
+	phi := math.Min(1.0, math.Max(0.0, in.History*0.8))
 
 	// 找最大短板
 	bottleneck := ""
@@ -189,6 +195,58 @@ type Gene struct {
 	Uses        int     `json:"uses"`
 }
 
+// RingBuffer 环形缓冲区 - 固定容量，避免内存滞留
+type RingBuffer struct {
+	data   []Gene
+	cap    int
+	head   int
+	count  int
+	mu     sync.Mutex
+}
+
+// NewRingBuffer 创建指定容量的环形缓冲区
+func NewRingBuffer(capacity int) *RingBuffer {
+	return &RingBuffer{
+		data: make([]Gene, capacity),
+		cap:  capacity,
+	}
+}
+
+// Push 添加元素，自动覆盖最旧的
+func (rb *RingBuffer) Push(gene Gene) {
+	rb.mu.Lock()
+	defer rb.mu.Unlock()
+
+	rb.data[rb.head] = gene
+	rb.head = (rb.head + 1) % rb.cap
+	if rb.count < rb.cap {
+		rb.count++
+	}
+}
+
+// GetAll 获取所有元素（按添加顺序）
+func (rb *RingBuffer) GetAll() []Gene {
+	rb.mu.Lock()
+	defer rb.mu.Unlock()
+
+	if rb.count == 0 {
+		return []Gene{}
+	}
+	result := make([]Gene, rb.count)
+	for i := 0; i < rb.count; i++ {
+		idx := (rb.head - rb.count + i + rb.cap) % rb.cap
+		result[i] = rb.data[idx]
+	}
+	return result
+}
+
+// Len 返回当前元素数量
+func (rb *RingBuffer) Len() int {
+	rb.mu.Lock()
+	defer rb.mu.Unlock()
+	return rb.count
+}
+
 // SWRResult SWR 触发结果
 type SWRResult struct {
 	Consolidated bool    `json:"consolidated"`
@@ -200,50 +258,45 @@ type SWRResult struct {
 const SWR_THRESHOLD = 0.7
 
 var swrMutex sync.Mutex
-var swrBuffer []Gene
+var swrBuffer *RingBuffer // 改为环形缓冲区
+
+func init() {
+	swrBuffer = NewRingBuffer(100)
+}
 
 // AddExperience 高 fitness 经验入缓冲
 func AddExperience(gene *Gene) *SWRResult {
-	swrMutex.Lock()
-	defer swrMutex.Unlock()
-
 	result := &SWRResult{Fitness: gene.Fitness}
 
 	if gene.Fitness < SWR_THRESHOLD {
 		// 过滤低 fitness
-		result.BufferSize = len(swrBuffer)
-		result.SkillBankLen = len(swrBuffer)
+		result.BufferSize = swrBuffer.Len()
+		result.SkillBankLen = swrBuffer.Len()
 		return result
 	}
 
-	swrBuffer = append(swrBuffer, *gene)
-	if len(swrBuffer) > 100 {
-		swrBuffer = swrBuffer[1:]
-	}
+	// 使用环形缓冲区，自动覆盖最旧元素
+	swrBuffer.Push(*gene)
 
 	result.Consolidated = true
-	result.BufferSize = len(swrBuffer)
+	result.BufferSize = swrBuffer.Len()
+	result.SkillBankLen = swrBuffer.Len()
 
 	return result
 }
 
 // GetSkillBank 获取当前技能库
 func GetSkillBank() []*Gene {
-	swrMutex.Lock()
-	defer swrMutex.Unlock()
-
-	skills := make([]*Gene, len(swrBuffer))
-	for i := range swrBuffer {
-		skills[i] = &swrBuffer[i]
+	genes := swrBuffer.GetAll()
+	skills := make([]*Gene, len(genes))
+	for i := range genes {
+		skills[i] = &genes[i]
 	}
 	return skills
 }
 
 // LoadSkillBank 从文件加载技能库
 func LoadSkillBank(path string) error {
-	swrMutex.Lock()
-	defer swrMutex.Unlock()
-
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return err
@@ -254,20 +307,28 @@ func LoadSkillBank(path string) error {
 		return err
 	}
 
-	swrBuffer = genes
+	swrMutex.Lock()
+	defer swrMutex.Unlock()
+
+	// 重建环形缓冲区
+	swrBuffer = NewRingBuffer(100)
+	for _, g := range genes {
+		if swrBuffer.Len() >= 100 {
+			break
+		}
+		swrBuffer.Push(g)
+	}
 	return nil
 }
 
 // SaveSkillBank 保存技能库到文件
 func SaveSkillBank(path string) error {
-	swrMutex.Lock()
-	defer swrMutex.Unlock()
-
 	// 确保目录存在
 	dir := filepath.Dir(path)
 	os.MkdirAll(dir, 0755)
 
-	data, err := json.MarshalIndent(swrBuffer, "", "  ")
+	genes := swrBuffer.GetAll()
+	data, err := json.MarshalIndent(genes, "", "  ")
 	if err != nil {
 		return err
 	}
@@ -366,13 +427,13 @@ func main() {
 			if err := LoadSkillBank(path); err != nil {
 				FatalJSON(err)
 			}
-			fmt.Printf("Loaded %d skills\n", len(swrBuffer))
+			fmt.Printf("Loaded %d skills\n", swrBuffer.Len())
 		}
 		if path := getArg(args, "-save", ""); path != "" {
 			if err := SaveSkillBank(path); err != nil {
 				FatalJSON(err)
 			}
-			fmt.Printf("Saved %d skills\n", len(swrBuffer))
+			fmt.Printf("Saved %d skills\n", swrBuffer.Len())
 		}
 
 	default:

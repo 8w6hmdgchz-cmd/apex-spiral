@@ -2,9 +2,10 @@
 # ApexSpiral 高级长期循环调度器
 set -u
 BASE_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
-ITERATE_SCRIPT="$BASE_DIR/apex-iterate.sh"
-LOOP_LOG="$BASE_DIR/apex-iterate-loop.log"
-PID_FILE="$BASE_DIR/apex-iterate-loop.pid"
+WORKSPACE_DIR="/Users/lihongxin/.openclaw/workspace"
+ITERATE_SCRIPT="$WORKSPACE_DIR/apex-iterate.sh"
+LOOP_LOG="$WORKSPACE_DIR/apex-iterate-loop.log"
+PID_FILE="$WORKSPACE_DIR/apex-iterate-loop.pid"
 INTERVAL=900
 
 echo $$ > "$PID_FILE"
