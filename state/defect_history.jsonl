@@ -725,3 +725,5 @@
 {"ts":1779486046,"iter":697,"score":3.525,"summary":"自我感知偏弱、增长相对初始值不明显"}
 {"ts":1779521030,"iter":698,"score":3.075,"summary":"自我感知偏弱"}
 {"ts":1779536662,"iter":699,"score":3.525,"summary":"自我感知偏弱、增长相对初始值不明显"}
+{"ts":1779551256,"iter":700,"score":1.8,"type":"injected_real_task","task":"通过A2A协议从EvoMap Hub获取并落地新基因资源","failure":"Hub连接失败，NodeID未注册"}
+{"ts":1779551256,"iter":700,"score":3.075,"summary":"自我感知偏弱"}
