@@ -290,3 +290,10 @@
 - Added local Go AutoResearch core: question→evidence ledger→hypotheses→critique→verification plan.
 - Verification: go build OK; PHN IFI6 evidence ledger uses local report/script/figure, no virtual science.
 
+
+## Fifth Superpowers gate devour gene — 2026-05-26
+- Verified LiteLLM, Guardrails, Great Expectations HEAD over SSH.
+- Installed Guardrails snapshot: 28d74af02215f3d09e6527238f783c561218d539.
+- Added Go engineering gate: requirements→architecture→tests→implementation→verification→promote/block.
+- Verification: fail case blocks incomplete task; pass case promotes harness bridge with selftest evidence.
+
