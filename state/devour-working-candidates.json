@@ -1,0 +1,26 @@
+[
+  {
+    "name": "All-Hands-AI/OpenHands",
+    "repo": "git@github.com:All-Hands-AI/OpenHands.git",
+    "local_path": "vendor/github/All-Hands-AI/OpenHands",
+    "capability": "agentic code execution, sandboxed developer workflow, Working memory/actions"
+  },
+  {
+    "name": "yoheinakajima/babyagi",
+    "repo": "git@github.com:yoheinakajima/babyagi.git",
+    "local_path": "vendor/github/yoheinakajima/babyagi",
+    "capability": "task queue, objective decomposition, iterative execution memory"
+  },
+  {
+    "name": "significant-gravitas/AutoGPT",
+    "repo": "git@github.com:significant-gravitas/AutoGPT.git",
+    "local_path": "vendor/github/significant-gravitas/AutoGPT",
+    "capability": "autonomous task execution loop, planning and tool usage"
+  },
+  {
+    "name": "Future-House/paper-qa",
+    "repo": "git@github.com:Future-House/paper-qa.git",
+    "local_path": "vendor/github/Future-House/paper-qa",
+    "capability": "evidence ledger, retrieval grounding, research memory"
+  }
+]

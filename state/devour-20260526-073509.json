@@ -1,0 +1,129 @@
+[
+  {
+    "name": "discover",
+    "purpose": "find top open-source references for the user need",
+    "inputs": [
+      "need",
+      "web/GitHub/search evidence"
+    ],
+    "outputs": [
+      "candidate list with source evidence"
+    ],
+    "verify": [
+      "each candidate has repo URL or installed source"
+    ],
+    "no_fake_data": true
+  },
+  {
+    "name": "rank",
+    "purpose": "select high-signal top3",
+    "inputs": [
+      "candidates"
+    ],
+    "outputs": [
+      "top3 ranked list"
+    ],
+    "verify": [
+      "ranking fields are explicit, missing stars are not invented"
+    ],
+    "no_fake_data": true
+  },
+  {
+    "name": "install",
+    "purpose": "install selected repos through SSH/sparse/shallow clone",
+    "inputs": [
+      "top3 repos"
+    ],
+    "outputs": [
+      "vendor or third_party source snapshots"
+    ],
+    "verify": [
+      "commit hash recorded",
+      "local files inspected"
+    ],
+    "no_fake_data": true
+  },
+  {
+    "name": "audit",
+    "purpose": "read architecture/license/security/build surfaces",
+    "inputs": [
+      "installed source"
+    ],
+    "outputs": [
+      "audit ledger"
+    ],
+    "verify": [
+      "no secrets",
+      "license noted",
+      "unsafe operations blocked"
+    ],
+    "no_fake_data": true
+  },
+  {
+    "name": "distill",
+    "purpose": "extract core capability pattern",
+    "inputs": [
+      "audit ledger",
+      "source files"
+    ],
+    "outputs": [
+      "formula",
+      "interfaces",
+      "skill contract"
+    ],
+    "verify": [
+      "source paths cited",
+      "no blind copy"
+    ],
+    "no_fake_data": true
+  },
+  {
+    "name": "reimplement",
+    "purpose": "implement deterministic local core in Rust/C/Go",
+    "inputs": [
+      "distilled design"
+    ],
+    "outputs": [
+      "local binary/skill"
+    ],
+    "verify": [
+      "build passes",
+      "smoke test passes"
+    ],
+    "no_fake_data": true
+  },
+  {
+    "name": "integrate",
+    "purpose": "connect to OpenClaw/APEX harness/fusion engine",
+    "inputs": [
+      "binary",
+      "SKILL.md",
+      "harness"
+    ],
+    "outputs": [
+      "callable skill"
+    ],
+    "verify": [
+      "CLI invocation",
+      "skill docs",
+      "benchmark entry"
+    ],
+    "no_fake_data": true
+  },
+  {
+    "name": "archive",
+    "purpose": "write evomap gene and failure/metric records",
+    "inputs": [
+      "verification"
+    ],
+    "outputs": [
+      "EVOLUTION_MAP",
+      "metrics",
+      "memory"
+    ],
+    "verify": [
+      "git diff shows records"
+    ],
+    "no_fake_data": true
+  }
+]

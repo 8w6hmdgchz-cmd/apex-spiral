@@ -1,0 +1,14 @@
+[
+  {
+    "repo": "git@github.com:All-Hands-AI/OpenHands.git",
+    "local_path": "vendor/github/All-Hands-AI/OpenHands"
+  },
+  {
+    "repo": "git@github.com:Future-House/paper-qa.git",
+    "local_path": "vendor/github/Future-House/paper-qa"
+  },
+  {
+    "repo": "git@github.com:significant-gravitas/AutoGPT.git",
+    "local_path": "vendor/github/significant-gravitas/AutoGPT"
+  }
+]

@@ -1,8 +1,8 @@
 {
-  "learn_rate": 0.82,
+  "learn_rate": 0.84,
   "decay_factor": 0.97,
   "max_entries": 10000,
-  "retention_threshold": 0.48,
+  "retention_threshold": 0.46,
   "memory_entries": [
     {
       "id": "episodic_git_c70d103b97e3",
@@ -281,6 +281,51 @@
       ]
     },
     {
+      "id": "working_devour_4419e31295dd",
+      "content": "[Working] devour rank target All-Hands-AI/OpenHands: selected for code-execution/refactor memory; repo=git@github.com:All-Hands-AI/OpenHands.git; local=vendor/github/All-Hands-AI/OpenHands; inspected_files=0; purpose=补足Σ_memory Working重构执行记忆并增强Evol_code执行闭环",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779752158,
+      "importance": 0.82,
+      "memory_type": "Working",
+      "access_count": 18,
+      "source": "state/devour-working-rank-20260526-073523.json",
+      "files": []
+    },
+    {
+      "id": "working_devour_7f2069db6485",
+      "content": "[Working] devour rank target Future-House/paper-qa: selected for code-execution/refactor memory; repo=git@github.com:Future-House/paper-qa.git; local=vendor/github/Future-House/paper-qa; inspected_files=0; purpose=补足Σ_memory Working重构执行记忆并增强Evol_code执行闭环",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779752147,
+      "importance": 0.82,
+      "memory_type": "Working",
+      "access_count": 18,
+      "source": "state/devour-working-rank-20260526-073523.json",
+      "files": []
+    },
+    {
+      "id": "working_devour_f43e513fb12d",
+      "content": "[Working] devour rank target significant-gravitas/AutoGPT: selected for code-execution/refactor memory; repo=git@github.com:significant-gravitas/AutoGPT.git; local=vendor/github/significant-gravitas/AutoGPT; inspected_files=0; purpose=补足Σ_memory Working重构执行记忆并增强Evol_code执行闭环",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779752136,
+      "importance": 0.82,
+      "memory_type": "Working",
+      "access_count": 18,
+      "source": "state/devour-working-rank-20260526-073523.json",
+      "files": []
+    },
+    {
       "id": "episodic_git_e0ceebffe0ff",
       "content": "[Episodic] git repair commit e0ceebff: fix: apex-iterate.sh - 修复3类bug (+121/-9, 2 files)",
       "embedding": [
@@ -368,6 +413,20 @@
       "files": [
         "repair_chain_verifier.py"
       ]
+    },
+    {
+      "id": "working_devour_stage_stage",
+      "content": "[Working] devour pipeline stage stage: None | verify=None",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779752058,
+      "importance": 0.68,
+      "memory_type": "Working",
+      "access_count": 12,
+      "source": "state/devour-working-rank-20260526-073523.json"
     },
     {
       "id": "episodic_git_be1eddfd3f62",
