@@ -1097,3 +1097,66 @@ To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
 [2026-05-26 00:08:43] gist backup complete
 [2026-05-26 00:08:43] ✅ 回流完成
 [2026-05-26 00:08:43] =========================================
+[2026-05-26 00:12:00] 🔄 Auto Reflux midnight — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit ✅, git commit+rebase+push至dbee2a3 ✅ (vendor devour snapshot), gist backup pushed ✅
+[2026-05-26 00:17:43] =========================================
+[2026-05-26 00:17:43] 🔄 自动回流管道启动
+[2026-05-26 00:17:43] [1/5] PHI_RATIO追踪...
+[2026-05-26 00:17:43] 📊 PHI_RATIO追踪...
+[2026-05-26 00:17:43]   PHI_equiv=80.0%
+[2026-05-26 00:17:43]   瓶颈=Evol_code
+[2026-05-26 00:17:43] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-26 00:18:13]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+[2026-05-26 00:18:18] [3/5] EvoMap同步...
+  "latest": "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json",
+  "external_sync_allowed": false
+}
+[2026-05-26 00:18:18] [4/5] Git提交...
+[2026-05-26 00:18:18]   ✅ 无变更，跳过提交
+[2026-05-26 00:18:18] [5/5] Gist备份...
+[2026-05-26 00:18:18] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Already up to date.
+[main 25ec797] xuanji ssh gist backup 2026-05-26 00:18:27
+ 7 files changed, 31 insertions(+), 13 deletions(-)
+[2026-05-26 00:18:27] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   93eb58f..25ec797  main -> main
+[2026-05-26 00:18:33] gist backup complete
+[2026-05-26 00:18:33] ✅ 回流完成
+[2026-05-26 00:18:33] =========================================
+[2026-05-26 00:18:57] =========================================
+[2026-05-26 00:18:57] 🔄 自动回流管道启动
+[2026-05-26 00:18:57] [1/5] PHI_RATIO追踪...
+[2026-05-26 00:18:57] 📊 PHI_RATIO追踪...
+[2026-05-26 00:18:57]   PHI_equiv=80.0%
+[2026-05-26 00:18:57]   瓶颈=Evol_code
+[2026-05-26 00:18:57] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-26 00:19:27]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+[2026-05-26 00:19:31] [3/5] EvoMap同步...
+  "latest": "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json",
+  "external_sync_allowed": false
+}
+[2026-05-26 00:19:32] [4/5] Git提交...
+[2026-05-26 00:19:32]   ✅ 无变更，跳过提交
+[2026-05-26 00:19:32] [5/5] Gist备份...
+[2026-05-26 00:19:32] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Already up to date.
+[main d3c887d] xuanji ssh gist backup 2026-05-26 00:19:39
+ 5 files changed, 20 insertions(+), 9 deletions(-)
+[2026-05-26 00:19:39] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   25ec797..d3c887d  main -> main
+[2026-05-26 00:19:44] gist backup complete
+[2026-05-26 00:19:44] ✅ 回流完成
+[2026-05-26 00:19:44] =========================================
