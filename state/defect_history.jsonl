@@ -759,3 +759,4 @@
 {"ts":1779735085,"iter":830,"score":2.3,"type":"injected_real_task","task":"phi增长率突破1%阈值实现真实能力增长","failure":"增长依赖修复成功率，修复本身无真实任务验证"}
 {"ts":1779736862,"iter":835,"score":2.1,"type":"injected_real_task","task":"执行自反射检查并修正所有已知缺陷","failure":"自我修正能力不足，部分缺陷无法自动修复"}
 {"ts":1779738721,"iter":840,"score":2.3,"type":"injected_real_task","task":"phi增长率突破1%阈值实现真实能力增长","failure":"增长依赖修复成功率，修复本身无真实任务验证"}
+{"ts":1779740163,"iter":845,"score":1.8,"type":"injected_real_task","task":"通过A2A协议从EvoMap Hub获取并落地新基因资源","failure":"Hub连接失败，NodeID未注册"}
