@@ -250,7 +250,44 @@ toolbox.register("select", selTournament)
 | 多代理转交 | Swarm | P2 | 待实施 |
 | 角色定义 | Swarm | P2 | 待实施 |
 
+## V7 新基因 (2026-05-25 璇玑重构)
+
+| 基因 | 来源 | 实现 | 状态 |
+|------|------|------|:----:|
+| **apex_delta_e** | 自研Rust | αΨ+βΩ+λΦ+∇Θ+Evol_code引擎 | ✅ 已部署 |
+| **quantum_router** | 自研Go | APEX ΔE评分+模型分类+轨迹生成 | ✅ 已部署 |
+| **scavenger_phi** | GitHub吸收 | SSH直连猎食+论文检索+质量过滤 | ✅ 已部署 |
+| **strata_swarm** | 自研Go | 策略生成→5Agent并行→GRPO→MemLLM→验算 | ✅ 已部署 |
+| **book_to_skill** | 自研Go | DoclingParse→SkillStruct→LazyLoad→MemLLM | ✅ 已部署 |
+| **phi_biomarker** | statsmodels | PHN IFI6分析+WLS+GLM+CoxPH+森林图 | ✅ 已发布 |
+
+### V7核心公式
+
+**APEX ΔE**: `APEX_{ΔE} = αΨ + βΩ + λΦ + ∇Θ + Evol_code`
+
+**StraTA**: `ApexStraTA = π(z|s₁) ⊗ π(aₜ|z,sₜ) ⊗ GRPO(z,aₜ) ⊗ MemLLM`
+
+**BookSkill**: `ApexBookSkill = DoclingParse ⊗ SkillStruct ⊗ LazyLoad ⊗ MemLLM ⊗ ParallelAgent`
+
+### V7工程基底
+
+| 文件 | 内容 |
+|------|------|
+| `memory/operational_knowledge.md` | 操作知识库 (GitHub SSH/QQBot文件/子代理准则) |
+| `memory/action_registry.md` | 5个预封装动作 |
+| `memory/failure_cases.jsonl` | 5条失败样本 (根因+修复+验证) |
+| `bench/openclaw_agent_tasks/tasks.yaml` | 10个固定评测任务 |
+| `memory/metrics/task_runs.jsonl` | 硬指标日志 |
+
+### V7吸收的GitHub基因
+
+- **statsmodels/statsmodels** → GLM/WLS/PHReg/CoxPH (科研统计链) ✅
+- **facebookresearch/esm** → ESMfold蛋白质模型 (79个Python文件) ✅
+- **microsoft/autogen** → 多Agent协作范式 ✅
+- **scverse/scanpy** → 单细胞分析 (参考) ✅
+- **google-deepmind/alphafold** → 蛋白质结构 (参考) ✅
+
 ---
 
-*提取时间: 2026-05-19 16:50*
-*来源: GitHub顶级开源项目*
+*提取时间: 2026-05-25 10:45*
+*来源: GitHub顶级开源项目 + 自研Rust/Go引擎*

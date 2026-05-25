@@ -211,4 +211,56 @@
      - 运动输出
 
 ═══════════════════════════════════════════════════════════════════════════════
+
+[V7 工程蜂群] ─── 2026-05-25 璇玑重构 ──────────────────────────────────────────
+
+     ┌─────────────────────────────────────────────────────────────────────┐
+     │                         V7 工程蜂群基因                             │
+     │                                                                     │
+     │  APEX ΔE = αΨ + βΩ + λΦ + ∇Θ + Evol_code                          │
+     │  ApexStraTA = π(z|s₁) ⊗ π(aₜ|z,sₜ) ⊗ GRPO(z,aₜ) ⊗ MemLLM          │
+     │  ApexBookSkill = DoclingParse ⊗ SkillStruct ⊗ LazyLoad ⊗ MemLLM ⊗  │
+     │                  ParallelAgent                                      │
+     │                                                                     │
+     │  引擎: apexe (Rust ΔE) / apex-router (Go路由) / scavenge (Rust猎食) │
+     │  蜂群: apex-strata (Go多Agent) /  apex-book-skill (Go书→技能)      │
+     │  工程: 5P0文件 (operational_knowledge / action_registry /           │
+     │         failure_cases / benchmark / metrics)                        │
+     └─────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+  V7 工程蜂群 (6): apex_delta_e, quantum_router,          [fitness 0.70-0.85]
+                    scavenger_phi, strata_swarm,
+                    book_to_skill, phi_biomarker
+
+  基因详情:
+  ───────────────────────────────────────────────────────────────────────────
+  apex_delta_e     : αΨ+βΩ+λΦ+∇Θ+Evol_code Rust引擎, 自适应进化周期
+  quantum_router   : Go量子路由, APEX ΔE评分, 模型分类, 轨迹生成
+  scavenger_phi    : Rust GitHub猎食器, 论文检索, SSH直连, 知识吸收
+  strata_swarm     : Go蜂群系统, 策略生成→5Agent并行→GRPO→MemLLM→验算
+  book_to_skill    : Go书籍编译, DoclingParse→SkillStruct→LazyLoad→MemLLM
+  phi_biomarker    : PHN IFI6生物标志物, statsmodels WLS/CoxPH/GLM分析
+
+  工程基底:
+  ───────────────────────────────────────────────────────────────────────────
+  operational_knowledge.md : 操作知识库 (~2.5KB, 3条runbook)
+  action_registry.md       : 动作注册表 (~2KB, 5个动作)
+  failure_cases.jsonl      : 失败样本库 (5条, 根因+修复+验证)
+  bench/tasks.yaml         : 固定评测 (10任务, 6个P0)
+  metrics/task_runs.jsonl  : 硬指标日志 (3条, pass/fail)
+
+  技能库:
+  ───────────────────────────────────────────────────────────────────────────
+  skills/apex-strata/         : 蜂群Agent skill
+  skills/apex-book-skill/     : 书→技能 skill
+  memory/research_toolkit.md  : 科研技能库 (statsmodels/ESM/scanpy吸收)
+
+  来源:
+  - github.com/statsmodels/statsmodels (GLM/WLS/CoxPH吸收)
+  - github.com/facebookresearch/esm (蛋白质模型吸收)
+  - github.com/google-deepmind/alphafold
+  - APEX ΔE 自研Rust/Go引擎
+
+═══════════════════════════════════════════════════════════════════════════════
 ```
