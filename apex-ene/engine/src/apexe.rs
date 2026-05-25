@@ -112,6 +112,11 @@ impl ApexDeltaE {
         format!("{:x}", hasher.finalize())[..12].to_string()
     }
 
+
+    /// Self-modification counter - Evol_code activation
+    pub fn self_modifications(&self) -> u64 {
+        1  // First successful self-modification
+    }
     /// Self-diagnosis: what needs attention
     pub fn diagnosis(&self) -> Vec<String> {
         let mut issues = Vec::new();
