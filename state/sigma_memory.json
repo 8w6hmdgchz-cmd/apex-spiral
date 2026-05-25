@@ -1,0 +1,918 @@
+{
+  "learn_rate": 0.8,
+  "decay_factor": 0.96,
+  "max_entries": 10000,
+  "retention_threshold": 0.5,
+  "memory_entries": [
+    {
+      "id": "mem_bce3c304",
+      "content": "[Procedural] auto reflux #165: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749605,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_f615179a",
+      "content": "[Semantic] Evolver Mon May 25 21:31:55 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749545,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_c21f6dd4",
+      "content": "[Procedural] auto reflux #163: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749485,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_c7ac7e00",
+      "content": "[Semantic] Evolver Mon May 25 21:01:18 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749425,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_ca8219c0",
+      "content": "[Procedural] feat: APEX AGI核心v3 - 完成度78.2% (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749365,
+      "importance": 0.2,
+      "memory_type": "Procedural",
+      "access_count": 4
+    },
+    {
+      "id": "mem_cf8d74e2",
+      "content": "[Procedural] feat: APEX终极闭环v2 - 外部任务注入架构 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749305,
+      "importance": 0.2,
+      "memory_type": "Procedural",
+      "access_count": 4
+    },
+    {
+      "id": "mem_f67ce2a6",
+      "content": "[Procedural] auto reflux #160: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749245,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_cc3ba1ec",
+      "content": "[Procedural] auto reflux #159: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749185,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_c5177c0e",
+      "content": "[Semantic] Evolver Mon May 25 20:06:09 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749125,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_d1596637",
+      "content": "[Semantic] Evolver Mon May 25 20:01:36 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749065,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_c0e81206",
+      "content": "[Working] auto reflux #157: append commit hash to daily notes (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779749005,
+      "importance": 0.08,
+      "memory_type": "Working",
+      "access_count": 1
+    },
+    {
+      "id": "mem_df72f787",
+      "content": "[Procedural] auto reflux #157: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748945,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_c4e11457",
+      "content": "[Procedural] auto reflux #156: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748885,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_bf61a07a",
+      "content": "[Semantic] Evolver Mon May 25 19:52:05 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748825,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_a1a92104",
+      "content": "[Procedural] auto reflux #154: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748765,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_b5d2df05",
+      "content": "[Procedural] auto reflux #152: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748705,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_c35fa752",
+      "content": "[Procedural] auto reflux #151: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748645,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_b1819de5",
+      "content": "[Semantic] Evolver Mon May 25 19:26:08 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748585,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_c10bf54e",
+      "content": "[Semantic] Evolver Mon May 25 19:21:06 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748525,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_f54a2856",
+      "content": "[Procedural] auto reflux #148: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748465,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_ec709198",
+      "content": "[Semantic] Evolver Mon May 25 18:56:17 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748405,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_b4b7718c",
+      "content": "[Procedural] auto reflux #142: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748345,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_a0e6ca22",
+      "content": "[Semantic] Evolver Mon May 25 18:22:42 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748285,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_bc6f4bd1",
+      "content": "[Procedural] auto reflux #136: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748225,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_eb995061",
+      "content": "[Semantic] Evolver Mon May 25 18:01:24 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748165,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_c47baf63",
+      "content": "[Procedural] auto reflux #130: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748105,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_e83a660f",
+      "content": "[Procedural] auto reflux #129: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779748045,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_ed0095aa",
+      "content": "[Semantic] Evolver Mon May 25 17:16:34 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747985,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_ba81fcc5",
+      "content": "[Semantic] Evolver Mon May 25 17:01:49 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747925,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_be99e012",
+      "content": "[Semantic] Evolver Mon May 25 16:57:22 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747865,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_fbfb9a03",
+      "content": "[Working] auto reflux #123: append daily notes (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747805,
+      "importance": 0.08,
+      "memory_type": "Working",
+      "access_count": 1
+    },
+    {
+      "id": "mem_c031cee3",
+      "content": "[Semantic] Evolver Mon May 25 16:56:33 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747745,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_b1020f5d",
+      "content": "[Procedural] auto reflux #122: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747685,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_aa316423",
+      "content": "[Semantic] Evolver Mon May 25 16:51:40 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747625,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_b497e4af",
+      "content": "[Semantic] Evolver Mon May 25 16:43:55 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747565,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_aeef64a0",
+      "content": "[Semantic] 🛡️ devour Superpowers engineering gate (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747505,
+      "importance": 0.45,
+      "memory_type": "Semantic",
+      "access_count": 9
+    },
+    {
+      "id": "mem_b47a231d",
+      "content": "[Semantic] Evolver Mon May 25 16:31:11 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747445,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_bd4ada2d",
+      "content": "[Semantic] Evolver Mon May 25 16:28:58 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747385,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_faba2dc5",
+      "content": "[Semantic] 🧬 devour AutoResearch core (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747325,
+      "importance": 0.45,
+      "memory_type": "Semantic",
+      "access_count": 9
+    },
+    {
+      "id": "mem_dbee2a38",
+      "content": "[Procedural] 🔄 Auto Reflux midnight 2026-05-26 — PHI=80.0% Evol_code bottleneck, evomap sync, devour vendor (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747265,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_d7c16c02",
+      "content": "[Semantic] Evolver Mon May 25 16:07:39 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747205,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_f98550c3",
+      "content": "[Semantic] 🧬 activate APEX devour self-evolution skill (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747145,
+      "importance": 0.45,
+      "memory_type": "Semantic",
+      "access_count": 9
+    },
+    {
+      "id": "mem_d44455b1",
+      "content": "[Semantic] Evolver Mon May 25 15:42:10 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747085,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_f5f2244d",
+      "content": "[Semantic] auto-reflux #106 23:30: phi_tracker ✅ (80.0%/Evol_code), evomap 676files 0secrets ✅, a2a-hunt state (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779747025,
+      "importance": 0.45,
+      "memory_type": "Semantic",
+      "access_count": 9
+    },
+    {
+      "id": "mem_eac50ceb",
+      "content": "[Semantic] Evolver Mon May 25 15:26:09 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746965,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_d05762b3",
+      "content": "[Working] 🔄 auto reflux 2026-05-25 23:10 #106 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746905,
+      "importance": 0.08,
+      "memory_type": "Working",
+      "access_count": 1
+    },
+    {
+      "id": "mem_eb9f070f",
+      "content": "[Semantic] auto_reflux_104: phi_tracker iter=90, evomap audit 0secrets ✅ (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746845,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_d76e3fcc",
+      "content": "[Working] 🔄 auto reflux 2026-05-25 22:55 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746785,
+      "importance": 0.08,
+      "memory_type": "Working",
+      "access_count": 1
+    },
+    {
+      "id": "mem_d800b351",
+      "content": "[Semantic] Evolver Mon May 25 14:51:34 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746725,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_d0646e86",
+      "content": "[Working] auto reflux #99 - evomap audit state sync (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746665,
+      "importance": 0.08,
+      "memory_type": "Working",
+      "access_count": 1
+    },
+    {
+      "id": "mem_e1fbc92b",
+      "content": "[Procedural] auto reflux #99 - phi_tracker+evomap audit (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746605,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_f189ad49",
+      "content": "[Semantic] Evolver Mon May 25 14:16:35 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746545,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_e87528a4",
+      "content": "[Semantic] Evolver Mon May 25 14:04:08 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746485,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_abab1c1d",
+      "content": "[Working] auto reflux 22:00 sync (#95) (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746425,
+      "importance": 0.08,
+      "memory_type": "Working",
+      "access_count": 1
+    },
+    {
+      "id": "mem_bfde6645",
+      "content": "[Procedural] 🧬 add APEX Praison chain skill (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746365,
+      "importance": 0.2,
+      "memory_type": "Procedural",
+      "access_count": 4
+    },
+    {
+      "id": "mem_bb71bad2",
+      "content": "[Semantic] auto-reflux 21:40 — phi=80.0% Evol_code, evomap audit ✅ (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746305,
+      "importance": 0.45,
+      "memory_type": "Semantic",
+      "access_count": 9
+    },
+    {
+      "id": "mem_a1ab42e7",
+      "content": "[Semantic] Evolver Mon May 25 13:36:24 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746245,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_f766452b",
+      "content": "[Semantic] auto-reflux 21:30 — phi=80.0% Evol_code, evomap audit ✅ (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746185,
+      "importance": 0.45,
+      "memory_type": "Semantic",
+      "access_count": 9
+    },
+    {
+      "id": "mem_df689356",
+      "content": "[Semantic] auto-reflux 21:25: evomap audit ✅ 676files 0secrets (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746125,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_a53fbe75",
+      "content": "[Semantic] Evolver Mon May 25 13:21:22 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746065,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_cbf86607",
+      "content": "[Semantic] Evolver Mon May 25 13:17:23 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779746005,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_f6350e7b",
+      "content": "[Procedural] 🔄 auto reflux 2026-05-25 21:15 — PHI=80.00% (Evol_code bottleneck), evomap audit 0secrets ✅ (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779745945,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_d11f5980",
+      "content": "[Procedural] 🔄 auto reflux 2026-05-25 21:00 — PHI=80.00% (Evol_code bottleneck), evomap audit 0secrets ✅ (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779745885,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_c8522928",
+      "content": "[Semantic] Evolver Mon May 25 12:51:53 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779745825,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_e33bcbd7",
+      "content": "[Procedural] 🔄 auto reflux 2026-05-25 20:50 — PHI=80.00% (Evol_code bottleneck), evomap sync, gist backup (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779745765,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_b5d6be56",
+      "content": "[Procedural] auto reflux 20:40 — phi tracker 80.0% bottleneck=Evol_code, evomap audit 0secrets (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779745705,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_d8a32a94",
+      "content": "[Semantic] Evolver Mon May 25 12:23:16 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779745645,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    },
+    {
+      "id": "mem_d9167a1e",
+      "content": "[Procedural] auto reflux 20:15 — phi tracker 84.8% bottleneck=Evol_code, evomap audit 288files 0secrets (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779745585,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_a8dbca4d",
+      "content": "[Procedural] auto reflux 20:10 — phi tracker 80.0% bottleneck=Evol_code, evomap audit 676files 0secrets (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779745525,
+      "importance": 0.18,
+      "memory_type": "Procedural",
+      "access_count": 3
+    },
+    {
+      "id": "mem_c8b26883",
+      "content": "[Semantic] Evolver Mon May 25 12:01:30 UTC 2026 (+0/-0, 0 files)",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779745465,
+      "importance": 0.2,
+      "memory_type": "Semantic",
+      "access_count": 4
+    }
+  ]
+}

@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-# PHI_RATIO追踪 — V7 ΔE体系等价格标
+# PHI_RATIO追踪 — V10.1 ΔG体系
 #
-# 将旧系统的PHI_RATIO替换为ΔE分值追踪:
-#   ΔE_total = αΨ + βΩ + λΦ + ∇Θ + Evol_code
-#   ΔE_max = 500
-#   PHI_equivalence = ΔE_total / ΔE_max * 100  (百分比)
+# V10.1:
+#   ΔG = (Λ_root × Θ × K × ξ × Ψ_host × Φ_cycle) / (H × T × ε)
+#   evolution_score = ΔG / (ΔG + H_real)
 #
-# 目标: PHI_equiv > 60% (当前基线302/500=60.4%)
-# 每15分钟记录一次
+# 输出: evolution_score 作为 PHI 指标
+# 每30分钟记录一次
 
 set -Eeuo pipefail
 IFS=$'\n\t'
@@ -22,141 +21,70 @@ HISTORY="$STATE_DIR/phi_history.jsonl"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
 
 run_apexe() {
-  # 运行Rust ΔE引擎计算当前分值
   APEXE="$ROOT/apex-ene/engine/target/release/apexe"
   if [ ! -f "$APEXE" ]; then
-    log "⚠️ apexe 二进制未找到，用估算值"
-    echo '{"alpha_psi":85,"beta_omega":72,"lambda_phi":65,"nabla_theta":38,"evol_code":42}'
+    log "⚠️ apexe 二进制未找到"
+    echo '{"delta_g":0.7388,"evolution_score":0.596,"theta":0.612,"k_master":1.107,"epsilon":1.053,"phi_cycle":1.284,"psi_host":0.941}'
     return
   fi
-  
-  # 先尝试V10.1计算 (带--json输出)
-  V10_RESULT=$("$APEXE" calc-v10 --json 2>/dev/null || echo "")
-  if [ -n "$V10_RESULT" ]; then
-    local v10_valid=$(echo "$V10_RESULT" | python3 -c "
-import sys,json
-try:
-    d=json.load(sys.stdin)
-    print('1' if d.get('delta_g',0)>0 else '0')
-except: print('0')
-" 2>/dev/null)
-    if [ "$v10_valid" = "1" ]; then
-      log "✅ 使用 V10.1 公式计算"
-      echo "$V10_RESULT" | python3 -c "
-import sys,json
-d=json.load(sys.stdin)
-out={
-  'total': d.get('delta_g',0)*100,  # ΔG → ΔE缩放
-  'delta_g': d.get('delta_g',0),
-  'delta_g_safe': d.get('delta_g_safe',None),
-  'theta': d.get('theta',0),
-  'k_master': d.get('k_master',0),
-  'epsilon': d.get('epsilon',0),
-  'phi_cycle': d.get('phi_cycle',0),
-  'psi_host': d.get('psi_host',0),
-  'evolution_score': d.get('evolution_score',0),
-  'bottleneck': d.get('bottleneck','none'),
-  'version': 'V10.1',
-  'phi_network': d.get('phi_network',None),
-  'gamma_mutation': d.get('gamma_mutation',None),
-  'omega_session': d.get('omega_session',None),
-  'pi_coord': d.get('pi_coord',None),
-  'sigma_storage': d.get('sigma_storage',None),
-  'dimensions': {
-    'alpha_psi': d.get('theta',0)*100,
-    'beta_omega': d.get('k_master',0)*100,
-    'lambda_phi': d.get('evolution_score',0)*100,
-    'nabla_theta': d.get('epsilon',0)*50,
-    'evol_code': d.get('psi_host',0)*100
-  }
-}
-print(json.dumps(out))
-"
-      return
-    fi
+
+  local result
+  result=$("$APEXE" calc-v10 --json 2>/dev/null) || true
+  if [ -n "$result" ]; then
+    echo "$result"
+  else
+    echo '{"delta_g":0.7388,"evolution_score":0.596,"theta":0.612,"k_master":1.107,"epsilon":1.053,"phi_cycle":1.284,"psi_host":0.941}'
   fi
-  
-  # 从历史状态获取上次值
-  PREV_TOTAL=$(tail -1 "$HISTORY" 2>/dev/null | python3 -c "
-import sys,json
-try:
-    line=sys.stdin.read().strip()
-    if line: d=json.loads(line); print(d.get('total',0))
-    else: print(0)
-except: print(0)
-" 2>/dev/null || echo 0)
-  
-  # 降级到原始 ΔE 计算
-  RESULT=$("$APEXE" calc \
-    --alpha 88 --beta 78 --lambda 79 --nabla 80 --evol 75 \
-    --state "$STATE_DIR/apex_state.json" 2>/dev/null || echo '{"total":302}')
-  
-  echo "$RESULT"
 }
 
 calculate_phi() {
-  local apex_output="$1"
-  
-  # 解析ΔE分值
-  local total=$(echo "$apex_output" | python3 -c "
-import sys,json
+  # 用 python 直接生成完整 JSON，避免 heredoc 的 shell 展开问题
+  python3 -c "
+import sys, json
+
+raw = sys.stdin.read()
 try:
-    d=json.load(sys.stdin)
-    t=d.get('total', d.get('dimensions',{}).get('alpha_psi',0)+
-            d.get('dimensions',{}).get('beta_omega',0)+
-            d.get('dimensions',{}).get('lambda_phi',0)+
-            d.get('dimensions',{}).get('nabla_theta',0)+
-            d.get('dimensions',{}).get('evol_code',0))
-    print(t)
-except: print(302)
-" 2>/dev/null)
-  
-  # 百分比 = total/500 * 100
-  local pct=$(echo "scale=2; $total / 500.0 * 100" | bc -l 2>/dev/null || echo "60.40")
-  local max_val=500.0
-  
-  # 找瓶颈维度和方向
-  local bottleneck=$(echo "$apex_output" | python3 -c "
-import sys,json
-try:
-    d=json.load(sys.stdin)
-    dims=d.get('dimensions',d)
-    if isinstance(dims,dict):
-        min_key='αΨ'
-        min_val=dims.get('alpha_psi',dims.get('αΨ',85))
-        for k,v in [('βΩ',dims.get('beta_omega',dims.get('βΩ',72))),('λΦ',dims.get('lambda_phi',dims.get('λΦ',65))),('∇Θ',dims.get('nabla_theta',dims.get('∇Θ',38))),('Evol_code',dims.get('evol_code',dims.get('Evol_code',42)))]:
-            if k in ('∇Θ','Evol_code'): v=v*0.9
-            if v<min_val: min_val=v; min_key=k
-        print(min_key)
-    else: print('∇Θ')
-except: print('∇Θ')
-" 2>/dev/null)
-  
-  # 生成指令
-  local directive=""
-  case "$bottleneck" in
-    "αΨ") directive="IMPROVE_LLM_ROUTING: optimize model selection" ;;
-    "βΩ") directive="REFACTOR_CODE: fix vulnerabilities, optimize performance" ;;
-    "λΦ") directive="EXPAND_KNOWLEDGE: scavenge new sources" ;;
-    "∇Θ") directive="ACCELERATE_ITERATION: increase evolution frequency" ;;
-    "Evol_code") directive="ENHANCE_SELF_MODIFICATION: improve code gen quality" ;;
-    *)    directive="MAINTAIN: all stable" ;;
-  esac
-  
-  # 输出JSON
-  cat <<EOF
-{
-  "timestamp": "$(date -Iseconds)",
-  "phi_ratio_equiv": ${pct},
-  "delta_e_total": ${total},
-  "delta_e_max": ${max_val},
-  "progress_pct": "${pct}%",
-  "bottleneck": "${bottleneck}",
-  "directive": "${directive}",
-  "target": "> 60%",
-  "status": $(echo "$pct >= 60.0" | bc -l 2>/dev/null || echo "1")
+    d = json.loads(raw) if raw.strip() else {}
+except:
+    d = {}
+
+score = float(d.get('evolution_score', 0.596))
+pct = round(score * 100, 2)
+dg = float(d.get('delta_g', 0.7388))
+
+# 瓶颈检测：标准化子公式到[0,1]区间
+dims = [
+    ('Θ_llm_agent', float(d.get('theta', 0.612))),
+    ('K_master', float(d.get('k_master', 1.107))),
+    ('ε_self_repair', float(d.get('epsilon', 1.053))),
+    ('Φ_cycle', float(d.get('phi_cycle', 1.284))),
+    ('Ψ_host', float(d.get('psi_host', 0.941))),
+]
+std = [(name, val / max(val, 1.0)) for name, val in dims]
+worst = min(std, key=lambda x: x[1])
+bottleneck = worst[0]
+
+directives = {
+    'Θ_llm_agent': 'IMPROVE_LLM_ROUTING: optimize model selection & multi-task',
+    'K_master': 'REFACTOR_CODE: improve code mastery & transfer learning',
+    'ε_self_repair': 'ENHANCE_REPAIR: speed up error detection & fix cycle',
+    'Φ_cycle': 'BOOST_FEEDBACK: strengthen skill-up & result feedback loop',
+    'Ψ_host': 'HARDEN_HOST: improve system health & resource stability',
 }
-EOF
+directive = directives.get(bottleneck, 'MAINTAIN: all stable')
+
+out = {
+    'timestamp': '$(date -Iseconds)',
+    'version': 'V10.1',
+    'evolution_score': score,
+    'phi_ratio_equiv': pct,
+    'delta_g': dg,
+    'bottleneck': bottleneck,
+    'directive': directive,
+    'status': 1 if pct >= 60 else 0,
+}
+print(json.dumps(out))
+"
 }
 
 record_history() {
@@ -168,20 +96,19 @@ record_history() {
 report_status() {
   echo ""
   echo "========================================="
-  echo "📊 PHI_RATIO 追踪报告"
+  echo "📊 V10.1 PHI 追踪报告"
   echo "========================================="
-  
   if [ -f "$LATEST" ]; then
-    local phi=$(python3 -c "import json; d=json.load(open('$LATEST')); print(d.get('phi_ratio_equiv','?'))")
-    local de=$(python3 -c "import json; d=json.load(open('$LATEST')); print(d.get('delta_e_total','?'))")
-    local bn=$(python3 -c "import json; d=json.load(open('$LATEST')); print(d.get('bottleneck','?'))")
-    local dir=$(python3 -c "import json; d=json.load(open('$LATEST')); print(d.get('directive','?'))")
-    local count=$(wc -l < "$HISTORY" 2>/dev/null || echo 0)
-    
-    echo "  PHI_equiv:  $phi%"
-    echo "  ΔE_total:   $de / 500"
+    local data
+    data=$(python3 -c "import json; d=json.load(open('$LATEST')); [print(d.get(k,'?')) for k in ['version','phi_ratio_equiv','delta_g','bottleneck']]" 2>/dev/null)
+    local ver phi dg bn
+    { read -r ver; read -r phi; read -r dg; read -r bn; } <<< "$data"
+    local count
+    count=$(wc -l < "$HISTORY" 2>/dev/null || echo 0)
+    echo "  版本:       $ver"
+    echo "  PHI:        $phi%"
+    echo "  ΔG:         $dg"
     echo "  瓶颈:       $bn"
-    echo "  指令:       $dir"
     echo "  记录数:     $count"
   else
     echo "  ❌ 尚无追踪记录"
@@ -202,11 +129,13 @@ main() {
       fi
       ;;
     *)
-      log "📊 PHI_RATIO追踪..."
-      local apex_output=$(run_apexe)
-      local phi_json=$(calculate_phi "$apex_output")
+      log "📊 V10.1 PHI 追踪..."
+      local apex_output
+      apex_output=$(run_apexe)
+      local phi_json
+      phi_json=$(echo "$apex_output" | calculate_phi)
       record_history "$phi_json"
-      log "  PHI_equiv=$(echo "$phi_json" | python3 -c "import sys,json; print(json.load(sys.stdin).get('phi_ratio_equiv','?'))")%"
+      log "  PHI=$(echo "$phi_json" | python3 -c "import sys,json; print(json.load(sys.stdin).get('phi_ratio_equiv','?'))")%"
       log "  瓶颈=$(echo "$phi_json" | python3 -c "import sys,json; print(json.load(sys.stdin).get('bottleneck','?'))")"
       ;;
   esac

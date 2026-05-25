@@ -748,3 +748,36 @@
   "target": "> 60%",
   "status": 1
 }
+{
+  "timestamp": "2026-05-26T06:47:24+08:00",
+  "phi_ratio_equiv": 60.00,
+  "delta_e_total": 302,
+  "delta_e_max": 500.0,
+  "progress_pct": "60.00%",
+  "bottleneck": "∇Θ",
+  "directive": "ACCELERATE_ITERATION: increase evolution frequency",
+  "target": "> 60%",
+  "status": 1
+}
+{
+  "timestamp": "2026-05-26T06:47:26+08:00",
+  "phi_ratio_equiv": 60.00,
+  "delta_e_total": 302,
+  "delta_e_max": 500.0,
+  "progress_pct": "60.00%",
+  "bottleneck": "∇Θ",
+  "directive": "ACCELERATE_ITERATION: increase evolution frequency",
+  "target": "> 60%",
+  "status": 1
+}
+{
+  "timestamp": "2026-05-26T06:48:21+08:00",
+  "version": "V10.1",
+  "evolution_score": 0.596,
+  "phi_ratio_equiv": 59.600,
+  "delta_g": ,
+  "bottleneck": "∇Θ",
+  "directive": "MAINTAIN: all stable",
+  "status": 0
+}
+{"timestamp": "2026-05-26T06:48:35+08:00", "version": "V10.1", "evolution_score": 0.5963980030385615, "phi_ratio_equiv": 59.64, "delta_g": 0.7388442173823324, "bottleneck": "\u0398_llm_agent", "directive": "IMPROVE_LLM_ROUTING: optimize model selection & multi-task", "status": 0}

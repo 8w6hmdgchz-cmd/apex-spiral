@@ -1,0 +1,405 @@
+{
+  "entries": [
+    {
+      "step": 1,
+      "decision": "🔄 auto reflux V10.1 2026-05-26 06:48",
+      "reason": "48",
+      "result": "committed 8e430aa2",
+      "delta_g": 0.028,
+      "timestamp": 1779748911
+    },
+    {
+      "step": 2,
+      "decision": "auto reflux #165: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed bce3c304",
+      "delta_g": 0.039,
+      "timestamp": 1779748311
+    },
+    {
+      "step": 3,
+      "decision": "Evolver Mon May 25 22:19:12 UTC 2026",
+      "reason": "19",
+      "result": "committed 724e19a9",
+      "delta_g": 0.028,
+      "timestamp": 1779747711
+    },
+    {
+      "step": 4,
+      "decision": "Evolver Mon May 25 21:31:55 UTC 2026",
+      "reason": "31",
+      "result": "committed f615179a",
+      "delta_g": 0.028,
+      "timestamp": 1779747111
+    },
+    {
+      "step": 5,
+      "decision": "auto reflux #163: log daily notes",
+      "reason": "log daily notes",
+      "result": "committed 749a796d",
+      "delta_g": 0.0265,
+      "timestamp": 1779746511
+    },
+    {
+      "step": 6,
+      "decision": "auto reflux #163: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed c21f6dd4",
+      "delta_g": 0.039,
+      "timestamp": 1779745911
+    },
+    {
+      "step": 7,
+      "decision": "Evolver Mon May 25 21:01:18 UTC 2026",
+      "reason": "01",
+      "result": "committed c7ac7e00",
+      "delta_g": 0.028,
+      "timestamp": 1779745311
+    },
+    {
+      "step": 8,
+      "decision": "auto reflux #162: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed 1e754ae7",
+      "delta_g": 0.039,
+      "timestamp": 1779744711
+    },
+    {
+      "step": 9,
+      "decision": "Evolver Mon May 25 20:44:40 UTC 2026",
+      "reason": "44",
+      "result": "committed 206c4f0b",
+      "delta_g": 0.028,
+      "timestamp": 1779744111
+    },
+    {
+      "step": 10,
+      "decision": "feat: APEX AGI核心v3 - 完成度78.2%",
+      "reason": "APEX AGI核心v3 - 完成度78.2%",
+      "result": "committed ca8219c0",
+      "delta_g": 0.0245,
+      "timestamp": 1779743511
+    },
+    {
+      "step": 11,
+      "decision": "Evolver Mon May 25 20:39:14 UTC 2026",
+      "reason": "39",
+      "result": "committed 5feddeee",
+      "delta_g": 0.028,
+      "timestamp": 1779742911
+    },
+    {
+      "step": 12,
+      "decision": "feat: APEX终极闭环v2 - 外部任务注入架构",
+      "reason": "APEX终极闭环v2 - 外部任务注入架构",
+      "result": "committed cf8d74e2",
+      "delta_g": 0.0235,
+      "timestamp": 1779742311
+    },
+    {
+      "step": 13,
+      "decision": "Evolver Mon May 25 20:32:49 UTC 2026",
+      "reason": "32",
+      "result": "committed 63dffcb7",
+      "delta_g": 0.028,
+      "timestamp": 1779741711
+    },
+    {
+      "step": 14,
+      "decision": "feat: APEX物理生物公式体系 - 融合物理6公式+生物6公式",
+      "reason": "APEX物理生物公式体系 - 融合物理6公式+生物6公式",
+      "result": "committed 96a5161f",
+      "delta_g": 0.027,
+      "timestamp": 1779741111
+    },
+    {
+      "step": 15,
+      "decision": "Evolver Mon May 25 20:29:23 UTC 2026",
+      "reason": "29",
+      "result": "committed 315eda30",
+      "delta_g": 0.028,
+      "timestamp": 1779740511
+    },
+    {
+      "step": 16,
+      "decision": "feat: APEX V11增强版 - 融合璇玑帝国V10 + ZeroLang",
+      "reason": "APEX V11增强版 - 融合璇玑帝国V10 + ZeroLang",
+      "result": "committed 729dc636",
+      "delta_g": 0.03,
+      "timestamp": 1779739911
+    },
+    {
+      "step": 17,
+      "decision": "Evolver Mon May 25 20:16:07 UTC 2026",
+      "reason": "16",
+      "result": "committed 2e79255e",
+      "delta_g": 0.028,
+      "timestamp": 1779739311
+    },
+    {
+      "step": 18,
+      "decision": "auto reflux #160: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed f67ce2a6",
+      "delta_g": 0.039,
+      "timestamp": 1779738711
+    },
+    {
+      "step": 19,
+      "decision": "Evolver Mon May 25 20:12:17 UTC 2026",
+      "reason": "12",
+      "result": "committed 1bf91e53",
+      "delta_g": 0.028,
+      "timestamp": 1779738111
+    },
+    {
+      "step": 20,
+      "decision": "auto reflux #159: phi_tracker @80.0%, Evol_code bottleneck (post-rebase state files)",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck (post-rebase state files)",
+      "result": "committed 23f06be5",
+      "delta_g": 0.052,
+      "timestamp": 1779737511
+    },
+    {
+      "step": 21,
+      "decision": "auto reflux #159: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed cc3ba1ec",
+      "delta_g": 0.039,
+      "timestamp": 1779736911
+    },
+    {
+      "step": 22,
+      "decision": "Evolver Mon May 25 20:06:09 UTC 2026",
+      "reason": "06",
+      "result": "committed c5177c0e",
+      "delta_g": 0.028,
+      "timestamp": 1779736311
+    },
+    {
+      "step": 23,
+      "decision": "auto reflux #158: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed 9de8f0d8",
+      "delta_g": 0.039,
+      "timestamp": 1779735711
+    },
+    {
+      "step": 24,
+      "decision": "Evolver Mon May 25 20:01:36 UTC 2026",
+      "reason": "01",
+      "result": "committed d1596637",
+      "delta_g": 0.028,
+      "timestamp": 1779735111
+    },
+    {
+      "step": 25,
+      "decision": "auto reflux #157: append commit hash to daily notes",
+      "reason": "append commit hash to daily notes",
+      "result": "committed c0e81206",
+      "delta_g": 0.0355,
+      "timestamp": 1779734511
+    },
+    {
+      "step": 26,
+      "decision": "auto reflux #157: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed df72f787",
+      "delta_g": 0.039,
+      "timestamp": 1779733911
+    },
+    {
+      "step": 27,
+      "decision": "Evolver Mon May 25 19:56:08 UTC 2026",
+      "reason": "56",
+      "result": "committed 3299ea53",
+      "delta_g": 0.028,
+      "timestamp": 1779733311
+    },
+    {
+      "step": 28,
+      "decision": "auto reflux #156: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed c4e11457",
+      "delta_g": 0.039,
+      "timestamp": 1779732711
+    },
+    {
+      "step": 29,
+      "decision": "Evolver Mon May 25 19:52:05 UTC 2026",
+      "reason": "52",
+      "result": "committed bf61a07a",
+      "delta_g": 0.028,
+      "timestamp": 1779732111
+    },
+    {
+      "step": 30,
+      "decision": "auto reflux #155: append state/log",
+      "reason": "append state/log",
+      "result": "committed 58132d25",
+      "delta_g": 0.027,
+      "timestamp": 1779731511
+    },
+    {
+      "step": 31,
+      "decision": "auto reflux #155: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed 8fd1bfaa",
+      "delta_g": 0.039,
+      "timestamp": 1779730911
+    },
+    {
+      "step": 32,
+      "decision": "Evolver Mon May 25 19:46:32 UTC 2026",
+      "reason": "46",
+      "result": "committed 6807c8d5",
+      "delta_g": 0.028,
+      "timestamp": 1779730311
+    },
+    {
+      "step": 33,
+      "decision": "auto reflux #154: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed a1a92104",
+      "delta_g": 0.039,
+      "timestamp": 1779729711
+    },
+    {
+      "step": 34,
+      "decision": "Evolver Mon May 25 19:36:26 UTC 2026",
+      "reason": "36",
+      "result": "committed 06b63b60",
+      "delta_g": 0.028,
+      "timestamp": 1779729111
+    },
+    {
+      "step": 35,
+      "decision": "auto reflux #152: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed b5d2df05",
+      "delta_g": 0.039,
+      "timestamp": 1779728511
+    },
+    {
+      "step": 36,
+      "decision": "Evolver Mon May 25 19:33:03 UTC 2026",
+      "reason": "33",
+      "result": "committed 6c0a5c8e",
+      "delta_g": 0.028,
+      "timestamp": 1779727911
+    },
+    {
+      "step": 37,
+      "decision": "auto reflux #151: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed c35fa752",
+      "delta_g": 0.039,
+      "timestamp": 1779727311
+    },
+    {
+      "step": 38,
+      "decision": "Evolver Mon May 25 19:26:08 UTC 2026",
+      "reason": "26",
+      "result": "committed b1819de5",
+      "delta_g": 0.028,
+      "timestamp": 1779726711
+    },
+    {
+      "step": 39,
+      "decision": "auto reflux #150: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed 452d4cbb",
+      "delta_g": 0.039,
+      "timestamp": 1779726111
+    },
+    {
+      "step": 40,
+      "decision": "Evolver Mon May 25 19:21:06 UTC 2026",
+      "reason": "21",
+      "result": "committed c10bf54e",
+      "delta_g": 0.028,
+      "timestamp": 1779725511
+    },
+    {
+      "step": 41,
+      "decision": "auto reflux #149: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed 855fd1a9",
+      "delta_g": 0.039,
+      "timestamp": 1779724911
+    },
+    {
+      "step": 42,
+      "decision": "Evolver Mon May 25 19:11:03 UTC 2026",
+      "reason": "11",
+      "result": "committed 69c3cbc5",
+      "delta_g": 0.028,
+      "timestamp": 1779724311
+    },
+    {
+      "step": 43,
+      "decision": "auto reflux #148: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed f54a2856",
+      "delta_g": 0.039,
+      "timestamp": 1779723711
+    },
+    {
+      "step": 44,
+      "decision": "Evolver Mon May 25 19:06:09 UTC 2026",
+      "reason": "06",
+      "result": "committed 4dd5be0b",
+      "delta_g": 0.028,
+      "timestamp": 1779723111
+    },
+    {
+      "step": 45,
+      "decision": "auto reflux #147: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed 452cb5a3",
+      "delta_g": 0.039,
+      "timestamp": 1779722511
+    },
+    {
+      "step": 46,
+      "decision": "Evolver Mon May 25 19:01:19 UTC 2026",
+      "reason": "01",
+      "result": "committed 6b1f999b",
+      "delta_g": 0.028,
+      "timestamp": 1779721911
+    },
+    {
+      "step": 47,
+      "decision": "auto reflux #146: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed 062ba30b",
+      "delta_g": 0.039,
+      "timestamp": 1779721311
+    },
+    {
+      "step": 48,
+      "decision": "Evolver Mon May 25 18:56:17 UTC 2026",
+      "reason": "56",
+      "result": "committed ec709198",
+      "delta_g": 0.028,
+      "timestamp": 1779720711
+    },
+    {
+      "step": 49,
+      "decision": "auto reflux #145: phi_tracker @80.0%, Evol_code bottleneck",
+      "reason": "phi_tracker @80.0%, Evol_code bottleneck",
+      "result": "committed 810791ab",
+      "delta_g": 0.039,
+      "timestamp": 1779720111
+    },
+    {
+      "step": 50,
+      "decision": "Evolver Mon May 25 18:51:29 UTC 2026",
+      "reason": "51",
+      "result": "committed 8460df4b",
+      "delta_g": 0.028,
+      "timestamp": 1779719511
+    }
+  ],
+  "max_entries": 1000
+}
