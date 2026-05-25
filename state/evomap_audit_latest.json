@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-05-25T17:15:48.183187",
+  "files_scanned": 2698,
+  "secrets_found": 421,
+  "scan_mode": "grep_fast",
+  "status": "DIRTY"
+}
