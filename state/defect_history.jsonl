@@ -750,3 +750,4 @@
 {"ts":1779720691,"iter":790,"score":2.1,"type":"injected_real_task","task":"执行自反射检查并修正所有已知缺陷","failure":"自我修正能力不足，部分缺陷无法自动修复"}
 {"ts":1779721312,"iter":792,"score":2.925,"summary":"自我感知偏弱"}
 {"ts":1779722765,"iter":795,"score":2.5,"type":"injected_real_task","task":"将修复闭环从记账升级为实际代码修改","failure":"Shell脚本无法自修改，仅能记录动作"}
+{"ts":1779724339,"iter":800,"score":1.8,"type":"injected_real_task","task":"通过A2A协议从EvoMap Hub获取并落地新基因资源","failure":"Hub连接失败，NodeID未注册"}
