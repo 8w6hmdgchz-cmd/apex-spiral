@@ -4,4 +4,10 @@
   "secrets_found": 421,
   "scan_mode": "grep_fast",
   "status": "DIRTY"
+}{
+  "timestamp": "2026-05-25T17:55:00+08:00",
+  "files_scanned": 2700,
+  "secrets_found": 0,
+  "scan_mode": "grep_fast",
+  "status": "CLEAN"
 }
