@@ -283,3 +283,10 @@
 - Legacy GNU timeout in crontab_config replaced with perl alarm.
 - Verification: go build OK, evolver cycle findings=null, cargo check OK.
 
+
+## Fourth AutoResearch devour gene — 2026-05-26
+- Verified GPT Researcher, STORM, PaperQA HEAD over SSH.
+- Installed PaperQA README/docs snapshot: d2c3c698fdf06986aa021812ab3186d3696438d8.
+- Added local Go AutoResearch core: question→evidence ledger→hypotheses→critique→verification plan.
+- Verification: go build OK; PHN IFI6 evidence ledger uses local report/script/figure, no virtual science.
+
