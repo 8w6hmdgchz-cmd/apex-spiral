@@ -730,3 +730,4 @@
 {"ts":1779691577,"iter":721,"score":3.525,"summary":"自我感知偏弱、增长相对初始值不明显"}
 {"ts":1779692534,"iter":722,"score":3.075,"summary":"自我感知偏弱"}
 {"ts":1779694641,"iter":725,"score":1.9,"type":"injected_real_task","task":"∇_self从代理指标切换为真实缺陷召回率","failure":"无真实任务执行框架，仅依赖历史分数推算"}
+{"ts":1779696375,"iter":730,"score":1.9,"type":"injected_real_task","task":"∇_self从代理指标切换为真实缺陷召回率","failure":"无真实任务执行框架，仅依赖历史分数推算"}

@@ -66,3 +66,4 @@
 [INJECT] 真实任务失败样本已注入: iter=715, score=1.8, task=通过A2A协议从EvoMap Hub获取并落地新基因资源
 [INJECT] 真实任务失败样本已注入: iter=720, score=2.3, task=phi增长率突破1%阈值实现真实能力增长
 [INJECT] 真实任务失败样本已注入: iter=725, score=1.9, task=∇_self从代理指标切换为真实缺陷召回率
+[INJECT] 真实任务失败样本已注入: iter=730, score=1.9, task=∇_self从代理指标切换为真实缺陷召回率
