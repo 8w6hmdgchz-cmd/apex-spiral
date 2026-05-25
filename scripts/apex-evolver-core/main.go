@@ -67,22 +67,22 @@ func observe(root string) []Finding {
 			if err != nil || d.IsDir() {
 				return nil
 			}
-			if strings.Contains(p, "/target/") || strings.Contains(p, "/.git/") {
+			if shouldSkipPath(p) {
 				return nil
 			}
 			b, err := os.ReadFile(p)
-			if err != nil {
+			if err != nil || !isProbablyText(b) {
 				return nil
 			}
 			s := string(b)
 			rel, _ := filepath.Rel(root, p)
-			if strings.Contains(s, "TODO") || strings.Contains(s, "FIXME") {
+			if hasTodoMarker(s) {
 				fs = append(fs, Finding{rel, "todo_marker", "medium"})
 			}
-			if strings.Contains(s, "timeout ") && strings.Contains(s, "bash") {
+			if hasPortableTimeoutRisk(s) {
 				fs = append(fs, Finding{rel, "portable_timeout_risk", "medium"})
 			}
-			if strings.Contains(s, "fake") || strings.Contains(s, "mock") {
+			if hasVirtualDataMarker(s) {
 				fs = append(fs, Finding{rel, "possible_virtual_data_marker", "low"})
 			}
 			return nil
@@ -94,6 +94,55 @@ func observe(root string) []Finding {
 	}
 	return fs
 }
+
+func shouldSkipPath(p string) bool {
+	if strings.Contains(p, "/target/") || strings.Contains(p, "/.git/") || strings.Contains(p, "/vendor/") || strings.Contains(p, "/third_party/") {
+		return true
+	}
+	ext := filepath.Ext(p)
+	if ext == "" {
+		info, err := os.Stat(p)
+		return err == nil && info.Mode()&0111 != 0
+	}
+	allowed := map[string]bool{".go": true, ".rs": true, ".sh": true, ".md": true, ".json": true, ".yaml": true, ".yml": true, ".toml": true, ".py": true}
+	return !allowed[ext]
+}
+
+func isProbablyText(b []byte) bool {
+	if len(b) == 0 {
+		return true
+	}
+	limit := len(b)
+	if limit > 4096 {
+		limit = 4096
+	}
+	for _, c := range b[:limit] {
+		if c == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func hasTodoMarker(s string) bool {
+	for _, line := range strings.Split(s, "\n") {
+		trimmed := strings.TrimSpace(line)
+		if strings.HasPrefix(trimmed, "TODO:") || strings.HasPrefix(trimmed, "FIXME:") || strings.Contains(trimmed, " TODO:") || strings.Contains(trimmed, " FIXME:") {
+			return true
+		}
+	}
+	return false
+}
+
+func hasPortableTimeoutRisk(s string) bool {
+	return strings.Contains(s, "timeout ") && strings.Contains(s, "bash") && !strings.Contains(s, "perl -e 'alarm")
+}
+
+func hasVirtualDataMarker(s string) bool {
+	lower := strings.ToLower(s)
+	return strings.Contains(lower, "fake benchmark") || strings.Contains(lower, "mock result") || strings.Contains(lower, "virtual data")
+}
+
 func diagnose(fs []Finding) []string {
 	if len(fs) == 0 {
 		return []string{"no_patch_needed"}

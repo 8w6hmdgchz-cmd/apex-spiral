@@ -224,6 +224,12 @@ impl SelfModEngine {
     }
 
     fn save_state(&self) {
-        // Future: persist patch history
+        let state_path = self.workspace.join("state").join("selfmod_history.json");
+        if let Some(parent) = state_path.parent() {
+            let _ = fs::create_dir_all(parent);
+        }
+        if let Ok(serialized) = serde_json::to_string_pretty(self) {
+            let _ = fs::write(state_path, serialized);
+        }
     }
 }
