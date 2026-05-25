@@ -1,8 +1,8 @@
 {
-  "learn_rate": 0.85,
-  "decay_factor": 0.97,
+  "learn_rate": 0.86,
+  "decay_factor": 0.975,
   "max_entries": 10000,
-  "retention_threshold": 0.45,
+  "retention_threshold": 0.44,
   "memory_entries": [
     {
       "id": "episodic_git_c70d103b97e3",
@@ -295,6 +295,34 @@
       ]
     },
     {
+      "id": "working_paperqa_evidence_required",
+      "content": "[Working] PaperQA pattern: every devour claim needs source_repo+commit+source_path+context_id+score before entering Σ_memory.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753022,
+      "importance": 0.91,
+      "memory_type": "Working",
+      "access_count": 27,
+      "source": "memory/devour/paperqa_evidence/ledger.md"
+    },
+    {
+      "id": "working_paperqa_strip_hallucinated_citations",
+      "content": "[Working] PaperQA pattern: strip or mark claims whose citation IDs do not map to known contexts; no ungrounded archive.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753021,
+      "importance": 0.9,
+      "memory_type": "Working",
+      "access_count": 27,
+      "source": "memory/devour/paperqa_evidence/ledger.md"
+    },
+    {
       "id": "working_openhands_deadlock_avoidance",
       "content": "[Working] OpenHands process deadlock avoidance: redirect subprocess stdout/stderr to log files for long-running agent execution.",
       "embedding": [
@@ -323,6 +351,20 @@
       "source": "memory/devour/openhands_exec/ledger.md"
     },
     {
+      "id": "episodic_paperqa_bad_json_timeout_boundary",
+      "content": "[Episodic] PaperQA failure boundary: malformed LLM JSON is retryable/repairable; LLM context timeout is non-retryable and should be archived as failure evidence.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753019,
+      "importance": 0.86,
+      "memory_type": "Episodic",
+      "access_count": 25,
+      "source": "memory/devour/paperqa_evidence/ledger.md"
+    },
+    {
       "id": "working_openhands_event_persistence",
       "content": "[Working] OpenHands event persistence: every action/result is saved via EventService and searchable by conversation/task context.",
       "embedding": [
@@ -337,6 +379,20 @@
       "source": "memory/devour/openhands_exec/ledger.md"
     },
     {
+      "id": "semantic_paperqa_doc_text_context_session",
+      "content": "[Semantic] PaperQA object roles: Doc identifies source/citation; Text is retrievable chunk; Context is question-scored evidence; PQASession is answer ledger.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753020,
+      "importance": 0.84,
+      "memory_type": "Semantic",
+      "access_count": 25,
+      "source": "memory/devour/paperqa_evidence/ledger.md"
+    },
+    {
       "id": "working_openhands_runtime_injection",
       "content": "[Working] OpenHands runtime injection: choose Remote/Process/Docker sandbox by environment/config, avoid hardcoded execution backend.",
       "embedding": [
@@ -349,6 +405,20 @@
       "memory_type": "Working",
       "access_count": 25,
       "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "working_paperqa_embeddings_not_manifest",
+      "content": "[Working] PaperQA manifest rule: exclude embeddings from durable CSV/ledger; store readable evidence and model-agnostic metadata.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753018,
+      "importance": 0.82,
+      "memory_type": "Working",
+      "access_count": 24,
+      "source": "memory/devour/paperqa_evidence/ledger.md"
     },
     {
       "id": "working_devour_4419e31295dd",
