@@ -269,3 +269,10 @@
 - Added local Go APEX harness bridge: workspace-bounded sandbox.exec / mcp.exec JSON bridge.
 - Verification: go build, selftest, git status request, blocked rm request.
 
+
+## Second Evolver Core devour gene — 2026-05-26
+- Installed BabyAGI SSH snapshot: fa8930ebe72a82e5ad57b356e7cbec96290e5bb2.
+- Verified AutoGPT and AutoGen HEAD over SSH, install blocked by fetch/checkout stall; recorded as blocked, not absorbed.
+- Added local Go evolver core: observe→diagnose→patch-plan→verify.
+- Verification: go build passed; cycle produced real local findings; verify exits nonzero when findings remain.
+
