@@ -244,32 +244,43 @@ func extractChapters(content string) []Chapter {
 	var currentContent []string
 	offset := 0
 
+	flushChapter := func() {
+		if currentChapter == nil {
+			return
+		}
+		currentChapter.Content = strings.TrimRight(strings.Join(currentContent, "\n"), "\n")
+		currentChapter.Length = len(currentChapter.Content)
+		chapters = append(chapters, *currentChapter)
+	}
+
 	for _, line := range lines {
 		trimmed := strings.TrimSpace(line)
 		if strings.HasPrefix(trimmed, "## ") || strings.HasPrefix(trimmed, "### ") {
-			if currentChapter != nil {
-				currentChapter.Content = strings.Join(currentContent, "\n")
-				currentChapter.Length = len(currentChapter.Content)
-			}
+			flushChapter()
 			title := strings.TrimPrefix(trimmed, "## ")
 			title = strings.TrimPrefix(title, "### ")
 			id := fmt.Sprintf("ch-%x", sha256.Sum256([]byte(title)))[:8]
 			currentChapter = &Chapter{
 				ID: id, Title: title, Offset: offset,
 			}
-			chapters = append(chapters, *currentChapter)
-			currentContent = nil
+			currentContent = []string{line}
 		} else if currentChapter != nil {
 			currentContent = append(currentContent, line)
 		}
 		offset += len(line) + 1
 	}
 
-	// Save last chapter
-	if currentChapter != nil {
-		currentChapter.Content = strings.Join(currentContent, "\n")
-		currentChapter.Length = len(currentChapter.Content)
-		chapters[len(chapters)-1] = *currentChapter
+	flushChapter()
+
+	if len(chapters) == 0 && strings.TrimSpace(content) != "" {
+		id := fmt.Sprintf("ch-%x", sha256.Sum256([]byte("Full Document")))[:8]
+		chapters = append(chapters, Chapter{
+			ID:      id,
+			Title:   "Full Document",
+			Offset:  0,
+			Length:  len(content),
+			Content: content,
+		})
 	}
 
 	return chapters
@@ -389,8 +400,13 @@ func saveToMemory(skill Skill, outputDir string) error {
 
 	// Save chapters for lazy loading
 	for _, ch := range skill.Chapters {
+		if strings.TrimSpace(ch.Content) == "" {
+			return fmt.Errorf("chapter %s (%s) has empty content; refusing to write broken lazy-load file", ch.ID, ch.Title)
+		}
 		chPath := filepath.Join(skillDir, "chapters", ch.ID+".md")
-		os.WriteFile(chPath, []byte(ch.Content), 0644)
+		if err := os.WriteFile(chPath, []byte(ch.Content), 0644); err != nil {
+			return err
+		}
 	}
 
 	// Save SKILL.md

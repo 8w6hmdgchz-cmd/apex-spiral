@@ -132,7 +132,18 @@ commit_and_push() {
 
   git -C "$GIST_DIR" commit -m "$msg"
   log "pushing gist over SSH (force, personal backup)"
-  GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20" git -C "$GIST_DIR" push --force origin "$BRANCH" 2>&1 || GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20" git -C "$GIST_DIR" push --force origin "$BRANCH"
+  run_with_timeout 60 env GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20" git -C "$GIST_DIR" push --force origin "$BRANCH"
+}
+
+run_with_timeout() {
+  local seconds="$1"
+  shift
+
+  if command -v gtimeout >/dev/null 2>&1; then
+    gtimeout "$seconds" "$@"
+  else
+    perl -e 'alarm shift; exec @ARGV' "$seconds" "$@"
+  fi
 }
 
 main() {

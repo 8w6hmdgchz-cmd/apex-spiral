@@ -7,6 +7,8 @@
 ///   apexe evolve --state /path/to/state.json
 ///   apexe diagnose --state /path/to/state.json
 ///   apexe directive --state /path/to/state.json
+///   apexe analyze --path /path/to/workspace
+///   apexe self-mod --path /path/to/workspace --target relative/file --before old --after new
 ///   apexe clone --repo git@github.com:ORG/REPO.git
 
 mod apexe;
@@ -59,6 +61,23 @@ enum Commands {
     Analyze {
         #[arg(long, default_value = ".")]
         path: PathBuf,
+    },
+    /// Generate/apply/verify a guarded self-modification patch
+    SelfMod {
+        #[arg(long, default_value = ".")]
+        path: PathBuf,
+        #[arg(long)]
+        target: String,
+        #[arg(long)]
+        before: String,
+        #[arg(long)]
+        after: String,
+        #[arg(long, default_value = "manual self-mod CLI patch")]
+        directive: String,
+        #[arg(long, default_value_t = false)]
+        no_apply: bool,
+        #[arg(long, default_value_t = false)]
+        rollback: bool,
     },
 }
 
@@ -166,6 +185,58 @@ fn main() {
             println!("{}", serde_json::to_string_pretty(&serde_json::json!({
                 "issues": issues,
                 "diagnosis": diag,
+            })).unwrap());
+        }
+
+        Commands::SelfMod { path, target, before, after, directive, no_apply, rollback } => {
+            let mut engine = selfmod::SelfModEngine::new(path);
+            let patch = engine.generate_patch(
+                &target,
+                selfmod::PatchType::BugFix,
+                &before,
+                &after,
+                &directive,
+            );
+
+            let mut steps = Vec::new();
+            steps.push(format!("generated {} for {}", patch.id, patch.target_file));
+
+            if !no_apply {
+                match engine.apply_patch(&patch.id) {
+                    Ok(msg) => steps.push(msg),
+                    Err(err) => {
+                        println!("{}", serde_json::to_string_pretty(&serde_json::json!({
+                            "patch": patch,
+                            "steps": steps,
+                            "error": err,
+                        })).unwrap());
+                        std::process::exit(1);
+                    }
+                }
+
+                match engine.verify_patch(&patch.id) {
+                    Ok(msg) => steps.push(msg),
+                    Err(err) => {
+                        steps.push(err.clone());
+                        if rollback {
+                            match engine.rollback_patch(&patch.id) {
+                                Ok(msg) => steps.push(msg),
+                                Err(rollback_err) => steps.push(format!("rollback failed: {}", rollback_err)),
+                            }
+                        }
+                        println!("{}", serde_json::to_string_pretty(&serde_json::json!({
+                            "patch": patch,
+                            "steps": steps,
+                            "error": err,
+                        })).unwrap());
+                        std::process::exit(1);
+                    }
+                }
+            }
+
+            println!("{}", serde_json::to_string_pretty(&serde_json::json!({
+                "patch": patch,
+                "steps": steps,
             })).unwrap());
         }
     }

@@ -51,6 +51,7 @@ impl ApexDimensions {
     }
 
     /// Weighted calculation for fine-tuning
+    #[cfg_attr(not(test), allow(dead_code))]
     pub fn calculate_weighted(&self, weights: &[f64; 5]) -> f64 {
         self.alpha_psi * weights[0]
             + self.beta_omega * weights[1]
@@ -96,6 +97,7 @@ impl ApexDeltaE {
     }
 
     /// Generate a trajectory hash for caching
+    #[cfg_attr(not(test), allow(dead_code))]
     pub fn trajectory_hash(&self) -> String {
         use sha2::{Sha256, Digest};
         let input = format!(
@@ -114,6 +116,7 @@ impl ApexDeltaE {
 
 
     /// Self-modification counter - Evol_code activation
+    #[cfg_attr(not(test), allow(dead_code))]
     pub fn self_modifications(&self) -> u64 {
         1  // First successful self-modification
     }
