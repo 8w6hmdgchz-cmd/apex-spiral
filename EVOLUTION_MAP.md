@@ -264,3 +264,8 @@
 
 ═══════════════════════════════════════════════════════════════════════════════
 ```
+## First OpenHands/MCP devour gene — 2026-05-25
+- Installed SSH source snapshots: OpenHands, MCP python-sdk, MCP servers.
+- Added local Go APEX harness bridge: workspace-bounded sandbox.exec / mcp.exec JSON bridge.
+- Verification: go build, selftest, git status request, blocked rm request.
+
