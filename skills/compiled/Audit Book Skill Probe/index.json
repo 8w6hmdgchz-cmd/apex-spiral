@@ -1,0 +1,21 @@
+{
+  "name": "Audit Book Skill Probe",
+  "source_file": "book_skill_probe.md",
+  "chapters": [
+    {
+      "id": "ch-3e93d",
+      "title": "Chapter One",
+      "offset": 26,
+      "length": 54
+    },
+    {
+      "id": "ch-85c0e",
+      "title": "Chapter Two",
+      "offset": 82,
+      "length": 55
+    }
+  ],
+  "terms": null,
+  "paradigms": null,
+  "total_size": 276
+}

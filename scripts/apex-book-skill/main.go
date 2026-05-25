@@ -21,25 +21,25 @@ import (
 // ---- 数据结构 ----
 
 type Skill struct {
-	Name        string       `json:"name"`
-	SourceFile  string       `json:"source_file"`
-	SourceType  string       `json:"source_type"` // docx, md, pdf, txt, json
-	Chapters    []Chapter    `json:"chapters"`
-	Terms       []Term       `json:"terms"`
-	Paradigms   []Paradigm   `json:"paradigms"`
-	Cheatsheet  []string     `json:"cheatsheet"`
+	Name         string        `json:"name"`
+	SourceFile   string        `json:"source_file"`
+	SourceType   string        `json:"source_type"` // docx, md, pdf, txt, json
+	Chapters     []Chapter     `json:"chapters"`
+	Terms        []Term        `json:"terms"`
+	Paradigms    []Paradigm    `json:"paradigms"`
+	Cheatsheet   []string      `json:"cheatsheet"`
 	CodeExamples []CodeExample `json:"code_examples"`
-	CompiledAt  string       `json:"compiled_at"`
-	Hash        string       `json:"hash"`
+	CompiledAt   string        `json:"compiled_at"`
+	Hash         string        `json:"hash"`
 }
 
 type Chapter struct {
-	ID       string `json:"id"`
-	Title    string `json:"title"`
-	Offset   int    `json:"offset"`    // for lazy loading
-	Length   int    `json:"length"`
-	Loaded   bool   `json:"loaded"`
-	Content  string `json:"content,omitempty"`
+	ID      string `json:"id"`
+	Title   string `json:"title"`
+	Offset  int    `json:"offset"` // for lazy loading
+	Length  int    `json:"length"`
+	Loaded  bool   `json:"loaded"`
+	Content string `json:"content,omitempty"`
 }
 
 type Term struct {
@@ -63,12 +63,12 @@ type CodeExample struct {
 
 // LazyLoad index
 type SkillIndex struct {
-	Name       string           `json:"name"`
-	SourceFile string           `json:"source_file"`
-	Chapters   []ChapterIndex   `json:"chapters"`
-	Terms      []string         `json:"terms"`
-	Paradigms  []string         `json:"paradigms"`
-	TotalSize  int              `json:"total_size"`
+	Name       string         `json:"name"`
+	SourceFile string         `json:"source_file"`
+	Chapters   []ChapterIndex `json:"chapters"`
+	Terms      []string       `json:"terms"`
+	Paradigms  []string       `json:"paradigms"`
+	TotalSize  int            `json:"total_size"`
 }
 
 type ChapterIndex struct {
@@ -80,12 +80,12 @@ type ChapterIndex struct {
 
 // MemLLM memory record
 type MemoryRecord struct {
-	Skill     string `json:"skill"`
-	Chapter   string `json:"chapter"`
-	Content   string `json:"content"`
+	Skill     string   `json:"skill"`
+	Chapter   string   `json:"chapter"`
+	Content   string   `json:"content"`
 	Tags      []string `json:"tags"`
-	Timestamp string `json:"timestamp"`
-	Source    string `json:"source"`
+	Timestamp string   `json:"timestamp"`
+	Source    string   `json:"source"`
 }
 
 func main() {
@@ -118,26 +118,26 @@ func main() {
 
 func parseDocument(path string) (string, string, error) {
 	ext := strings.ToLower(filepath.Ext(path))
-	
+
 	switch ext {
 	case ".md", ".markdown":
 		content, err := os.ReadFile(path)
 		return string(content), "md", err
-		
+
 	case ".txt":
 		content, err := os.ReadFile(path)
 		return string(content), "txt", err
-		
+
 	case ".json":
 		content, err := os.ReadFile(path)
 		return string(content), "json", err
-		
+
 	case ".docx":
 		return parseDocxPython(path), "docx", nil
-		
+
 	case ".pdf":
 		return parsePDF(path), "pdf", nil
-		
+
 	default:
 		// Fallback: try raw read
 		content, err := os.ReadFile(path)
@@ -441,9 +441,9 @@ func saveToMemory(skill Skill, outputDir string) error {
 // ---- T5: ParallelAgent (simulated) ----
 
 type AgentTask struct {
-	Name     string
-	Work     func() interface{}
-	Result   interface{}
+	Name   string
+	Work   func() interface{}
+	Result interface{}
 }
 
 func runParallelAgents(skill Skill) map[string]interface{} {
@@ -527,7 +527,10 @@ func compileDocument(path, name string) {
 	fmt.Printf("\n[T4] MemLLM — 记忆固化...\n")
 	outputDir := filepath.Join(getWorkspace(), "skills", "compiled")
 	os.MkdirAll(outputDir, 0755)
-	saveToMemory(skill, outputDir)
+	if err := saveToMemory(skill, outputDir); err != nil {
+		fmt.Fprintf(os.Stderr, "  ❌ Save error: %s\n", err)
+		os.Exit(1)
+	}
 
 	fmt.Printf("\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
 	fmt.Printf("🏁 编译完成!\n\n")
@@ -565,7 +568,9 @@ func batchCompile(dir string) {
 				skill.SourceFile = name
 				outputDir := filepath.Join(getWorkspace(), "skills", "compiled")
 				os.MkdirAll(outputDir, 0755)
-				saveToMemory(skill, outputDir)
+				if err := saveToMemory(skill, outputDir); err != nil {
+					fmt.Printf("  ❌ %s: save failed: %s\n", name, err)
+				}
 			}(entry.Name())
 		}
 	}
