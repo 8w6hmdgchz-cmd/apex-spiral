@@ -812,3 +812,4 @@
   "status": 1
 }
 {"timestamp":"2026-05-25T22:00:18+08:00","ts_ms":1779717646000,"phi_ratio_equiv":80.00,"delta_e_total":400,"delta_e_max":500,"bottleneck":"Evol_code","directive":"ENHANCE_SELF_MODIFICATION: improve code gen quality","target":"> 60%","status":1,"counter_raw":1}
+{"ts":1779717740,"iter":783,"phi":8.654,"mode":"12354","env_pressure":10.0,"dg":0.706886}
