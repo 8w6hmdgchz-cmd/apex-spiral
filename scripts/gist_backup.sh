@@ -68,7 +68,7 @@ prepare_repo() {
     git -C "$GIST_DIR" remote set-url origin "$GIST_REPO"
     GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20" git -C "$GIST_DIR" fetch origin "$BRANCH" --prune || true
     git -C "$GIST_DIR" checkout "$BRANCH" 2>/dev/null || git -C "$GIST_DIR" checkout -B "$BRANCH"
-    GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20" git -C "$GIST_DIR" pull --ff-only origin "$BRANCH" || true
+    GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20" git -C "$GIST_DIR" pull --rebase origin "$BRANCH" 2>/dev/null || true
   fi
 }
 
@@ -131,8 +131,8 @@ commit_and_push() {
   fi
 
   git -C "$GIST_DIR" commit -m "$msg"
-  log "pushing gist over SSH"
-  GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20 -o ServerAliveInterval=10 -o ServerAliveCountMax=2" timeout 60 git -C "$GIST_DIR" push origin "$BRANCH"
+  log "pushing gist over SSH (force, personal backup)"
+  GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20" git -C "$GIST_DIR" push --force origin "$BRANCH" 2>&1 || GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20" git -C "$GIST_DIR" push --force origin "$BRANCH"
 }
 
 main() {
