@@ -14,3 +14,4 @@ sha2 = "0.10"
 chrono = { version = "0.4", features = ["serde"] }
 toml = "0.8"
 clap = { version = "4", features = ["derive"] }
+apex-v10-core = { path = "../v10-core" }

@@ -4,6 +4,7 @@
 ///
 /// Usage:
 ///   apexe calc --alpha 85 --beta 60 --lambda 40 --nabla 25 --evol 30
+///   apexe calc-v10 --json --safe
 ///   apexe evolve --state /path/to/state.json
 ///   apexe diagnose --state /path/to/state.json
 ///   apexe directive --state /path/to/state.json
@@ -41,6 +42,13 @@ enum Commands {
         evol: f64,
         #[arg(long)]
         state: Option<PathBuf>,
+    },
+    /// Calculate APEX V10.1 ΔG score
+    CalcV10 {
+        #[arg(long, default_value_t = false)]
+        json: bool,
+        #[arg(long, default_value_t = false)]
+        safe: bool,
     },
     /// Run one evolution cycle
     Evolve {
@@ -86,6 +94,77 @@ fn main() {
 
     // Detect whether --help was used without error
     match cli.command {
+        Commands::CalcV10 { json, safe } => {
+            use apex_v10_core::*;
+
+            let params = ApexParamsV8 {
+                lambda_root: 0.95,
+                xi_anti_hallucination: 1.0,
+                h_real: 0.5,
+                t_iteration: 2.0,
+                llm_agent: LlmAgentParams {
+                    lambda_single_call: 0.9,
+                    mu_multi_task: 0.85,
+                    sigma_high_quality: 0.88,
+                    gamma_llm_cost: 0.1,
+                },
+                master: MasterParams {
+                    k_code: 1.0,
+                    tau_transfer: vec![0.1, 0.05, 0.08],
+                    upsilon_apply: 0.9,
+                },
+                self_repair: SelfRepairParams {
+                    g_target: 100.0,
+                    g_actual: 95.0,
+                    delta_error_locate: 1.0,
+                    psi_thorough_fix: 1.0,
+                    kappa_no_repeat: 1.0,
+                },
+                cycle: CycleParams {
+                    eta_skill_up: 0.5,
+                    rho_result_feedback: 0.5,
+                },
+                host: HostHealthParams {
+                    psi_mem: 0.98,
+                    psi_app: 0.99,
+                    psi_disk: 0.97,
+                    omega_dawn: 1.0,
+                },
+            };
+
+            if safe {
+                match calculate_delta_g_ultimate_safe(&params) {
+                    Ok(dg) => {
+                        if json {
+                            let result = calculate_v10_full(&params, None);
+                            let mut output = serde_json::to_value(&result).unwrap();
+                            output["mode"] = serde_json::Value::String("safe".into());
+                            println!("{}", serde_json::to_string_pretty(&output).unwrap());
+                        } else {
+                            println!("ΔG (V10.1 safe) = {:.6}", dg);
+                            println!("evolution_score = {:.6}", evolution_score(dg, params.h_real));
+                        }
+                    }
+                    Err(e) => eprintln!("Error: {}", e),
+                }
+            } else if json {
+                let result = calculate_v10_full(&params, None);
+                println!("{}", serde_json::to_string_pretty(&result).unwrap());
+            } else {
+                match calculate_delta_g_ultimate(&params) {
+                    Ok(dg) => {
+                        println!("ΔG (V10.1) = {:.6}", dg);
+                        println!("evolution_score = {:.6}", evolution_score(dg, params.h_real));
+                        println!("theta_llm = {:.6}", calculate_llm_agent_efficiency(&params.llm_agent));
+                        println!("k_master = {:.6}", calculate_k_master(&params.master));
+                        println!("epsilon = {:.6}", calculate_self_repair(&params.self_repair));
+                        println!("phi_cycle = {:.6}", calculate_cycle_gain(&params.cycle));
+                        println!("psi_host = {:.6}", calculate_host_health(&params.host));
+                    }
+                    Err(e) => eprintln!("Error: {}", e),
+                }
+            }
+        }
         Commands::Calc { alpha, beta, lambda, nabla, evol, state } => {
             let dims = apexe::ApexDimensions::new(alpha, beta, lambda, nabla, evol);
 

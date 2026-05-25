@@ -30,6 +30,52 @@ run_apexe() {
     return
   fi
   
+  # 先尝试V10.1计算 (带--json输出)
+  V10_RESULT=$("$APEXE" calc-v10 --json 2>/dev/null || echo "")
+  if [ -n "$V10_RESULT" ]; then
+    local v10_valid=$(echo "$V10_RESULT" | python3 -c "
+import sys,json
+try:
+    d=json.load(sys.stdin)
+    print('1' if d.get('delta_g',0)>0 else '0')
+except: print('0')
+" 2>/dev/null)
+    if [ "$v10_valid" = "1" ]; then
+      log "✅ 使用 V10.1 公式计算"
+      echo "$V10_RESULT" | python3 -c "
+import sys,json
+d=json.load(sys.stdin)
+out={
+  'total': d.get('delta_g',0)*100,  # ΔG → ΔE缩放
+  'delta_g': d.get('delta_g',0),
+  'delta_g_safe': d.get('delta_g_safe',None),
+  'theta': d.get('theta',0),
+  'k_master': d.get('k_master',0),
+  'epsilon': d.get('epsilon',0),
+  'phi_cycle': d.get('phi_cycle',0),
+  'psi_host': d.get('psi_host',0),
+  'evolution_score': d.get('evolution_score',0),
+  'bottleneck': d.get('bottleneck','none'),
+  'version': 'V10.1',
+  'phi_network': d.get('phi_network',None),
+  'gamma_mutation': d.get('gamma_mutation',None),
+  'omega_session': d.get('omega_session',None),
+  'pi_coord': d.get('pi_coord',None),
+  'sigma_storage': d.get('sigma_storage',None),
+  'dimensions': {
+    'alpha_psi': d.get('theta',0)*100,
+    'beta_omega': d.get('k_master',0)*100,
+    'lambda_phi': d.get('evolution_score',0)*100,
+    'nabla_theta': d.get('epsilon',0)*50,
+    'evol_code': d.get('psi_host',0)*100
+  }
+}
+print(json.dumps(out))
+"
+      return
+    fi
+  fi
+  
   # 从历史状态获取上次值
   PREV_TOTAL=$(tail -1 "$HISTORY" 2>/dev/null | python3 -c "
 import sys,json
@@ -40,7 +86,7 @@ try:
 except: print(0)
 " 2>/dev/null || echo 0)
   
-  # 调用Rust引擎计算 (带轻微扰动反映迭代变化)
+  # 降级到原始 ΔE 计算
   RESULT=$("$APEXE" calc \
     --alpha 88 --beta 78 --lambda 79 --nabla 80 --evol 75 \
     --state "$STATE_DIR/apex_state.json" 2>/dev/null || echo '{"total":302}')
