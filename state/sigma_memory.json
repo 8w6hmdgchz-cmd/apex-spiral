@@ -1,8 +1,8 @@
 {
-  "learn_rate": 0.84,
+  "learn_rate": 0.85,
   "decay_factor": 0.97,
   "max_entries": 10000,
-  "retention_threshold": 0.46,
+  "retention_threshold": 0.45,
   "memory_entries": [
     {
       "id": "episodic_git_c70d103b97e3",
@@ -261,6 +261,20 @@
       "source": "memory/failure_cases.jsonl"
     },
     {
+      "id": "working_openhands_verify_archive_loop",
+      "content": "[Working] APEX adaptation: plan→bounded process→execute→persist event→verify→archive into Σ_memory as Working/Episodic.",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779752506,
+      "importance": 0.92,
+      "memory_type": "Working",
+      "access_count": 27,
+      "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
       "id": "episodic_git_ae9fdc2413b3",
       "content": "[Episodic] git repair commit ae9fdc24: Evolution Loop fitness追踪修复 (+183/-5, 4 files)",
       "embedding": [
@@ -279,6 +293,62 @@
         "apex-iterate.sh",
         "memory_manager.py"
       ]
+    },
+    {
+      "id": "working_openhands_deadlock_avoidance",
+      "content": "[Working] OpenHands process deadlock avoidance: redirect subprocess stdout/stderr to log files for long-running agent execution.",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779752507,
+      "importance": 0.9,
+      "memory_type": "Working",
+      "access_count": 27,
+      "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "working_openhands_sandbox_contract",
+      "content": "[Working] OpenHands sandbox contract: execution must go through SandboxService lifecycle (start/resume/search/wait_for_running), with health-check before action use.",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779752510,
+      "importance": 0.88,
+      "memory_type": "Working",
+      "access_count": 26,
+      "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "working_openhands_event_persistence",
+      "content": "[Working] OpenHands event persistence: every action/result is saved via EventService and searchable by conversation/task context.",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779752508,
+      "importance": 0.86,
+      "memory_type": "Working",
+      "access_count": 25,
+      "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "working_openhands_runtime_injection",
+      "content": "[Working] OpenHands runtime injection: choose Remote/Process/Docker sandbox by environment/config, avoid hardcoded execution backend.",
+      "embedding": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timestamp": 1779752509,
+      "importance": 0.84,
+      "memory_type": "Working",
+      "access_count": 25,
+      "source": "memory/devour/openhands_exec/ledger.md"
     },
     {
       "id": "working_devour_4419e31295dd",
