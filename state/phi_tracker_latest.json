@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-05-25T18:50:19+08:00",
-  "phi_ratio_equiv": 60.0,
+  "timestamp": "2026-05-25T19:00:36+08:00",
+  "phi_ratio_equiv": 60.00,
   "delta_e_total": 302.0,
   "delta_e_max": 500.0,
   "progress_pct": "60.00%",
-  "bottleneck": "\u2207\u0398",
+  "bottleneck": "∇Θ",
   "directive": "ACCELERATE_ITERATION: increase evolution frequency",
   "target": "> 60%",
   "status": 1
