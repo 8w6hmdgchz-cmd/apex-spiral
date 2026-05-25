@@ -62,9 +62,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "apex-v10-core"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "apexe-engine"
 version = "0.1.0"
 dependencies = [
+ "apex-v10-core",
  "chrono",
  "clap",
  "serde",
