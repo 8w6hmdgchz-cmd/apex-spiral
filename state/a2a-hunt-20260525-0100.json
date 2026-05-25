@@ -1,0 +1,43 @@
+{
+  "iter": "20260525-0100",
+  "timestamp": "2026-05-25T01:00:02+0800",
+  "source_latest": "state/a2a-hunt-20260525-0030.json",
+  "source_age_minutes": "real_resource_snapshot",
+  "A_net": 3.5399,
+  "F_hunt": 1.0,
+  "Trigger_t": true,
+  "K_fold": 1.6,
+  "G_cycle": 6.9616,
+  "D_lack_count": 3.4,
+  "Delta_G_unlimited": 17.084754,
+  "details": {
+    "A_net_formula": "sum(repo_i_present * P_i * U_i), derived from absorbed.list and cache evidence",
+    "A_net_breakdown": {
+      "deap/deap": 0.6562,
+      "langchain-ai/langgraph": 0.72,
+      "mem0ai/mem0": 0.837,
+      "microsoft/autogen": 0.7667,
+      "pyg-team/pytorch_geometric": 0.56
+    },
+    "resource_state": {
+      "absorbed_count": 25,
+      "pending_count": 43,
+      "failed_count": 39,
+      "inherited_count": 15,
+      "unique_repos": 5
+    },
+    "D_lack_impact": 0.5667,
+    "data_sources": [
+      "a2a-resources/absorbed.list",
+      "a2a-resources/pending.list",
+      "a2a-resources/failed.list",
+      "a2a-resources/inherited.list",
+      "a2a-resources/cache/*/README.md"
+    ],
+    "derived_from_previous": {
+      "source_A_net": 3.5399,
+      "source_K_fold": 1.6,
+      "source_D_lack_impact": 0.5667
+    }
+  }
+}

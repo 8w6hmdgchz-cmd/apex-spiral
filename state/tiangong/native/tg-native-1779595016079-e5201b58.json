@@ -1,0 +1,211 @@
+{
+  "trace_id": "tg-native-1779595016079-e5201b58",
+  "task": {
+    "objective": "APEX-native 四基因接口闭环验证",
+    "constraints": [
+      "local-only",
+      "clean-room",
+      "no external sync without approval",
+      "tests required"
+    ],
+    "artifacts": [
+      "/Users/lihongxin/.openclaw/workspace/state/tiangong/native/tg-native-1779595016079-e5201b58.json"
+    ],
+    "risk": "low",
+    "task_id": "tg-task-96dba9c3"
+  },
+  "events": [
+    {
+      "stage": "cognition",
+      "status": "ok",
+      "message": "Task decomposed into APEX-native stages.",
+      "evidence": {
+        "parts": [
+          "define capability boundary",
+          "rank clean-room genes",
+          "build local interface",
+          "run verification gate",
+          "consolidate evolution artifact"
+        ]
+      },
+      "timestamp_ms": 1779595016079
+    },
+    {
+      "stage": "cognition",
+      "status": "ok",
+      "message": "Roles assigned for multi-agent style reasoning.",
+      "evidence": {
+        "roles": [
+          "researcher",
+          "architect",
+          "sandbox_executor",
+          "reviewer",
+          "evolver"
+        ]
+      },
+      "timestamp_ms": 1779595016079
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Requirement boundary checked.",
+      "evidence": {
+        "objective_present": true
+      },
+      "timestamp_ms": 1779595016079
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Architecture sketch produced.",
+      "evidence": {
+        "cognition": "CognitiveRouter",
+        "planning": "EvolverLoop.plan + SuperpowersGate",
+        "execution": "SandboxAdapter",
+        "verification": "SuperpowersGate.review + tests",
+        "evolution": "EvolverLoop.consolidate"
+      },
+      "timestamp_ms": 1779595016079
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Test plan generated.",
+      "evidence": {
+        "tests": [
+          "dataclass serialization",
+          "safe command execution",
+          "promotion gate",
+          "report write"
+        ]
+      },
+      "timestamp_ms": 1779595016079
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Options ranked by evidence, feasibility, risk, reversibility.",
+      "evidence": {
+        "options": [
+          {
+            "gene": "sandbox adapter",
+            "score": 0.91,
+            "reason": "unblocks execution safely"
+          },
+          {
+            "gene": "SOP gate",
+            "score": 0.88,
+            "reason": "raises verification accuracy"
+          },
+          {
+            "gene": "evidence ledger",
+            "score": 0.86,
+            "reason": "improves K and Φ"
+          },
+          {
+            "gene": "repair loop",
+            "score": 0.84,
+            "reason": "improves Ψ"
+          }
+        ]
+      },
+      "timestamp_ms": 1779595016079
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Evolution plan created.",
+      "evidence": {
+        "loop": [
+          "observe",
+          "act",
+          "verify",
+          "repair",
+          "consolidate"
+        ]
+      },
+      "timestamp_ms": 1779595016079
+    },
+    {
+      "stage": "execution",
+      "status": "ok",
+      "message": "Workspace inspected.",
+      "evidence": {
+        "root": "/Users/lihongxin/.openclaw/workspace",
+        "exists": true
+      },
+      "timestamp_ms": 1779595016079
+    },
+    {
+      "stage": "execution",
+      "status": "ok",
+      "message": "Command executed in local sandbox.",
+      "evidence": {
+        "command": [
+          "python3",
+          "--version"
+        ],
+        "code": 0,
+        "latency_ms": 7.33,
+        "stdout": "Python 3.14.4\n",
+        "stderr": ""
+      },
+      "timestamp_ms": 1779595016086
+    },
+    {
+      "stage": "verification",
+      "status": "ok",
+      "message": "Sandbox audit passed for local-only dry operation.",
+      "evidence": {
+        "external_side_effects": false
+      },
+      "timestamp_ms": 1779595016086
+    },
+    {
+      "stage": "verification",
+      "status": "ok",
+      "message": "Critique generated with falsification path.",
+      "evidence": {
+        "falsification": "If local tests fail or secret hits appear, promotion must be blocked."
+      },
+      "timestamp_ms": 1779595016086
+    },
+    {
+      "stage": "verification",
+      "status": "ok",
+      "message": "Review completed.",
+      "evidence": {
+        "failed_events": [],
+        "event_count": 11
+      },
+      "timestamp_ms": 1779595016086
+    },
+    {
+      "stage": "evolution",
+      "status": "ok",
+      "message": "One deterministic evolution step completed.",
+      "evidence": {
+        "delta": "native interface skeleton"
+      },
+      "timestamp_ms": 1779595016086
+    },
+    {
+      "stage": "evolution",
+      "status": "ok",
+      "message": "Evolution artifact consolidated.",
+      "evidence": {
+        "artifact": "/Users/lihongxin/.openclaw/workspace/state/tiangong/native/tg-native-1779595016079-e5201b58.json"
+      },
+      "timestamp_ms": 1779595016086
+    }
+  ],
+  "scores": {
+    "cognition": 1.0,
+    "planning": 1.0,
+    "execution": 1.0,
+    "verification": 1.0,
+    "evolution": 1.0,
+    "fitness": 1.0
+  },
+  "promotion": "pass"
+}

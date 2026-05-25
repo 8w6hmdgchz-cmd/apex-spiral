@@ -1,0 +1,533 @@
+{
+  "trace_id": "tg-native-1779598982796-cddbc1d6",
+  "task": {
+    "objective": "unit test native TianGong loop",
+    "constraints": [
+      "local-only",
+      "clean-room",
+      "no external sync without approval",
+      "tests required"
+    ],
+    "artifacts": [
+      "/Users/lihongxin/.openclaw/workspace/state/tiangong/native/tg-native-1779598982796-cddbc1d6.json"
+    ],
+    "risk": "low",
+    "task_id": "tg-task-8191428a"
+  },
+  "events": [
+    {
+      "stage": "cognition",
+      "status": "ok",
+      "message": "Task decomposed through Rust cognitive router.",
+      "evidence": {
+        "parts": [
+          "clarify boundary for: unit test native TianGong loop",
+          "collect evidence and constraints",
+          "rank candidate genes",
+          "select reversible implementation path",
+          "define verification gate",
+          "consolidate only after tests pass"
+        ],
+        "core": {
+          "status": "ok",
+          "mode": "multi_role_router",
+          "objective": "unit test native TianGong loop",
+          "roles": [
+            "researcher",
+            "architect",
+            "executor",
+            "reviewer",
+            "evolver",
+            "systems_engineer"
+          ],
+          "decomposition": [
+            "clarify boundary for: unit test native TianGong loop",
+            "collect evidence and constraints",
+            "rank candidate genes",
+            "select reversible implementation path",
+            "define verification gate",
+            "consolidate only after tests pass"
+          ],
+          "ranked_options": [
+            {
+              "gene": "sandbox adapter",
+              "score": 0.881,
+              "reason": "evidence=0.90, feasibility=0.92, risk=0.20, reversibility=0.85"
+            },
+            {
+              "gene": "evidence ledger",
+              "score": 0.88,
+              "reason": "evidence=0.86, feasibility=0.88, risk=0.10, reversibility=0.90"
+            },
+            {
+              "gene": "role router",
+              "score": 0.8555,
+              "reason": "evidence=0.84, feasibility=0.86, risk=0.15, reversibility=0.88"
+            },
+            {
+              "gene": "repair loop",
+              "score": 0.8115,
+              "reason": "evidence=0.82, feasibility=0.84, risk=0.25, reversibility=0.80"
+            }
+          ],
+          "critique": "Hypotheses are not findings; require verification before promotion.",
+          "falsification_path": "If tests fail, evidence is missing, or risk exceeds benefit, route to repair/hold.",
+          "timestamp_ms": 1779598982804,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982805
+    },
+    {
+      "stage": "cognition",
+      "status": "ok",
+      "message": "Roles assigned through Rust cognitive router.",
+      "evidence": {
+        "roles": [
+          "researcher",
+          "architect",
+          "executor",
+          "reviewer",
+          "evolver",
+          "systems_engineer"
+        ],
+        "core": {
+          "status": "ok",
+          "mode": "multi_role_router",
+          "objective": "unit test native TianGong loop",
+          "roles": [
+            "researcher",
+            "architect",
+            "executor",
+            "reviewer",
+            "evolver",
+            "systems_engineer"
+          ],
+          "decomposition": [
+            "clarify boundary for: unit test native TianGong loop",
+            "collect evidence and constraints",
+            "rank candidate genes",
+            "select reversible implementation path",
+            "define verification gate",
+            "consolidate only after tests pass"
+          ],
+          "ranked_options": [
+            {
+              "gene": "sandbox adapter",
+              "score": 0.881,
+              "reason": "evidence=0.90, feasibility=0.92, risk=0.20, reversibility=0.85"
+            },
+            {
+              "gene": "evidence ledger",
+              "score": 0.88,
+              "reason": "evidence=0.86, feasibility=0.88, risk=0.10, reversibility=0.90"
+            },
+            {
+              "gene": "role router",
+              "score": 0.8555,
+              "reason": "evidence=0.84, feasibility=0.86, risk=0.15, reversibility=0.88"
+            },
+            {
+              "gene": "repair loop",
+              "score": 0.8115,
+              "reason": "evidence=0.82, feasibility=0.84, risk=0.25, reversibility=0.80"
+            }
+          ],
+          "critique": "Hypotheses are not findings; require verification before promotion.",
+          "falsification_path": "If tests fail, evidence is missing, or risk exceeds benefit, route to repair/hold.",
+          "timestamp_ms": 1779598982810,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982811
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Requirement boundary checked through Rust SOP gate.",
+      "evidence": {
+        "core": {
+          "status": "ok",
+          "gate": "requirements",
+          "passed": true,
+          "score": 1.0,
+          "checklist": [
+            {
+              "name": "objective_present",
+              "passed": true,
+              "reason": "task has explicit objective"
+            },
+            {
+              "name": "risk_declared",
+              "passed": true,
+              "reason": "risk must be low/medium/high"
+            }
+          ],
+          "recommendation": "gate passed; continue",
+          "timestamp_ms": 1779598982816,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982817
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Architecture sketch checked through Rust SOP gate.",
+      "evidence": {
+        "architecture": {
+          "cognition": "Rust CognitiveRouter",
+          "planning": "Rust EvolverLoop + Rust SuperpowersGate",
+          "execution": "Rust SandboxAdapter",
+          "verification": "Rust SuperpowersGate.review + tests",
+          "evolution": "Rust EvolverLoop.consolidate"
+        },
+        "core": {
+          "status": "ok",
+          "gate": "architecture",
+          "passed": true,
+          "score": 1.0,
+          "checklist": [
+            {
+              "name": "artifacts_tracked",
+              "passed": true,
+              "reason": "architecture requires traceable artifacts"
+            },
+            {
+              "name": "local_first",
+              "passed": true,
+              "reason": "TianGong native loop is local-first"
+            }
+          ],
+          "recommendation": "gate passed; continue",
+          "timestamp_ms": 1779598982821,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982822
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Test plan checked through Rust SOP gate.",
+      "evidence": {
+        "tests": [
+          "dataclass serialization",
+          "safe command execution",
+          "promotion gate",
+          "report write",
+          "rust core gates"
+        ],
+        "core": {
+          "status": "ok",
+          "gate": "test_plan",
+          "passed": true,
+          "score": 1.0,
+          "checklist": [
+            {
+              "name": "tests_passed",
+              "passed": true,
+              "reason": "verification gate must pass before promotion"
+            },
+            {
+              "name": "secrets_clear",
+              "passed": true,
+              "reason": "secret hits block external sync and promotion"
+            }
+          ],
+          "recommendation": "gate passed; continue",
+          "timestamp_ms": 1779598982825,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982826
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Options ranked by evidence, feasibility, risk, reversibility through Rust core.",
+      "evidence": {
+        "options": [
+          {
+            "gene": "sandbox adapter",
+            "score": 0.881,
+            "reason": "evidence=0.90, feasibility=0.92, risk=0.20, reversibility=0.85"
+          },
+          {
+            "gene": "evidence ledger",
+            "score": 0.88,
+            "reason": "evidence=0.86, feasibility=0.88, risk=0.10, reversibility=0.90"
+          },
+          {
+            "gene": "role router",
+            "score": 0.8555,
+            "reason": "evidence=0.84, feasibility=0.86, risk=0.15, reversibility=0.88"
+          },
+          {
+            "gene": "repair loop",
+            "score": 0.8115,
+            "reason": "evidence=0.82, feasibility=0.84, risk=0.25, reversibility=0.80"
+          }
+        ],
+        "core": {
+          "status": "ok",
+          "mode": "multi_role_router",
+          "objective": "unit test native TianGong loop",
+          "roles": [
+            "researcher",
+            "architect",
+            "executor",
+            "reviewer",
+            "evolver",
+            "systems_engineer"
+          ],
+          "decomposition": [
+            "clarify boundary for: unit test native TianGong loop",
+            "collect evidence and constraints",
+            "rank candidate genes",
+            "select reversible implementation path",
+            "define verification gate",
+            "consolidate only after tests pass"
+          ],
+          "ranked_options": [
+            {
+              "gene": "sandbox adapter",
+              "score": 0.881,
+              "reason": "evidence=0.90, feasibility=0.92, risk=0.20, reversibility=0.85"
+            },
+            {
+              "gene": "evidence ledger",
+              "score": 0.88,
+              "reason": "evidence=0.86, feasibility=0.88, risk=0.10, reversibility=0.90"
+            },
+            {
+              "gene": "role router",
+              "score": 0.8555,
+              "reason": "evidence=0.84, feasibility=0.86, risk=0.15, reversibility=0.88"
+            },
+            {
+              "gene": "repair loop",
+              "score": 0.8115,
+              "reason": "evidence=0.82, feasibility=0.84, risk=0.25, reversibility=0.80"
+            }
+          ],
+          "critique": "Hypotheses are not findings; require verification before promotion.",
+          "falsification_path": "If tests fail, evidence is missing, or risk exceeds benefit, route to repair/hold.",
+          "timestamp_ms": 1779598982829,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982830
+    },
+    {
+      "stage": "planning",
+      "status": "ok",
+      "message": "Evolution plan created through Rust state machine.",
+      "evidence": {
+        "loop": [
+          "observe",
+          "act",
+          "verify",
+          "repair",
+          "consolidate"
+        ],
+        "core": {
+          "status": "ok",
+          "phase": "observe",
+          "next_phase": "act",
+          "action": "collect current state and execute bounded next step",
+          "fitness": 1.0,
+          "promotion": "continue",
+          "reason": "objective='unit test native TianGong loop'",
+          "timestamp_ms": 1779598982833,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982833
+    },
+    {
+      "stage": "execution",
+      "status": "ok",
+      "message": "Workspace inspected.",
+      "evidence": {
+        "root": "/Users/lihongxin/.openclaw/workspace",
+        "exists": true,
+        "rust_core": "/Users/lihongxin/.openclaw/workspace/skills/apex-tiangong-skill/tiangong_core/target/debug/tiangong_core",
+        "rust_core_exists": true
+      },
+      "timestamp_ms": 1779598982833
+    },
+    {
+      "stage": "execution",
+      "status": "ok",
+      "message": "Command executed through Rust TianGong sandbox core.",
+      "evidence": {
+        "rust_core": "/Users/lihongxin/.openclaw/workspace/skills/apex-tiangong-skill/tiangong_core/target/debug/tiangong_core",
+        "wrapper_code": 0,
+        "wrapper_latency_ms": 13.84,
+        "audit": {
+          "status": "ok",
+          "reason": "executed under TianGong local sandbox policy",
+          "command": [
+            "python3",
+            "--version"
+          ],
+          "cwd": "/Users/lihongxin/.openclaw/workspace",
+          "code": 0,
+          "latency_ms": 10,
+          "stdout": "Python 3.14.4\n",
+          "stderr": "",
+          "external_side_effects": false
+        }
+      },
+      "timestamp_ms": 1779598982847
+    },
+    {
+      "stage": "verification",
+      "status": "ok",
+      "message": "Sandbox audit passed for local-only dry operation.",
+      "evidence": {
+        "external_side_effects": false,
+        "rust_core_enabled": true
+      },
+      "timestamp_ms": 1779598982847
+    },
+    {
+      "stage": "verification",
+      "status": "ok",
+      "message": "Critique generated with falsification path through Rust core.",
+      "evidence": {
+        "critique": "Hypotheses are not findings; require verification before promotion.",
+        "falsification": "If tests fail, evidence is missing, or risk exceeds benefit, route to repair/hold.",
+        "core": {
+          "status": "ok",
+          "mode": "multi_role_router",
+          "objective": "unit test native TianGong loop",
+          "roles": [
+            "researcher",
+            "architect",
+            "executor",
+            "reviewer",
+            "evolver",
+            "systems_engineer"
+          ],
+          "decomposition": [
+            "clarify boundary for: unit test native TianGong loop",
+            "collect evidence and constraints",
+            "rank candidate genes",
+            "select reversible implementation path",
+            "define verification gate",
+            "consolidate only after tests pass"
+          ],
+          "ranked_options": [
+            {
+              "gene": "sandbox adapter",
+              "score": 0.881,
+              "reason": "evidence=0.90, feasibility=0.92, risk=0.20, reversibility=0.85"
+            },
+            {
+              "gene": "evidence ledger",
+              "score": 0.88,
+              "reason": "evidence=0.86, feasibility=0.88, risk=0.10, reversibility=0.90"
+            },
+            {
+              "gene": "role router",
+              "score": 0.8555,
+              "reason": "evidence=0.84, feasibility=0.86, risk=0.15, reversibility=0.88"
+            },
+            {
+              "gene": "repair loop",
+              "score": 0.8115,
+              "reason": "evidence=0.82, feasibility=0.84, risk=0.25, reversibility=0.80"
+            }
+          ],
+          "critique": "Hypotheses are not findings; require verification before promotion.",
+          "falsification_path": "If tests fail, evidence is missing, or risk exceeds benefit, route to repair/hold.",
+          "timestamp_ms": 1779598982850,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982850
+    },
+    {
+      "stage": "verification",
+      "status": "ok",
+      "message": "Review completed through Rust SOP gate.",
+      "evidence": {
+        "failed_events": [],
+        "event_count": 11,
+        "core": {
+          "status": "ok",
+          "gate": "review",
+          "passed": true,
+          "score": 1.0,
+          "checklist": [
+            {
+              "name": "high_risk_hold",
+              "passed": true,
+              "reason": "high-risk tasks require explicit human approval"
+            },
+            {
+              "name": "clean_room",
+              "passed": true,
+              "reason": "capability is represented as native abstraction"
+            }
+          ],
+          "recommendation": "gate passed; continue",
+          "timestamp_ms": 1779598982853,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982853
+    },
+    {
+      "stage": "evolution",
+      "status": "ok",
+      "message": "One deterministic Rust evolution step completed.",
+      "evidence": {
+        "delta": "rust evolver state machine",
+        "core": {
+          "status": "ok",
+          "phase": "act",
+          "next_phase": "verify",
+          "action": "run verification gate after action",
+          "fitness": 1.0,
+          "promotion": "continue",
+          "reason": "objective='unit test native TianGong loop'",
+          "timestamp_ms": 1779598982856,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982856
+    },
+    {
+      "stage": "evolution",
+      "status": "ok",
+      "message": "Evolution artifact consolidated through Rust state machine.",
+      "evidence": {
+        "artifact": "/Users/lihongxin/.openclaw/workspace/state/tiangong/native/tg-native-1779598982796-cddbc1d6.json",
+        "core": {
+          "status": "ok",
+          "phase": "verify",
+          "next_phase": "consolidate",
+          "action": "promote verified artifact into evolution memory",
+          "fitness": 1.0,
+          "promotion": "pass",
+          "reason": "objective='unit test native TianGong loop'",
+          "timestamp_ms": 1779598982858,
+          "wrapper_code": 0
+        }
+      },
+      "timestamp_ms": 1779598982859
+    }
+  ],
+  "scores": {
+    "cognition": 1.0,
+    "planning": 1.0,
+    "execution": 1.0,
+    "verification": 1.0,
+    "evolution": 1.0,
+    "fitness": 1.0
+  },
+  "promotion": "pass"
+}

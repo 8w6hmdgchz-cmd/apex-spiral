@@ -1,0 +1,201 @@
+{
+  "engine": "APEX TianGong GitHub K Ingest",
+  "trace_id": "github-k-1779594743895-3434631d",
+  "timestamp_ms": 1779594788331,
+  "source_count": 4,
+  "ok_count": 4,
+  "score_k_ingest": 1.0,
+  "policy": {
+    "external_sync_allowed": false,
+    "source_copy_allowed": false,
+    "mode": "metadata/readme/top-level structure only; clean-room reimplementation required"
+  },
+  "repos": [
+    {
+      "seed": {
+        "pillar": "openhands",
+        "name": "OpenHands",
+        "url": "https://github.com/All-Hands-AI/OpenHands.git",
+        "rationale": "Agent execution sandbox, code editing, terminal/browser style automation."
+      },
+      "status": "ok",
+      "action": "ls_remote_only",
+      "head": "5e311f7f995008ffe4c74f8cf6f3085d4030c670",
+      "branch": "unknown",
+      "repo_slug": "All-Hands-AI/OpenHands",
+      "readme_file": null,
+      "readme_excerpt": "README fetch intentionally deferred; this pass records stable remote identity and clean-room plan only.",
+      "logs": {
+        "ls_remote": {
+          "cmd": [
+            "git",
+            "ls-remote",
+            "https://github.com/All-Hands-AI/OpenHands.git",
+            "HEAD"
+          ],
+          "code": 0,
+          "latency_ms": 17419.6,
+          "stdout": "5e311f7f995008ffe4c74f8cf6f3085d4030c670\tHEAD\n",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "seed": {
+        "pillar": "evolver",
+        "name": "AutoGPT",
+        "url": "https://github.com/Significant-Gravitas/AutoGPT.git",
+        "rationale": "Autonomous agent loop, task decomposition, iterative execution patterns."
+      },
+      "status": "ok",
+      "action": "ls_remote_only",
+      "head": "127a0fa96a31076dbb297d585de2faacc0c7a890",
+      "branch": "unknown",
+      "repo_slug": "Significant-Gravitas/AutoGPT",
+      "readme_file": null,
+      "readme_excerpt": "README fetch intentionally deferred; this pass records stable remote identity and clean-room plan only.",
+      "logs": {
+        "ls_remote": {
+          "cmd": [
+            "git",
+            "ls-remote",
+            "https://github.com/Significant-Gravitas/AutoGPT.git",
+            "HEAD"
+          ],
+          "code": 0,
+          "latency_ms": 11258.4,
+          "stdout": "127a0fa96a31076dbb297d585de2faacc0c7a890\tHEAD\n",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "seed": {
+        "pillar": "autoresearch",
+        "name": "crewAI",
+        "url": "https://github.com/crewAIInc/crewAI.git",
+        "rationale": "Multi-agent orchestration and role-based collaboration patterns."
+      },
+      "status": "ok",
+      "action": "ls_remote_only",
+      "head": "c3e2001d524164739bbc17cdb25bd77bf6af6eaa",
+      "branch": "unknown",
+      "repo_slug": "crewAIInc/crewAI",
+      "readme_file": null,
+      "readme_excerpt": "README fetch intentionally deferred; this pass records stable remote identity and clean-room plan only.",
+      "logs": {
+        "ls_remote": {
+          "cmd": [
+            "git",
+            "ls-remote",
+            "https://github.com/crewAIInc/crewAI.git",
+            "HEAD"
+          ],
+          "code": 0,
+          "latency_ms": 11142.8,
+          "stdout": "c3e2001d524164739bbc17cdb25bd77bf6af6eaa\tHEAD\n",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "seed": {
+        "pillar": "superpowers",
+        "name": "MetaGPT",
+        "url": "https://github.com/geekan/MetaGPT.git",
+        "rationale": "Software company style SOP, planning, requirement-to-code workflow."
+      },
+      "status": "ok",
+      "action": "ls_remote_only",
+      "head": "11cdf466d042aece04fc6cfd13b28e1a70341b1f",
+      "branch": "unknown",
+      "repo_slug": "geekan/MetaGPT",
+      "readme_file": null,
+      "readme_excerpt": "README fetch intentionally deferred; this pass records stable remote identity and clean-room plan only.",
+      "logs": {
+        "ls_remote": {
+          "cmd": [
+            "git",
+            "ls-remote",
+            "https://github.com/geekan/MetaGPT.git",
+            "HEAD"
+          ],
+          "code": 0,
+          "latency_ms": 4615.2,
+          "stdout": "11cdf466d042aece04fc6cfd13b28e1a70341b1f\tHEAD\n",
+          "stderr": ""
+        }
+      }
+    }
+  ],
+  "abstraction_plans": [
+    {
+      "pillar": "openhands",
+      "repo": "OpenHands",
+      "license_caution": "Do not copy source directly into APEX; derive interfaces and reimplement clean-room after license review.",
+      "clean_room_steps": [
+        "Identify externally visible behavior and architecture patterns from docs/tests.",
+        "Write APEX-native interface spec.",
+        "Implement minimal Rust/Go/C core plus Python glue if needed.",
+        "Add local tests and negative controls.",
+        "Run TianGong orchestrator before promotion."
+      ],
+      "candidate_genes": [
+        "sandbox adapter",
+        "terminal/file operation contract",
+        "browser/action audit trail"
+      ]
+    },
+    {
+      "pillar": "evolver",
+      "repo": "AutoGPT",
+      "license_caution": "Do not copy source directly into APEX; derive interfaces and reimplement clean-room after license review.",
+      "clean_room_steps": [
+        "Identify externally visible behavior and architecture patterns from docs/tests.",
+        "Write APEX-native interface spec.",
+        "Implement minimal Rust/Go/C core plus Python glue if needed.",
+        "Add local tests and negative controls.",
+        "Run TianGong orchestrator before promotion."
+      ],
+      "candidate_genes": [
+        "agent loop state machine",
+        "task memory ledger",
+        "repair/evaluation cycle"
+      ]
+    },
+    {
+      "pillar": "autoresearch",
+      "repo": "crewAI",
+      "license_caution": "Do not copy source directly into APEX; derive interfaces and reimplement clean-room after license review.",
+      "clean_room_steps": [
+        "Identify externally visible behavior and architecture patterns from docs/tests.",
+        "Write APEX-native interface spec.",
+        "Implement minimal Rust/Go/C core plus Python glue if needed.",
+        "Add local tests and negative controls.",
+        "Run TianGong orchestrator before promotion."
+      ],
+      "candidate_genes": [
+        "multi-agent role router",
+        "evidence ledger",
+        "rank-reflect-distill loop"
+      ]
+    },
+    {
+      "pillar": "superpowers",
+      "repo": "MetaGPT",
+      "license_caution": "Do not copy source directly into APEX; derive interfaces and reimplement clean-room after license review.",
+      "clean_room_steps": [
+        "Identify externally visible behavior and architecture patterns from docs/tests.",
+        "Write APEX-native interface spec.",
+        "Implement minimal Rust/Go/C core plus Python glue if needed.",
+        "Add local tests and negative controls.",
+        "Run TianGong orchestrator before promotion."
+      ],
+      "candidate_genes": [
+        "SOP gate model",
+        "TDD checklist",
+        "requirement-to-implementation trace"
+      ]
+    }
+  ]
+}

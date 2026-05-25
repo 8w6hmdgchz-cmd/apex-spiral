@@ -1,0 +1,63 @@
+{
+  "iter": "20260524-0130",
+  "timestamp": "2026-05-24T01:30:07+0800",
+  "source_latest": "state/a2a-hunt-20260524-0100.json",
+  "source_age_minutes": "real_resource_snapshot",
+  "A_net": 13.4522,
+  "F_hunt": 0.4907,
+  "Trigger_t": true,
+  "K_fold": 4.4181,
+  "G_cycle": 6.9616,
+  "D_lack_count": 0.0,
+  "Delta_G_unlimited": 203.027086,
+  "details": {
+    "A_net_formula": "sum(repo_i_present * P_i * U_i), derived from absorbed.list and cache evidence",
+    "A_net_breakdown": {
+      "CAMEL-AI/camel": 0.4453,
+      "QwenLM/Qwen-Agent": 0.4453,
+      "THUDM/AgentBench": 0.4453,
+      "THUDM/ChatGLM3": 0.4453,
+      "deap/deap": 0.6562,
+      "deepseek-ai/deepseek-coder": 0.455,
+      "facebookresearch/rlhive": 0.455,
+      "geek-ai/MAgent": 0.5616,
+      "google-a2a/a2a": 0.455,
+      "google/generative-ai-python": 0.4453,
+      "langchain-ai/langchain": 0.4648,
+      "langchain-ai/langgraph": 0.732,
+      "mem0ai/mem0": 0.8505,
+      "microsoft/autogen": 0.7667,
+      "milvus-io/milvus": 0.455,
+      "noahshinn/reflexion": 0.7697,
+      "openai/evals": 0.4453,
+      "openai/openai-agents-python": 0.7686,
+      "openai/openai-python": 0.4453,
+      "openai/spinning-up": 0.442,
+      "openai/spinningup": 0.5772,
+      "pyg-team/pytorch/geometric": 0.455,
+      "pyg-team/pytorch_geometric": 0.5705,
+      "ray-project/ray": 0.455,
+      "vllm-project/vllm": 0.4453
+    },
+    "resource_state": {
+      "absorbed_count": 82,
+      "pending_count": 0,
+      "failed_count": 79,
+      "inherited_count": 54,
+      "unique_repos": 25
+    },
+    "D_lack_impact": 0.0,
+    "data_sources": [
+      "a2a-resources/absorbed.list",
+      "a2a-resources/pending.list",
+      "a2a-resources/failed.list",
+      "a2a-resources/inherited.list",
+      "a2a-resources/cache/*/README.md"
+    ],
+    "derived_from_previous": {
+      "source_A_net": 13.4522,
+      "source_K_fold": 4.4181,
+      "source_D_lack_impact": 0.0
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "engine": "APEX TianGong Skill",
+  "trace_id": "tiangong-1779594197702-73e43ec9",
+  "timestamp_ms": 1779594198002,
+  "objective": "重新激活 TianGong：融合 evolver autoresearch openhands superpowers，形成认知-规划-执行-进化闭环，并准备 GitHub/Gist 安全同步",
+  "formula": {
+    "dimensions": {
+      "Λ_adaptability": 0.92,
+      "Θ_reasoning_depth": 0.8942,
+      "K_knowledge_coverage": 0.9284,
+      "ξ_context_retention": 0.86,
+      "Ψ_plasticity": 0.92,
+      "Φ_accuracy": 0.9284,
+      "H_entropy": 1.0,
+      "T_time": 1.0,
+      "ε_energy": 1.0
+    },
+    "delta_g": 0.561,
+    "fitness": 0.561,
+    "bottlenecks": []
+  },
+  "modules": {
+    "evolver": {
+      "score": 0.92,
+      "status": "ok",
+      "artifact": "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json",
+      "file_count": 460,
+      "secret_hit_count": 0,
+      "result": {
+        "cmd": [
+          "python3",
+          "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/scripts/evomap_audit.py"
+        ],
+        "cwd": "/Users/lihongxin/.openclaw/workspace",
+        "code": 0,
+        "status": "ok",
+        "latency_ms": 152.06,
+        "stdout": "{\n  \"trace_id\": \"evomap-1779594197834\",\n  \"file_count\": 460,\n  \"secret_hit_count\": 0,\n  \"latest\": \"/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json\",\n  \"external_sync_allowed\": false\n}\n",
+        "stderr": ""
+      }
+    },
+    "autoresearch": {
+      "score": 0.8567,
+      "status": "ok",
+      "artifact": "/Users/lihongxin/.openclaw/workspace/apex-unified-engine/reports/latest_report.json",
+      "engine_trace_id": "apex-engine-1779594197883-b86c3cd2",
+      "engine_apex": 0.8942,
+      "result": {
+        "cmd": [
+          "/Users/lihongxin/.openclaw/workspace/apex-unified-engine/scripts/run_engine.sh",
+          "APEX TianGong AutoResearch: 重新激活 TianGong：融合 evolver autoresearch openhands superpowers，形成认知-规划-执行-进化闭环，并准备 GitHub/Gist 安全同步"
+        ],
+        "cwd": "/Users/lihongxin/.openclaw/workspace/apex-unified-engine",
+        "code": 0,
+        "status": "ok",
+        "latency_ms": 146.97,
+        "stdout": "{\n  \"trace_id\": \"apex-engine-1779594197883-b86c3cd2\",\n  \"scores\": {\n    \"ui_control\": 1.0,\n    \"training\": 0.8614,\n    \"research\": 0.8567,\n    \"engine_apex\": 0.8942\n  },\n  \"conclusion\": \"MVP closed loop passed\",\n  \"report\": \"/Users/lihongxin/.openclaw/workspace/apex-unified-engine/reports/apex-engine-1779594197883-b86c3cd2/engine_report.json\"\n}\n",
+        "stderr": ""
+      }
+    },
+    "openhands_sandbox": {
+      "score": 1.0,
+      "status": "ok",
+      "present": [
+        "apex_token_rs",
+        "apex-unified-engine",
+        "clawg-mvp"
+      ],
+      "missing": [],
+      "policy": "local workspace sandbox; no external side effects"
+    },
+    "superpowers_process": {
+      "score": 1.0,
+      "status": "ok",
+      "gates": {
+        "requirements_boundary": true,
+        "architecture_sketch": true,
+        "task_decomposition": true,
+        "verification_gate": true,
+        "self_review": true,
+        "structured_delivery": true
+      }
+    }
+  },
+  "closed_loop": [
+    "cognition",
+    "planning",
+    "execution",
+    "verification",
+    "evolution"
+  ],
+  "external_sync_allowed": false,
+  "recommendation": "Promote local TianGong loop; next route is controlled GitHub/Gist integration after network/auth stabilizes.",
+  "promotion": "hold"
+}

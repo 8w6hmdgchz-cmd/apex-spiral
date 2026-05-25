@@ -719,15 +719,3 @@
 {"ts":1779435687,"iter":25,"score":1.9,"type":"injected_real_task","task":"∇_self从代理指标切换为真实缺陷召回率","failure":"无真实任务执行框架，仅依赖历史分数推算"}
 {"ts":1779440413,"iter":30,"score":2.3,"type":"injected_real_task","task":"phi增长率突破1%阈值实现真实能力增长","failure":"增长依赖修复成功率，修复本身无真实任务验证"}
 {"ts":1779445157,"iter":35,"score":2.1,"type":"injected_real_task","task":"执行自反射检查并修正所有已知缺陷","failure":"自我修正能力不足，部分缺陷无法自动修复"}
-{"ts":1779445762,"iter":695,"score":2.1,"type":"injected_real_task","task":"执行自反射检查并修正所有已知缺陷","failure":"自我修正能力不足，部分缺陷无法自动修复"}
-{"ts":1779445762,"iter":695,"score":3.400,"summary":"自我感知偏弱"}
-{"ts":1779469156,"iter":696,"score":2.950,"summary":"自我感知偏弱"}
-{"ts":1779486046,"iter":697,"score":3.525,"summary":"自我感知偏弱、增长相对初始值不明显"}
-{"ts":1779521030,"iter":698,"score":3.075,"summary":"自我感知偏弱"}
-{"ts":1779536662,"iter":699,"score":3.525,"summary":"自我感知偏弱、增长相对初始值不明显"}
-{"ts":1779551256,"iter":700,"score":1.8,"type":"injected_real_task","task":"通过A2A协议从EvoMap Hub获取并落地新基因资源","failure":"Hub连接失败，NodeID未注册"}
-{"ts":1779551256,"iter":700,"score":3.075,"summary":"自我感知偏弱"}
-{"ts":1779566312,"iter":701,"score":3.525,"summary":"自我感知偏弱、增长相对初始值不明显"}
-{"ts":1779578075,"iter":702,"score":3.075,"summary":"自我感知偏弱"}
-{"ts":1779624081,"iter":705,"score":2.5,"type":"injected_real_task","task":"将修复闭环从记账升级为实际代码修改","failure":"Shell脚本无法自修改，仅能记录动作"}
-{"ts":1779679166,"iter":710,"score":2.1,"type":"injected_real_task","task":"执行自反射检查并修正所有已知缺陷","failure":"自我修正能力不足，部分缺陷无法自动修复"}

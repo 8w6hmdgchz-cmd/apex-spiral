@@ -1,0 +1,41 @@
+{
+  "iter": "20260522-1530",
+  "timestamp": "2026-05-22T07:30:00+00:00",
+  "A_net": 3.0356,
+  "F_hunt": 1.4351,
+  "Trigger_t": true,
+  "K_fold": 20.0,
+  "G_cycle": 0.5599,
+  "D_lack_count": 4,
+  "Delta_G_unlimited": 1.937655,
+  "details": {
+    "A_net_breakdown": {
+      "node_hermes": 0.697,
+      "node_openclaw": 0.7216,
+      "node_evomap": 0.468,
+      "node_mark": 0.525,
+      "node_phi": 0.624
+    },
+    "trigger_conditions": {
+      "t_seconds": 6300,
+      "mod900": 0,
+      "threshold": 0,
+      "triggered": true
+    },
+    "short_boards": [
+      ["nabla", 1.0, 1.0, 0.0],
+      ["psi", 0.73, 1.0, 0.27],
+      ["gamma", 1.18, 2.0, 0.82],
+      ["no_real_feedback", 0.8, 1.0, 0.2],
+      ["empty_loop", 0.6, 1.0, 0.4]
+    ],
+    "apex_metrics": {
+      "psi": 0.27,
+      "nabla": 1.0,
+      "xi": 0.91,
+      "gamma": 0.6
+    },
+    "D_lack_impact": 0.338,
+    "minutes_since_last_hunt": 105.0
+  }
+}

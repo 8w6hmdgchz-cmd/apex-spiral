@@ -1,0 +1,51 @@
+{
+  "iter": "20260523-1330",
+  "timestamp": "2026-05-23T13:30:07+0800",
+  "source_latest": "state/a2a-hunt-20260523-1317.json",
+  "source_age_minutes": "real_resource_snapshot",
+  "A_net": 7.9965,
+  "F_hunt": 0.6035,
+  "Trigger_t": true,
+  "K_fold": 2.8875,
+  "G_cycle": 4.5579,
+  "D_lack_count": 0.5182,
+  "Delta_G_unlimited": 61.163213,
+  "details": {
+    "A_net_formula": "sum(repo_i_present * P_i * U_i), derived from absorbed.list and cache evidence",
+    "A_net_breakdown": {
+      "deap/deap": 0.6562,
+      "facebookresearch/rlhive": 0.4453,
+      "geek-ai/MAgent": 0.5508,
+      "langchain-ai/langchain": 0.455,
+      "langchain-ai/langgraph": 0.732,
+      "mem0ai/mem0": 0.8505,
+      "microsoft/autogen": 0.7667,
+      "noahshinn/reflexion": 0.7568,
+      "openai/openai-agents-python": 0.756,
+      "openai/spinningup": 0.5661,
+      "pyg-team/pytorch/geometric": 0.4453,
+      "pyg-team/pytorch_geometric": 0.5705,
+      "ray-project/ray": 0.4453
+    },
+    "resource_state": {
+      "absorbed_count": 54,
+      "pending_count": 7,
+      "failed_count": 45,
+      "inherited_count": 44,
+      "unique_repos": 13
+    },
+    "D_lack_impact": 0.037,
+    "data_sources": [
+      "a2a-resources/absorbed.list",
+      "a2a-resources/pending.list",
+      "a2a-resources/failed.list",
+      "a2a-resources/inherited.list",
+      "a2a-resources/cache/*/README.md"
+    ],
+    "derived_from_previous": {
+      "source_A_net": 7.9965,
+      "source_K_fold": 2.8903,
+      "source_D_lack_impact": 0.0166
+    }
+  }
+}
