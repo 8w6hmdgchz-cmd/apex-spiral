@@ -1,0 +1,34 @@
+{
+  "iter": "20260522-1930",
+  "timestamp": "2026-05-22T11:30:00+00:00",
+  "A_net": 3.3946,
+  "F_hunt": 2.467,
+  "Trigger_t": true,
+  "K_fold": 3.0,
+  "G_cycle": 11.0495,
+  "D_lack_count": 2.19,
+  "Delta_G_unlimited": 16.215024,
+  "details": {
+    "A_net_breakdown": {
+      "node_hermes": 0.765,
+      "node_openclaw": 0.8096,
+      "node_evomap": 0.528,
+      "node_mark": 0.6120000000000001,
+      "node_phi": 0.68
+    },
+    "trigger_conditions": {
+      "t_seconds": 0,
+      "mod900": 0,
+      "threshold": 0,
+      "triggered": true
+    },
+    "apex_metrics": {
+      "psi": 0.27,
+      "nabla": 1.0,
+      "xi": 0.94,
+      "gamma": 0.6
+    },
+    "D_lack_impact": 0.4566,
+    "minutes_since_last_hunt": 240.0
+  }
+}

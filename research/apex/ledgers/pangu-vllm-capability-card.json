@@ -1,0 +1,157 @@
+{
+  "asset": "openPangu / Pangu model support in vLLM cache",
+  "integrated_at_ms": 1779521994100,
+  "source_repo_cache": "a2a-resources/cache/vllm-project_vllm",
+  "source_repo": "vllm-project/vllm",
+  "license_note": "Source files are Apache-2.0 headers in vLLM cache; keep attribution when reusing.",
+  "value": "Local evidence that vLLM supports OpenPangu text, MoE, MTP/speculative and VL model architectures; useful for A2A model-support knowledge, SearchSkill retrieval, and APEX research engine model capability ledger.",
+  "files": [
+    {
+      "path": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/openpangu.py",
+      "bytes": 51774,
+      "sha256": "b84becfa1b460dd1e5cd9e398233109438874d56b378f9618c10c854b100bfef"
+    },
+    {
+      "path": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/openpangu_mtp.py",
+      "bytes": 10385,
+      "sha256": "112b2363a3095666a36a99d0d1c3d60fd63ff3fe7c6cb3058bd4ff05acf9bd73"
+    },
+    {
+      "path": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/openpangu_vl.py",
+      "bytes": 48334,
+      "sha256": "bbb15e9763be14089adc525a55de43a1d155b0cb381046c61fb44f5e81c24204"
+    },
+    {
+      "path": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/registry.py",
+      "bytes": 57575,
+      "sha256": "6232508eb1c32f1f7e535a2592edf1f268f50f103d4ef6817fcb32d1be90b732"
+    },
+    {
+      "path": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "bytes": 65973,
+      "sha256": "c0dcb7b579412437602024354ce4af30061059ddf55099cf3ad7e067a6ca01c0"
+    },
+    {
+      "path": "a2a-resources/cache/vllm-project_vllm/docs/models/supported_models.md",
+      "bytes": 58164,
+      "sha256": "9ac8fd1a3be6538047d849d636a373061159adb4eec9db6cf50d12aed9f76911"
+    }
+  ],
+  "supported_models": [
+    {
+      "line": 462,
+      "text": "| `PanguEmbeddedForCausalLM` | openPangu-Embedded-7B | `FreedomIntelligence/openPangu-Embedded-7B-V1.1` | ✅︎ | ✅︎ |"
+    },
+    {
+      "line": 463,
+      "text": "| `PanguProMoEV2ForCausalLM` | openpangu-pro-moe-v2 | | ✅︎ | ✅︎ |"
+    },
+    {
+      "line": 464,
+      "text": "| `PanguUltraMoEForCausalLM` | openpangu-ultra-moe-718b-model | `FreedomIntelligence/openPangu-Ultra-MoE-718B-V1.1` | ✅︎ | ✅︎ |"
+    },
+    {
+      "line": 607,
+      "text": "| `OpenPanguVLForConditionalGeneration` | openpangu-VL | T + I<sup>E+</sup> + V<sup>E+</sup> | `FreedomIntelligence/openPangu-VL-7B` | ✅︎ | ✅︎ |"
+    }
+  ],
+  "registry_hits": [
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/registry.py",
+      "line": 190,
+      "text": "\"PanguEmbeddedForCausalLM\": (\"openpangu\", \"PanguEmbeddedForCausalLM\"),"
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/registry.py",
+      "line": 191,
+      "text": "\"PanguProMoEV2ForCausalLM\": (\"openpangu\", \"PanguProMoEV2ForCausalLM\"),"
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/registry.py",
+      "line": 192,
+      "text": "\"PanguUltraMoEForCausalLM\": (\"openpangu\", \"PanguUltraMoEForCausalLM\"),"
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/registry.py",
+      "line": 503,
+      "text": "\"OpenPanguVLForConditionalGeneration\": ("
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/registry.py",
+      "line": 504,
+      "text": "\"openpangu_vl\","
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/registry.py",
+      "line": 505,
+      "text": "\"OpenPanguVLForConditionalGeneration\","
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/vllm/model_executor/models/registry.py",
+      "line": 627,
+      "text": "\"OpenPanguMTPModel\": (\"openpangu_mtp\", \"OpenPanguMTP\"),"
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 470,
+      "text": "\"PanguEmbeddedForCausalLM\": _HfExamplesInfo("
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 471,
+      "text": "\"FreedomIntelligence/openPangu-Embedded-7B-V1.1\", trust_remote_code=True"
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 473,
+      "text": "\"PanguProMoEV2ForCausalLM\": _HfExamplesInfo("
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 478,
+      "text": "\"PanguUltraMoEForCausalLM\": _HfExamplesInfo("
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 479,
+      "text": "\"FreedomIntelligence/openPangu-Ultra-MoE-718B-V1.1\","
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 1193,
+      "text": "\"OpenPanguVLForConditionalGeneration\": _HfExamplesInfo("
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 1194,
+      "text": "\"FreedomIntelligence/openPangu-VL-7B\","
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 1201,
+      "text": "\"OpenPanguVLVideoProcessorInitKwargs does not specify total=False, \""
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 1202,
+      "text": "\"making all kwargs required. See https://huggingface.co/FreedomIntelligence/openPangu-VL-7B/discussions/2\""
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 1613,
+      "text": "\"OpenPanguMTPModel\": _HfExamplesInfo("
+    },
+    {
+      "file": "a2a-resources/cache/vllm-project_vllm/tests/models/registry.py",
+      "line": 1614,
+      "text": "\"FreedomIntelligence/openPangu-Ultra-MoE-718B-V1.1\","
+    }
+  ],
+  "integration_boundary": "Indexed as capability evidence only. No model weights downloaded, no external API call, no runtime serving enabled.",
+  "recommended_uses": [
+    "SearchSkill can answer OpenPangu/vLLM support questions from local evidence.",
+    "APEX research engine can consider Pangu architecture support in model-routing ledgers.",
+    "A2A absorber can tag vllm-project_vllm as containing Pangu model-executor capability.",
+    "Do not claim local Pangu inference is available unless weights/runtime are separately installed."
+  ]
+}

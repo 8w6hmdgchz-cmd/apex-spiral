@@ -1,0 +1,111 @@
+{
+  "engine": "APEX Unified Research Engine MVP",
+  "trace_id": "apex-engine-1779468425943-28baaa4c",
+  "timestamp_ms": 1779468426054,
+  "question": "APEX GitHub evolution safety audit",
+  "scores": {
+    "ui_control": 1.0,
+    "training": 0.8455,
+    "research": 0.8567,
+    "engine_apex": 0.8886
+  },
+  "modules": {
+    "ui_control": {
+      "score": 1.0,
+      "status": "ok",
+      "result": {
+        "cmd": [
+          "cargo",
+          "test"
+        ],
+        "cwd": "/Users/lihongxin/.openclaw/workspace/apex_token_rs",
+        "code": 0,
+        "latency_ms": 42.84,
+        "stdout": "\nrunning 4 tests\ntest tests::test_image_to_screen ... ok\ntest tests::test_image_to_screen_scaled ... ok\ntest tests::test_token_estimate ... ok\ntest tests::test_sliding_context ... ok\n\ntest result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n\nrunning 0 tests\n\ntest result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+        "stderr": "warning: unused import: `serde_json`\n --> src/main.rs:3:5\n  |\n3 | use serde_json;\n  |     ^^^^^^^^^^\n  |\n  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\nwarning: `apex_token_rs` (bin \"apex_token_rs\" test) generated 1 warning (run `cargo fix --bin \"apex_token_rs\" -p apex_token_rs --tests` to apply 1 suggestion)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s\n     Running unittests src/lib.rs (target/debug/deps/apex_token_rs-f64f149fa44aaeb2)\n     Running unittests src/main.rs (target/debug/deps/apex_token_rs-453e012f3ae0f812)\n   Doc-tests apex_token_rs\n"
+      }
+    },
+    "training": {
+      "score": 0.8455,
+      "status": "ok",
+      "summary": {
+        "count": 10,
+        "score_mean": 0.8455,
+        "score_min": 0.8021,
+        "score_max": 0.8974,
+        "pass_rate_0_75": 1.0
+      },
+      "result": {
+        "cmd": [
+          "/Users/lihongxin/.openclaw/workspace/clawg-mvp/scripts/run_iteration.sh"
+        ],
+        "cwd": "/Users/lihongxin/.openclaw/workspace/clawg-mvp",
+        "code": 0,
+        "latency_ms": 68.39,
+        "stdout": "[1/3] Generate Task_APEX dataset\ngenerated /Users/lihongxin/.openclaw/workspace/clawg-mvp/datasets/raw/tasks.jsonl\n[2/3] Run Bench: AutoVerify60 + LLMVerify40\nwrote /Users/lihongxin/.openclaw/workspace/clawg-mvp/datasets/processed/reports.jsonl\n[3/3] Aggregate Score_APEX\n{\n  \"count\": 10,\n  \"score_mean\": 0.8455,\n  \"score_min\": 0.8021,\n  \"score_max\": 0.8974,\n  \"pass_rate_0_75\": 1.0\n}\n",
+        "stderr": ""
+      }
+    },
+    "research": {
+      "score": 0.8567,
+      "systems": {
+        "era": {
+          "system": "ERA",
+          "score": 0.86,
+          "best_node": {
+            "node_id": "n3",
+            "claim": "Generate a minimal reproducible experiment before writing conclusions",
+            "score": 0.86
+          },
+          "artifact": "/Users/lihongxin/.openclaw/workspace/apex-unified-engine/reports/apex-engine-1779468425943-28baaa4c/research/era_tree.json"
+        },
+        "co_scientist": {
+          "system": "CoScientist",
+          "score": 0.88,
+          "evolved": {
+            "hypothesis": "Use negative controls and ablation to separate signal from workflow artifacts.",
+            "rationale": "Highest rank after reflection; directly testable and reduces false positives.",
+            "memory_tags": [
+              "mechanism",
+              "control",
+              "ablation"
+            ]
+          },
+          "artifact": "/Users/lihongxin/.openclaw/workspace/apex-unified-engine/reports/apex-engine-1779468425943-28baaa4c/research/co_scientist_hypotheses.json"
+        },
+        "robin": {
+          "system": "Robin",
+          "score": 0.83,
+          "plan": {
+            "hypothesis": "The best candidate survives explicit falsification under sandboxed checks.",
+            "plan": [
+              "Define measurable outcome and null hypothesis",
+              "Create sandbox experiment or code check",
+              "Run automatic verification",
+              "Analyze failure modes before final claim"
+            ],
+            "experiment": {
+              "type": "mvp_sandbox_check",
+              "expected_signal": "pass_rate and score_apex improve after feedback"
+            },
+            "analysis": {
+              "mechanism": "Feedback pressure increases verified task reliability while token control prevents context drift.",
+              "limitations": [
+                "MVP uses placeholder judge",
+                "Needs real literature retrieval and biological/algorithmic datasets"
+              ]
+            }
+          },
+          "artifact": "/Users/lihongxin/.openclaw/workspace/apex-unified-engine/reports/apex-engine-1779468425943-28baaa4c/research/robin_plan_analysis.json"
+        }
+      }
+    }
+  },
+  "conclusion": "MVP closed loop passed",
+  "artifacts": [
+    "/Users/lihongxin/.openclaw/workspace/apex-unified-engine/reports/apex-engine-1779468425943-28baaa4c/engine_report.json",
+    "/Users/lihongxin/.openclaw/workspace/apex-unified-engine/reports/apex-engine-1779468425943-28baaa4c/research/era_tree.json",
+    "/Users/lihongxin/.openclaw/workspace/apex-unified-engine/reports/apex-engine-1779468425943-28baaa4c/research/co_scientist_hypotheses.json",
+    "/Users/lihongxin/.openclaw/workspace/apex-unified-engine/reports/apex-engine-1779468425943-28baaa4c/research/robin_plan_analysis.json"
+  ]
+}

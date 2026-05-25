@@ -1,0 +1,46 @@
+{
+  "round": 38,
+  "timestamp": "2026-05-24T14:08:00+08:00",
+  "R38_record": {
+    "round": 38,
+    "order": "12534",
+    "timestamp": "2026-05-24T13:53:00+08:00",
+    "preflight_card_embedded": true,
+    "entropy_tracking": {
+      "target_tokens": 500,
+      "estimated_actual": 510,
+      "estimated_deviation": 0.02,
+      "status": "no_entropy_increase_R38"
+    },
+    "epsilon_benchmark": {
+      "self_verification_task": "completed_state_json_check",
+      "result": "success",
+      "evidence": "state.json read, metrics extracted"
+    },
+    "science_formula_added": "控制理论公式映射（比例控制、误差信号）"
+  },
+  "self_repair_attempts": [
+    {
+      "type": "output_entropy",
+      "action": "tracking_R38_completed",
+      "result": "success",
+      "evidence": "偏离度0.02 < 0.3"
+    },
+    {
+      "type": "preflight_card",
+      "action": "format_standardized",
+      "result": "success",
+      "evidence": "round-38.md written with preflight card"
+    },
+    {
+      "type": "science_mapping",
+      "action": "control_theory_formula_added",
+      "result": "success",
+      "evidence": "error_signal, proportional_control formulas added"
+    }
+  ],
+  "verification_needed": [
+    "R39执行时是否继续使用预检卡片",
+    "ε_repair benchmark是否有新测试任务"
+  ]
+}

@@ -25,3 +25,30 @@ a2a-resources/*.bak*
 a2a_resources_pending_manifest/
 hermes/
 benchmark/
+social-auto-upload
+
+# Embedded git repos
+a2a-resources/cache/
+workspace/workspace/
+workspace/social-auto-upload/
+social-auto-upload/
+.openclaw/tiangong-github-cache/
+hermes/
+
+# Build artifacts and binaries
+apex-ene/engine/target/
+apex-ene/router/apex-router
+scripts/apex-book-skill/apex-book-skill
+scripts/apex-strata/apex-strata
+skills/apex-core/apex_token_optimizer
+
+# Evomap reports (too many, just keep latest)
+apex-github-evolution/reports/
+
+# Python cache
+**/__pycache__/
+**/*.pyc
+
+# A2A resources huge dirs
+a2a-resources/fetcher*
+a2a_langchain_rag_demo/

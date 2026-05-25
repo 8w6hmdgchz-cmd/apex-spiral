@@ -1,0 +1,16 @@
+# ClawG Bench MVP
+score_formula:
+  auto_verify_weight: 0.6
+  llm_verify_weight: 0.4
+
+bench:
+  fixed_tasks: 100
+  pass_threshold: 0.75
+  hard_case_percent: 20
+
+metrics:
+  - score_apex
+  - pass_at_1
+  - token_cost
+  - latency_ms
+  - fallback_rate

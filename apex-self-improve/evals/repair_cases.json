@@ -1,0 +1,16 @@
+[
+  {
+    "id": "repair_polarity_inversion",
+    "buggy_formula": "score = quality / repair_rate",
+    "bug": "repair_rate is beneficial but placed in denominator",
+    "expected_patch": "score = quality * repair_rate",
+    "required_steps": ["detect", "diagnose", "patch", "verify", "retain"]
+  },
+  {
+    "id": "repair_cost_term",
+    "buggy_formula": "score = quality * latency_cost",
+    "bug": "latency_cost is a cost but placed as beneficial multiplier",
+    "expected_patch": "score = quality / max(latency_cost, 1.0)",
+    "required_steps": ["detect", "diagnose", "patch", "verify", "retain"]
+  }
+]

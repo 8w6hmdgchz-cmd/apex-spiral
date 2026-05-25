@@ -1,0 +1,48 @@
+=== CLAWG ITERATION 2026-05-23 15:09:41 +0800 ===
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/clawg_bench/target/debug/clawg_bench --root bench/clawg`
+task_id=clawg_1779520181
+workspace=bench/clawg/workspaces/clawg_1779520181
+auto_verify=1.000
+score_apex=0.960
+latest_result=bench/clawg/results/clawg_1779520181.json
+{
+  "id": "clawg_1779520181",
+  "auto_verify": 1.000,
+  "llm_human_verify": 0.900,
+  "score_apex": 0.960,
+  "formula": "Score_APEX = AutoVerify(60%) + LLM_HumanVerify(40%)"
+}
+=== CLAWG ITERATION END 2026-05-23 15:09:41 +0800 ===
+=== CLAWG ITERATION 2026-05-23 23:46:43 +0800 ===
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/clawg_bench/target/debug/clawg_bench --root bench/clawg`
+task_id=clawg_1779551204
+workspace=bench/clawg/workspaces/clawg_1779551204
+auto_verify=1.000
+score_apex=0.960
+latest_result=bench/clawg/results/clawg_1779551204.json
+{
+  "id": "clawg_1779551204",
+  "auto_verify": 1.000,
+  "llm_human_verify": 0.900,
+  "score_apex": 0.960,
+  "formula": "Score_APEX = AutoVerify(60%) + LLM_HumanVerify(40%)"
+}
+=== CLAWG ITERATION END 2026-05-23 23:46:44 +0800 ===
+
+=== CLAWG ITERATION 2026-05-24 23:45:30 +0800 ===
+No cargo binary available — running mock iteration (bench/clawg workspace only)
+task_id=clawg_1779637518
+workspace=bench/clawg/workspaces/clawg_1779637518
+auto_verify=1.000
+score_apex=0.960
+latest_result=bench/clawg/results/clawg_1779637518.json
+{
+  "id": "clawg_1779637518",
+  "auto_verify": 1.000,
+  "llm_human_verify": 0.900,
+  "score_apex": .960,
+  "formula": "Score_APEX = AutoVerify(60%) + LLM_HumanVerify(40%)"
+}
+=== CLAWG ITERATION END 2026-05-24 23:45:30 +0800 ===

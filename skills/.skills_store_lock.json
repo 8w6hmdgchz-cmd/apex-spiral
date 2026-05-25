@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "tencent-novnc-chromium-cdp": {
+      "name": "lin无图形化控制浏览器过各种验证",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=tencent-novnc-chromium-cdp",
+      "source": "skillhub",
+      "version": "1.0.0"
+    },
+    "quant-backtest-strategy": {
+      "name": "A股量化回测策略引擎",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=quant-backtest-strategy",
+      "source": "skillhub",
+      "version": "1.3.5"
+    },
+    "akquant-backtest": {
+      "name": "AKQuant A-Share Backtesting",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=akquant-backtest",
+      "source": "skillhub",
+      "version": "1.0.1"
+    }
+  }
+}

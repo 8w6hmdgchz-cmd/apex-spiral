@@ -1,0 +1,5 @@
+Project: mock local file operation training
+Status: draft
+Iteration: 2026-05-24
+# APEX Self-Check
+This workspace demonstrates mock local file operation training.

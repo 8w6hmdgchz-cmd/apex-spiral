@@ -1,0 +1,219 @@
+[2026-05-25 11:31:29] =========================================
+[2026-05-25 11:31:29] 🔄 自动回流管道启动
+[2026-05-25 11:31:29] [1/5] PHI_RATIO追踪...
+[2026-05-25 11:31:29] 📊 PHI_RATIO追踪...
+[2026-05-25 11:31:29]   PHI_equiv=60.0%
+[2026-05-25 11:31:29]   瓶颈=∇Θ
+[2026-05-25 11:31:29] [2/5] 猎食检查...
+[2026-05-25 11:31:29]   ⚠️ 猎食超时或失败
+[2026-05-25 11:31:29] [3/5] EvoMap同步...
+  "latest": "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json",
+  "external_sync_allowed": false
+}
+[2026-05-25 11:31:30] [4/5] Git提交...
+[2026-05-25 11:31:30]   ✅ 无变更，跳过提交
+[2026-05-25 11:31:30] [5/5] Gist备份...
+[2026-05-25 11:31:30] cloning gist over SSH: git@gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+Cloning into '/tmp/xuanji_gist_backup'...
+[main 399fd63] xuanji ssh gist backup 2026-05-25 11:31:35
+ 46 files changed, 4958 insertions(+), 3495 deletions(-)
+ delete mode 100644 ANTI_HALLUCINATION_GENES.md
+ delete mode 100644 APEX_EVOLUTION_BOOST.md
+ delete mode 100644 APEX_EVOLUTION_README.md
+ delete mode 100644 APEX_UNIFIED_ENGINE_REPORT_20260522.md
+ delete mode 100644 DEFECT_DETECTION_GENES.md
+ delete mode 100644 D_PRO_BOOST.md
+ delete mode 100644 Dockerfile
+ delete mode 100644 EVOLUTION_ENHANCER.md
+ delete mode 100644 EVOLUTION_GENES.md
+ create mode 100644 EVOLUTION_MAP.md
+ delete mode 100644 HUB_INDEX.md
+ delete mode 100644 HUMAN_REASONING_GENES.md
+ create mode 100644 IDENTITY.md
+ create mode 100644 MANIFEST.sha256
+ create mode 100644 README.md
+ delete mode 100644 SELF_AWARENESS_GENES.md
+ create mode 100644 SOUL.md
+ delete mode 100644 anti_hallucination_check.py
+ delete mode 100644 apex_safe_export_manifest.json
+ delete mode 100644 defect_detector.py
+ delete mode 100644 defect_history_recent.jsonl
+ delete mode 100644 docker-compose.yml
+ delete mode 100755 evolution_loop.py
+ create mode 100644 evomap/latest.json
+ delete mode 100644 evomap_018d525a14bd39f45b92a16bac47439d4f56cd2d007.json
+ delete mode 100644 evomap_0dce02563d1a2db2ee4421664c1c4db848443e3f884.json
+ delete mode 100644 evomap_325070862846c9ab6bb9108210fff05ec12c7682b8b.json
+ delete mode 100644 evomap_63cb9bcebeafb40b874ff80b584945f1ad86e380b0a.json
+ delete mode 100644 evomap_6fcae02034e74ab7af942b0b9a376d23d7ebd789e3b.json
+ delete mode 100644 evomap_93c5e0705e3331e37473d3c25408688a2557a0cf79a.json
+ rename export.manifest.json => exports/latest.manifest.json (91%)
+ delete mode 100644 gamma_booster.py
+ delete mode 100644 latest-report.md
+ delete mode 100755 memory_manager.py
+ delete mode 100644 phi_history_recent.jsonl
+ delete mode 100644 "phi_history_\347\222\207\347\216\221.jsonl"
+ delete mode 100755 repair_chain_verifier.py
+ create mode 100755 scripts/auto_reflux.sh
+ create mode 100644 scripts/crontab_config
+ create mode 100755 scripts/gist_backup.sh
+ create mode 100755 scripts/phi_tracker.sh
+ delete mode 100644 setup.sh
+ create mode 100644 state/phi_history.jsonl
+ create mode 100644 state/phi_tracker_latest.json
+[2026-05-25 11:31:35] pushing gist over SSH
+remote: Gist does not support directories.        
+remote: These are the directories that are causing problems:        
+remote: evomap, exports, scripts, state        
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git'
+[2026-05-25 11:31:39]   ⚠️ Gist备份失败
+[2026-05-25 11:31:39] ✅ 回流完成
+[2026-05-25 11:31:39] =========================================
+[2026-05-25 11:45:16] =========================================
+[2026-05-25 11:45:16] 🔄 自动回流管道启动
+[2026-05-25 11:45:16] [1/5] PHI_RATIO追踪...
+[2026-05-25 11:45:16] 📊 PHI_RATIO追踪...
+[2026-05-25 11:45:16]   PHI_equiv=60.0%
+[2026-05-25 11:45:16]   瓶颈=∇Θ
+[2026-05-25 11:45:16] [2/5] 猎食检查...
+[2026-05-25 11:45:16]   ⚠️ 猎食超时或失败
+[2026-05-25 11:45:16] [3/5] EvoMap同步...
+  "latest": "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json",
+  "external_sync_allowed": false
+}
+[2026-05-25 11:45:16] [4/5] Git提交...
+[2026-05-25 11:45:16]   ✅ 无变更，跳过提交
+[2026-05-25 11:45:16] [5/5] Gist备份...
+[2026-05-25 11:45:16] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main 2711b5a] xuanji ssh gist backup 2026-05-25 11:45:24
+ 5 files changed, 19 insertions(+), 8 deletions(-)
+[2026-05-25 11:45:24] pushing gist over SSH
+remote: Gist does not support directories.        
+remote: These are the directories that are causing problems:        
+remote: evomap, exports, scripts, state        
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git'
+[2026-05-25 11:45:29]   ⚠️ Gist备份失败
+[2026-05-25 11:45:29] ✅ 回流完成
+[2026-05-25 11:45:29] =========================================
+[2026-05-25 11:49:01] =========================================
+[2026-05-25 11:49:01] 🔄 自动回流管道启动
+[2026-05-25 11:49:01] [1/5] PHI_RATIO追踪...
+[2026-05-25 11:49:01] 📊 PHI_RATIO追踪...
+[2026-05-25 11:49:01]   PHI_equiv=60.0%
+[2026-05-25 11:49:01]   瓶颈=∇Θ
+[2026-05-25 11:49:01] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-25 11:49:11]   ⚠️ 猎食超时或失败
+[2026-05-25 11:49:11] [3/5] EvoMap同步...
+  "latest": "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json",
+  "external_sync_allowed": false
+}
+[2026-05-25 11:49:11] [4/5] Git提交...
+[main f5b2693] 🔄 auto reflux 2026-05-25 11:49
+ 2 files changed, 23 insertions(+), 12 deletions(-)
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'github.com:8w6hmdgchz-cmd/apex-spiral.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-05-25 11:49:15]   ⚠️ Git推送需要拉取最新
+[2026-05-25 12:15:10] =========================================
+[2026-05-25 12:15:10] 🔄 自动回流管道启动
+[2026-05-25 12:15:10] [1/5] PHI_RATIO追踪...
+[2026-05-25 12:15:10] 📊 PHI_RATIO追踪...
+[2026-05-25 12:15:10]   PHI_equiv=60.0%
+[2026-05-25 12:15:10]   瓶颈=∇Θ
+[2026-05-25 12:15:10] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-25 12:15:20]   ⚠️ 猎食超时或失败
+[2026-05-25 12:15:20] [3/5] EvoMap同步...
+  "latest": "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json",
+  "external_sync_allowed": false
+}
+[2026-05-25 12:15:20] [4/5] Git提交...
+[2026-05-25 12:15:20]   ✅ 无变更，跳过提交
+[2026-05-25 12:15:20] [5/5] Gist备份...
+[2026-05-25 12:15:20] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+M	MANIFEST.sha256
+M	README.md
+D	evomap/latest.json
+A	evomap__latest.json
+D	exports/latest.manifest.json
+A	exports__latest.manifest.json
+D	scripts/auto_reflux.sh
+D	scripts/crontab_config
+D	scripts/gist_backup.sh
+D	scripts/phi_tracker.sh
+A	scripts__auto_reflux.sh
+A	scripts__crontab_config
+A	scripts__gist_backup.sh
+A	scripts__phi_tracker.sh
+D	state/phi_history.jsonl
+D	state/phi_tracker_latest.json
+A	state__phi_history.jsonl
+A	state__phi_tracker_latest.json
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[main c26f35b] xuanji ssh gist backup 2026-05-25 12:15:29
+ 10 files changed, 101 insertions(+), 42 deletions(-)
+ rename evomap/latest.json => evomap__latest.json (91%)
+ rename exports/latest.manifest.json => exports__latest.manifest.json (91%)
+ rename scripts/auto_reflux.sh => scripts__auto_reflux.sh (69%)
+ rename scripts/crontab_config => scripts__crontab_config (100%)
+ rename scripts/gist_backup.sh => scripts__gist_backup.sh (86%)
+ rename scripts/phi_tracker.sh => scripts__phi_tracker.sh (100%)
+ rename state/phi_history.jsonl => state__phi_history.jsonl (98%)
+ rename state/phi_tracker_latest.json => state__phi_tracker_latest.json (84%)
+[2026-05-25 12:15:29] pushing gist over SSH
+/Users/lihongxin/.openclaw/workspace/scripts/gist_backup.sh: line 135: timeout: command not found
+[2026-05-25 12:15:29]   ⚠️ Gist备份失败
+[2026-05-25 12:15:29] ✅ 回流完成
+[2026-05-25 12:15:29] =========================================
+[2026-05-25 13:30:36] =========================================
+[2026-05-25 13:30:36] 🔄 自动回流管道启动
+[2026-05-25 13:30:36] [1/5] PHI_RATIO追踪...
+[2026-05-25 13:30:36] 📊 PHI_RATIO追踪...
+[2026-05-25 13:30:36]   PHI_equiv=60.0%
+[2026-05-25 13:30:36]   瓶颈=∇Θ
+[2026-05-25 13:30:36] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-25 13:30:46]   ⚠️ 猎食超时或失败
+[2026-05-25 13:30:46] [3/5] EvoMap同步...
+  "latest": "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json",
+  "external_sync_allowed": false
+}
+[2026-05-25 13:30:46] [4/5] Git提交...
+[2026-05-25 13:30:46]   ✅ 无变更，跳过提交
+[2026-05-25 13:30:46] [5/5] Gist备份...
+[2026-05-25 13:30:46] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Already up to date.
+[main 0ae030e] xuanji ssh gist backup 2026-05-25 13:30:55
+ 7 files changed, 97 insertions(+), 43 deletions(-)
+[2026-05-25 13:30:55] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   cfcf259..0ae030e  main -> main
+[2026-05-25 13:31:04] gist backup complete
+[2026-05-25 13:31:04] ✅ 回流完成
+[2026-05-25 13:31:04] =========================================

@@ -1,0 +1,8 @@
+[2026-05-22 09:17:30] 启动全模块开智循环
+[20260522-0917] === 循环开始 ===
+/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/lihongxin/.openclaw/workspace/apex-enlightenment/apex-enlighten.py': [Errno 2] No such file or directory
+[20260522-0917] 循环完成，休眠15分钟
+[2026-05-22 09:18:06] 启动全模块开智循环
+[20260522-0918] === 循环开始 ===
+/opt/homebrew/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/lihongxin/.openclaw/workspace/apex-enlightenment/apex-enlighten.py': [Errno 2] No such file or directory
+[20260522-0918] 循环完成，休眠15分钟

@@ -1,0 +1,7 @@
+{
+  "id": "clawg_1779520153",
+  "auto_verify": 1.000,
+  "llm_human_verify": 0.900,
+  "score_apex": 0.960,
+  "formula": "Score_APEX = AutoVerify(60%) + LLM_HumanVerify(40%)"
+}

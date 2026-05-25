@@ -1,0 +1,19 @@
+# ClawG Orchestrator MVP
+parallel_sandboxes: 4
+timeout_sec: 300
+trace_enabled: true
+
+routing:
+  task_model: gpt-5.3-codex
+  judge_model: gpt-5.5
+  fallback_model: gpt-5.3-codex
+
+storage:
+  datasets_dir: ./datasets
+  reports_dir: ./datasets/processed/reports
+  trajectories_dir: ./datasets/processed/trajectories
+
+sandbox:
+  net: deny
+  cpu: 2
+  mem_mb: 2048

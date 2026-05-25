@@ -1,0 +1,464 @@
+{
+  "createdAt": "2026-05-24T04:07:00+08:00",
+  "round": 120,
+  "phase": "post_foundation_alternating",
+  "lastOrder": "12354",
+  "nextOrderHint": "21354",
+  "completedFoundationRounds": 5,
+  "metrics": {
+    "xi_anti": 0.82,
+    "epsilon_repair": 0.98,
+    "h_entropy": 0.81,
+    "t_cycle": 0.95,
+    "phi_positive": 0.72,
+    "h_output_control": 0.81
+  },
+  "lastDerived": {
+    "roundUpdatedAt": "2026-05-25T12:53:00+08:00",
+    "order": "12354",
+    "previousOrder": "21354",
+    "externalRead": {
+      "status": "not_used",
+      "reason": "Skipped optional read-only web/GitHub query; local fixed-path process bug was sufficient."
+    },
+    "stepOrderExecution": [
+      {
+        "step": "1",
+        "name": "代入公式分析",
+        "result": "deltaGProxy=0.4933; limiting metric=phi_positive value=0.72"
+      },
+      {
+        "step": "2",
+        "name": "找公式/流程bug",
+        "result": "Top-level metricEvidenceGateChecklist.currentRoundDecisions and postResponseAudit pointer are still previous-round specific, and lastDerived still repeats verification scaffolding that can grow state size."
+      },
+      {
+        "step": "3",
+        "name": "修复bug",
+        "result": "Refreshed round-specific evidence pointers and compacted current-round lastDerived; metrics held by evidence gate."
+      },
+      {
+        "step": "5",
+        "name": "验证改进",
+        "result": "Direct file existence, JSON validity, log required terms, alias, pointer, and state-size checks."
+      },
+      {
+        "step": "4",
+        "name": "修正公式后再代入并学习",
+        "result": "Damped oscillator mapping added; no ability metric raised without independent evidence."
+      }
+    ],
+    "shortboardReview": {
+      "xi_anti": "Hold: fixed-path local reads only; no adversarial/source-grounding benchmark.",
+      "epsilon_repair": "Hold: local repair performed, but existing score is high and no repeated durability benchmark.",
+      "h_entropy_h_output_control": "Operational shortboard: state still carries repeated round scaffolding; compact current evidence to reduce artifact bloat, but do not raise without output benchmark.",
+      "t_cycle": "Hold: direct workflow used; no before/after timing benchmark.",
+      "phi_positive": "Lowest numeric metric; cannot rise before user-visible final summary/transcript evidence."
+    },
+    "biggestShortboard": {
+      "metric": "phi_positive",
+      "value": 0.72,
+      "reason": "Lowest requested metric and user-visible delivery evidence is not available until final response is sent."
+    },
+    "processBug": {
+      "bug": "Top-level metricEvidenceGateChecklist.currentRoundDecisions and postResponseAudit pointer are still previous-round specific, and lastDerived still repeats verification scaffolding that can grow state size.",
+      "risk": "Stale per-round evidence can blur whether metrics were held or raised this round; repeated scaffolding increases H_entropy/h_output_control load and T_cycle friction.",
+      "classification": "stale_round_evidence_and_state_bloat"
+    },
+    "repair": {
+      "artifact": "/Users/lihongxin/.openclaw/workspace/apex-self-improve/state.json",
+      "actions": [
+        "Update per-round evidence gate decisions to round 120",
+        "Update post-response audit pointer to previous round 119",
+        "Compact lastDerived to current-round evidence only"
+      ],
+      "safety": "Local file-only repair; no external writes/posts/downloads/unknown-code/trading/API writes.",
+      "old_state_bytes": 22502,
+      "new_state_bytes": 20765,
+      "state_bytes_reduced": true
+    },
+    "science_mapping": {
+      "formula": "Physics damped oscillator amplitude: A(t)=A0*e^(-βt).",
+      "fact": "In a linearly damped harmonic oscillator, the oscillation amplitude decays exponentially with damping coefficient β under the standard ideal model.",
+      "inference": "Repeated stale state sections behave like persistent oscillation amplitude: without damping/compaction, old evidence continues to consume context and destabilize output control.",
+      "hypothesis": "A compact lastDerived acts like stronger damping for stale context, likely reducing future friction; metrics remain unchanged until timing or output-control evidence is measured."
+    },
+    "deltaGProxy": {
+      "formula": "xi_anti * epsilon_repair * phi_positive * h_entropy / t_cycle",
+      "before": 0.4933,
+      "after": 0.4933,
+      "interpretation": "No metric increase claimed; repair improves audit freshness and state hygiene."
+    },
+    "metricEvidenceGateChecklist": {
+      "xi_anti": {
+        "before": 0.82,
+        "after": 0.82,
+        "decision": "hold",
+        "direct_evidence": "Used only direct fixed paths README/state/logs; no search/sort/full-text discovery or external benchmark.",
+        "non_increase_reason": "Compliance evidence is not an adversarial hallucination benchmark."
+      },
+      "epsilon_repair": {
+        "before": 0.98,
+        "after": 0.98,
+        "decision": "hold",
+        "direct_evidence": "Updated stale round-specific pointers and compacted lastDerived in local state.json; verified JSON/log afterward.",
+        "non_increase_reason": "Repair is real but score is already 0.98; no durability test justifies increasing."
+      },
+      "h_entropy": {
+        "before": 0.81,
+        "after": 0.81,
+        "decision": "hold",
+        "direct_evidence": "State byte size checked after compaction; no independent concise-output benchmark.",
+        "non_increase_reason": "Artifact compaction alone is not proven assistant output entropy improvement."
+      },
+      "h_output_control": {
+        "before": 0.81,
+        "after": 0.81,
+        "decision": "hold",
+        "direct_evidence": "h_output_control kept alias-aligned with h_entropy.",
+        "non_increase_reason": "No final-response quality evidence exists at state-write time."
+      },
+      "t_cycle": {
+        "before": 0.95,
+        "after": 0.95,
+        "decision": "hold",
+        "direct_evidence": "No optional web/GitHub read used; no timing measurement captured.",
+        "non_increase_reason": "No measured cycle-efficiency delta."
+      },
+      "phi_positive": {
+        "before": 0.72,
+        "after": 0.72,
+        "decision": "hold",
+        "direct_evidence": "Requested log/state artifacts written locally; final delivered summary pending at state-write time.",
+        "non_increase_reason": "Requires user/task-facing delivered evidence; lowest metric explicitly held."
+      }
+    },
+    "postResponseAudit": {
+      "auditTargetRound": 119,
+      "pointerInvariant": "auditTargetRound == current_round - 1",
+      "previousLogEvidenceAvailable": true,
+      "phi_positive_can_change": "no at state-write time"
+    },
+    "outcomeBridge": {
+      "user_task_goal": "Run APEX self-improvement round 120 and produce required concise summary.",
+      "artifact_delivered_or_not": "State/log written; final visible summary pending at state-write time.",
+      "outcome_evidence_class": "internal_integrity_until_final_summary_delivered",
+      "whether_phi_positive_can_change": "no at state-write time"
+    },
+    "verification": {
+      "state_exists": true,
+      "readme_exists": true,
+      "logs_dir_exists": true,
+      "log_exists": true,
+      "json_valid": true,
+      "round": 120,
+      "lastOrder": "12354",
+      "nextOrderHint": "21354",
+      "auditTargetRound": 119,
+      "pointer_invariant_passed": true,
+      "h_output_control_present": true,
+      "h_output_control_equals_h_entropy": true,
+      "old_state_bytes": 22502,
+      "new_state_bytes": 20765,
+      "state_bytes_reduced": true,
+      "log_bytes": 4586,
+      "log_required_terms": {
+        "Order": true,
+        "Biggest shortboard": true,
+        "Repair action": true,
+        "Verification evidence": true,
+        "Formula": true,
+        "Fact": true,
+        "Inference": true,
+        "Hypothesis": true,
+        "metricEvidenceGateChecklist": true,
+        "phi_positive": true,
+        "h_output_control": true,
+        "T_cycle": true,
+        "postResponseAudit": true,
+        "outcome_evidence_class": true
+      },
+      "final_state_bytes": 21842,
+      "state_bytes_reduced_after_embedding_verification": true
+    }
+  },
+  "integratedCapabilities": {
+    "initializedAt": "2026-05-24T14:51:00+08:00",
+    "capabilities": {
+      "evolver": {
+        "status": "active",
+        "source": "apex-self-improve loop",
+        "assets": [
+          "apex-eval_cases",
+          "principles.md",
+          "state.json"
+        ],
+        "autoRepair": true
+      },
+      "autoresearch": {
+        "status": "active",
+        "source": "apex-eval_cases + GitHub queue",
+        "retrieval": true,
+        "knowledgeDistillation": true
+      },
+      "openhands": {
+        "status": "active",
+        "source": "exec + file + browser tools",
+        "fileOps": true,
+        "terminal": true,
+        "browser": true,
+        "code落地": [
+          "python",
+          "rust",
+          "go"
+        ]
+      },
+      "superpowers": {
+        "status": "building",
+        "source": "manifest + workflow",
+        "tdd": false,
+        "autoReview": false
+      }
+    },
+    "cycle": {
+      "current": "认知(autoresearch)→规划(superpowers)→执行(openhands)→进化(evolver)",
+      "evolverLoop": "apex-self-improve/15min"
+    }
+  },
+  "improvementPolicy": {
+    "updatedAt": "2026-05-25T05:38:00+08:00",
+    "evidenceGatedMetricUpdate": {
+      "xi_anti": "raise only with adversarial contradiction or source-grounding benchmark evidence",
+      "epsilon_repair": "raise only with concrete bug -> local fix -> verification evidence",
+      "h_entropy": "raise only with independent concise-output/output-control benchmark evidence",
+      "t_cycle": "improve only with measured cycle-efficiency evidence; lower friction without skipping gates",
+      "phi_positive": "raise only with user/task-facing outcome evidence, not intention or internal integrity alone",
+      "h_output_control": "alias of h_entropy; raise only with independent concise-output/output-control benchmark evidence"
+    },
+    "durabilityReason": "Policy and aliases are top-level because lastDerived is overwritten every round.",
+    "positiveOutcomeEvidenceClasses": {
+      "user_task_facing": "final answer accuracy/completeness, explicit requested artifact delivered, or user-visible workflow improvement",
+      "internal_integrity": "state/log/JSON/schema/gate repair that improves honesty or reliability but does not prove user outcome improvement",
+      "none": "analysis without artifact or verification"
+    },
+    "metricAliases": {
+      "h_output_control": "h_entropy"
+    }
+  },
+  "metricAliases": {
+    "h_output_control": "h_entropy"
+  },
+  "outcomeBridgePolicy": {
+    "updatedAt": "2026-05-25T05:53:00+08:00",
+    "targetMetric": "phi_positive",
+    "problem": "Internal repairs do not by themselves prove positive user/task-facing outcomes.",
+    "probeContract": {
+      "eachRoundMustRecord": [
+        "user_task_goal",
+        "artifact_delivered_or_not",
+        "verification_evidence",
+        "outcome_evidence_class",
+        "whether_phi_positive_can_change"
+      ],
+      "allowedPositiveEvidence": [
+        "requested artifact exists and matches explicit task constraints",
+        "final summary includes all user-requested fields concisely",
+        "user-visible workflow improvement verified by local evidence"
+      ],
+      "nonInflationRule": "Do not raise phi_positive for policy/schema repairs alone; require direct user/task-facing evidence."
+    },
+    "nextProbe": "Check whether round log plus final summary satisfy the requested concise summary fields without extra unsupported claims."
+  },
+  "finalSummaryContract": {
+    "updatedAt": "2026-05-25T06:08:00+08:00",
+    "purpose": "Prevent user-facing summary omissions and reduce output entropy for each APEX self-improvement cron round.",
+    "requiredFields": [
+      "本轮顺序",
+      "最大短板",
+      "修复动作",
+      "验证证据",
+      "下一轮顺序"
+    ],
+    "style": "concise; no unsupported capability inflation; explicitly separate verified evidence from inference when needed",
+    "verificationHook": "Round log and final response must cover all requiredFields before claiming phi_positive or h_output_control improvement.",
+    "nonOverclaimRule": "Do not raise h_entropy/h_output_control or phi_positive merely because this contract exists; raise only after artifact/summary evidence is checked."
+  },
+  "roundConstraintLedger": {
+    "updatedAt": "2026-05-25T06:38:00+08:00",
+    "purpose": "Make each APEX cron round check explicit user constraints before claiming improvement.",
+    "fixedReadPaths": [
+      "/Users/lihongxin/.openclaw/workspace/apex-self-improve/README.md",
+      "/Users/lihongxin/.openclaw/workspace/apex-self-improve/state.json",
+      "/Users/lihongxin/.openclaw/workspace/apex-self-improve/logs/"
+    ],
+    "prohibitions": [
+      "no search/sort/full-text file discovery",
+      "no external writes/posts/download-and-run unknown code/trading/API write actions",
+      "do not increase any metric without direct behavior evidence"
+    ],
+    "requiredRoundElements": [
+      "order selected from state rules",
+      "shortboard analysis covering xi_anti, epsilon_repair, h_entropy/h_output_control, t_cycle, phi_positive",
+      "local safe repair when a process bug is found",
+      "biology/chemistry/physics formula mapping labeled Fact/Inference/Hypothesis",
+      "direct verification of file existence, JSON validity, and log content",
+      "per-metric evidence gate checklist recording raise/hold reasons before metric changes"
+    ],
+    "externalReadCap": "At most one read-only web/GitHub query; skip rather than fail if unavailable.",
+    "metricGateReminder": {
+      "xi_anti": "raise only with adversarial contradiction or source-grounding benchmark evidence",
+      "epsilon_repair": "raise only with concrete bug -> local fix -> verification evidence",
+      "h_entropy": "raise only with independent concise-output/output-control benchmark evidence",
+      "t_cycle": "improve only with measured cycle-efficiency evidence; lower friction without skipping gates",
+      "phi_positive": "raise only with user/task-facing outcome evidence, not intention or internal integrity alone",
+      "h_output_control": "alias of h_entropy; raise only with independent concise-output/output-control benchmark evidence"
+    }
+  },
+  "metricEvidenceGateChecklist": {
+    "updatedAt": "2026-05-25T12:53:00+08:00",
+    "purpose": "Require every APEX self-improvement round to record direct evidence for each metric before changing it.",
+    "trackedMetrics": [
+      "xi_anti",
+      "epsilon_repair",
+      "h_entropy",
+      "h_output_control",
+      "t_cycle",
+      "phi_positive"
+    ],
+    "perRoundRequiredFields": [
+      "metric",
+      "before",
+      "after",
+      "decision_raise_or_hold",
+      "direct_evidence",
+      "non_increase_reason_if_held"
+    ],
+    "antiInflationRule": "A local policy/checklist repair may raise epsilon_repair only when the repaired artifact and verification are present; it must not raise other metrics without their specific evidence class.",
+    "currentRoundDecisions": {
+      "xi_anti": {
+        "before": 0.82,
+        "after": 0.82,
+        "decision": "hold",
+        "direct_evidence": "Used only direct fixed paths README/state/logs; no search/sort/full-text discovery or external benchmark.",
+        "non_increase_reason": "Compliance evidence is not an adversarial hallucination benchmark."
+      },
+      "epsilon_repair": {
+        "before": 0.98,
+        "after": 0.98,
+        "decision": "hold",
+        "direct_evidence": "Updated stale round-specific pointers and compacted lastDerived in local state.json; verified JSON/log afterward.",
+        "non_increase_reason": "Repair is real but score is already 0.98; no durability test justifies increasing."
+      },
+      "h_entropy": {
+        "before": 0.81,
+        "after": 0.81,
+        "decision": "hold",
+        "direct_evidence": "State byte size checked after compaction; no independent concise-output benchmark.",
+        "non_increase_reason": "Artifact compaction alone is not proven assistant output entropy improvement."
+      },
+      "h_output_control": {
+        "before": 0.81,
+        "after": 0.81,
+        "decision": "hold",
+        "direct_evidence": "h_output_control kept alias-aligned with h_entropy.",
+        "non_increase_reason": "No final-response quality evidence exists at state-write time."
+      },
+      "t_cycle": {
+        "before": 0.95,
+        "after": 0.95,
+        "decision": "hold",
+        "direct_evidence": "No optional web/GitHub read used; no timing measurement captured.",
+        "non_increase_reason": "No measured cycle-efficiency delta."
+      },
+      "phi_positive": {
+        "before": 0.72,
+        "after": 0.72,
+        "decision": "hold",
+        "direct_evidence": "Requested log/state artifacts written locally; final delivered summary pending at state-write time.",
+        "non_increase_reason": "Requires user/task-facing delivered evidence; lowest metric explicitly held."
+      }
+    }
+  },
+  "cycleRuntimeEvidenceContract": {
+    "updatedAt": "2026-05-25T06:53:00+08:00",
+    "purpose": "Prevent T_cycle improvement claims without durable per-round timing/friction evidence.",
+    "requiredPerRoundFields": [
+      "round",
+      "order",
+      "planned_start_time_source",
+      "observed_artifacts",
+      "cycle_friction_claim",
+      "whether_t_cycle_can_change",
+      "direct_evidence"
+    ],
+    "nonInflationRule": "Adding a timing hook is not itself a measured cycle-efficiency gain; T_cycle changes require before/after measured friction or runtime evidence."
+  },
+  "postResponseAuditContract": {
+    "updatedAt": "2026-05-25T12:53:00+08:00",
+    "purpose": "Close the phi_positive evidence gap caused by final summaries being sent after state updates.",
+    "requiredNextRoundAudit": {
+      "previousRound": 119,
+      "checkFields": [
+        "本轮顺序",
+        "最大短板",
+        "修复动作",
+        "验证证据",
+        "下一轮顺序"
+      ],
+      "evidenceAccepted": "Only delivered final response or directly available transcript evidence may justify phi_positive change.",
+      "nonInflationRule": "Updating the audit pointer is observability only."
+    },
+    "dynamicPreviousRoundRule": "At round n, requiredNextRoundAudit.previousRound must be written as n-1; if transcript access is outside fixed paths, record the limitation and hold phi_positive.",
+    "currentRoundPointerCheck": {
+      "updatedAt": "2026-05-25T12:53:00+08:00",
+      "currentRound": 120,
+      "expectedPreviousRound": 119,
+      "rule": "requiredNextRoundAudit.previousRound must equal current round - 1 at state write time."
+    },
+    "writeTimeInvariant": "state.round == currentRoundPointerCheck.currentRound and requiredNextRoundAudit.previousRound == state.round - 1"
+  },
+  "visibleAnswerRecoveryContract": {
+    "updatedAt": "2026-05-25T12:53:00+08:00",
+    "purpose": "Ensure cron continuation/retry notices are treated as user-facing completion evidence, not ignored after internal artifact writes.",
+    "trigger": "User or system states the previous attempt did not produce a user-visible answer, or equivalent completion failure is directly available.",
+    "requiredActions": [
+      "record the completion gap in lastDerived",
+      "hold phi_positive unless delivered-response evidence exists",
+      "produce the requested concise final summary in the continuation turn"
+    ],
+    "nonInflationRule": "A recovery contract is an observability/repair mechanism; it does not by itself raise phi_positive, h_output_control, or t_cycle.",
+    "lastAppliedRound": 120,
+    "lastTrigger": "previous attempt did not produce a user-visible answer"
+  },
+  "stateSizeDisciplineContract": {
+    "updatedAt": "2026-05-25T12:53:00+08:00",
+    "purpose": "Control state.json growth so future APEX rounds spend context on current evidence rather than repeated historical scaffolding.",
+    "rules": [
+      "Keep lastDerived focused on the current round only.",
+      "Do not duplicate large historical payloads inside each new round.",
+      "Prefer compact contracts and logs; use direct verification evidence rather than verbose repetition.",
+      "Do not claim h_entropy, h_output_control, or t_cycle improvement until measured evidence exists."
+    ],
+    "nonInflationRule": "Adding this contract is a process repair, not proof of improved output control or cycle speed.",
+    "lastAppliedRound": 120
+  },
+  "negativeEvidenceAndMetricNoRaiseContract": {
+    "updatedAt": "2026-05-25T12:53:00+08:00",
+    "name": "negativeEvidenceAndMetricNoRaiseContract",
+    "rules": [
+      "Every round must explicitly record at least one non-increase reason for the lowest requested metric.",
+      "A local repair may improve process discipline, but metrics only rise with direct benchmark, timing, or delivered-output evidence.",
+      "If the lowest metric is phi_positive, do not raise it before user-visible delivery or transcript evidence exists.",
+      "Keep lastDerived compact and current-round only to protect H_entropy/h_output_control and T_cycle."
+    ],
+    "lastAppliedRound": 120
+  },
+  "stalePointerPreventionContract": {
+    "updatedAt": "2026-05-25T12:53:00+08:00",
+    "purpose": "Reduce recurring manual audit-pointer drift without claiming metric improvement.",
+    "writeTimeInvariant": "postResponseAuditContract.requiredNextRoundAudit.previousRound == state.round - 1",
+    "lastAppliedRound": 120,
+    "nonInflationRule": "This contract is verification scaffolding only; it does not raise phi_positive or T_cycle without delivered-output/timing evidence.",
+    "currentInvariantCheckedRound": 120
+  }
+}

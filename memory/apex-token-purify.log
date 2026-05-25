@@ -1,0 +1,42 @@
+=== APEX TOKEN PURIFY 2026-05-23 14:22:40 +0800 ===
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer correct --x 100 --y 50 --sw 1920 --sh 1080 --iw 1000 --ih 500`
+{"x":192.000,"y":108.000,"formula":"X_real=X_out*(W_screen/W_img),Y_real=Y_out*(H_screen/H_img)"}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer reserve --text 100 --imgs 1000,1200,900,800 --keep 3`
+{"token_reserve":3000,"kept_frames":3,"dropped_frames":1}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer effort --total 100 --waste 25`
+{"effort_valid":75.000,"efficiency":0.750000}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer purify --dir /Users/lihongxin/.openclaw/media/qqbot/downloads --keep 50`
+{"removed":0,"kept_latest":50,"ts":1779517361}
+=== APEX TOKEN PURIFY END 2026-05-23 14:22:41 +0800 ===
+=== APEX TOKEN PURIFY 2026-05-23 23:15:12 +0800 ===
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer correct --x 100 --y 50 --sw 1920 --sh 1080 --iw 1000 --ih 500`
+{"x":192.000,"y":108.000,"formula":"X_real=X_out*(W_screen/W_img),Y_real=Y_out*(H_screen/H_img)"}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer reserve --text 100 --imgs 1000,1200,900,800 --keep 3`
+{"token_reserve":3000,"kept_frames":3,"dropped_frames":1}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer effort --total 100 --waste 25`
+{"effort_valid":75.000,"efficiency":0.750000}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer purify --dir /Users/lihongxin/.openclaw/media/qqbot/downloads --keep 50`
+{"removed":0,"kept_latest":50,"ts":1779549314}
+=== APEX TOKEN PURIFY END 2026-05-23 23:15:14 +0800 ===
+=== APEX TOKEN PURIFY 2026-05-24 23:15:03 +0800 ===
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer correct --x 100 --y 50 --sw 1920 --sh 1080 --iw 1000 --ih 500`
+{"x":192.000,"y":108.000,"formula":"X_real=X_out*(W_screen/W_img),Y_real=Y_out*(H_screen/H_img)"}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer reserve --text 100 --imgs 1000,1200,900,800 --keep 3`
+{"token_reserve":3000,"kept_frames":3,"dropped_frames":1}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer effort --total 100 --waste 25`
+{"effort_valid":75.000,"efficiency":0.750000}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_token_optimizer/target/debug/apex_token_optimizer purify --dir /Users/lihongxin/.openclaw/media/qqbot/downloads --keep 50`
+{"removed":0,"kept_latest":50,"ts":1779635704}
+=== APEX TOKEN PURIFY END 2026-05-24 23:15:04 +0800 ===

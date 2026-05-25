@@ -1,0 +1,77 @@
+{
+  "initializedAt": "2026-05-24T14:51:00+08:00",
+  "capabilities": {
+    "evolver": {
+      "status": "active",
+      "source": "apex-self-improve loop",
+      "assets": [
+        "apex-eval_cases",
+        "principles.md",
+        "state.json"
+      ],
+      "autoRepair": true
+    },
+    "autoresearch": {
+      "status": "active",
+      "source": "apex-eval_cases + GitHub queue",
+      "retrieval": true,
+      "knowledgeDistillation": true
+    },
+    "openhands": {
+      "status": "active",
+      "source": "exec + file + browser tools",
+      "fileOps": true,
+      "terminal": true,
+      "browser": true,
+      "code落地": [
+        "python",
+        "rust",
+        "go"
+      ]
+    },
+    "superpowers": {
+      "status": "building",
+      "source": "manifest + workflow",
+      "tdd": true,
+      "autoReview": "eval_runner",
+      "integratedSkills": {
+        "emv-entropy-skill": {
+          "path": "skills/emv-entropy-skill",
+          "manifest": "skills/emv-entropy-skill/SKILL.md"
+        },
+        "akquant-backtest": {
+          "path": "skills/akquant-backtest",
+          "manifest": "skills/akquant-backtest/SKILL.md"
+        },
+        "tencent-channel-community": {
+          "path": "skills/tencent-channel-community",
+          "manifest": "skills/tencent-channel-community/SKILL.md"
+        },
+        "apex-token-optimizer": {
+          "path": "skills/apex-token-optimizer",
+          "manifest": "skills/apex-token-optimizer/SKILL.md"
+        },
+        "quant-backtest-strategy": {
+          "path": "skills/quant-backtest-strategy",
+          "manifest": "skills/quant-backtest-strategy/SKILL.md"
+        },
+        "clawg-training-ecosystem": {
+          "path": "skills/clawg-training-ecosystem",
+          "manifest": "skills/clawg-training-ecosystem/SKILL.md"
+        },
+        "swrs-memory-skill": {
+          "path": "skills/swrs-memory-skill",
+          "manifest": "skills/swrs-memory-skill/SKILL.md"
+        },
+        "search-skill": {
+          "path": "skills/search-skill",
+          "manifest": "skills/search-skill/SKILL.md"
+        }
+      }
+    }
+  },
+  "cycle": {
+    "current": "认知(autoresearch)→规划(superpowers)→执行(openhands)→进化(evolver)",
+    "evolverLoop": "apex-self-improve/15min"
+  }
+}

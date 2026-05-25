@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ClawG Task Bundle",
+  "type": "object",
+  "required": ["task_id", "persona_intent", "skill_grounding", "mock_workspace"],
+  "properties": {
+    "task_id": {"type": "string"},
+    "persona_intent": {
+      "type": "object",
+      "required": ["persona_id", "goals"],
+      "properties": {
+        "persona_id": {"type": "string"},
+        "goals": {"type": "array", "items": {"type": "string"}},
+        "style": {"type": "object"},
+        "constraints": {"type": "object"},
+        "preferences": {"type": "object"}
+      }
+    },
+    "skill_grounding": {
+      "type": "object",
+      "required": ["skill_id", "tools", "success_criteria"],
+      "properties": {
+        "skill_id": {"type": "string"},
+        "tools": {"type": "array", "items": {"type": "string"}},
+        "knowledge_refs": {"type": "array", "items": {"type": "string"}},
+        "action_templates": {"type": "array", "items": {"type": "string"}},
+        "success_criteria": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "mock_workspace": {
+      "type": "object",
+      "required": ["workspace_id", "visible_paths", "limits"],
+      "properties": {
+        "workspace_id": {"type": "string"},
+        "base_image": {"type": "string"},
+        "visible_paths": {"type": "array", "items": {"type": "string"}},
+        "limits": {"type": "object"},
+        "tests_entry": {"type": "string"}
+      }
+    }
+  }
+}

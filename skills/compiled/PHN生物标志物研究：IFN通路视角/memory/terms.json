@@ -1,0 +1,22 @@
+[
+  {
+    "term": "Background",
+    "definition": "Postherpetic neuralgia (PHN) is the most common complication of herpes zoster (HZ). Early prediction of PHN risk is crucial for preventive intervention. This study aimed to identify interferon (IFN) pathway biomarkers for PHN prediction using integrated bioinformatics analysis.",
+    "chapter": ""
+  },
+  {
+    "term": "Methods",
+    "definition": "We analyzed transcriptomic data from GSE242252 (26 HZ patients vs 31 controls). Differential expression analysis was performed to identify IFN pathway genes. Machine learning models were constructed to evaluate predictive performance.",
+    "chapter": ""
+  },
+  {
+    "term": "Results",
+    "definition": "Two significantly upregulated IFN pathway genes were identified: IFI6 (log2FC=0.54, padj=0.020) and SORT1 (log2FC=0.62, padj=0.029). Machine learning models achieved AUC of 0.71-0.77 for distinguishing HZ from controls.",
+    "chapter": ""
+  },
+  {
+    "term": "Conclusion",
+    "definition": "IFN pathway activation may serve as a potential biomarker for PHN prediction. Further validation in prospective cohorts is warranted.",
+    "chapter": ""
+  }
+]

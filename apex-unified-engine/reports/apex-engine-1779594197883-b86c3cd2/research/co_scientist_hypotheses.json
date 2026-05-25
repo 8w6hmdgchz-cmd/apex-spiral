@@ -1,0 +1,29 @@
+{
+  "question": "APEX TianGong AutoResearch: 重新激活 TianGong：融合 evolver autoresearch openhands superpowers，形成认知-规划-执行-进化闭环，并准备 GitHub/Gist 安全同步",
+  "hypotheses": [
+    {
+      "id": "h1",
+      "text": "For 'APEX TianGong AutoResearch: 重新激活 TianGong：融合 evolver autoresearch openhands superpowers，形成认知-规划-执行-进化闭环，并准备 GitHub/Gist 安全同步', prioritize a measurable causal mechanism over correlation.",
+      "rank": 0.84
+    },
+    {
+      "id": "h2",
+      "text": "Use negative controls and ablation to separate signal from workflow artifacts.",
+      "rank": 0.88
+    },
+    {
+      "id": "h3",
+      "text": "Cross-check with public literature and local benchmark failures before claiming novelty.",
+      "rank": 0.81
+    }
+  ],
+  "evolved": {
+    "hypothesis": "Use negative controls and ablation to separate signal from workflow artifacts.",
+    "rationale": "Highest rank after reflection; directly testable and reduces false positives.",
+    "memory_tags": [
+      "mechanism",
+      "control",
+      "ablation"
+    ]
+  }
+}

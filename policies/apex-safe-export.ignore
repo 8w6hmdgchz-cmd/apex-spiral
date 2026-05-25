@@ -1,0 +1,20 @@
+# Integrated from apex-github-evolution/policies/export.ignore at 2026-05-23 15:34:23 +0800
+# APEX GitHub Evolution Ignore Policy
+.env*
+*.key
+*.pem
+*.p12
+*.mobileprovision
+*token*
+*secret*
+*credential*
+openclaw.json
+.openclaw/**
+memory/**
+state/**
+*/__pycache__/**
+*.pyc
+node_modules/**
+target/**
+.DS_Store
+*.log

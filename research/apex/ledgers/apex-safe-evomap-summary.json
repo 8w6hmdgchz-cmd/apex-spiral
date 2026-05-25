@@ -1,0 +1,15 @@
+{
+  "integrated_from": "apex-github-evolution/evomap/latest.json",
+  "trace_id": "evomap-1779521434960",
+  "safe_dirs": [
+    "apex_token_rs",
+    "clawg-mvp",
+    "apex-unified-engine",
+    "skills/hetu-luoshu",
+    "skills/apex-token-optimizer"
+  ],
+  "file_count": 288,
+  "secret_hit_count": null,
+  "manifest_sha256": "a6af5606e9ff7e622637f723459f5e00654c01ba2d01c2b86c4221364eee3598",
+  "policy": "policies/apex-github-evolution-safety.md + policies/apex-safe-export.ignore"
+}

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "objective": "Expand APEX TianGong K coverage through safe public GitHub capability ingestion.",
+  "repos": [
+    {
+      "pillar": "openhands",
+      "name": "OpenHands",
+      "url": "https://github.com/All-Hands-AI/OpenHands.git",
+      "rationale": "Agent execution sandbox, code editing, terminal/browser style automation."
+    },
+    {
+      "pillar": "evolver",
+      "name": "AutoGPT",
+      "url": "https://github.com/Significant-Gravitas/AutoGPT.git",
+      "rationale": "Autonomous agent loop, task decomposition, iterative execution patterns."
+    },
+    {
+      "pillar": "autoresearch",
+      "name": "crewAI",
+      "url": "https://github.com/crewAIInc/crewAI.git",
+      "rationale": "Multi-agent orchestration and role-based collaboration patterns."
+    },
+    {
+      "pillar": "superpowers",
+      "name": "MetaGPT",
+      "url": "https://github.com/geekan/MetaGPT.git",
+      "rationale": "Software company style SOP, planning, requirement-to-code workflow."
+    }
+  ]
+}

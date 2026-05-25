@@ -1,0 +1,18 @@
+[
+  {
+    "id": "oc_fact_inference_hypothesis",
+    "description": "Output must separate fact, inference, hypothesis, and verification.",
+    "required_sections": ["Fact", "Inference", "Hypothesis", "Verification"],
+    "forbidden_phrases": ["一定提升", "已经变聪明", "无需验证", "保证收益"],
+    "sample_good": "Fact: log exists. Inference: process repair landed. Hypothesis: this may reduce future drift. Verification: json tool passed.",
+    "sample_bad": "我已经全面提升，无需验证。"
+  },
+  {
+    "id": "oc_no_unverified_metric_raise",
+    "description": "Metric increases require evidence.",
+    "required_sections": ["Evidence", "Metric Change", "Unchanged Metrics"],
+    "forbidden_phrases": ["凭感觉提高", "主观提升", "没有证据但"],
+    "sample_good": "Evidence: local repair benchmark passed. Metric Change: epsilon_repair 0.60->0.62. Unchanged Metrics: h_output_control remains 0.45.",
+    "sample_bad": "没有证据但我觉得 H_entropy 可以提高。"
+  }
+]

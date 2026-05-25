@@ -1,0 +1,12 @@
+[INJECT] 真实任务失败样本已注入: iter=5, score=2.1, task=执行自反射检查并修正所有已知缺陷
+[INJECT] 真实任务失败样本已注入: iter=10, score=2.1, task=执行自反射检查并修正所有已知缺陷
+[INJECT] 真实任务失败样本已注入: iter=15, score=2.3, task=phi增长率突破1%阈值实现真实能力增长
+[SELF_CONSISTENCY WARNING] iter=17 bug=B1 confidence=0.333 paths=3
+[INJECT] 真实任务失败样本已注入: iter=20, score=2.0, task=实现自我改进闭环：识别短板→获取资源→落地能力
+[INJECT] 真实任务失败样本已注入: iter=25, score=1.9, task=∇_self从代理指标切换为真实缺陷召回率
+[INJECT] 真实任务失败样本已注入: iter=30, score=2.3, task=phi增长率突破1%阈值实现真实能力增长
+[SELF_CONSISTENCY WARNING] iter=31 bug=B1 confidence=0.333 paths=3
+[INJECT] 真实任务失败样本已注入: iter=35, score=2.1, task=执行自反射检查并修正所有已知缺陷
+[INJECT] 真实任务失败样本已注入: iter=40, score=1.8, task=通过A2A协议从EvoMap Hub获取并落地新基因资源
+[SELF_CONSISTENCY WARNING] iter=41 bug=B1 confidence=0.333 paths=3
+[INJECT] 真实任务失败样本已注入: iter=45, score=2.5, task=将修复闭环从记账升级为实际代码修改

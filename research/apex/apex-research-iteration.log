@@ -1,0 +1,54 @@
+=== APEX RESEARCH ITERATION 2026-05-23 15:14:44 +0800 ===
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_research_engine/target/debug/apex_research_engine --root research/apex --question 'APEX unified research engine scheduled smoke test'`
+project_dir=research/apex/projects/apex_research_1779520484
+ui_control=0.950
+training_loop=0.837
+research_autonomy=0.600
+engine_apex=0.476900
+latest_project=research/apex/projects/apex_research_1779520484
+{
+  "project_id": "apex_research_1779520484",
+  "engine_apex": 0.476900,
+  "ui_control": 0.950000,
+  "training_loop": 0.836667,
+  "research_autonomy": 0.600000,
+  "formula": "Engine_APEX=(Coord_Fix*Token_Control)*(Task_Syn+Train+Bench)/3*(ERA+CoScientist+Robin)/3"
+}
+=== APEX RESEARCH ITERATION END 2026-05-23 15:14:44 +0800 ===
+=== APEX RESEARCH ITERATION 2026-05-24 00:04:58 +0800 ===
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_research_engine/target/debug/apex_research_engine --root research/apex --question 'APEX unified research engine periodic integrity check'`
+project_dir=research/apex/projects/apex_research_1779552298
+ui_control=0.950
+training_loop=0.837
+research_autonomy=0.600
+engine_apex=0.476900
+latest_project=research/apex/projects/apex_research_1779552298
+{
+  "project_id": "apex_research_1779552298",
+  "engine_apex": 0.476900,
+  "ui_control": 0.950000,
+  "training_loop": 0.836667,
+  "research_autonomy": 0.600000,
+  "formula": "Engine_APEX=(Coord_Fix*Token_Control)*(Task_Syn+Train+Bench)/3*(ERA+CoScientist+Robin)/3"
+}
+=== APEX RESEARCH ITERATION END 2026-05-24 00:04:58 +0800 ===
+=== APEX RESEARCH ITERATION 2026-05-25 00:01:05 +0800 ===
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `crates/apex_research_engine/target/debug/apex_research_engine --root research/apex --question 'APEX unified research engine periodic integrity check'`
+project_dir=research/apex/projects/apex_research_1779638466
+ui_control=0.950
+training_loop=0.837
+research_autonomy=0.600
+engine_apex=0.476900
+latest_project=research/apex/projects/apex_research_1779638466
+{
+  "project_id": "apex_research_1779638466",
+  "engine_apex": 0.476900,
+  "ui_control": 0.950000,
+  "training_loop": 0.836667,
+  "research_autonomy": 0.600000,
+  "formula": "Engine_APEX=(Coord_Fix*Token_Control)*(Task_Syn+Train+Bench)/3*(ERA+CoScientist+Robin)/3"
+}
+=== APEX RESEARCH ITERATION END 2026-05-25 00:01:06 +0800 ===

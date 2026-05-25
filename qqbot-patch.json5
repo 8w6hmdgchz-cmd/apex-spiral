@@ -1,0 +1,8 @@
+{
+  channels: {
+    qqbot: {
+      appId: "1903832581",
+      clientSecret: "nzCPdr5KZp5MdvDVo7Rl6Rn9WtGe2RqG"
+    }
+  }
+}

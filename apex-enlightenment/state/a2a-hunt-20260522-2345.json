@@ -1,0 +1,49 @@
+{
+  "iter": "20260522-2345",
+  "timestamp": "2026-05-22T23:45:00+08:00",
+  "source_latest": "apex-enlightenment/state/a2a-hunt-20260522-2045.json",
+  "source_age_minutes": 180.0,
+  "A_net": 3.3998,
+  "F_hunt": 1.0,
+  "Trigger_t": true,
+  "K_fold": 0.67,
+  "G_cycle": 1.3649,
+  "D_lack_count": 2.45,
+  "Delta_G_unlimited": 1.526859,
+  "details": {
+    "A_net_breakdown": {
+      "node_hermes": 0.765,
+      "node_openclaw": 0.8098,
+      "node_evomap": 0.528,
+      "node_mark": 0.612,
+      "node_phi": 0.685
+    },
+    "trigger_conditions": {
+      "t_seconds": 1779464700,
+      "mod900": 0,
+      "threshold": 0,
+      "triggered": true
+    },
+    "apex_metrics": {
+      "psi": 0.27,
+      "nabla": 1.0,
+      "xi": 0.94,
+      "gamma": 0.6
+    },
+    "D_lack_impact": 0.5089,
+    "derived_from_previous": {
+      "F_prev": 1.0,
+      "K_prev": 0.67,
+      "G_prev": 1.8198,
+      "D_prev": 2.27,
+      "D_impact_prev": 0.3649
+    },
+    "decay_rate_applied": 0.002,
+    "bug_accumulation_rate": 0.001,
+    "diagnosis": [
+      "A2A状态数据滞后，未见23:45新猎食落地文件",
+      "短板仍集中在自我感知/吸收落地/Gamma真实增益校准",
+      "Trigger已在15分钟边界触发"
+    ]
+  }
+}

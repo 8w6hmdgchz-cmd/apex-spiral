@@ -1,0 +1,21 @@
+{
+  "task_id": "clawg_self_repair_demo",
+  "title": "APEX Self-Repair Benchmark: Error Detection → Fix → Verify",
+  "objective": "Given a broken script/file, detect the error, diagnose root cause, generate fix, and verify it works.",
+  "failure_signature": "SyntaxError / ImportError / FileNotFoundError / Command failed",
+  "workspace_scope": "mock bench/clawg/workspaces or specified dir",
+  "expected_checks": [
+    "error_detected_and_parsed",
+    "root_cause_identified",
+    "fix_code_generated",
+    "fix_applied",
+    "verification_passed"
+  ],
+  "scoring": {
+    "auto_detect": 0.2,
+    "auto_diagnose": 0.2,
+    "auto_fix": 0.3,
+    "auto_verify": 0.3
+  },
+  "created": 1779526973196
+}

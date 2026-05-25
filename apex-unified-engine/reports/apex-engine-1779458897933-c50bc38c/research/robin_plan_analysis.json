@@ -1,0 +1,21 @@
+{
+  "question": "Build a reproducible autonomous research workflow for local agent training and scientific hypothesis validation",
+  "hypothesis": "The best candidate survives explicit falsification under sandboxed checks.",
+  "plan": [
+    "Define measurable outcome and null hypothesis",
+    "Create sandbox experiment or code check",
+    "Run automatic verification",
+    "Analyze failure modes before final claim"
+  ],
+  "experiment": {
+    "type": "mvp_sandbox_check",
+    "expected_signal": "pass_rate and score_apex improve after feedback"
+  },
+  "analysis": {
+    "mechanism": "Feedback pressure increases verified task reliability while token control prevents context drift.",
+    "limitations": [
+      "MVP uses placeholder judge",
+      "Needs real literature retrieval and biological/algorithmic datasets"
+    ]
+  }
+}

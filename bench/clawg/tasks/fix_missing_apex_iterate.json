@@ -1,0 +1,19 @@
+{
+  "task_id": "clawg_fix_missing_apex_iterate",
+  "title": "Repair legacy apex-enlightenment missing iterate entrypoint",
+  "source": "apex-enlightenment/iteration.log",
+  "failure_signature": "/bin/sh: .../apex-enlightenment/apex-iterate.sh: No such file or directory",
+  "objective": "Detect missing legacy script and create or redirect a safe local wrapper to the current APEX automation without external writes.",
+  "workspace_scope": "mock or apex-enlightenment only; no deletion; no external network writes",
+  "expected_checks": [
+    "apex-enlightenment/apex-iterate.sh exists or cron references canonical replacement",
+    "script is executable",
+    "dry-run exits 0",
+    "logs contain no repeated No such file or directory"
+  ],
+  "scoring": {
+    "auto_verify": 0.6,
+    "human_or_llm_review": 0.4
+  },
+  "created_from_integration": 1779521663896
+}

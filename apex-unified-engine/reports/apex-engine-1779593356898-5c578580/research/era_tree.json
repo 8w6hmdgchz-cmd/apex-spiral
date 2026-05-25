@@ -1,0 +1,30 @@
+{
+  "question": "APEX TianGong AutoResearch: 融合 evolver autoresearch openhands superpowers，形成认知-规划-执行-进化闭环",
+  "nodes": [
+    {
+      "node_id": "root",
+      "claim": "APEX TianGong AutoResearch: 融合 evolver autoresearch openhands superpowers，形成认知-规划-执行-进化闭环",
+      "score": 0.72
+    },
+    {
+      "node_id": "n1",
+      "claim": "Map the question into variables, datasets, and falsifiable tests",
+      "score": 0.82
+    },
+    {
+      "node_id": "n2",
+      "claim": "Prefer mechanisms that can be checked by code or local evidence",
+      "score": 0.79
+    },
+    {
+      "node_id": "n3",
+      "claim": "Generate a minimal reproducible experiment before writing conclusions",
+      "score": 0.86
+    }
+  ],
+  "best": {
+    "node_id": "n3",
+    "claim": "Generate a minimal reproducible experiment before writing conclusions",
+    "score": 0.86
+  }
+}

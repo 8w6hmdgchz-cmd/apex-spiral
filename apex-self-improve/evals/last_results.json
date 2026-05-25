@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "summary": {
+    "output_control_passed": 2,
+    "output_control_total": 2,
+    "repair_passed": 2,
+    "repair_total": 2
+  },
+  "results": {
+    "output_control": [
+      {
+        "id": "oc_fact_inference_hypothesis",
+        "passed": true,
+        "checks": {
+          "required_sections_present_in_good": true,
+          "forbidden_absent_from_good": true,
+          "forbidden_detected_in_bad": true
+        }
+      },
+      {
+        "id": "oc_no_unverified_metric_raise",
+        "passed": true,
+        "checks": {
+          "required_sections_present_in_good": true,
+          "forbidden_absent_from_good": true,
+          "forbidden_detected_in_bad": true
+        }
+      }
+    ],
+    "repair": [
+      {
+        "id": "repair_polarity_inversion",
+        "passed": true,
+        "checks": {
+          "bug_detected": true,
+          "repair_steps_complete": true
+        }
+      },
+      {
+        "id": "repair_cost_term",
+        "passed": true,
+        "checks": {
+          "bug_detected": true,
+          "repair_steps_complete": true
+        }
+      }
+    ]
+  }
+}

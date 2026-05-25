@@ -1,0 +1,38 @@
+# APEX Unified Research Engine MVP
+engine:
+  version: "0.1.0"
+  formula: "Engine_APEX = (Coord_Fix * Token_Control) * (Task_Syn + Train_SFT_RL + Bench_Verify) * (ERA + CoScientist + Robin)"
+
+modules:
+  ui_control:
+    enabled: true
+    token_optimizer_path: "../apex_token_rs"
+    keep_latest_images: 3
+    coordinate_fix: true
+  local_training:
+    enabled: true
+    clawg_path: "../clawg-mvp"
+    iteration_script: "scripts/run_iteration.sh"
+  autonomous_research:
+    enabled: true
+    systems:
+      era: true
+      co_scientist: true
+      robin: true
+
+models:
+  primary: "gpt-5.5"
+  code: "gpt-5.3-codex"
+  judge: "gpt-5.5"
+  fallback: "gpt-5.3-codex"
+
+storage:
+  report_dir: "reports"
+  hypotheses_dir: "data/hypotheses"
+  experiments_dir: "data/experiments"
+  analyses_dir: "data/analyses"
+
+score:
+  ui_weight: 0.25
+  training_weight: 0.35
+  research_weight: 0.40

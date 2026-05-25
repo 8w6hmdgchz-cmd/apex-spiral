@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "APEX Unified Research Engine Report",
+  "type": "object",
+  "required": ["engine", "trace_id", "scores", "modules", "conclusion"],
+  "properties": {
+    "engine": {"type": "string"},
+    "trace_id": {"type": "string"},
+    "timestamp_ms": {"type": "integer"},
+    "scores": {
+      "type": "object",
+      "required": ["ui_control", "training", "research", "engine_apex"],
+      "properties": {
+        "ui_control": {"type": "number", "minimum": 0, "maximum": 1},
+        "training": {"type": "number", "minimum": 0, "maximum": 1},
+        "research": {"type": "number", "minimum": 0, "maximum": 1},
+        "engine_apex": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "modules": {"type": "object"},
+    "conclusion": {"type": "string"},
+    "artifacts": {"type": "array", "items": {"type": "string"}}
+  }
+}

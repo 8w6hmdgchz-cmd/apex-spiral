@@ -1,0 +1,14 @@
+{
+  "Lambda": 1,
+  "Theta": 1,
+  "Kappa": 1,
+  "Xi": 1,
+  "Psi": 0.8,
+  "Phi": 1,
+  "H": 0.2,
+  "T": 0.1,
+  "Epsilon": 0.1,
+  "total_requests": 42,
+  "total_tokens": 41985,
+  "fail_count": 0
+}

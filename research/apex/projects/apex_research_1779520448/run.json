@@ -1,0 +1,8 @@
+{
+  "project_id": "apex_research_1779520448",
+  "engine_apex": 0.476900,
+  "ui_control": 0.950000,
+  "training_loop": 0.836667,
+  "research_autonomy": 0.600000,
+  "formula": "Engine_APEX=(Coord_Fix*Token_Control)*(Task_Syn+Train+Bench)/3*(ERA+CoScientist+Robin)/3"
+}

@@ -1,0 +1,54 @@
+{
+  "iter": "20260523-0130",
+  "timestamp": "2026-05-23T01:30:00+08:00",
+  "source_latest": "apex-enlightenment/state/a2a-hunt-20260523-0000.json",
+  "source_age_minutes": 90.0,
+  "A_net": 3.3998,
+  "F_hunt": 1.0,
+  "Trigger_t": true,
+  "K_fold": 0.67,
+  "G_cycle": 1.1549,
+  "D_lack_count": 2.555,
+  "Delta_G_unlimited": 1.070961,
+  "details": {
+    "A_net_formula": "Σ(N_i×P_i×U_i)",
+    "A_net_breakdown": {
+      "node_hermes": 0.765,
+      "node_openclaw": 0.8098,
+      "node_evomap": 0.528,
+      "node_mark": 0.612,
+      "node_phi": 0.685
+    },
+    "trigger_conditions": {
+      "t_seconds": 1779471000,
+      "mod900": 0,
+      "threshold": 0,
+      "triggered": true
+    },
+    "apex_metrics": {
+      "psi": 0.27,
+      "nabla": 1.0,
+      "xi": 0.94,
+      "gamma": 0.6
+    },
+    "D_lack_impact": 0.5929,
+    "derived_from_previous": {
+      "source_A_net": 3.3998,
+      "source_F_hunt": 1.0,
+      "source_K_fold": 0.67,
+      "source_G_cycle": 1.3349,
+      "source_D_lack_count": 2.465,
+      "source_D_lack_impact": 0.5209
+    },
+    "decay_rate_applied": 0.002,
+    "bug_accumulation_rate": 0.001,
+    "D_lack_impact_rate_inferred": 0.0008,
+    "diagnosis": [
+      "Trigger在01:30的15分钟边界触发",
+      "A_net保持3.3998，未发现新增A2A猎物落地证据",
+      "短板由2.465累积至2.555，D_lack_impact升至0.5929",
+      "G_cycle按90分钟衰减由1.3349降至1.1549",
+      "Delta_G_unlimited由1.456811降至1.070961，仍为正但持续收缩"
+    ]
+  }
+}

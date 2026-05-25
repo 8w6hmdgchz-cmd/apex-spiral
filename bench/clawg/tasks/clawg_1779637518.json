@@ -1,0 +1,8 @@
+{
+  "id": "clawg_1779637518",
+  "persona_intent": "Organize a mock project note and create a summary file",
+  "skill_grounding": "file read/write; concise summary; no destructive delete",
+  "workspace": "bench/clawg/workspaces/clawg_1779637518",
+  "required_file": "summary.md",
+  "required_contains": "mock local file operation training"
+}

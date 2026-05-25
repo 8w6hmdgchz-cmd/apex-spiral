@@ -1,0 +1,19 @@
+# APEX GitHub Evolution Ignore Policy
+.env*
+*.key
+*.pem
+*.p12
+*.mobileprovision
+*token*
+*secret*
+*credential*
+openclaw.json
+.openclaw/**
+memory/**
+state/**
+*/__pycache__/**
+*.pyc
+node_modules/**
+target/**
+.DS_Store
+*.log
