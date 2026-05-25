@@ -1,1 +1,1 @@
-Auto Reflux 16:40 — PHI=60.0% ∇Θ瓶颈不变 (iter=732, delta_e=302/500, phi_ratio=0.7839), evomap audit 0secrets ✅ (fast mode, no gitleaks)
+Auto Reflux 22:25 (#100) — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit ✅ (external_sync_allowed=false), 无git变更跳过, gist backup pushed至727ac47 ✅
