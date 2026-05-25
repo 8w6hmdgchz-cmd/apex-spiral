@@ -88,3 +88,4 @@
 [INJECT] 真实任务失败样本已注入: iter=825, score=2.5, task=将修复闭环从记账升级为实际代码修改
 [INJECT] 真实任务失败样本已注入: iter=830, score=2.3, task=phi增长率突破1%阈值实现真实能力增长
 [INJECT] 真实任务失败样本已注入: iter=835, score=2.1, task=执行自反射检查并修正所有已知缺陷
+[INJECT] 真实任务失败样本已注入: iter=840, score=2.3, task=phi增长率突破1%阈值实现真实能力增长
