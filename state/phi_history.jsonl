@@ -671,3 +671,14 @@
 {"ts":1779691577,"iter":721,"phi":8.655,"mode":"12354","env_pressure":10.0,"dg":0.707128}
 {"ts":1779692534,"iter":722,"phi":8.655,"mode":"21354","env_pressure":10.0,"dg":0.707128}
 {"ts":1779694243,"iter":723,"phi":8.655,"mode":"21354","env_pressure":10.0,"dg":0.707128}
+{
+  "timestamp": "2026-05-25T15:40:21+08:00",
+  "phi_ratio_equiv": 60.00,
+  "delta_e_total": 302.0,
+  "delta_e_max": 500.0,
+  "progress_pct": "60.00%",
+  "bottleneck": "∇Θ",
+  "directive": "ACCELERATE_ITERATION: increase evolution frequency",
+  "target": "> 60%",
+  "status": 1
+}

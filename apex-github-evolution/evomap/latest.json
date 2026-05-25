@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1779694240533",
-  "timestamp_ms": 1779694240533,
+  "trace_id": "evomap-1779694821934",
+  "timestamp_ms": 1779694821934,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -3392,8 +3392,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": "M .reflux_msg.txt\n?? state/a2a-hunt-20260525-1535.json\n",
+  "git_status_short": " M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n",
   "external_sync_allowed": false,
-  "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist.",
-  "last_audit": "2026-05-25T07:36:27Z"
+  "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }

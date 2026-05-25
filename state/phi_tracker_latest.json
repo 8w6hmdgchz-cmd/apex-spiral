@@ -1,18 +1,11 @@
 {
-  "timestamp": "2026-05-25T15:32:00+08:00",
-  "phi_ratio_equiv": 80.0,
-  "delta_e_total": 400.0,
+  "timestamp": "2026-05-25T15:40:21+08:00",
+  "phi_ratio_equiv": 60.00,
+  "delta_e_total": 302.0,
   "delta_e_max": 500.0,
-  "progress_pct": "80.0%",
-  "bottleneck": "βΩ (代码架构)",
-  "directive": "REFACTOR_CODE: integrate Letta memory + Guardrails constraints",
+  "progress_pct": "60.00%",
+  "bottleneck": "∇Θ",
+  "directive": "ACCELERATE_ITERATION: increase evolution frequency",
   "target": "> 60%",
-  "status": true,
-  "dimensions": {
-    "αΨ": 88,
-    "βΩ": 78,
-    "λΦ": 79,
-    "∇Θ": 80,
-    "Evol": 75
-  }
+  "status": 1
 }
