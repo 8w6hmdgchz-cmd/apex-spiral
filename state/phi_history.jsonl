@@ -674,3 +674,25 @@
 {"ts": 1779703919, "iter": 748, "phi": 8.655, "mode": "21354", "env_pressure": 10.0, "dg": 0.707128}
 {"ts": 1779711330, "iter": 676, "phi": 6.92, "avg_10": 6.92, "bottleneck": "Evol_code", "pressure": 9.949041262400362}
 {"ts":1779711686,"iter":766,"phi":8.654,"mode":"21354","env_pressure":10.0,"dg":0.706886}
+{
+  "timestamp": "2026-05-25T20:25:10+08:00",
+  "phi_ratio_equiv": 80.00,
+  "delta_e_total": 400.0,
+  "delta_e_max": 500.0,
+  "progress_pct": "80.00%",
+  "bottleneck": "Evol_code",
+  "directive": "ENHANCE_SELF_MODIFICATION: improve code gen quality",
+  "target": "> 60%",
+  "status": 1
+}
+{
+  "timestamp": "2026-05-25T20:30:28+08:00",
+  "phi_ratio_equiv": 80.00,
+  "delta_e_total": 400.0,
+  "delta_e_max": 500.0,
+  "progress_pct": "80.00%",
+  "bottleneck": "Evol_code",
+  "directive": "ENHANCE_SELF_MODIFICATION: improve code gen quality",
+  "target": "> 60%",
+  "status": 1
+}
