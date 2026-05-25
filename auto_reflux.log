@@ -941,4 +941,4 @@ To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
 [2026-05-25 21:57:15] gist backup complete
 [2026-05-25 21:57:15] ✅ 回流完成
 [2026-05-25 21:57:15] =========================================
-943. **Auto Reflux 22:00 (#95)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit ✅ (grep fast scan, 0 secrets), phi_tracker updated ✅, git commit pending
+[2026-05-25 22:00] **Auto Reflux #95** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 0secrets ✅, phi_tracker updated ✅, git commit+rebase+push至abab1c1 ✅
