@@ -297,3 +297,11 @@
 - Added Go engineering gate: requirements→architecture→tests→implementation→verification→promote/block.
 - Verification: fail case blocks incomplete task; pass case promotes harness bridge with selftest evidence.
 
+
+## Sixth Secrets gate devour gene — 2026-05-26
+- Triggered by real GitHub push protection block on third-party example key.
+- Verified Gitleaks, TruffleHog, Trivy HEAD over SSH.
+- Installed Gitleaks source/config snapshot: 80093b8a7b600e52d96ec5d49e9657f5c74b77fa.
+- Added local secrets gate: OpenAI/GitHub/AWS/private-key/Slack token scan with redacted JSON evidence and nonzero exit on findings.
+- Verification: bad fixture blocked, good fixture passed, Superpowers Gate promoted, snapshot scan clean.
+
