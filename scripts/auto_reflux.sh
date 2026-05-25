@@ -92,12 +92,17 @@ step_git_commit() {
     log "  ✅ 无变更，跳过提交"
   else
     git commit -m "🔄 auto reflux $(date '+%Y-%m-%d %H:%M')" 2>&1 | tee -a "$LOG"
-    if git push origin main 2>&1 | tee -a "$LOG"; then
-      log "  ✅ Git推送成功"
+    # 稳健推送: 先fetch→rebase→push
+    if GIT_SSH_COMMAND="ssh -o ConnectTimeout=10" git fetch origin main 2>&1 | tee -a "$LOG"; then
+      GIT_SSH_COMMAND="ssh -o ConnectTimeout=10" git rebase origin/main 2>&1 | tee -a "$LOG" || true
+      if GIT_SSH_COMMAND="ssh -o ConnectTimeout=10" git push origin main 2>&1 | tee -a "$LOG"; then
+        log "  ✅ Git推送成功"
+      else
+        log "  ⚠️ push失败, 尝试force-with-lease"
+        GIT_SSH_COMMAND="ssh -o ConnectTimeout=10" git push --force-with-lease origin main 2>&1 | tee -a "$LOG" || log "  ❌ 推送失败"
+      fi
     else
-      log "  ⚠️ Git推送需要拉取最新"
-      git pull --rebase origin main 2>/dev/null
-      git push origin main 2>&1 | tee -a "$LOG" || log "  ❌ 推送失败"
+      log "  ⚠️ fetch失败, 跳过"
     fi
   fi
 }
