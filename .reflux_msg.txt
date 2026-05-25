@@ -1,1 +1,1 @@
-Auto Reflux 14:45 — PHI=60.0% ∇Θ瓶颈不变, evomap audit 676files 0secrets ✅
+Auto Reflux 15:35 — PHI=60.0% ∇Θ瓶颈不变 (iter=723, dg=0.707, phi_ratio=0.7839), evomap audit 2501files 0secrets ✅
