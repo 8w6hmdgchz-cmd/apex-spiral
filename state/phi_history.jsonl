@@ -752,10 +752,6 @@
   "status": 1
 }
 {"timestamp":"2026-05-25T21:10:00+08:00","phi_ratio_equiv":80.00,"bottleneck":"Evol_code","delta_e":400.0}
-<<<<<<< HEAD
-{"ts":1779714675,"iter":773,"phi":8.654,"mode":"12354","env_pressure":10.0,"dg":0.706886}
-=======
-{
   "timestamp": "2026-05-25T21:15:19+08:00",
   "phi_ratio_equiv": 80.00,
   "delta_e_total": 400.0,
@@ -766,7 +762,6 @@
   "target": "> 60%",
   "status": 1
 }
->>>>>>> e8444c8 (🔄 auto reflux 2026-05-25 21:15 — PHI=80.00% (Evol_code bottleneck), evomap audit 0secrets ✅)
 {
   "timestamp": "2026-05-25T21:30:31+08:00",
   "phi_ratio_equiv": 80.00,
@@ -812,4 +807,13 @@
   "status": 1
 }
 {"timestamp":"2026-05-25T22:00:18+08:00","ts_ms":1779717646000,"phi_ratio_equiv":80.00,"delta_e_total":400,"delta_e_max":500,"bottleneck":"Evol_code","directive":"ENHANCE_SELF_MODIFICATION: improve code gen quality","target":"> 60%","status":1,"counter_raw":1}
-{"ts":1779717740,"iter":783,"phi":8.654,"mode":"12354","env_pressure":10.0,"dg":0.706886}
+  "timestamp": "2026-05-25T22:05:16+08:00",
+  "phi_ratio_equiv": 80.00,
+  "delta_e_total": 400.0,
+  "delta_e_max": 500.0,
+  "progress_pct": "80.00%",
+  "bottleneck": "Evol_code",
+  "directive": "ENHANCE_SELF_MODIFICATION: improve code gen quality",
+  "target": "> 60%",
+  "status": 1
+}
