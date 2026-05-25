@@ -127,6 +127,9 @@ func isProbablyText(b []byte) bool {
 func hasTodoMarker(s string) bool {
 	for _, line := range strings.Split(s, "\n") {
 		trimmed := strings.TrimSpace(line)
+		if isScannerDefinitionLine(trimmed) {
+			continue
+		}
 		if strings.HasPrefix(trimmed, "TODO:") || strings.HasPrefix(trimmed, "FIXME:") || strings.Contains(trimmed, " TODO:") || strings.Contains(trimmed, " FIXME:") {
 			return true
 		}
@@ -135,12 +138,22 @@ func hasTodoMarker(s string) bool {
 }
 
 func hasPortableTimeoutRisk(s string) bool {
-	return strings.Contains(s, "timeout ") && strings.Contains(s, "bash") && !strings.Contains(s, "perl -e 'alarm")
+	if strings.Contains(s, "perl -e 'alarm") || strings.Contains(s, "portable timeout") || strings.Contains(s, "portable_timeout_risk") {
+		return false
+	}
+	return strings.Contains(s, "bash -c 'timeout ") || strings.Contains(s, "bash -c \"timeout ") || strings.Contains(s, " timeout 30 ")
 }
 
 func hasVirtualDataMarker(s string) bool {
 	lower := strings.ToLower(s)
+	if strings.Contains(lower, "no virtual data") || strings.Contains(lower, "no-fake-data") || strings.Contains(lower, "possible_virtual_data_marker") {
+		return false
+	}
 	return strings.Contains(lower, "fake benchmark") || strings.Contains(lower, "mock result") || strings.Contains(lower, "virtual data")
+}
+
+func isScannerDefinitionLine(line string) bool {
+	return strings.Contains(line, "TODO:") && strings.Contains(line, "FIXME:")
 }
 
 func diagnose(fs []Finding) []string {

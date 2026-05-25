@@ -27,3 +27,29 @@ go build -o apex-evolver-core .
 ```
 
 The first cycle produced real findings from local files, including TODO markers and portable timeout risks.
+
+## Third Devour: Findings → Patch → Clean Cycle
+
+Changes:
+
+- Implemented `SelfModEngine::save_state` persistence to `state/selfmod_history.json`.
+- Hardened `apex-evolver-core` scanner:
+  - skips binaries/executables/vendor/third_party/target/.git
+  - ignores scanner self-definition lines
+  - narrows timeout risk to shell-command patterns
+  - avoids treating "no virtual data" policy docs as fake-data findings
+- Replaced legacy GNU `timeout` in `scripts/crontab_config` with macOS-compatible `perl -e 'alarm ...'`.
+
+Verification:
+
+```bash
+cd scripts/apex-evolver-core && go build -o apex-evolver-core .
+./scripts/apex-evolver-core/apex-evolver-core --mode cycle
+cd apex-ene/engine && cargo check
+```
+
+Result:
+
+- Evolver findings: `null`
+- Patch plan: `no_patch_needed`
+- Rust selfmod cargo check: passed

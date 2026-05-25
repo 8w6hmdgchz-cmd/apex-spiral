@@ -11,4 +11,4 @@
 0 */2 * * * cd /Users/lihongxin/.openclaw/workspace && bash scripts/gist_backup.sh >> /Users/lihongxin/.openclaw/workspace/gist_backup.log 2>&1
 
 # 每天06:00: 深度猎食 (扫描trending)
-0 6 * * * cd /Users/lihongxin/.openclaw/workspace && bash -c 'timeout 30 apex-ene/scavenger/target/release/scavenge github trending' >> /Users/lihongxin/.openclaw/workspace/scavenge_daily.log 2>&1
+0 6 * * * cd /Users/lihongxin/.openclaw/workspace && bash -c 'perl -e '\''alarm 30; exec @ARGV'\'' apex-ene/scavenger/target/release/scavenge github trending' >> /Users/lihongxin/.openclaw/workspace/scavenge_daily.log 2>&1

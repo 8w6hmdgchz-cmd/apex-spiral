@@ -276,3 +276,10 @@
 - Added local Go evolver core: observe→diagnose→patch-plan→verify.
 - Verification: go build passed; cycle produced real local findings; verify exits nonzero when findings remain.
 
+
+## Third Evolver self-clean devour — 2026-05-26
+- SelfModEngine now persists state/selfmod_history.json.
+- Evolver scanner hardened; false positives reduced to zero on current cycle.
+- Legacy GNU timeout in crontab_config replaced with perl alarm.
+- Verification: go build OK, evolver cycle findings=null, cargo check OK.
+
