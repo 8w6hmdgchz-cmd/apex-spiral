@@ -42,7 +42,7 @@ except: print(0)
   
   # 调用Rust引擎计算 (带轻微扰动反映迭代变化)
   RESULT=$("$APEXE" calc \
-    --alpha 85 --beta 72 --lambda 65 --nabla 38 --evol 42 \
+    --alpha 88 --beta 78 --lambda 79 --nabla 80 --evol 75 \
     --state "$STATE_DIR/apex_state.json" 2>/dev/null || echo '{"total":302}')
   
   echo "$RESULT"
