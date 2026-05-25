@@ -1,18 +1,15 @@
 {
-  "timestamp": "2026-05-25T22:53:34.436026+00:00",
+  "timestamp": "2026-05-25T22:54:55.180947+00:00",
   "version": "V10.1",
-  "phi_ratio_equiv": 38.41,
-  "evolution_score": 0.384063,
-  "delta_g": 0.777639,
-  "delta_g_total": 0.510327,
-  "delta_g_final": 0.311772,
+  "phi_ratio_equiv": 43.22,
+  "evolution_score": 0.432174,
+  "delta_g": 0.914206,
+  "delta_g_total": 0.600358,
+  "delta_g_final": 0.380552,
   "bottleneck": "\u03a3_memory",
   "sigma_memory": 0.1667,
-  "tau_trace": 0.9933,
-  "omega_dawn": 0.2218,
-  "omega_self": 0.4462,
-  "gamma_reflect": 0.4706,
+  "tau_trace": 0.9967,
+  "omega_dawn": 0.2678,
   "memory_count": 70,
-  "trace_count": 100,
-  "memory_types": "{'Procedural': 26, 'Semantic': 38, 'Working': 6}"
+  "trace_count": 100
 }

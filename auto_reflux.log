@@ -1595,3 +1595,33 @@ To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
 [2026-05-26 06:01:18] gist backup complete
 [2026-05-26 06:01:18] ✅ 回流完成
 [2026-05-26 06:01:18] =========================================
+[2026-05-26 06:47:26] =========================================
+[2026-05-26 06:47:26] 🔄 自动回流管道 V10.1 启动
+[2026-05-26 06:47:26] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-26 06:47:26] 📊 PHI_RATIO追踪...
+[2026-05-26 06:47:26]   PHI_equiv=60.0%
+[2026-05-26 06:47:26]   瓶颈=∇Θ
+[2026-05-26 06:47:26]   ⚠️ 未使用 V10.1（二进制未编译或公式不符）
+[2026-05-26 06:47:26] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-26 06:47:56]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+[2026-05-26 06:48:00] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-26 06:48:01]   📝 未提交文件数: 17
+[2026-05-26 06:48:01]   Ω_dawn = .272000 (git_sync=.800, auto_learn=.340000)
+[2026-05-26 06:48:01]   ΔG_safe = 0.7512779514807361
+[2026-05-26 06:48:01] [4/5] Git提交...
+[main 8e430aa] 🔄 auto reflux V10.1 2026-05-26 06:48
+ 7 files changed, 1146 insertions(+), 18 deletions(-)
+ create mode 100644 apex-ene/v10-core/Cargo.toml
+ create mode 100644 apex-ene/v10-core/src/lib.rs
+ create mode 100644 state/omega_dawn_history.jsonl
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+   bce3c30..846bdf6  main       -> origin/main
+error: cannot rebase: You have unstaged changes.
+error: Please commit or stash them.
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+ ! [rejected]        main -> main (non-fast-forward)
+[2026-05-26 06:48:09]   ⚠️ push失败, 尝试force-with-lease
