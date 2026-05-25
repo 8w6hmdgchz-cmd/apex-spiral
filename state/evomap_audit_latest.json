@@ -1,9 +1,10 @@
 {
-  "timestamp": "2026-05-25T23:30:55+08:00",
+  "timestamp": "2026-05-26T00:55:00+08:00",
   "total_files_glob": 49334,
   "git_tracked": 676,
   "real_secret_hits": 0,
   "secret_free": true,
-  "trace_id": "evomap-23-30-reflux",
-  "file_count": 676
+  "trace_id": "evomap-1779728126231",
+  "file_count": 676,
+  "external_sync_allowed": false
 }

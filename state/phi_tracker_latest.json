@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-26T00:51:33+08:00",
+  "timestamp": "2026-05-26T00:55:00+08:00",
   "phi_ratio_equiv": 80.00,
   "delta_e_total": 400.0,
   "delta_e_max": 500.0,
@@ -7,5 +7,7 @@
   "bottleneck": "Evol_code",
   "directive": "ENHANCE_SELF_MODIFICATION: improve code gen quality",
   "target": "> 60%",
-  "status": 1
+  "status": 1,
+  "action": "auto_reflux",
+  "seq": 123
 }
