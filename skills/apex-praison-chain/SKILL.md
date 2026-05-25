@@ -8,11 +8,24 @@ metadata: { "openclaw": { "emoji": "🧬", "requires": { "bins": ["go"] } } }
 
 ## Source
 
-- Upstream inspiration: `MervinPraison/PraisonAI`
-- Verified SSH reachability: `git@github.com:MervinPraison/PraisonAI.git` HEAD `8acf77c531e624c46d3d61dcae37e9942e90972c`
+- Upstream installed from GitHub SSH: `git@github.com:MervinPraison/PraisonAI.git`
+- Local installed source tree: `/Users/lihongxin/.openclaw/workspace/vendor/github/MervinPraison/PraisonAI`
+- Tracked source snapshot: `/Users/lihongxin/.openclaw/workspace/third_party/praisonai/snapshot`
+- Installed HEAD: `8acf77c531e624c46d3d61dcae37e9942e90972c`
+- Install method: sparse shallow fetch over SSH (`git fetch --depth=1 --filter=blob:none`, sparse paths: `README*`, `pyproject.toml`, `setup.py`, `praisonaiagents/**`, `praisonai/**`, `src/**`)
 - Local implementation: `scripts/apex-praison-chain`
 
-This skill distills the reusable orchestration pattern, not a claim of importing the whole repository.
+This skill is backed by a local GitHub-installed source snapshot and distills the reusable orchestration pattern into a deterministic Go helper.
+
+## Upstream Signals Observed
+
+From the installed repository README/source snapshot:
+
+- `Agent` and `Agents` primitives for single/multi-agent execution.
+- Multi-agent examples and agent handoffs.
+- Tool/MCP integration.
+- Background tasks and workflows.
+- Guardrails, memory, knowledge, cron/dashboard concepts.
 
 ## Core Formula
 
