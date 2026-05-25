@@ -92,20 +92,20 @@ EOF_INNER
   copy_if_exists "$ROOT/SOUL.md" "$stage/SOUL.md"
   copy_if_exists "$ROOT/IDENTITY.md" "$stage/IDENTITY.md"
   copy_if_exists "$ROOT/score-state.env" "$stage/score-state.env"
-  copy_if_exists "$ROOT/state/phi_tracker_latest.json" "$stage/state/phi_tracker_latest.json"
-  copy_if_exists "$ROOT/state/phi_history.jsonl" "$stage/state/phi_history.jsonl"
-  copy_if_exists "$ROOT/apex-github-evolution/evomap/latest.json" "$stage/evomap/latest.json"
-  copy_if_exists "$ROOT/apex-github-evolution/exports/latest.manifest.json" "$stage/exports/latest.manifest.json"
-  copy_if_exists "$ROOT/scripts/gist_backup.sh" "$stage/scripts/gist_backup.sh"
-  copy_if_exists "$ROOT/scripts/auto_reflux.sh" "$stage/scripts/auto_reflux.sh"
-  copy_if_exists "$ROOT/scripts/phi_tracker.sh" "$stage/scripts/phi_tracker.sh"
-  copy_if_exists "$ROOT/scripts/crontab_config" "$stage/scripts/crontab_config"
+  copy_if_exists "$ROOT/state/phi_tracker_latest.json" "$stage/state__phi_tracker_latest.json"
+  copy_if_exists "$ROOT/state/phi_history.jsonl" "$stage/state__phi_history.jsonl"
+  copy_if_exists "$ROOT/apex-github-evolution/evomap/latest.json" "$stage/evomap__latest.json"
+  copy_if_exists "$ROOT/apex-github-evolution/exports/latest.manifest.json" "$stage/exports__latest.manifest.json"
+  copy_if_exists "$ROOT/scripts/gist_backup.sh" "$stage/scripts__gist_backup.sh"
+  copy_if_exists "$ROOT/scripts/auto_reflux.sh" "$stage/scripts__auto_reflux.sh"
+  copy_if_exists "$ROOT/scripts/phi_tracker.sh" "$stage/scripts__phi_tracker.sh"
+  copy_if_exists "$ROOT/scripts/crontab_config" "$stage/scripts__crontab_config"
 
   # Copy recent daily memory names only if explicitly enabled; default avoids
   # leaking private journal content to Gist.
   if [[ "${INCLUDE_MEMORY:-0}" == "1" && -d "$ROOT/memory" ]]; then
     find "$ROOT/memory" -maxdepth 1 -type f -name '20*.md' -mtime -7 -print0 \
-      | while IFS= read -r -d '' f; do copy_if_exists "$f" "$stage/memory/$(basename "$f")"; done
+      | while IFS= read -r -d '' f; do copy_if_exists "$f" "$stage/memory__$(basename "$f")"; done
   fi
 
   (cd "$stage" && find . -type f -print | sort | xargs shasum -a 256 > MANIFEST.sha256)
@@ -132,7 +132,7 @@ commit_and_push() {
 
   git -C "$GIST_DIR" commit -m "$msg"
   log "pushing gist over SSH"
-  GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20" git -C "$GIST_DIR" push origin "$BRANCH"
+  GIT_SSH_COMMAND="ssh -4 -o ConnectTimeout=20 -o ServerAliveInterval=10 -o ServerAliveCountMax=2" timeout 60 git -C "$GIST_DIR" push origin "$BRANCH"
 }
 
 main() {

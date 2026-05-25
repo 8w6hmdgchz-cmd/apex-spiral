@@ -22,6 +22,17 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG"
 }
 
+run_timeout() {
+  local seconds="$1"; shift
+  if command -v timeout >/dev/null 2>&1; then
+    timeout "$seconds" "$@"
+  elif command -v gtimeout >/dev/null 2>&1; then
+    gtimeout "$seconds" "$@"
+  else
+    perl -e 'alarm shift; exec @ARGV' "$seconds" "$@"
+  fi
+}
+
 require() {
   command -v "$1" >/dev/null 2>&1 || { log "❌ missing: $1"; return 1; }
 }
@@ -48,7 +59,7 @@ step_scavenge() {
   SCAVENGE="$ROOT/apex-ene/scavenger/target/release/scavenge"
   if [ -f "$SCAVENGE" ]; then
     # 快速检查优先列表
-    timeout 10 "$SCAVENGE" github priority 2>/dev/null >> "$LOG" || log "  ⚠️ 猎食超时或失败"
+    run_timeout 10 "$SCAVENGE" github priority 2>/dev/null >> "$LOG" || log "  ⚠️ 猎食超时或失败"
   fi
 }
 
@@ -94,7 +105,7 @@ step_git_commit() {
 step_gist_backup() {
   log "[5/5] Gist备份..."
   if [ -f "$ROOT/scripts/gist_backup.sh" ]; then
-    bash "$ROOT/scripts/gist_backup.sh" 2>&1 | tee -a "$LOG" || log "  ⚠️ Gist备份失败"
+    run_timeout 120 bash "$ROOT/scripts/gist_backup.sh" 2>&1 | tee -a "$LOG" || log "  ⚠️ Gist备份失败"
   fi
 }
 
