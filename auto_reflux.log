@@ -867,3 +867,14 @@ To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
 [2026-05-25 21:06:06] ✅ 回流完成
 [2026-05-25 21:06:06] =========================================
 85. **Auto Reflux 21:10** — 2026-05-25 21:10 — PHI=80.00% (Evol_code bottleneck), evomap audit 0secrets ✅ (grep fast scan)
+[2026-05-25 21:40:48] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Already up to date.
+[main 9174536] xuanji ssh gist backup 2026-05-25 21:41:01
+ 5 files changed, 30 insertions(+), 8 deletions(-)
+[2026-05-25 21:41:01] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   2910226..9174536  main -> main
+[2026-05-25 21:41:08] gist backup complete

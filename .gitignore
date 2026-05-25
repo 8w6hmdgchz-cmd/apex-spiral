@@ -52,3 +52,4 @@ apex-github-evolution/reports/
 # A2A resources huge dirs
 a2a-resources/fetcher*
 a2a_langchain_rag_demo/
+vendor/github/MervinPraison/PraisonAI/
