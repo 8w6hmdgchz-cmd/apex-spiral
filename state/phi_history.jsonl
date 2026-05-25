@@ -894,3 +894,4 @@
   "target": "> 60%",
   "status": 1
 }
+{"timestamp":"2026-05-25T23:00:54+08:00","phi_iter":90,"counter":6,"phi":80.0,"delta_e":400,"bottleneck":"Evol_code","delta_components":{"alpha_psi":85,"beta_omega":72,"lambda_phi":65,"nabla_theta":38,"evol_code":140},"action":"auto_reflux","seq":104}
