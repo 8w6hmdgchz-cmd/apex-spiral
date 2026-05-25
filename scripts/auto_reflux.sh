@@ -59,7 +59,13 @@ step_scavenge() {
   SCAVENGE="$ROOT/apex-ene/scavenger/target/release/scavenge"
   if [ -f "$SCAVENGE" ]; then
     # 快速检查优先列表
-    run_timeout 10 "$SCAVENGE" github priority 2>/dev/null >> "$LOG" || log "  ⚠️ 猎食超时或失败"
+    run_timeout 30 "$SCAVENGE" github priority 2>/dev/null >> "$LOG" || {
+      log "  ⚠️ 猎食超时，降级为SSH快速可达性检测"
+      for repo in "google-deepmind/alphafold" "deepseek-ai/DeepSeek-R1"; do
+        git ls-remote "git@github.com:$repo" HEAD >> "$LOG" 2>&1 &
+      done
+      wait
+    }
   fi
 }
 
