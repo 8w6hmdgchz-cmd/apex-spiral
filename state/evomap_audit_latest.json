@@ -1,11 +1,9 @@
 {
-  "timestamp": "2026-05-26T02:35:00+08:00",
-  "total_files_glob": 51142,
-  "git_tracked": 676,
-  "real_secret_hits": 0,
-  "secret_free": true,
-  "trace_id": "evomap-1779734115983",
-  "file_count": 676,
-  "external_sync_allowed": false,
-  "scan_type": "grep_fast"
+  "timestamp": "2026-05-26T03:31:59+08:00",
+  "git_tracked": 3847,
+  "real_secret_hits": 3,
+  "false_positives": 0,
+  "secret_free": false,
+  "trace_id": "evomap-1779737518971",
+  "scan_type": "targeted_regex"
 }
