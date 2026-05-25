@@ -1642,3 +1642,10 @@ c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
 [2026-05-26 07:10:01]   Ω_dawn = .272000 (git_sync=.800, auto_learn=.340000)
 [2026-05-26 07:10:01]   ΔG_safe = 1.0661141609199323
 [2026-05-26 07:10:01] [4/5] Git提交...
+fatal: Unable to create '/Users/lihongxin/.openclaw/workspace/.git/index.lock': File exists.
+
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
