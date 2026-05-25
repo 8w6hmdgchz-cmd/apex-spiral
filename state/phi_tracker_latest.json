@@ -1,11 +1,20 @@
 {
-  "timestamp": "2026-05-25T12:30:10+08:00",
-  "phi_ratio_equiv": 60.00,
-  "delta_e_total": 302.0,
+  "timestamp": "2026-05-25T12:00:00+08:00",
+  "phi_ratio_equiv": 71.6,
+  "delta_e_total": 358.0,
   "delta_e_max": 500.0,
-  "progress_pct": "60.00%",
-  "bottleneck": "∇Θ",
-  "directive": "ACCELERATE_ITERATION: increase evolution frequency",
+  "progress_pct": "71.6%",
+  "bottleneck": "Evol_code",
+  "directive": "ENHANCE_SELF_MODIFICATION: improve code gen quality, increase test coverage",
   "target": "> 60%",
-  "status": 1
+  "status": true,
+  "breakthrough": true,
+  "breakthrough_details": "∇Θ pushed from 38→65 via 4× evolution cycle acceleration",
+  "dimensions": {
+    "alpha_psi": 88,
+    "beta_omega": 78,
+    "lambda_phi": 72,
+    "nabla_theta": 65,
+    "evol_code": 55
+  }
 }
