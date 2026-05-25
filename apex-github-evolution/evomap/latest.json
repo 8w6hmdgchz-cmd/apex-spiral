@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1779721815820",
-  "timestamp_ms": 1779721815820,
+  "trace_id": "evomap-1779722611606",
+  "timestamp_ms": 1779722611606,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -3392,7 +3392,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": " M memory/2026-05-25.md\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n",
+  "git_status_short": " M apex-enlightenment/hub-sync-stderr.log\n M apex-github-evolution/evomap/latest.json\n M auto_reflux.log\n M memory/2026-05-25.md\n M memory/apex-token-purify.log\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n?? scripts/apex-devour-engine/\n",
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }
