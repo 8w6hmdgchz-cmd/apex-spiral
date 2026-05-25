@@ -748,3 +748,4 @@
 {"ts":1779717740,"iter":783,"score":3.375,"summary":"自我感知偏弱"}
 {"ts":1779718267,"iter":785,"score":2.3,"type":"injected_real_task","task":"phi增长率突破1%阈值实现真实能力增长","failure":"增长依赖修复成功率，修复本身无真实任务验证"}
 {"ts":1779720691,"iter":790,"score":2.1,"type":"injected_real_task","task":"执行自反射检查并修正所有已知缺陷","failure":"自我修正能力不足，部分缺陷无法自动修复"}
+{"ts":1779721312,"iter":792,"score":2.925,"summary":"自我感知偏弱"}
