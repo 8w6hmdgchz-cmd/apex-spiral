@@ -1,8 +1,8 @@
 {
-  "learn_rate": 0.86,
-  "decay_factor": 0.975,
+  "learn_rate": 0.87,
+  "decay_factor": 0.976,
   "max_entries": 10000,
-  "retention_threshold": 0.44,
+  "retention_threshold": 0.43,
   "memory_entries": [
     {
       "id": "episodic_git_c70d103b97e3",
@@ -295,6 +295,20 @@
       ]
     },
     {
+      "id": "working_autogpt_graph_queue_outputs",
+      "content": "[Working] AutoGPT graph executor: queue nodes, execute block, persist each named output, then atomically enqueue downstream nodes when inputs complete.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753395,
+      "importance": 0.91,
+      "memory_type": "Working",
+      "access_count": 27,
+      "source": "memory/devour/autogpt_execution/ledger.md"
+    },
+    {
       "id": "working_paperqa_evidence_required",
       "content": "[Working] PaperQA pattern: every devour claim needs source_repo+commit+source_path+context_id+score before entering Σ_memory.",
       "embedding": [
@@ -307,6 +321,20 @@
       "memory_type": "Working",
       "access_count": 27,
       "source": "memory/devour/paperqa_evidence/ledger.md"
+    },
+    {
+      "id": "working_autogpt_dry_run_timeout_error",
+      "content": "[Working] AutoGPT execution safety: support dry_run simulation, per-block timeout, and persist an error output when node execution fails.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753392,
+      "importance": 0.9,
+      "memory_type": "Working",
+      "access_count": 27,
+      "source": "memory/devour/autogpt_execution/ledger.md"
     },
     {
       "id": "working_paperqa_strip_hallucinated_citations",
@@ -337,6 +365,34 @@
       "source": "memory/devour/openhands_exec/ledger.md"
     },
     {
+      "id": "working_autogpt_context_copy_per_node",
+      "content": "[Working] AutoGPT race-avoidance: copy ExecutionContext per node with node_id/node_exec_id; do not mutate shared graph context concurrently.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753394,
+      "importance": 0.89,
+      "memory_type": "Working",
+      "access_count": 26,
+      "source": "memory/devour/autogpt_execution/ledger.md"
+    },
+    {
+      "id": "working_autogpt_credentials_finally",
+      "content": "[Working] AutoGPT credential safety: acquire credential locks only for the node execution scope and release them in finally even on failure.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753393,
+      "importance": 0.88,
+      "memory_type": "Working",
+      "access_count": 26,
+      "source": "memory/devour/autogpt_execution/ledger.md"
+    },
+    {
       "id": "working_openhands_sandbox_contract",
       "content": "[Working] OpenHands sandbox contract: execution must go through SandboxService lifecycle (start/resume/search/wait_for_running), with health-check before action use.",
       "embedding": [
@@ -349,6 +405,20 @@
       "memory_type": "Working",
       "access_count": 26,
       "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "procedural_autogpt_permission_order",
+      "content": "[Procedural] AutoGPT permission order: agent deny, workspace deny, agent allow, workspace allow, then interactive approval; continuous mode should stay bounded.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753391,
+      "importance": 0.86,
+      "memory_type": "Procedural",
+      "access_count": 25,
+      "source": "memory/devour/autogpt_execution/ledger.md"
     },
     {
       "id": "episodic_paperqa_bad_json_timeout_boundary",
@@ -377,6 +447,20 @@
       "memory_type": "Working",
       "access_count": 25,
       "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "semantic_autogpt_block_execution_context",
+      "content": "[Semantic] AutoGPT platform roles: Block has validated Input/Output schemas and yields named outputs; ExecutionContext carries run identity, safety flags, hierarchy, workspace, and session ids.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779753390,
+      "importance": 0.84,
+      "memory_type": "Semantic",
+      "access_count": 25,
+      "source": "memory/devour/autogpt_execution/ledger.md"
     },
     {
       "id": "semantic_paperqa_doc_text_context_session",
