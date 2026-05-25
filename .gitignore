@@ -3,3 +3,25 @@ target/
 *.a
 *.so
 *.dylib
+
+# Embedded git repos - excluded
+.openclaw/tiangong-github-cache/
+a2a-resources/cache/
+**/__pycache__/
+**/target/
+hermes/
+XuanjiQuant-main/
+YYDS/
+.openclaw/
+.env.hetluoshu
+XuanjiQuant-main/
+YYDS/
+a2a-resources/*.log
+a2a-resources/*.bak*
+"a2a-resources/ fetcher. log"
+"a2a-resources/absorbed. list.bak*"
+"a2a-resources/failed. list.bak*"
+"a2a-resources/pending. list.bak*"
+a2a_resources_pending_manifest/
+hermes/
+benchmark/
