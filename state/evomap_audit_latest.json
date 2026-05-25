@@ -1,7 +1,9 @@
 {
-  "timestamp": "2026-05-25T19:25:00+08:00",
+  "timestamp": "2026-05-25T20:10:30+08:00",
   "total_files_glob": 79238,
   "git_tracked": 2704,
-  "real_secret_hits": 1785,
-  "secret_free": false
+  "real_secret_hits": 0,
+  "secret_free": false,
+  "trace_id": "evomap-1779711030743",
+  "file_count": 676
 }
