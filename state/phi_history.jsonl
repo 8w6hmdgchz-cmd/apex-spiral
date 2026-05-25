@@ -752,3 +752,4 @@
   "status": 1
 }
 {"timestamp":"2026-05-25T21:10:00+08:00","phi_ratio_equiv":80.00,"bottleneck":"Evol_code","delta_e":400.0}
+{"ts":1779714675,"iter":773,"phi":8.654,"mode":"12354","env_pressure":10.0,"dg":0.706886}
