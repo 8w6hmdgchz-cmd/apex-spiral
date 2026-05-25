@@ -315,3 +315,34 @@ To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
 [2026-05-25 16:16:00] gist backup complete
 [2026-05-25 16:16:00] ✅ 回流完成
 [2026-05-25 16:16:00] =========================================
+[2026-05-25 16:30:37] =========================================
+[2026-05-25 16:30:37] 🔄 自动回流管道启动
+[2026-05-25 16:30:37] [1/5] PHI_RATIO追踪...
+[2026-05-25 16:30:37] 📊 PHI_RATIO追踪...
+[2026-05-25 16:30:38]   PHI_equiv=60.0%
+[2026-05-25 16:30:38]   瓶颈=∇Θ
+[2026-05-25 16:30:38] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-25 16:31:08]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+[2026-05-25 16:31:12] [3/5] EvoMap同步...
+  "latest": "/Users/lihongxin/.openclaw/workspace/apex-github-evolution/evomap/latest.json",
+  "external_sync_allowed": false
+}
+[2026-05-25 16:31:12] [4/5] Git提交...
+[2026-05-25 16:31:12]   ✅ 无变更，跳过提交
+[2026-05-25 16:31:12] [5/5] Gist备份...
+[2026-05-25 16:31:12] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Already up to date.
+[main 5597ba3] xuanji ssh gist backup 2026-05-25 16:31:21
+ 5 files changed, 20 insertions(+), 9 deletions(-)
+[2026-05-25 16:31:21] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   6aeb7e2..5597ba3  main -> main
+[2026-05-25 16:31:25] gist backup complete
+[2026-05-25 16:31:25] ✅ 回流完成
+[2026-05-25 16:31:25] =========================================
