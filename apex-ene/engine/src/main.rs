@@ -121,8 +121,8 @@ fn main() {
                     kappa_no_repeat: 1.0,
                 },
                 cycle: CycleParams {
-                    eta_skill_up: 0.5,
-                    rho_result_feedback: 0.5,
+                    eta_skill_up: 1.0,
+                    rho_result_feedback: 0.6,
                 },
                 host: HostHealthParams {
                     psi_mem: 0.98,

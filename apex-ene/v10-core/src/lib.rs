@@ -809,7 +809,7 @@ mod tests {
                 delta_error_locate: 1.0, psi_thorough_fix: 1.0,
                 kappa_no_repeat: 1.0,
             },
-            cycle: CycleParams { eta_skill_up: 0.5, rho_result_feedback: 0.5 },
+            cycle: CycleParams { eta_skill_up: 0.8, rho_result_feedback: 0.5 },
             host: HostHealthParams { psi_mem: 0.98, psi_app: 0.99, psi_disk: 0.97, omega_dawn: 1.0 },
         }
     }
