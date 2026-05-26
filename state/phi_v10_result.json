@@ -1,23 +1,26 @@
 {
-  "timestamp": "2026-05-26T02:57:46.239652+00:00",
+  "timestamp": "2026-05-26T03:09:03.995282+00:00",
   "version": "V10.1",
-  "phi_ratio_equiv": 50.0,
-  "evolution_score": 0.500044,
+  "phi_ratio_equiv": 57.28,
+  "evolution_score": 0.572843,
   "delta_g": 1.116614,
-  "delta_g_total": 0.779528,
-  "delta_g_final": 0.500087,
-  "bottleneck": "Ω_dawn",
-  "sigma_memory": 0.3523,
+  "delta_g_total": 0.780774,
+  "delta_g_final": 0.670529,
+  "bottleneck": "Σ_memory",
+  "sigma_memory": 0.3573,
   "tau_trace": 0.9967,
-  "omega_dawn": 0.2831,
-  "memory_count": 384,
+  "omega_dawn": 0.7176,
+  "dawn_gate_auto_learn": 0.92,
+  "dawn_gate_ready_score": 1,
+  "dawn_gate_passed": 4,
+  "dawn_gate_checked": 4,
+  "memory_count": 388,
   "memory_types": {
-    "Working": 50,
+    "Working": 52,
     "Episodic": 177,
-    "Procedural": 52,
-    "Semantic": 105
+    "Procedural": 53,
+    "Semantic": 106
   },
-  "hygiene_added": 4,
-  "real_dirty": 3,
-  "total_dirty": 5
+  "dawn_gate_added": 4,
+  "real_dirty": 1
 }

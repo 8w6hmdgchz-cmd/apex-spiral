@@ -1,9 +1,23 @@
 {
-  "learn_rate": 0.905,
-  "decay_factor": 0.982,
+  "learn_rate": 0.91,
+  "decay_factor": 0.983,
   "max_entries": 10000,
   "retention_threshold": 0.4,
   "memory_entries": [
+    {
+      "id": "working_dawn_gate_real_auto_learn",
+      "content": "[Working] apex-dawn-gate converts executor/eval/evidence/hygiene selftests into an observed auto_learn score for Ω_dawn instead of using a fixed constant.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779764943,
+      "importance": 0.98,
+      "memory_type": "Working",
+      "access_count": 34,
+      "source": "memory/devour/dawn_gate/ledger.md"
+    },
     {
       "id": "working_apex_hygiene_real_dirty_filter",
       "content": "[Working] apex-hygiene classifies git dirty state into source, transient, managed_memory, managed_evidence, and vendor so Ω_dawn can penalize real source drift only.",
@@ -219,6 +233,20 @@
       ]
     },
     {
+      "id": "working_dawn_gate_four_passes",
+      "content": "[Working] Dawn gate currently requires four passing gates: mini executor, eval harness, evidence validator, and hygiene classifier.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779764942,
+      "importance": 0.96,
+      "memory_type": "Working",
+      "access_count": 33,
+      "source": "memory/devour/dawn_gate/ledger.md"
+    },
+    {
       "id": "working_auto_reflux_real_dirty_penalty",
       "content": "[Working] auto_reflux step_omega_dawn now calls apex-hygiene when available and writes real_dirty/total_dirty into omega_dawn history.",
       "embedding": [
@@ -329,6 +357,20 @@
       "memory_type": "Episodic",
       "access_count": 23,
       "source": "memory/failure_cases.jsonl"
+    },
+    {
+      "id": "procedural_dawn_gate_verify",
+      "content": "[Procedural] Verify dawn readiness with: cd scripts/apex-dawn-gate && go build -o apex-dawn-gate . && ./apex-dawn-gate --root /Users/lihongxin/.openclaw/workspace --out state/apex-dawn-gate-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779764941,
+      "importance": 0.94,
+      "memory_type": "Procedural",
+      "access_count": 32,
+      "source": "memory/devour/dawn_gate/ledger.md"
     },
     {
       "id": "procedural_evidence_validator_selftest",
@@ -503,6 +545,20 @@
       "memory_type": "Working",
       "access_count": 27,
       "source": "memory/devour/paperqa_evidence/ledger.md"
+    },
+    {
+      "id": "semantic_dawn_readiness_measured",
+      "content": "[Semantic] Ω_dawn readiness should be measured by gate pass rate and real-dirty hygiene, not manually inflated formula constants.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779764940,
+      "importance": 0.9,
+      "memory_type": "Semantic",
+      "access_count": 31,
+      "source": "memory/devour/dawn_gate/ledger.md"
     },
     {
       "id": "working_inspect_solver_scorer_split",

@@ -114,12 +114,21 @@ step_omega_dawn() {
   local dirty_penalty=$(echo "scale=4; $real_unstaged / 40.0" | bc -l 2>/dev/null || echo "0.0")
   local git_sync_value=$(echo "scale=6; (1.0 - $delta_version_diff) * (1.0 - $rho_sync_fail) * (1.0 - $dirty_penalty) * $tau_auto_merge" | bc -l 2>/dev/null || echo "0.8")
   
-  # ── 3b. 自动学习参数 ──
+  # ── 3b. 自动学习参数：由真实 dawn gates 驱动 ──
   local l_extract=0.85
   local g_generalize=0.75
   local s_summarize=0.8
   local t_time=0.5
   local auto_learn_value=$(echo "scale=6; $l_extract * $g_generalize * $s_summarize / ($t_time + 1.0)" | bc -l 2>/dev/null || echo "0.34")
+  local dawn_gate="$ROOT/scripts/apex-dawn-gate/apex-dawn-gate"
+  if [ -x "$dawn_gate" ]; then
+    local dawn_report="$ROOT/state/apex-dawn-gate-latest.json"
+    if "$dawn_gate" --root "$ROOT" --out "$dawn_report" >/dev/null 2>&1; then
+      auto_learn_value=$(python3 -c "import json; print(json.load(open('$dawn_report')).get('auto_learn', $auto_learn_value))" 2>/dev/null || echo "$auto_learn_value")
+    else
+      log "  ⚠️ dawn gate 未全通过，保留保守 auto_learn=$auto_learn_value"
+    fi
+  fi
   local dawn_omega=$(echo "scale=6; 1.0 * $git_sync_value * $auto_learn_value" | bc -l 2>/dev/null || echo "0.272")
   
   log "  Ω_dawn = $dawn_omega (git_sync=$git_sync_value, auto_learn=$auto_learn_value, real_dirty=$real_unstaged)"
