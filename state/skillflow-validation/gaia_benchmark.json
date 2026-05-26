@@ -1,0 +1,23 @@
+{
+  "accuracy": 1,
+  "dataset_id": "gaia_benchmark",
+  "domain": "agentic",
+  "eval_id": "apex-eval-1779806622",
+  "harness_status": "success",
+  "samples": [
+    {
+      "score": 1,
+      "status": "success",
+      "task_id": "selftest_pwd",
+      "trajectory": "/Users/lihongxin/.openclaw/workspace/state/apex-eval-harness/selftest_pwd.traj.json"
+    },
+    {
+      "score": 1,
+      "status": "success",
+      "task_id": "selftest_python",
+      "trajectory": "/Users/lihongxin/.openclaw/workspace/state/apex-eval-harness/selftest_python.traj.json"
+    }
+  ],
+  "status": "pass",
+  "trajectories": 2
+}
