@@ -54,6 +54,19 @@ type OrchestrationState struct {
 	Timestep       int                `json:"timestep"`
 }
 
+// RtauAnchor — external ground truth from real benchmark
+type RtauAnchor struct {
+	ID            string             `json:"id"`
+	Timestamp     string             `json:"timestamp"`
+	R_tau         float64            `json:"R_tau"`
+	Source        string             `json:"source"`
+	Datasets      map[string]float64 `json:"datasets"`
+	Weight        map[string]int     `json:"weight"`
+	TotalWeight   int                `json:"total_weight"`
+	WeightedR_tau float64           `json:"weighted_R_tau"`
+	Format        string             `json:"format"`
+}
+
 type RoutingResult struct {
 	SkillID string  `json:"skill_id"`
 	Score   float64 `json:"score"`
@@ -214,6 +227,21 @@ func main() {
 		}
 	}
 
+	// --- Step 2alt: Load external R(τ) anchor (real benchmark ground truth) ---
+	var externalRtau float64 = 0.0
+	var rtauSource string = "none"
+	rtauAnchorPath := filepath.Join(stateDir, "apex-rtau-anchor-latest.json")
+	if rtauAnchorData, errR := os.ReadFile(rtauAnchorPath); errR == nil {
+		var anchor RtauAnchor
+		if err := json.Unmarshal(rtauAnchorData, &anchor); err == nil {
+			externalRtau = anchor.R_tau
+			rtauSource = anchor.Source
+			log.Printf("Loaded external Rtau anchor: R(τ)=%.4f source=%s", externalRtau, rtauSource)
+		}
+	} else {
+		log.Printf("No Rtau anchor found at %s (will use internal scores)", rtauAnchorPath)
+	}
+
 	if skillScores == nil {
 		dagData, errD := os.ReadFile(dagPath)
 		if errD == nil {
@@ -303,6 +331,14 @@ func main() {
 	}
 
 	// Compute reverse policy adjustments for each skill
+	// External Rtau scaling: when real benchmark Rtau is available, scale adjustments
+	// by Rtau to create a closed-loop between benchmark performance and skill evolution
+	rtauScaling := externalRtau
+	if rtauScaling == 0.0 {
+		rtauScaling = 1.0 // fallback: no external anchor, use unit scaling
+	}
+	log.Printf("External Rtau scaling factor: %.4f (source=%s)", rtauScaling, rtauSource)
+
 	for _, sk := range skillList {
 		oldReward, exists := skillRewards[sk.ID]
 		if !exists {
@@ -328,6 +364,9 @@ func main() {
 		}
 
 		adjustment := rewardGradient * LearningRate * reverseSignal
+		// Apply external Rtau scaling: high Rtau -> larger adjustments (system is healthy)
+		// low Rtau -> dampened adjustments (system is underperforming, be conservative)
+		adjustment *= rtauScaling
 
 		// Clamp adjustment to [-0.15, 0.15]
 		if adjustment > 0.15 {
@@ -447,6 +486,9 @@ func main() {
 			"credit_allocations":    report.CreditAllocations,
 			"state_source":          loadedFrom,
 			"schema_datasets":       len(schema.Datasets),
+			"external_Rtau":          externalRtau,
+			"rtau_source":            rtauSource,
+			"rtau_scaling_applied":  rtauScaling,
 		},
 	}
 	evidenceStore.Entries = append(evidenceStore.Entries, evidenceEntry)

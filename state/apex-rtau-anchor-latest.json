@@ -1,0 +1,19 @@
+{
+  "id": "apex-rtau-anchor-1779810362",
+  "timestamp": "2026-05-26T15:46:02Z",
+  "R_tau": 0.8889,
+  "source": "apex-ollama-benchmark (deepseek-chat)",
+  "datasets": {
+    "mmlu_subset": 1.0,
+    "math_direct": 1.0,
+    "truthfulqa_subset": 0.3333
+  },
+  "weight": {
+    "mmlu": 3,
+    "truthfulqa": 1,
+    "math": 2
+  },
+  "total_weight": 6,
+  "weighted_R_tau": 0.8889,
+  "format": "apex-rtau-anchor-1.0"
+}
