@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1779760833273",
-  "timestamp_ms": 1779760833273,
+  "trace_id": "evomap-1779762638412",
+  "timestamp_ms": 1779762638412,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -3392,7 +3392,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": " M apex-enlightenment/hub-sync-stderr.log\n M memory/2026-05-26.md\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n?? state/a2a-hunt-20260526-1000.json\n",
+  "git_status_short": " M apex-enlightenment/hub-sync-stderr.log\n M memory/2026-05-26.md\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n?? state/a2a-hunt-20260526-1000.json\n?? state/a2a-hunt-20260526-1030.json\n?? vendor/github/SWE-agent/\n?? vendor/github/UKGovernmentBEIS/\n?? vendor/github/python-jsonschema/\n",
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }
