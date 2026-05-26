@@ -12,6 +12,39 @@ mkdir -p "$STATE"
 log(){ echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG"; }
 run(){ log "▶ $*"; "$@" 2>&1 | tee -a "$LOG"; }
 
+safe_rebase_push(){
+  local stash_name="ecc-runtime-noise-$(date +%s)"
+  local stashed=0
+
+  # Recompute hygiene before touching git history. This is evidence, not a scoring shortcut.
+  if [ -x "$ROOT/scripts/apex-hygiene/apex-hygiene" ]; then
+    "$ROOT/scripts/apex-hygiene/apex-hygiene" --root "$ROOT" --out "$STATE/apex-hygiene-latest.json" >/dev/null 2>&1 || true
+  fi
+
+  if [ -n "$(git status --porcelain)" ]; then
+    log "Runtime/managed dirty files exist before rebase; stashing them temporarily."
+    git stash push -u -m "$stash_name" 2>&1 | tee -a "$LOG" || return 1
+    stashed=1
+  fi
+
+  local ok=0
+  if git pull --rebase 2>&1 | tee -a "$LOG"; then
+    if git push 2>&1 | tee -a "$LOG"; then
+      ok=1
+    else
+      log "push failed; leaving commit local"
+    fi
+  else
+    log "rebase failed; leaving commit local for manual review"
+  fi
+
+  if [ "$stashed" -eq 1 ]; then
+    git stash pop 2>&1 | tee -a "$LOG" || log "stash pop had conflicts; manual review needed"
+  fi
+
+  [ "$ok" -eq 1 ]
+}
+
 cd "$ROOT"
 log "===== APEX ECC nightly cycle start ====="
 
@@ -44,11 +77,7 @@ if git diff --cached --quiet; then
   log "No intentional staged changes; skip commit."
 else
   git commit -m "nightly: ECC RuntimeOS gated evolution $(date '+%Y-%m-%d')" 2>&1 | tee -a "$LOG"
-  if git pull --rebase 2>&1 | tee -a "$LOG"; then
-    git push 2>&1 | tee -a "$LOG" || log "push failed; leaving commit local"
-  else
-    log "rebase failed; leaving commit local for manual review"
-  fi
+  safe_rebase_push || true
 fi
 
 log "===== APEX ECC nightly cycle complete ====="
