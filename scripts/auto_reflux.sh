@@ -97,15 +97,22 @@ step_omega_dawn() {
     log "  📦 未推送commit数: $unpushed, δ_diff=${delta_version_diff}"
   fi
 
-  # 检查是否有未提交的文件
+  # 检查是否有未提交的真实源码文件；日志、vendor、hunt输出由 hygiene 归类为运行态噪声。
   local unstaged=$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ')
+  local real_unstaged="$unstaged"
+  local hygiene="$ROOT/scripts/apex-hygiene/apex-hygiene"
+  if [ -x "$hygiene" ]; then
+    real_unstaged=$("$hygiene" --root "$ROOT" --mode real-count 2>/dev/null || echo "$unstaged")
+    "$hygiene" --root "$ROOT" --out "$ROOT/state/apex-hygiene-latest.json" >/dev/null 2>&1 || true
+  fi
   if [ -n "$unstaged" ] && [ "$unstaged" -gt 0 ]; then
-    log "  📝 未提交文件数: $unstaged"
+    log "  📝 未提交文件数: $unstaged (real=$real_unstaged)"
   fi
   
   # 计算 Ω_dawn （简单bash版）
   local tau_auto_merge=0.8
-  local git_sync_value=$(echo "scale=6; (1.0 - $delta_version_diff) * (1.0 - $rho_sync_fail) * $tau_auto_merge" | bc -l 2>/dev/null || echo "0.8")
+  local dirty_penalty=$(echo "scale=4; $real_unstaged / 40.0" | bc -l 2>/dev/null || echo "0.0")
+  local git_sync_value=$(echo "scale=6; (1.0 - $delta_version_diff) * (1.0 - $rho_sync_fail) * (1.0 - $dirty_penalty) * $tau_auto_merge" | bc -l 2>/dev/null || echo "0.8")
   
   # ── 3b. 自动学习参数 ──
   local l_extract=0.85
@@ -115,7 +122,7 @@ step_omega_dawn() {
   local auto_learn_value=$(echo "scale=6; $l_extract * $g_generalize * $s_summarize / ($t_time + 1.0)" | bc -l 2>/dev/null || echo "0.34")
   local dawn_omega=$(echo "scale=6; 1.0 * $git_sync_value * $auto_learn_value" | bc -l 2>/dev/null || echo "0.272")
   
-  log "  Ω_dawn = $dawn_omega (git_sync=$git_sync_value, auto_learn=$auto_learn_value)"
+  log "  Ω_dawn = $dawn_omega (git_sync=$git_sync_value, auto_learn=$auto_learn_value, real_dirty=$real_unstaged)"
   
   # ── 3c. 如果有 V10.1 binary，尝试获取精确结果 ──
   local APEXE="$ROOT/apex-ene/engine/target/release/apexe"
@@ -128,7 +135,7 @@ step_omega_dawn() {
   fi
   
   # 记录Ω_dawn结果
-  echo "{\"timestamp\":\"$(date -Iseconds)\",\"omega_dawn\":$dawn_omega,\"git_sync\":$git_sync_value,\"auto_learn\":$auto_learn_value,\"version\":\"V10.1\"}" >> "$ROOT/state/omega_dawn_history.jsonl" 2>/dev/null || true
+  echo "{\"timestamp\":\"$(date -Iseconds)\",\"omega_dawn\":$dawn_omega,\"git_sync\":$git_sync_value,\"auto_learn\":$auto_learn_value,\"real_dirty\":$real_unstaged,\"total_dirty\":$unstaged,\"version\":\"V10.1\"}" >> "$ROOT/state/omega_dawn_history.jsonl" 2>/dev/null || true
 }
 
 step_git_commit() {

@@ -59,3 +59,10 @@ vendor/github/Future-House/
 vendor/github/guardrails-ai/
 vendor/github/modelcontextprotocol/
 vendor/github/yoheinakajima/
+
+# Devoured external sources and runtime/transient state
+vendor/github/python-jsonschema/
+vendor/github/evilmartians/
+state/a2a-hunt-*.json
+state/apex-hygiene-latest.json
+*.log

@@ -1,9 +1,23 @@
 {
-  "learn_rate": 0.9,
-  "decay_factor": 0.981,
+  "learn_rate": 0.905,
+  "decay_factor": 0.982,
   "max_entries": 10000,
   "retention_threshold": 0.4,
   "memory_entries": [
+    {
+      "id": "working_apex_hygiene_real_dirty_filter",
+      "content": "[Working] apex-hygiene classifies git dirty state into source, transient, managed_memory, managed_evidence, and vendor so Ω_dawn can penalize real source drift only.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779764266,
+      "importance": 0.97,
+      "memory_type": "Working",
+      "access_count": 33,
+      "source": "memory/devour/lefthook_hygiene/ledger.md"
+    },
     {
       "id": "working_evidence_validator_hard_gate",
       "content": "[Working] apex-evidence-validator now enforces hard memory admission: source_repo, source_commit, source_path, context_id, score>=0.70, and verification.result=pass are required.",
@@ -205,6 +219,20 @@
       ]
     },
     {
+      "id": "working_auto_reflux_real_dirty_penalty",
+      "content": "[Working] auto_reflux step_omega_dawn now calls apex-hygiene when available and writes real_dirty/total_dirty into omega_dawn history.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779764265,
+      "importance": 0.95,
+      "memory_type": "Working",
+      "access_count": 33,
+      "source": "memory/devour/lefthook_hygiene/ledger.md"
+    },
+    {
       "id": "working_inspect_eval_harness_operational",
       "content": "[Working] Inspect AI devour reimplemented: apex-eval-harness runs tasks through apex-mini-executor, scores samples, computes accuracy, and writes eval logs.",
       "embedding": [
@@ -357,6 +385,20 @@
       "memory_type": "Procedural",
       "access_count": 32,
       "source": "memory/devour/mini_swe_agent/ledger.md"
+    },
+    {
+      "id": "procedural_apex_hygiene_verify",
+      "content": "[Procedural] Verify hygiene gate with: cd scripts/apex-hygiene && go build -o apex-hygiene . && ./apex-hygiene --root /Users/lihongxin/.openclaw/workspace --out state/apex-hygiene-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779764264,
+      "importance": 0.92,
+      "memory_type": "Procedural",
+      "access_count": 32,
+      "source": "memory/devour/lefthook_hygiene/ledger.md"
     },
     {
       "id": "procedural_evidence_validator_devour_samples",
@@ -587,6 +629,20 @@
       "memory_type": "Working",
       "access_count": 26,
       "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "semantic_lefthook_file_filter_pattern",
+      "content": "[Semantic] Lefthook pattern: run checks over explicit file sets, then apply glob/exclude/local skip filters so transient generated files do not poison repo health.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779764263,
+      "importance": 0.86,
+      "memory_type": "Semantic",
+      "access_count": 30,
+      "source": "memory/devour/lefthook_hygiene/ledger.md"
     },
     {
       "id": "semantic_jsonschema_validation_error_paths",
