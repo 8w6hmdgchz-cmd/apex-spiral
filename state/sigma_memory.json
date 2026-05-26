@@ -844,6 +844,174 @@
       "source": "memory/ecc/runtimeos.md"
     },
     {
+      "id": "evidence_4e47ec1488a79cda",
+      "content": "[Procedural] APEX failure/repair lesson: {\"id\": 1, \"timestamp\": \"2026-05-25T09:00:00+08:00\", \"task\": \"GitHub 资源拉取\", \"what_happened\": \"反复使用 HTTPS/API 方式访问 GitHub，被阻断后没记住 SSH 方案，每次都需要用户重新教\", \"root_cause\": \"操作知识未固化到可检� (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/failure_cases.jsonl context=memory/failure_cases.jsonl#L1)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_934ec180461932a7",
+      "content": "[Procedural] APEX failure/repair lesson: {\"id\": 2, \"timestamp\": \"2026-05-25T09:00:00+08:00\", \"task\": \"QQBot 文件发送\", \"what_happened\": \"用户要求从桌面发文件，我一开始没做到，说'我试试'而不是直接执行\", \"root_cause\": \"基础操作没有预配置；不知道 qqbot-medi (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/failure_cases.jsonl context=memory/failure_cases.jsonl#L2)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_0317b2cafe5a514c",
+      "content": "[Procedural] APEX failure/repair lesson: {\"id\": 3, \"timestamp\": \"2026-05-25T09:00:00+08:00\", \"task\": \"开智体系审计\", \"what_happened\": \"APEX ΔG 公式中 ε_repair 放在分母，方向错误（修复率越高得分越低）；9维度数值缺乏测量依据；存在循环论证\", \"root_cause\": (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/failure_cases.jsonl context=memory/failure_cases.jsonl#L3)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_08f2aa7e1e151424",
+      "content": "[Procedural] APEX failure/repair lesson: {\"id\": 4, \"timestamp\": \"2026-05-25T09:00:00+08:00\", \"task\": \"子代理滥用\", \"what_happened\": \"简单任务也 spawn 子代理，增加了成本和延迟，逃避了直接执行责任\", \"root_cause\": \"SOUL.md 中'永远不自己做工作，让 subagents 多� (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/failure_cases.jsonl context=memory/failure_cases.jsonl#L4)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_be3827b14cba2741",
+      "content": "[Procedural] APEX failure/repair lesson: {\"id\": 5, \"timestamp\": \"2026-05-25T09:00:00+08:00\", \"task\": \"叙事 \u003e 交付\", \"what_happened\": \"花大量时间讲述'在进化'而不是真正交付可验证的结果；术语多但实证少\", \"root_cause\": \"缺乏硬指标约束；自我叙事没有外部 c (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/failure_cases.jsonl context=memory/failure_cases.jsonl#L5)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_11439ffe9e150d39",
+      "content": "[Procedural] APEX failure/repair lesson: Docker boundary: Docker is not currently available in PATH, so the harness honestly marks local sandbox fallback instead of pretending container execution. (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/ecc/runtimeos.md context=memory/ecc/runtimeos.md#L110)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_deb3f61c4b0d4638",
+      "content": "[Procedural] APEX failure/repair lesson: fallbacks: deepseek/deepseek-v4-pro, zai/glm-5v-turbo, zai/glm-5.1, zhipuai/glm-5-flash (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/ecc/runtimeos.md context=memory/ecc/runtimeos.md#L76)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_b064a57a91fd04fc",
+      "content": "[Procedural] APEX failure/repair lesson: task vector × model vector × quantum-router × twelve-factor gate → selected LLM + fallbacks (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/ecc/runtimeos.md context=memory/ecc/runtimeos.md#L68)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_200e0e6609144ba0",
+      "content": "[Procedural] APEX failure/repair lesson: Commit pushed: `ef4dbfe` — `repair: ECC nightly safe rebase push loop`. (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/2026-05-26.md context=memory/2026-05-26.md#L557)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_057184f51c598041",
+      "content": "[Procedural] APEX failure/repair lesson: Behavior: rerun `apex-hygiene`, detect runtime/managed dirty files, `git stash push -u` transient noise, `git pull --rebase`, `git push`, `git stash pop`, and log failures without pretending success. (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/2026-05-26.md context=memory/2026-05-26.md#L555)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_10cf98e83e48c238",
+      "content": "[Procedural] APEX failure/repair lesson: Repaired nightly push loop: (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/2026-05-26.md context=memory/2026-05-26.md#L553)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
+      "id": "evidence_7caa27dfa38300cf",
+      "content": "[Procedural] APEX failure/repair lesson: User asked to apply APEX formula to next action. Bottleneck identified as `ε_self_repair / Ω_dawn` from Git rebase/push being blocked by runtime dirty files. (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/2026-05-26.md context=memory/2026-05-26.md#L552)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782501,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 42,
+      "source": "state/apex-failure-evidence.json"
+    },
+    {
       "id": "procedural_apex_hygiene_verify",
       "content": "[Procedural] Verify hygiene gate with: cd scripts/apex-hygiene \u0026\u0026 go build -o apex-hygiene . \u0026\u0026 ./apex-hygiene --root /Users/lihongxin/.openclaw/workspace --out state/apex-hygiene-latest.json",
       "embedding": [

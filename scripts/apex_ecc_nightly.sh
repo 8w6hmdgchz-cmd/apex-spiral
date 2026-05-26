@@ -49,7 +49,7 @@ cd "$ROOT"
 log "===== APEX ECC nightly cycle start ====="
 
 # Build only local helpers touched by ECC. Do not install global packages.
-for d in scripts/apex-ecc-runtimeos scripts/apex-fusion-engine scripts/apex-praison-chain scripts/apex-dawn-gate scripts/apex-hygiene scripts/apex-evidence-validator scripts/apex-12factor-agent scripts/apex-phasor-llm scripts/apex-agent-dispatch scripts/apex-cmmi-delivery scripts/apex-memory-admission scripts/apex-container-backend scripts/apex-claude-code-runner scripts/apex-release-manager; do
+for d in scripts/apex-ecc-runtimeos scripts/apex-fusion-engine scripts/apex-praison-chain scripts/apex-dawn-gate scripts/apex-hygiene scripts/apex-evidence-validator scripts/apex-12factor-agent scripts/apex-phasor-llm scripts/apex-agent-dispatch scripts/apex-cmmi-delivery scripts/apex-memory-admission scripts/apex-container-backend scripts/apex-claude-code-runner scripts/apex-release-manager scripts/apex-failure-miner; do
   if [ -f "$ROOT/$d/go.mod" ]; then
     (cd "$ROOT/$d" && go build -o "$(basename "$d")" .) 2>&1 | tee -a "$LOG"
   fi
@@ -67,17 +67,20 @@ run "$ROOT/scripts/apex-phasor-llm/apex-phasor-llm" --mode selftest --root "$ROO
 run "$ROOT/scripts/apex-agent-dispatch/apex-agent-dispatch" --mode selftest --root "$ROOT" --out "$STATE/apex-agent-dispatch-latest.json"
 run "$ROOT/scripts/apex-cmmi-delivery/apex-cmmi-delivery" --mode cycle --root "$ROOT" --task "APEX CMMI industrial delivery closed loop" --out "$STATE/apex-cmmi-delivery-latest.json"
 run "$ROOT/scripts/apex-memory-admission/apex-memory-admission" --mode admit --root "$ROOT" --input state/apex-fusion-evidence.json --out "$STATE/apex-memory-admission-latest.json"
+run "$ROOT/scripts/apex-failure-miner/apex-failure-miner" --root "$ROOT" --out "$STATE/apex-failure-miner-latest.json" --evidence-out "$STATE/apex-failure-evidence.json"
+run "$ROOT/scripts/apex-evidence-validator/apex-evidence-validator" --mode validate --input "$STATE/apex-failure-evidence.json" --out "$STATE/apex-failure-evidence-report.json"
+run "$ROOT/scripts/apex-memory-admission/apex-memory-admission" --mode admit --root "$ROOT" --input state/apex-failure-evidence.json --out "$STATE/apex-memory-admission-latest.json"
 run "$ROOT/scripts/apex-release-manager/apex-release-manager" --mode prepare --root "$ROOT" --out "$STATE/apex-release-manager-latest.json"
 run "$ROOT/scripts/phi_tracker.sh"
 
 # Append observability record.
-printf '{"timestamp":"%s","task":"apex_ecc_nightly_cycle","result":"pass","evidence":"state/apex-ecc-runtimeos-latest.json","fusion":"state/apex-fusion-engine-latest.json","evidence_report":"state/apex-fusion-evidence-report.json","container_backend":"state/apex-container-backend-latest.json","claude_code_runner":"state/apex-claude-code-runner-latest.json","twelve_factor":"state/apex-12factor-agent-latest.json","phasor_llm":"state/apex-phasor-llm-latest.json","agent_dispatch":"state/apex-agent-dispatch-latest.json","cmmi_delivery":"state/apex-cmmi-delivery-latest.json","memory_admission":"state/apex-memory-admission-latest.json","release_manager":"state/apex-release-manager-latest.json"}\n' "$(date -Iseconds)" >> "$ROOT/memory/metrics/task_runs.jsonl"
+printf '{"timestamp":"%s","task":"apex_ecc_nightly_cycle","result":"pass","evidence":"state/apex-ecc-runtimeos-latest.json","fusion":"state/apex-fusion-engine-latest.json","evidence_report":"state/apex-fusion-evidence-report.json","container_backend":"state/apex-container-backend-latest.json","claude_code_runner":"state/apex-claude-code-runner-latest.json","twelve_factor":"state/apex-12factor-agent-latest.json","phasor_llm":"state/apex-phasor-llm-latest.json","agent_dispatch":"state/apex-agent-dispatch-latest.json","cmmi_delivery":"state/apex-cmmi-delivery-latest.json","memory_admission":"state/apex-memory-admission-latest.json","failure_miner":"state/apex-failure-miner-latest.json","release_manager":"state/apex-release-manager-latest.json"}\n' "$(date -Iseconds)" >> "$ROOT/memory/metrics/task_runs.jsonl"
 
 # Commit only intentional ECC/runtime artifacts. Runtime ignored files may remain dirty by design.
 git add \
-  scripts/apex-ecc-runtimeos scripts/apex-fusion-engine scripts/apex-praison-chain scripts/apex-dawn-gate scripts/apex-hygiene scripts/apex-evidence-validator scripts/apex-12factor-agent scripts/apex-phasor-llm scripts/apex-agent-dispatch scripts/apex-cmmi-delivery scripts/apex-memory-admission scripts/apex-container-backend scripts/apex-claude-code-runner scripts/apex-release-manager \
+  scripts/apex-ecc-runtimeos scripts/apex-fusion-engine scripts/apex-praison-chain scripts/apex-dawn-gate scripts/apex-hygiene scripts/apex-evidence-validator scripts/apex-12factor-agent scripts/apex-phasor-llm scripts/apex-agent-dispatch scripts/apex-cmmi-delivery scripts/apex-memory-admission scripts/apex-container-backend scripts/apex-claude-code-runner scripts/apex-release-manager scripts/apex-failure-miner \
   skills/apex-ecc-runtimeos skills/apex-praison-chain \
-  state/apex-ecc-runtimeos-latest.json state/apex-fusion-engine-latest.json state/apex-fusion-evidence.json state/apex-fusion-evidence-report.json state/apex-praison-activation.json state/apex-12factor-agent-latest.json state/apex-container-backend-latest.json state/apex-claude-code-runner-latest.json state/apex-phasor-llm-latest.json state/apex-agent-dispatch-latest.json state/apex-cmmi-delivery-latest.json state/apex-memory-admission-latest.json state/apex-memory-admission-evidence-report.json state/apex-release-manager-latest.json state/phi_tracker_latest.json state/phi_v10_result.json state/phi_history.jsonl state/sigma_memory.json \
+  state/apex-ecc-runtimeos-latest.json state/apex-fusion-engine-latest.json state/apex-fusion-evidence.json state/apex-fusion-evidence-report.json state/apex-praison-activation.json state/apex-12factor-agent-latest.json state/apex-container-backend-latest.json state/apex-claude-code-runner-latest.json state/apex-phasor-llm-latest.json state/apex-agent-dispatch-latest.json state/apex-cmmi-delivery-latest.json state/apex-memory-admission-latest.json state/apex-memory-admission-evidence-report.json state/apex-failure-miner-latest.json state/apex-failure-evidence.json state/apex-failure-evidence-report.json state/apex-release-manager-latest.json state/phi_tracker_latest.json state/phi_v10_result.json state/phi_history.jsonl state/sigma_memory.json \
   memory/ecc memory/praison memory/metrics/task_runs.jsonl \
   2>/dev/null || true
 

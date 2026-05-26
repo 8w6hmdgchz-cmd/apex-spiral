@@ -246,3 +246,30 @@ sigma_memory: 0.3716
 ```
 
 This prevents Σ_memory inflation from repeated identical evidence.
+
+## Failure Case Miner
+
+Added:
+
+- `scripts/apex-failure-miner/main.go`
+- `state/apex-failure-miner-latest.json`
+- `state/apex-failure-evidence.json`
+- `state/apex-failure-evidence-report.json`
+
+Flow:
+
+```text
+failure logs / daily notes / runtime notes → failure evidence → evidence validator → memory admission v2 → Procedural memory
+```
+
+First attempt was correctly rejected by `apex-evidence-validator` because evidence IDs used invalid `:`/path characters. Fixed IDs to validator-safe format and filtered low-value successful push lines.
+
+Latest verification:
+
+```text
+findings: 12
+evidence_status: success
+admission_status: success
+added: 12
+sigma_memory: 0.3754
+```

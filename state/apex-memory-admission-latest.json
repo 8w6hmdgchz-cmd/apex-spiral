@@ -1,19 +1,19 @@
 {
-  "id": "apex-memory-admit-1779782243",
-  "started_at": "2026-05-26T15:57:23+08:00",
+  "id": "apex-memory-admit-1779782501",
+  "started_at": "2026-05-26T16:01:41+08:00",
   "status": "success",
-  "input": "state/apex-fusion-evidence.json",
+  "input": "state/apex-failure-evidence.json",
   "validated": true,
-  "added": 0,
+  "added": 12,
   "skipped": 0,
   "rejected": 0,
-  "deduped": 1,
+  "deduped": 0,
   "pruned": 0,
-  "memory_count": 426,
-  "sigma_memory": 0.3716,
+  "memory_count": 438,
+  "sigma_memory": 0.3754,
   "type_counts": {
     "Episodic": 177,
-    "Procedural": 64,
+    "Procedural": 76,
     "Semantic": 115,
     "Working": 70
   },
@@ -21,7 +21,7 @@
   "quality_floor": 0.72,
   "capacity": 500,
   "evidence": [
-    "state/apex-fusion-evidence.json",
+    "state/apex-failure-evidence.json",
     "state/sigma_memory.json",
     "state/apex-memory-admission-evidence-report.json"
   ],
