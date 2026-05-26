@@ -1793,3 +1793,43 @@ To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
 [2026-05-26 09:01:33] gist backup complete
 [2026-05-26 09:01:33] ✅ 回流完成
 [2026-05-26 09:01:33] =========================================
+[2026-05-26 14:01:13] =========================================
+[2026-05-26 14:01:13] 🔄 自动回流管道 V10.1 启动
+[2026-05-26 14:01:13] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-26 14:01:13] 📊 V10.1 PHI 追踪...
+[2026-05-26 14:01:13]   PHI=57.32%
+[2026-05-26 14:01:13]   瓶颈=Σ_memory
+[2026-05-26 14:01:13]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-26 14:01:13] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-26 14:01:43]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+[2026-05-26 14:01:47] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-26 14:01:47]   📝 未提交文件数: 12 (real=2)
+[2026-05-26 14:01:48]   Ω_dawn = .699200 (git_sync=.760000, auto_learn=0.92, real_dirty=2)
+[2026-05-26 14:01:48]   ΔG_safe = 1.0661141609199323
+[2026-05-26 14:01:48] [4/5] Git提交...
+[main bf90c6c] 🔄 auto reflux V10.1 2026-05-26 14:01
+ 1 file changed, 1 insertion(+)
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+error: cannot rebase: You have unstaged changes.
+error: Please commit or stash them.
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+   ba4cd42..bf90c6c  main -> main
+[2026-05-26 14:01:56]   ✅ Git推送成功
+[2026-05-26 14:01:56] [5/5] Gist备份...
+[2026-05-26 14:01:56] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Already up to date.
+[main 98d0088] xuanji ssh gist backup 2026-05-26 14:02:04
+ 7 files changed, 66 insertions(+), 28 deletions(-)
+[2026-05-26 14:02:04] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   662b295..98d0088  main -> main
+[2026-05-26 14:02:08] gist backup complete
+[2026-05-26 14:02:08] ✅ 回流完成
+[2026-05-26 14:02:08] =========================================

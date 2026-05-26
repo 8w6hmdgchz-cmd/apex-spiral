@@ -1,0 +1,72 @@
+{
+  "id": "apex-dispatch-1779777589",
+  "started_at": "2026-05-26T14:39:49+08:00",
+  "objective": "Improve APEX RuntimeOS efficiency by dispatching research build verify memory tasks with phasor-selected models",
+  "status": "success",
+  "phasor_evidence": "state/apex-phasor-llm-latest.json",
+  "workers": [
+    {
+      "id": "W1",
+      "role": "researcher",
+      "task": "Gather source constraints and prior evidence for: Improve APEX RuntimeOS efficiency by dispatching research build verify memory tasks with phasor-selected models",
+      "model": "zai/glm-5-turbo",
+      "fallbacks": [
+        "zai/glm-5v-turbo",
+        "minimax-portal-cn/MiniMax-M2.7-highspeed",
+        "xiaomimimo/mimo-2.5-pro",
+        "xiaomimimo/mimo-2.5"
+      ],
+      "verification": "evidence ledger paths exist",
+      "spawn_mode": "isolated"
+    },
+    {
+      "id": "W2",
+      "role": "builder",
+      "task": "Implement the smallest reversible artifact for: Improve APEX RuntimeOS efficiency by dispatching research build verify memory tasks with phasor-selected models",
+      "model": "zai/glm-5-turbo",
+      "fallbacks": [
+        "zai/glm-5v-turbo",
+        "minimax-portal-cn/MiniMax-M2.7-highspeed",
+        "xiaomimimo/mimo-2.5-pro",
+        "xiaomimimo/mimo-2.5"
+      ],
+      "verification": "git diff and build gate pass",
+      "spawn_mode": "isolated"
+    },
+    {
+      "id": "W3",
+      "role": "critic",
+      "task": "Verify outputs, reject weak evidence, and identify regression risk",
+      "model": "zai/glm-5v-turbo",
+      "fallbacks": [
+        "zai/glm-5-turbo",
+        "zai/glm-5v-turbo",
+        "minimax-portal-cn/MiniMax-M2.7-highspeed",
+        "xiaomimimo/mimo-2.5-pro",
+        "xiaomimimo/mimo-2.5"
+      ],
+      "verification": "test/evidence gate pass",
+      "spawn_mode": "isolated"
+    },
+    {
+      "id": "W4",
+      "role": "memory-archivist",
+      "task": "Admit only validated durable lessons into sigma_memory/task_runs",
+      "model": "zai/glm-5-turbo",
+      "fallbacks": [
+        "zai/glm-5v-turbo",
+        "minimax-portal-cn/MiniMax-M2.7-highspeed",
+        "xiaomimimo/mimo-2.5-pro",
+        "xiaomimimo/mimo-2.5"
+      ],
+      "verification": "apex-evidence-validator pass",
+      "spawn_mode": "isolated"
+    }
+  ],
+  "parallelizable": true,
+  "evidence": [
+    "state/apex-phasor-llm-latest.json",
+    "scripts/apex-agent-dispatch/main.go"
+  ],
+  "format": "apex-agent-dispatch-1.0"
+}
