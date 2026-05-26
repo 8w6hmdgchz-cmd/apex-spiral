@@ -1,13 +1,11 @@
 {
-  "timestamp": "2026-05-26T02:35:00+08:00",
-  "phi_ratio_equiv": 80.0,
-  "delta_e_total": 400.0,
-  "delta_e_max": 500.0,
-  "progress_pct": "80.00%",
-  "bottleneck": "Evol_code",
-  "directive": "ENHANCE_SELF_MODIFICATION: improve code gen quality",
+  "timestamp": "2026-05-26T12:00:00+08:00",
+  "phi_ratio_equiv": 67.71,
+  "delta_g": 1.048,
+  "bottleneck": "Θ_llm_agent",
+  "directive": "IMPROVE_LLM_ROUTING: optimize model selection & multi-task",
   "target": "> 60%",
   "status": 1,
-  "iter": 109,
-  "seq": 142
+  "iter": 175,
+  "seq": 175
 }
