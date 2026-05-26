@@ -113,8 +113,8 @@ const (
 	EntropyThreshold    = 0.5
 	DefaultRewardBase   = 0.7
 	NoiseMagnitude      = 0.2
-	EvidenceFile        = "state/apex-skillflow-evidence.json"
-	OutputFile          = "state/skillflow-evolution-latest.json"
+	EvidenceFile        = "apex-skillflow-evidence.json"
+	OutputFile          = "skillflow-evolution-latest.json"
 	Format              = "skillflow-evolution-1.0"
 )
 
@@ -192,7 +192,7 @@ func main() {
 	log.Printf("Extracted %d unique skills from schema", len(skillList))
 
 	// --- Step 2: Load orchestration or DAG state ---
-	stateDir := filepath.Join(workspace, "skillflow", "state")
+	stateDir := filepath.Join(workspace, "state")
 	orchestrationPath := filepath.Join(stateDir, "skillflow-orchestration-latest.json")
 	dagPath := filepath.Join(stateDir, "skillflow-dag.json")
 

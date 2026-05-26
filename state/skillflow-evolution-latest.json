@@ -1,0 +1,220 @@
+{
+  "id": "apex-skillflow-evo-20260526T145634Z",
+  "started_at": "2026-05-26T14:56:34Z",
+  "status": "completed",
+  "reverse_policy_applied": true,
+  "evolved_skills": [
+    {
+      "skill_id": "akquant-backtest",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-praison-chain",
+      "old_reward": 0.5,
+      "new_reward": 0.51,
+      "adjustment": 0.01,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-core",
+      "old_reward": 0.68,
+      "new_reward": 0.68,
+      "adjustment": 0,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-cmmi-delivery",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-mini-executor",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.04,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-harness-bridge",
+      "old_reward": 0.7,
+      "new_reward": 0.7,
+      "adjustment": 0,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-fusion-engine",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-book-skill",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "clawg-training-ecosystem",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-devour-engine",
+      "old_reward": 0.64,
+      "new_reward": 0.64,
+      "adjustment": 0,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-hygiene",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-tiangong-skill",
+      "old_reward": 0.47,
+      "new_reward": 0.48,
+      "adjustment": 0.01,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-strata",
+      "old_reward": 0.64,
+      "new_reward": 0.65,
+      "adjustment": 0.01,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-evolver-core",
+      "old_reward": 0.61,
+      "new_reward": 0.62,
+      "adjustment": 0.01,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-token-optimizer",
+      "old_reward": 0.59,
+      "new_reward": 0.6,
+      "adjustment": 0.01,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-unified-research-engine",
+      "old_reward": 0.49,
+      "new_reward": 0.5,
+      "adjustment": 0.01,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-eval-harness",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.04,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-superpowers-gate",
+      "old_reward": 0.65,
+      "new_reward": 0.66,
+      "adjustment": 0,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-container-backend",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "xuanjiquant",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-claude-code-runner",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.04,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-autoresearch-core",
+      "old_reward": 0.66,
+      "new_reward": 0.66,
+      "adjustment": 0,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-ecc-runtimeos",
+      "old_reward": 0.64,
+      "new_reward": 0.64,
+      "adjustment": 0,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-secrets-gate",
+      "old_reward": 0.68,
+      "new_reward": 0.68,
+      "adjustment": 0,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-evidence-validator",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    },
+    {
+      "skill_id": "apex-memory-admission",
+      "old_reward": 0.7,
+      "new_reward": 0.74,
+      "adjustment": 0.03,
+      "reason": "positive_reward_gradient"
+    }
+  ],
+  "credit_allocations": {
+    "akquant-backtest": 0.03,
+    "apex-autoresearch-core": 0,
+    "apex-book-skill": 0.03,
+    "apex-claude-code-runner": 0.04,
+    "apex-cmmi-delivery": 0.03,
+    "apex-container-backend": 0.03,
+    "apex-core": 0,
+    "apex-devour-engine": 0,
+    "apex-ecc-runtimeos": 0,
+    "apex-eval-harness": 0.04,
+    "apex-evidence-validator": 0.03,
+    "apex-evolver-core": 0.01,
+    "apex-fusion-engine": 0.03,
+    "apex-harness-bridge": 0,
+    "apex-hygiene": 0.03,
+    "apex-memory-admission": 0.03,
+    "apex-mini-executor": 0.04,
+    "apex-praison-chain": 0.01,
+    "apex-secrets-gate": 0,
+    "apex-strata": 0.01,
+    "apex-superpowers-gate": 0,
+    "apex-tiangong-skill": 0.01,
+    "apex-token-optimizer": 0.01,
+    "apex-unified-research-engine": 0.01,
+    "clawg-training-ecosystem": 0.03,
+    "xuanjiquant": 0.03
+  },
+  "collapse_resolutions": [],
+  "format": "skillflow-evolution-1.0"
+}

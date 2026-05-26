@@ -64,6 +64,8 @@ type Report struct {
 	ID                string                   `json:"id"`
 	DAGNodes          int                      `json:"dag_nodes"`
 	DatasetsLoaded    int                      `json:"datasets_loaded"`
+	SkillScores       map[string]float64       `json:"skill_scores"`
+	FlowEntropy       float64                  `json:"flow_entropy"`
 	RoutedTrajectories []Trajectory            `json:"routed_trajectories"`
 	CreditAllocations map[string]float64       `json:"credit_allocations"`
 	CollapseDetected  bool                     `json:"collapse_detected"`
@@ -193,8 +195,12 @@ func main() {
 	fmt.Printf("[skillflow-orch] multi-peak redundant routes: %d\n", len(multiPeaks))
 
 	// 9. Evolve skills
-	evolved := EvolveSkills(dag, trajectories)
+	evolved, skillScores := EvolveSkills(dag, trajectories)
 	fmt.Printf("[skillflow-orch] skills evolved: %d\n", len(evolved))
+
+	// 9b. Compute flow entropy from skill scores
+	flowEntropy := computeFlowEntropyMap(skillScores)
+	fmt.Printf("[skillflow-orch] flow entropy: %.4f\n", flowEntropy)
 
 	// 10. Build report
 	durationMs := time.Since(startTime).Milliseconds()
@@ -205,6 +211,8 @@ func main() {
 		ID:                 reportID,
 		DAGNodes:           len(dag.Nodes),
 		DatasetsLoaded:     len(datasets),
+		SkillScores:        skillScores,
+		FlowEntropy:        flowEntropy,
 		RoutedTrajectories: trajectories,
 		CreditAllocations:  creditAlloc,
 		CollapseDetected:   collapse.Collapsed,
@@ -810,7 +818,7 @@ func MultiPeakRedundancy(dag *DAG, fwd, rev map[string][]AdjEntry) []MultiPeakRo
 // EvolveSkills — reverse policy reward adjustment
 // ──────────────────────────────────────────────────────────────
 
-func EvolveSkills(dag *DAG, trajectories []Trajectory) []EvolvedSkill {
+func EvolveSkills(dag *DAG, trajectories []Trajectory) ([]EvolvedSkill, map[string]float64) {
 	nodeReward := make(map[string]float64)
 	nodeCount := make(map[string]int)
 
@@ -867,7 +875,15 @@ func EvolveSkills(dag *DAG, trajectories []Trajectory) []EvolvedSkill {
 		})
 	}
 
-	return results
+	// Build normalized skill scores (avg reward per visit)
+	skillScores := make(map[string]float64)
+	for id, cum := range nodeReward {
+		if nodeCount[id] > 0 {
+			skillScores[id] = cum / float64(nodeCount[id])
+		}
+	}
+
+	return results, skillScores
 }
 
 func rewardBaseForNode(node DAGNode) float64 {
@@ -1005,4 +1021,30 @@ func computePeakEntropy(trajs []Trajectory, nodes []DAGNode) float64 {
 		return 0
 	}
 	return entropy / norm
+}
+
+func computeFlowEntropyMap(scores map[string]float64) float64 {
+	if len(scores) == 0 {
+		return 0
+	}
+	total := 0.0
+	for _, v := range scores {
+		total += math.Abs(v)
+	}
+	if total == 0 {
+		return 0
+	}
+	entropy := 0.0
+	for _, v := range scores {
+		p := math.Abs(v) / total
+		if p > 0 {
+			entropy -= p * math.Log2(p)
+		}
+	}
+	// Normalize by max entropy
+	maxEntropy := math.Log2(float64(len(scores)))
+	if maxEntropy > 0 {
+		return entropy / maxEntropy
+	}
+	return 0
 }
