@@ -1,0 +1,39 @@
+{
+  "eval_id": "apex-eval-1779761510",
+  "status": "success",
+  "started_at": "2026-05-26T10:11:50+08:00",
+  "samples": [
+    {
+      "task": {
+        "id": "selftest_pwd",
+        "command": "pwd",
+        "expect_contains": "/Users",
+        "timeout": 10
+      },
+      "status": "success",
+      "score": 1,
+      "output": "{\n  \"info\": {\n    \"dry_run\": false,\n    \"run_id\": \"apex-mini-1779761511\",\n    \"started_at\": \"2026-05-26T10:11:51+08:00\",\n    \"workspace\": \"/Users/lihongxin/.openclaw/workspace\"\n  },\n  \"messages\": [\n    {\n      \"run_id\": \"apex-mini-1779761511\",\n      \"step\": 1,\n      \"role\": \"observation\",\n      \"command\": \"pwd\",\n      \"output\": \"/Users/lihongxin/.openclaw/workspace\\n\",\n      \"started_at\": \"2026-05-26T10:11:51+08:00\",\n      \"duration_ms\": 52,\n      \"input_hash\": \"a1159e9df3670d54\",\n      \"output_hash\": \"098675c7e1a23f31\"\n    }\n  ],\n  \"trajectory_format\": \"apex-mini-executor-1.0\"\n}\n",
+      "started_at": "2026-05-26T10:11:50+08:00",
+      "duration_ms": 61,
+      "trajectory": "/Users/lihongxin/.openclaw/workspace/state/apex-eval-harness/selftest_pwd.traj.json"
+    },
+    {
+      "task": {
+        "id": "selftest_python",
+        "command": "python3 -c 'print(2+2)'",
+        "expect_contains": "4",
+        "timeout": 10
+      },
+      "status": "success",
+      "score": 1,
+      "output": "{\n  \"info\": {\n    \"dry_run\": false,\n    \"run_id\": \"apex-mini-1779761511\",\n    \"started_at\": \"2026-05-26T10:11:51+08:00\",\n    \"workspace\": \"/Users/lihongxin/.openclaw/workspace\"\n  },\n  \"messages\": [\n    {\n      \"run_id\": \"apex-mini-1779761511\",\n      \"step\": 1,\n      \"role\": \"observation\",\n      \"command\": \"python3 -c 'print(2+2)'\",\n      \"output\": \"4\\n\",\n      \"started_at\": \"2026-05-26T10:11:51+08:00\",\n      \"duration_ms\": 42,\n      \"input_hash\": \"280dc3a8f2569667\",\n      \"output_hash\": \"7de1555df0c27003\"\n    }\n  ],\n  \"trajectory_format\": \"apex-mini-executor-1.0\"\n}\n",
+      "started_at": "2026-05-26T10:11:51+08:00",
+      "duration_ms": 45,
+      "trajectory": "/Users/lihongxin/.openclaw/workspace/state/apex-eval-harness/selftest_python.traj.json"
+    }
+  ],
+  "metrics": {
+    "accuracy": 1
+  },
+  "format": "apex-eval-harness-1.0"
+}

@@ -1,22 +1,22 @@
 {
-  "timestamp": "2026-05-26T02:09:16.173680+00:00",
+  "timestamp": "2026-05-26T02:12:35.808445+00:00",
   "version": "V10.1",
-  "phi_ratio_equiv": 49.6,
-  "evolution_score": 0.495979,
+  "phi_ratio_equiv": 49.63,
+  "evolution_score": 0.496305,
   "delta_g": 1.116614,
-  "delta_g_total": 0.776213,
-  "delta_g_final": 0.492022,
+  "delta_g_total": 0.777227,
+  "delta_g_final": 0.492665,
   "bottleneck": "Ω_dawn",
-  "sigma_memory": 0.339,
+  "sigma_memory": 0.3431,
   "tau_trace": 0.9967,
   "omega_dawn": 0.2678,
-  "memory_count": 370,
+  "memory_count": 375,
   "memory_types": {
     "Episodic": 177,
-    "Working": 43,
-    "Procedural": 48,
-    "Semantic": 102
+    "Working": 46,
+    "Procedural": 49,
+    "Semantic": 103
   },
-  "miniswe_added": 5,
+  "inspect_added": 5,
   "real_dirty_non_vendor_estimate": 5
 }

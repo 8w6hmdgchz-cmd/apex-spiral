@@ -1,8 +1,8 @@
 {
-  "learn_rate": 0.88,
-  "decay_factor": 0.978,
+  "learn_rate": 0.89,
+  "decay_factor": 0.979,
   "max_entries": 10000,
-  "retention_threshold": 0.42,
+  "retention_threshold": 0.41,
   "memory_entries": [
     {
       "id": "episodic_git_c70d103b97e3",
@@ -191,6 +191,20 @@
       ]
     },
     {
+      "id": "working_inspect_eval_harness_operational",
+      "content": "[Working] Inspect AI devour reimplemented: apex-eval-harness runs tasks through apex-mini-executor, scores samples, computes accuracy, and writes eval logs.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761555,
+      "importance": 0.95,
+      "memory_type": "Working",
+      "access_count": 33,
+      "source": "memory/devour/inspect_ai/ledger.md"
+    },
+    {
       "id": "working_apex_mini_executor_safety",
       "content": "[Working] apex-mini-executor enforces workspace-bounded execution, command allowlist, dangerous-token block, timeout, and dry-run validation.",
       "embedding": [
@@ -289,6 +303,20 @@
       "source": "memory/devour/mini_swe_agent/ledger.md"
     },
     {
+      "id": "procedural_apex_eval_harness_selftest",
+      "content": "[Procedural] Verify apex-eval-harness with: cd scripts/apex-eval-harness && go build -o apex-eval-harness . && ./apex-eval-harness --mode selftest --workspace /Users/lihongxin/.openclaw/workspace --out state/apex-eval-harness-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761552,
+      "importance": 0.93,
+      "memory_type": "Procedural",
+      "access_count": 32,
+      "source": "memory/devour/inspect_ai/ledger.md"
+    },
+    {
       "id": "procedural_apex_mini_executor_selftest",
       "content": "[Procedural] Verify apex-mini-executor with: cd scripts/apex-mini-executor && go build -o apex-mini-executor . && ./apex-mini-executor --mode selftest --workspace /Users/lihongxin/.openclaw/workspace",
       "embedding": [
@@ -379,6 +407,20 @@
       "source": "memory/devour/paperqa_evidence/ledger.md"
     },
     {
+      "id": "working_inspect_solver_scorer_split",
+      "content": "[Working] Inspect AI pattern: separate execution/solver from scoring/scorer so verification is independent of action execution.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761554,
+      "importance": 0.9,
+      "memory_type": "Working",
+      "access_count": 31,
+      "source": "memory/devour/inspect_ai/ledger.md"
+    },
+    {
       "id": "working_autogpt_dry_run_timeout_error",
       "content": "[Working] AutoGPT execution safety: support dry_run simulation, per-block timeout, and persist an error output when node execution fails.",
       "embedding": [
@@ -433,6 +475,20 @@
       "memory_type": "Working",
       "access_count": 26,
       "source": "memory/devour/autogpt_execution/ledger.md"
+    },
+    {
+      "id": "working_inspect_retry_sample_preservation",
+      "content": "[Working] Inspect AI retry principle: failed/interrupted evals should still write logs; completed samples should be reusable instead of rerun blindly.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761553,
+      "importance": 0.88,
+      "memory_type": "Working",
+      "access_count": 30,
+      "source": "memory/devour/inspect_ai/ledger.md"
     },
     {
       "id": "episodic_miniswe_phi_breakthrough_resource",
@@ -517,6 +573,20 @@
       "memory_type": "Working",
       "access_count": 25,
       "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "semantic_inspect_task_sample_score_log",
+      "content": "[Semantic] Inspect AI object roles: Task defines dataset/solver/scorer/limits; Sample is one input-target unit; Score grades one sample; EvalLog preserves per-sample results and aggregate metrics.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761551,
+      "importance": 0.85,
+      "memory_type": "Semantic",
+      "access_count": 29,
+      "source": "memory/devour/inspect_ai/ledger.md"
     },
     {
       "id": "semantic_autogpt_block_execution_context",
