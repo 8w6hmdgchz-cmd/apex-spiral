@@ -68,7 +68,8 @@ func run(root,mode string) RuntimeReport{
 	rep.EvidenceOK=evidence
 	sec:=cmd(root, filepath.Join(root,"scripts/apex-hygiene/apex-hygiene"),"--root",root,"--out",filepath.Join(root,"state/apex-hygiene-latest.json"))
 	rep.SecurityOK=sec
-	if fusion&&evidence&&sec{for i:=range rep.Domains{rep.Domains[i].Status="active"}; rep.NextAction="nightly_incremental_refactor"}else{rep.Status="failed"; rep.NextAction="repair_failed_gate"}
+	twelve:=cmd(root, filepath.Join(root,"scripts/apex-12factor-agent/apex-12factor-agent"),"--mode","selftest","--root",root,"--out",filepath.Join(root,"state/apex-12factor-agent-latest.json"))
+	if fusion&&evidence&&sec&&twelve{for i:=range rep.Domains{rep.Domains[i].Status="active"}; rep.NextAction="nightly_incremental_refactor"}else{rep.Status="failed"; rep.NextAction="repair_failed_gate"}
 	rep.Governance=[]string{"No destructive operations without explicit approval.","No fabricated metrics; PHI must read full_mirror artifacts.","Every upgrade must pass fusion + evidence + hygiene gates.","Nightly work must be incremental, committed, and reversible."}
 	return rep
 }

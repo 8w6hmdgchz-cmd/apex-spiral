@@ -49,7 +49,7 @@ cd "$ROOT"
 log "===== APEX ECC nightly cycle start ====="
 
 # Build only local helpers touched by ECC. Do not install global packages.
-for d in scripts/apex-ecc-runtimeos scripts/apex-fusion-engine scripts/apex-praison-chain scripts/apex-dawn-gate scripts/apex-hygiene scripts/apex-evidence-validator; do
+for d in scripts/apex-ecc-runtimeos scripts/apex-fusion-engine scripts/apex-praison-chain scripts/apex-dawn-gate scripts/apex-hygiene scripts/apex-evidence-validator scripts/apex-12factor-agent; do
   if [ -f "$ROOT/$d/go.mod" ]; then
     (cd "$ROOT/$d" && go build -o "$(basename "$d")" .) 2>&1 | tee -a "$LOG"
   fi
@@ -60,16 +60,17 @@ run "$ROOT/scripts/apex-ecc-runtimeos/apex-ecc-runtimeos" --mode cycle --root "$
 run "$ROOT/scripts/apex-fusion-engine/apex-fusion-engine" --mode selftest --root "$ROOT" --out "$STATE/apex-fusion-engine-latest.json"
 run "$ROOT/scripts/apex-evidence-validator/apex-evidence-validator" --mode validate --input "$STATE/apex-fusion-evidence.json" --out "$STATE/apex-fusion-evidence-report.json"
 run "$ROOT/scripts/apex-hygiene/apex-hygiene" --root "$ROOT" --out "$STATE/apex-hygiene-latest.json"
+run "$ROOT/scripts/apex-12factor-agent/apex-12factor-agent" --mode selftest --root "$ROOT" --out "$STATE/apex-12factor-agent-latest.json"
 run "$ROOT/scripts/phi_tracker.sh"
 
 # Append observability record.
-printf '{"timestamp":"%s","task":"apex_ecc_nightly_cycle","result":"pass","evidence":"state/apex-ecc-runtimeos-latest.json","fusion":"state/apex-fusion-engine-latest.json","evidence_report":"state/apex-fusion-evidence-report.json"}\n' "$(date -Iseconds)" >> "$ROOT/memory/metrics/task_runs.jsonl"
+printf '{"timestamp":"%s","task":"apex_ecc_nightly_cycle","result":"pass","evidence":"state/apex-ecc-runtimeos-latest.json","fusion":"state/apex-fusion-engine-latest.json","evidence_report":"state/apex-fusion-evidence-report.json","twelve_factor":"state/apex-12factor-agent-latest.json"}\n' "$(date -Iseconds)" >> "$ROOT/memory/metrics/task_runs.jsonl"
 
 # Commit only intentional ECC/runtime artifacts. Runtime ignored files may remain dirty by design.
 git add \
-  scripts/apex-ecc-runtimeos scripts/apex-fusion-engine scripts/apex-praison-chain scripts/apex-dawn-gate scripts/apex-hygiene scripts/apex-evidence-validator \
+  scripts/apex-ecc-runtimeos scripts/apex-fusion-engine scripts/apex-praison-chain scripts/apex-dawn-gate scripts/apex-hygiene scripts/apex-evidence-validator scripts/apex-12factor-agent \
   skills/apex-ecc-runtimeos skills/apex-praison-chain \
-  state/apex-ecc-runtimeos-latest.json state/apex-fusion-engine-latest.json state/apex-fusion-evidence.json state/apex-fusion-evidence-report.json state/apex-praison-activation.json state/phi_tracker_latest.json state/phi_v10_result.json state/phi_history.jsonl state/sigma_memory.json \
+  state/apex-ecc-runtimeos-latest.json state/apex-fusion-engine-latest.json state/apex-fusion-evidence.json state/apex-fusion-evidence-report.json state/apex-praison-activation.json state/apex-12factor-agent-latest.json state/phi_tracker_latest.json state/phi_v10_result.json state/phi_history.jsonl state/sigma_memory.json \
   memory/ecc memory/praison memory/metrics/task_runs.jsonl \
   2>/dev/null || true
 

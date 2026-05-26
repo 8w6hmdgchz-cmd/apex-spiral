@@ -1,9 +1,23 @@
 {
-  "learn_rate": 0.922,
-  "decay_factor": 0.986,
+  "learn_rate": 0.925,
+  "decay_factor": 0.987,
   "max_entries": 10000,
-  "retention_threshold": 0.38,
+  "retention_threshold": 0.375,
   "memory_entries": [
+    {
+      "id": "working_apex_12factor_gate_active",
+      "content": "[Working] APEX×Twelve-Factor gate is active as scripts/apex-12factor-agent: Apex_agent = ΔG ⊙ Π(F1..F12), with 12/12 factors passing against runtime artifacts.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779776839,
+      "importance": 0.99,
+      "memory_type": "Working",
+      "access_count": 39,
+      "source": "state/apex-12factor-agent-latest.json"
+    },
     {
       "id": "working_ecc_runtimeos_active",
       "content": "[Working] APEX ECC RuntimeOS first kernel is active: 10 domains Skills/Memory/Hooks/Rules/Multi-agent/Session State/Security/Observability/Governance/Learning passed cycle gates.",
@@ -73,6 +87,20 @@
       "memory_type": "Working",
       "access_count": 34,
       "source": "memory/devour/dawn_gate/ledger.md"
+    },
+    {
+      "id": "working_ecc_includes_12factor",
+      "content": "[Working] ECC RuntimeOS cycle now runs apex-12factor-agent selftest in addition to fusion/evidence/hygiene gates.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779776838,
+      "importance": 0.97,
+      "memory_type": "Working",
+      "access_count": 38,
+      "source": "state/apex-12factor-agent-latest.json"
     },
     {
       "id": "working_ecc_nightly_controlled",
@@ -345,6 +373,20 @@
       "source": "memory/devour/dawn_gate/ledger.md"
     },
     {
+      "id": "procedural_12factor_verify",
+      "content": "[Procedural] Verify Twelve-Factor APEX gate with: scripts/apex-12factor-agent/apex-12factor-agent --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-12factor-agent-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779776837,
+      "importance": 0.95,
+      "memory_type": "Procedural",
+      "access_count": 38,
+      "source": "state/apex-12factor-agent-latest.json"
+    },
+    {
       "id": "procedural_ecc_runtimeos_cycle",
       "content": "[Procedural] Run ECC cycle with: scripts/apex-ecc-runtimeos/apex-ecc-runtimeos --mode cycle --root /Users/lihongxin/.openclaw/workspace --out state/apex-ecc-runtimeos-latest.json",
       "embedding": [
@@ -553,6 +595,20 @@
       "memory_type": "Working",
       "access_count": 32,
       "source": "memory/devour/mini_swe_agent/ledger.md"
+    },
+    {
+      "id": "semantic_apex_12factor_meaning",
+      "content": "[Semantic] Apex_agent = ΔG ⊙ Π(F1..F12) means evolution gain is constrained by all twelve runtime factors; any failed factor blocks promotion instead of allowing formula-only claims.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779776836,
+      "importance": 0.93,
+      "memory_type": "Semantic",
+      "access_count": 37,
+      "source": "state/apex-12factor-agent-latest.json"
     },
     {
       "id": "procedural_apex_eval_harness_selftest",

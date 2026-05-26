@@ -1,0 +1,194 @@
+{
+  "id": "apex-12factor-1779776795",
+  "started_at": "2026-05-26T14:26:35+08:00",
+  "formula": "Apex_agent = ΔG ⊙ Π(F1..F12)",
+  "root": "/Users/lihongxin/.openclaw/workspace",
+  "status": "success",
+  "score": 1,
+  "passed": 12,
+  "total": 12,
+  "factors": [
+    {
+      "id": "F01",
+      "name": "Codebase",
+      "apex_rule": "one tracked codebase, many runtime deploys",
+      "checks": [
+        ".git",
+        "scripts",
+        "skills"
+      ],
+      "evidence": [
+        ".git",
+        "scripts",
+        "skills"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F02",
+      "name": "Dependencies",
+      "apex_rule": "dependencies explicit and buildable",
+      "checks": [
+        "scripts/apex-ecc-runtimeos/go.mod",
+        "scripts/apex-fusion-engine/go.mod",
+        "scripts/apex-praison-chain/go.mod"
+      ],
+      "evidence": [
+        "scripts/apex-ecc-runtimeos/go.mod",
+        "scripts/apex-fusion-engine/go.mod",
+        "scripts/apex-praison-chain/go.mod"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F03",
+      "name": "Config",
+      "apex_rule": "config/state separated from code",
+      "checks": [
+        "state",
+        "schemas/apex-evidence.schema.json"
+      ],
+      "evidence": [
+        "state",
+        "schemas/apex-evidence.schema.json"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F04",
+      "name": "Backing Services",
+      "apex_rule": "tools/services attached through declared bridges",
+      "checks": [
+        "scripts/apex-harness-bridge/apex-harness-bridge",
+        "scripts/apex-evidence-validator/apex-evidence-validator"
+      ],
+      "evidence": [
+        "scripts/apex-harness-bridge/apex-harness-bridge",
+        "scripts/apex-evidence-validator/apex-evidence-validator"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F05",
+      "name": "Build Release Run",
+      "apex_rule": "build artifacts are generated before run",
+      "checks": [
+        "scripts/apex-ecc-runtimeos/apex-ecc-runtimeos",
+        "scripts/apex-fusion-engine/apex-fusion-engine"
+      ],
+      "evidence": [
+        "scripts/apex-ecc-runtimeos/apex-ecc-runtimeos",
+        "scripts/apex-fusion-engine/apex-fusion-engine"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F06",
+      "name": "Processes",
+      "apex_rule": "agent work is stateless/replayable via state artifacts",
+      "checks": [
+        "state/apex-ecc-runtimeos-latest.json",
+        "state/apex-fusion-engine-latest.json"
+      ],
+      "evidence": [
+        "state/apex-ecc-runtimeos-latest.json",
+        "state/apex-fusion-engine-latest.json"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F07",
+      "name": "Port Binding",
+      "apex_rule": "runtime APIs are exposed via CLI/MCP boundaries",
+      "checks": [
+        "scripts/apex-harness-bridge/apex-harness-bridge"
+      ],
+      "evidence": [
+        "scripts/apex-harness-bridge/apex-harness-bridge"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F08",
+      "name": "Concurrency",
+      "apex_rule": "multi-agent orchestration is explicit and bounded",
+      "checks": [
+        "scripts/apex-praison-chain/apex-praison-chain",
+        "state/apex-praison-activation.json"
+      ],
+      "evidence": [
+        "scripts/apex-praison-chain/apex-praison-chain",
+        "state/apex-praison-activation.json"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F09",
+      "name": "Disposability",
+      "apex_rule": "cycles can start/stop safely with evidence",
+      "checks": [
+        "scripts/apex_ecc_nightly.sh",
+        "scripts/apex-hygiene/apex-hygiene"
+      ],
+      "evidence": [
+        "scripts/apex_ecc_nightly.sh",
+        "scripts/apex-hygiene/apex-hygiene"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F10",
+      "name": "Dev Prod Parity",
+      "apex_rule": "manual and cron cycles use same gates",
+      "checks": [
+        "scripts/apex_ecc_nightly.sh",
+        "state/apex-ecc-runtimeos-latest.json"
+      ],
+      "evidence": [
+        "scripts/apex_ecc_nightly.sh",
+        "state/apex-ecc-runtimeos-latest.json"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F11",
+      "name": "Logs",
+      "apex_rule": "logs and metrics are append-only observability",
+      "checks": [
+        "memory/metrics/task_runs.jsonl",
+        "state/phi_history.jsonl"
+      ],
+      "evidence": [
+        "memory/metrics/task_runs.jsonl",
+        "state/phi_history.jsonl"
+      ],
+      "score": 1,
+      "status": "pass"
+    },
+    {
+      "id": "F12",
+      "name": "Admin Processes",
+      "apex_rule": "admin/nightly tasks run as one-off governed processes",
+      "checks": [
+        "scripts/apex_ecc_nightly.sh"
+      ],
+      "evidence": [
+        "scripts/apex_ecc_nightly.sh"
+      ],
+      "score": 1,
+      "status": "pass"
+    }
+  ],
+  "next": "admit_12factor_evidence",
+  "format": "apex-12factor-agent-1.0"
+}

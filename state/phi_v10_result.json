@@ -1,23 +1,24 @@
 {
-  "timestamp": "2026-05-26T05:38:22.482860+00:00",
+  "timestamp": "2026-05-26T06:27:19.176351+00:00",
   "version": "V10.1",
-  "phi_ratio_equiv": 57.32,
-  "evolution_score": 0.573215,
+  "phi_ratio_equiv": 57.33,
+  "evolution_score": 0.573319,
   "delta_g": 1.116614,
-  "delta_g_total": 0.781964,
-  "delta_g_final": 0.67155,
+  "delta_g_total": 0.782297,
+  "delta_g_final": 0.671837,
   "bottleneck": "Σ_memory",
-  "sigma_memory": 0.3621,
+  "sigma_memory": 0.3634,
   "tau_trace": 0.9967,
   "omega_dawn": 0.7176,
-  "ecc_runtimeos": "active",
-  "ecc_domains": 10,
-  "memory_count": 402,
+  "apex_12factor_score": 1.0,
+  "apex_12factor_passed": 12,
+  "apex_12factor_total": 12,
+  "memory_count": 406,
   "memory_types": {
-    "Working": 59,
+    "Working": 61,
     "Episodic": 177,
-    "Procedural": 57,
-    "Semantic": 109
+    "Procedural": 58,
+    "Semantic": 110
   },
-  "ecc_added": 5
+  "twelve_added": 4
 }
