@@ -1,22 +1,22 @@
 {
-  "timestamp": "2026-05-26T07:34:45.909507+00:00",
+  "timestamp": "2026-05-26T07:48:11.148358+00:00",
   "version": "V10.1",
   "phi_ratio_equiv": 57.32,
-  "evolution_score": 0.573226,
+  "evolution_score": 0.573185,
   "delta_g": 1.116614,
-  "delta_g_final": 0.671579,
+  "delta_g_final": 0.671467,
   "bottleneck": "Σ_memory",
-  "sigma_memory": 0.3702,
-  "tau_trace": 0.9833,
+  "sigma_memory": 0.3717,
+  "tau_trace": 0.98,
   "omega_dawn": 0.7176,
-  "container_backend": "active",
-  "container_mode": "local_sandbox_fallback",
-  "memory_count": 422,
+  "claude_code_runner": "active",
+  "claude_selected": "claude",
+  "memory_count": 426,
   "memory_types": {
-    "Working": 70,
+    "Working": 72,
     "Episodic": 177,
-    "Procedural": 62,
-    "Semantic": 113
+    "Procedural": 63,
+    "Semantic": 114
   },
-  "container_added": 3
+  "claude_added": 3
 }

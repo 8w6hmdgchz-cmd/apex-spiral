@@ -166,3 +166,33 @@ CMMI delivery now starts with container backend detection:
 ```text
 Container → Plan → Code → Audit → Test → Memory → Release
 ```
+
+## Claude Code Verified Runner
+
+Added:
+
+- `scripts/apex-claude-code-runner/main.go`
+- `state/apex-claude-code-runner-latest.json`
+
+Detected local coding backends:
+
+```text
+claude: available, 2.1.128 (Claude Code)
+claude-code: available
+codex: available, codex-cli 0.131.0
+```
+
+Safety boundary:
+
+```text
+detect/selftest never mutates source
+real coding must run under CMMI gates
+runner must output diff/test evidence before PR audit
+no direct push from coding slot
+```
+
+CMMI formula now uses:
+
+```text
+Container → Plan → ClaudeCode → Audit → Test → Memory → Release
+```

@@ -4,6 +4,34 @@
   "retention_threshold": 0.372,
   "memory_entries": [
     {
+      "id": "evidence_021f02317c312512",
+      "content": "[Working] APEX fusion engine executed phasor LLM routing, agent dispatch planning, evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts. (source=8w6hmdgchz-cmd/apex-spiral@2e33d6226cf3:scripts/apex-fusion-engine/main.go context=apex-fusion-1779781679)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779781691,
+      "importance": 0.99,
+      "memory_type": "Working",
+      "access_count": 40,
+      "source": "state/apex-fusion-evidence.json"
+    },
+    {
+      "id": "working_claude_code_runner_verified",
+      "content": "[Working] apex-claude-code-runner verified local Claude Code backends: claude and claude-code are available, with codex also present as an auxiliary coding backend.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779781691,
+      "importance": 0.99,
+      "memory_type": "Working",
+      "access_count": 39,
+      "source": "state/apex-claude-code-runner-latest.json"
+    },
+    {
       "id": "evidence_308e3c601d27c0b0",
       "content": "[Working] APEX fusion engine executed phasor LLM routing, agent dispatch planning, evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts. (source=8w6hmdgchz-cmd/apex-spiral@71112e7c26d2:scripts/apex-fusion-engine/main.go context=apex-fusion-1779780875)",
       "embedding": [
@@ -410,6 +438,20 @@
       "source": "memory/devour/dawn_gate/ledger.md"
     },
     {
+      "id": "procedural_claude_runner_selftest",
+      "content": "[Procedural] Verify Claude Code runner with: scripts/apex-claude-code-runner/apex-claude-code-runner --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-claude-code-runner-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779781690,
+      "importance": 0.95,
+      "memory_type": "Procedural",
+      "access_count": 38,
+      "source": "state/apex-claude-code-runner-latest.json"
+    },
+    {
       "id": "procedural_container_backend_selftest",
       "content": "[Procedural] Verify container backend with: scripts/apex-container-backend/apex-container-backend --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-container-backend-latest.json",
       "embedding": [
@@ -702,6 +744,20 @@
       "memory_type": "Working",
       "access_count": 32,
       "source": "memory/devour/mini_swe_agent/ledger.md"
+    },
+    {
+      "id": "semantic_claude_code_slot_boundary",
+      "content": "[Semantic] Claude Code runner detect/selftest never mutates source; real coding must run under CMMI gates and produce diff/test evidence before PR audit.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779781689,
+      "importance": 0.93,
+      "memory_type": "Semantic",
+      "access_count": 37,
+      "source": "state/apex-claude-code-runner-latest.json"
     },
     {
       "id": "semantic_cmmi_apex_delivery",

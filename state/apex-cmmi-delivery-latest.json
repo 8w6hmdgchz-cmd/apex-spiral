@@ -1,11 +1,11 @@
 {
-  "id": "apex-cmmi-1779780885",
-  "started_at": "2026-05-26T15:34:45+08:00",
-  "objective": "APEX CMMI with container backend detection",
+  "id": "apex-cmmi-1779781691",
+  "started_at": "2026-05-26T15:48:11+08:00",
+  "objective": "APEX CMMI with Claude Code verified runner",
   "status": "success",
   "container_mode": "unavailable_local_sandbox",
   "docker_available": false,
-  "formula": "Apex_CMMI = Apex_agent × (Container→Plan→Code→Audit→Test→Memory→Release) × EvidenceGate",
+  "formula": "Apex_CMMI = Apex_agent × (Container→Plan→ClaudeCode→Audit→Test→Memory→Release) × EvidenceGate",
   "phases": [
     {
       "id": "P1",
@@ -32,11 +32,12 @@
     },
     {
       "id": "P3",
-      "name": "Claude-Code Implementation Slot",
-      "owner": "coding agent",
+      "name": "Claude-Code Verified Implementation Slot",
+      "owner": "claude code runner",
       "standard": "CMMI TS + PI",
-      "gate": "git diff + build gate",
+      "gate": "claude backend detection + git diff + build gate",
       "evidence": [
+        "state/apex-claude-code-runner-latest.json",
         "scripts/apex-agent-dispatch/main.go"
       ],
       "status": "pass"
@@ -91,6 +92,7 @@
   ],
   "evidence": [
     "state/apex-container-backend-latest.json",
+    "state/apex-claude-code-runner-latest.json",
     "state/apex-cmmi-delivery-latest.json",
     "state/apex-fusion-engine-latest.json",
     "state/apex-fusion-evidence-report.json",

@@ -1,0 +1,43 @@
+{
+  "id": "apex-claude-runner-1779781679",
+  "started_at": "2026-05-26T15:47:59+08:00",
+  "status": "success",
+  "mode": "selftest",
+  "objective": "Implement smallest reversible APEX change under CMMI gates",
+  "selected": "claude",
+  "backends": [
+    {
+      "name": "claude",
+      "path": "/opt/homebrew/bin/claude",
+      "version": "2.1.128 (Claude Code)",
+      "available": true
+    },
+    {
+      "name": "claude-code",
+      "path": "/opt/homebrew/bin/claude-code",
+      "version": "┌─────────────────────────────────────────────────────────────┐",
+      "available": true
+    },
+    {
+      "name": "codex",
+      "path": "/opt/homebrew/bin/codex",
+      "version": "codex-cli 0.131.0",
+      "available": true
+    }
+  ],
+  "container_evidence": "state/apex-container-backend-latest.json",
+  "dispatch_evidence": "state/apex-agent-dispatch-latest.json",
+  "safety": [
+    "detect/selftest never mutates source",
+    "coding mode must run inside CMMI gates",
+    "runner must output diff/test evidence before PR audit",
+    "no direct push from coding slot"
+  ],
+  "gate": "detect backend + container evidence + dispatch plan",
+  "evidence": [
+    "state/apex-claude-code-runner-latest.json",
+    "state/apex-container-backend-latest.json",
+    "state/apex-agent-dispatch-latest.json"
+  ],
+  "format": "apex-claude-code-runner-1.0"
+}
