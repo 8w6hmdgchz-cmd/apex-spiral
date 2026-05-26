@@ -1,8 +1,8 @@
 {
-  "learn_rate": 0.87,
-  "decay_factor": 0.976,
+  "learn_rate": 0.88,
+  "decay_factor": 0.978,
   "max_entries": 10000,
-  "retention_threshold": 0.43,
+  "retention_threshold": 0.42,
   "memory_entries": [
     {
       "id": "episodic_git_c70d103b97e3",
@@ -191,6 +191,20 @@
       ]
     },
     {
+      "id": "working_apex_mini_executor_safety",
+      "content": "[Working] apex-mini-executor enforces workspace-bounded execution, command allowlist, dangerous-token block, timeout, and dry-run validation.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761354,
+      "importance": 0.95,
+      "memory_type": "Working",
+      "access_count": 33,
+      "source": "memory/devour/mini_swe_agent/ledger.md"
+    },
+    {
       "id": "episodic_failure_1",
       "content": "[Episodic] failure case #1: GitHub 资源拉取 — happened=反复使用 HTTPS/API 方式访问 GitHub，被阻断后没记住 SSH 方案，每次都需要用户重新教; root=操作知识未固化到可检索记忆；没有预置备用路径；忘记了已有的教训; fix=创建 operational_knowledge.md，写入 GitHub SSH 流程；创建 action_registry.md 封装 github_repo_check 动作; verify=下次 GitHub 任务时自动走 SSH，不踩 HTTPS 坑",
       "embedding": [
@@ -259,6 +273,48 @@
       "memory_type": "Episodic",
       "access_count": 23,
       "source": "memory/failure_cases.jsonl"
+    },
+    {
+      "id": "working_miniswe_linear_trajectory_operational",
+      "content": "[Working] mini-swe-agent devour reimplemented: APEX mini executor stores linear trajectory JSON where each independent command observation has input/output hashes.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761356,
+      "importance": 0.94,
+      "memory_type": "Working",
+      "access_count": 32,
+      "source": "memory/devour/mini_swe_agent/ledger.md"
+    },
+    {
+      "id": "procedural_apex_mini_executor_selftest",
+      "content": "[Procedural] Verify apex-mini-executor with: cd scripts/apex-mini-executor && go build -o apex-mini-executor . && ./apex-mini-executor --mode selftest --workspace /Users/lihongxin/.openclaw/workspace",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761353,
+      "importance": 0.93,
+      "memory_type": "Procedural",
+      "access_count": 32,
+      "source": "memory/devour/mini_swe_agent/ledger.md"
+    },
+    {
+      "id": "working_miniswe_independent_subprocess",
+      "content": "[Working] mini-swe-agent pattern: execute every action as an independent subprocess, avoiding persistent shell state and making sandbox replacement simple.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761355,
+      "importance": 0.92,
+      "memory_type": "Working",
+      "access_count": 32,
+      "source": "memory/devour/mini_swe_agent/ledger.md"
     },
     {
       "id": "working_openhands_verify_archive_loop",
@@ -377,6 +433,20 @@
       "memory_type": "Working",
       "access_count": 26,
       "source": "memory/devour/autogpt_execution/ledger.md"
+    },
+    {
+      "id": "episodic_miniswe_phi_breakthrough_resource",
+      "content": "[Episodic] 2026-05-26 selected GitHub resource SWE-agent/mini-swe-agent commit adfe20233d456104c38c3129161b54f0fd39f2c7 to target PHI bottleneck via real harness/executor, not architecture-only ledger.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761352,
+      "importance": 0.88,
+      "memory_type": "Episodic",
+      "access_count": 30,
+      "source": "memory/devour/mini_swe_agent/ledger.md"
     },
     {
       "id": "working_autogpt_credentials_finally",

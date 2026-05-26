@@ -1,1 +1,22 @@
-{"timestamp": "2026-05-26T10:00:26+08:00", "version": "V10.1", "evolution_score": 0.6771005910719465, "phi_ratio_equiv": 67.71, "delta_g": 1.04846985235305, "bottleneck": "\u0398_llm_agent", "directive": "IMPROVE_LLM_ROUTING: optimize model selection & multi-task", "status": 1}
+{
+  "timestamp": "2026-05-26T02:09:16.173680+00:00",
+  "version": "V10.1",
+  "phi_ratio_equiv": 49.6,
+  "evolution_score": 0.495979,
+  "delta_g": 1.116614,
+  "delta_g_total": 0.776213,
+  "delta_g_final": 0.492022,
+  "bottleneck": "Ω_dawn",
+  "sigma_memory": 0.339,
+  "tau_trace": 0.9967,
+  "omega_dawn": 0.2678,
+  "memory_count": 370,
+  "memory_types": {
+    "Episodic": 177,
+    "Working": 43,
+    "Procedural": 48,
+    "Semantic": 102
+  },
+  "miniswe_added": 5,
+  "real_dirty_non_vendor_estimate": 5
+}
