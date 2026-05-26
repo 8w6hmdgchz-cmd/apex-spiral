@@ -196,3 +196,26 @@ CMMI formula now uses:
 ```text
 Container → Plan → ClaudeCode → Audit → Test → Memory → Release
 ```
+
+## Release Manager
+
+Added:
+
+- `scripts/apex-release-manager/main.go`
+- `state/apex-release-manager-latest.json`
+- `releases/<version>/RELEASE_NOTES.md`
+- `releases/<version>/ROLLBACK.json`
+
+Behavior:
+
+```text
+CMMI gates → version → release notes → SHA256 checksums → rollback manifest
+```
+
+Boundary:
+
+```text
+publish_mode: prepared_local_no_external_release
+```
+
+External GitHub Release publishing still requires explicit permission/tooling; local artifact preparation is automatic.

@@ -4,6 +4,20 @@
   "retention_threshold": 0.372,
   "memory_entries": [
     {
+      "id": "evidence_9be2f5ee8494da44",
+      "content": "[Working] APEX fusion engine executed phasor LLM routing, agent dispatch planning, evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts. (source=8w6hmdgchz-cmd/apex-spiral@37c7cffcb5e4:scripts/apex-fusion-engine/main.go context=apex-fusion-1779782087)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782096,
+      "importance": 0.99,
+      "memory_type": "Working",
+      "access_count": 40,
+      "source": "state/apex-fusion-evidence.json"
+    },
+    {
       "id": "evidence_021f02317c312512",
       "content": "[Working] APEX fusion engine executed phasor LLM routing, agent dispatch planning, evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts. (source=8w6hmdgchz-cmd/apex-spiral@2e33d6226cf3:scripts/apex-fusion-engine/main.go context=apex-fusion-1779781679)",
       "embedding": [
@@ -142,6 +156,20 @@
       "memory_type": "Working",
       "access_count": 39,
       "source": "state/apex-fusion-engine-latest.json"
+    },
+    {
+      "id": "working_release_manager_active",
+      "content": "[Working] apex-release-manager is active: it prepares local release notes, SHA256 checksums, and rollback manifests after CMMI gates.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782097,
+      "importance": 0.98,
+      "memory_type": "Working",
+      "access_count": 39,
+      "source": "state/apex-release-manager-latest.json"
     },
     {
       "id": "working_container_backend_active",
@@ -438,6 +466,20 @@
       "source": "memory/devour/dawn_gate/ledger.md"
     },
     {
+      "id": "procedural_release_manager_prepare",
+      "content": "[Procedural] Prepare a gated release with: scripts/apex-release-manager/apex-release-manager --mode prepare --root /Users/lihongxin/.openclaw/workspace --out state/apex-release-manager-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782096,
+      "importance": 0.95,
+      "memory_type": "Procedural",
+      "access_count": 38,
+      "source": "state/apex-release-manager-latest.json"
+    },
+    {
       "id": "procedural_claude_runner_selftest",
       "content": "[Procedural] Verify Claude Code runner with: scripts/apex-claude-code-runner/apex-claude-code-runner --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-claude-code-runner-latest.json",
       "embedding": [
@@ -674,6 +716,20 @@
       "memory_type": "Episodic",
       "access_count": 23,
       "source": "memory/failure_cases.jsonl"
+    },
+    {
+      "id": "semantic_release_publish_boundary",
+      "content": "[Semantic] Release Manager prepares local artifacts and checksums; publishing an external GitHub Release remains an explicit external action requiring permission/tooling.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782095,
+      "importance": 0.94,
+      "memory_type": "Semantic",
+      "access_count": 37,
+      "source": "state/apex-release-manager-latest.json"
     },
     {
       "id": "procedural_phasor_verify",

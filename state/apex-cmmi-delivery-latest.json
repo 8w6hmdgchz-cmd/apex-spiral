@@ -1,11 +1,11 @@
 {
-  "id": "apex-cmmi-1779781691",
-  "started_at": "2026-05-26T15:48:11+08:00",
-  "objective": "APEX CMMI with Claude Code verified runner",
+  "id": "apex-cmmi-1779782097",
+  "started_at": "2026-05-26T15:54:57+08:00",
+  "objective": "APEX CMMI with release preparation",
   "status": "success",
   "container_mode": "unavailable_local_sandbox",
   "docker_available": false,
-  "formula": "Apex_CMMI = Apex_agent × (Container→Plan→ClaudeCode→Audit→Test→Memory→Release) × EvidenceGate",
+  "formula": "Apex_CMMI = Apex_agent × (Container→Plan→ClaudeCode→Audit→Test→Memory→ReleasePrep→Sync) × EvidenceGate",
   "phases": [
     {
       "id": "P1",
@@ -80,10 +80,21 @@
     },
     {
       "id": "P7",
+      "name": "Release Preparation",
+      "owner": "release manager",
+      "standard": "CMMI CM + DAR",
+      "gate": "version + notes + checksum + rollback manifest",
+      "evidence": [
+        "state/apex-release-manager-latest.json"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "P8",
       "name": "GitHub Release Sync",
       "owner": "governance",
       "standard": "CMMI CM + DAR",
-      "gate": "safe rebase/push",
+      "gate": "safe rebase/push; external GitHub Release publish requires explicit permission",
       "evidence": [
         "memory/metrics/task_runs.jsonl"
       ],
@@ -96,7 +107,8 @@
     "state/apex-cmmi-delivery-latest.json",
     "state/apex-fusion-engine-latest.json",
     "state/apex-fusion-evidence-report.json",
-    "state/apex-memory-admission-latest.json"
+    "state/apex-memory-admission-latest.json",
+    "state/apex-release-manager-latest.json"
   ],
   "next": "use_as_default_delivery_harness",
   "format": "apex-cmmi-delivery-1.0"
