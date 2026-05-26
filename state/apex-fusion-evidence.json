@@ -1,11 +1,11 @@
 [
   {
-    "id": "fusion:apex-fusion-1779770368",
+    "id": "fusion:apex-fusion-1779773835",
     "claim": "APEX fusion engine executed evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts.",
     "source_repo": "8w6hmdgchz-cmd/apex-spiral",
-    "source_commit": "1871e752b38d",
+    "source_commit": "2cc728e1893b",
     "source_path": "scripts/apex-fusion-engine/main.go",
-    "context_id": "apex-fusion-1779770368",
+    "context_id": "apex-fusion-1779773835",
     "score": 1,
     "verification": {
       "command": "scripts/apex-fusion-engine/apex-fusion-engine --mode selftest",

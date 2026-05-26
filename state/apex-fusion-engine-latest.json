@@ -1,6 +1,6 @@
 {
-  "id": "apex-fusion-1779770368",
-  "started_at": "2026-05-26T12:39:28+08:00",
+  "id": "apex-fusion-1779773835",
+  "started_at": "2026-05-26T13:37:15+08:00",
   "status": "success",
   "root": "/Users/lihongxin/.openclaw/workspace",
   "gates": [
@@ -9,7 +9,7 @@
       "command": "[/Users/lihongxin/.openclaw/workspace/scripts/apex-evolver-core/apex-evolver-core --mode cycle --root /Users/lihongxin/.openclaw/workspace --out /Users/lihongxin/.openclaw/workspace/state/apex-fusion-evolver.json]",
       "output_path": "state/apex-fusion-evolver.json",
       "ok": true,
-      "duration_ms": 202
+      "duration_ms": 197
     },
     {
       "name": "autoresearch_plan",
@@ -37,7 +37,7 @@
       "command": "[/Users/lihongxin/.openclaw/workspace/scripts/apex-dawn-gate/apex-dawn-gate --root /Users/lihongxin/.openclaw/workspace --out /Users/lihongxin/.openclaw/workspace/state/apex-dawn-gate-latest.json]",
       "output_path": "state/apex-dawn-gate-latest.json",
       "ok": true,
-      "duration_ms": 255
+      "duration_ms": 260
     }
   ],
   "evidence": [

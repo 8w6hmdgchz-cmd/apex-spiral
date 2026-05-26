@@ -1,0 +1,212 @@
+{
+  "id": "apex-ecc-1779773835",
+  "started_at": "2026-05-26T13:37:15+08:00",
+  "mode": "cycle",
+  "status": "success",
+  "root": "/Users/lihongxin/.openclaw/workspace",
+  "domains": [
+    {
+      "name": "Skills",
+      "native": [
+        "skills/*/SKILL.md",
+        "scripts/*"
+      ],
+      "target": [
+        "plugin registry",
+        "skill contract",
+        "buildable helpers"
+      ],
+      "gate": [
+        "skill docs exist",
+        "helper builds"
+      ],
+      "status": "active",
+      "evidence": [
+        "skills/apex-praison-chain/SKILL.md"
+      ]
+    },
+    {
+      "name": "Memory",
+      "native": [
+        "MEMORY.md",
+        "memory/*.md",
+        "state/sigma_memory.json"
+      ],
+      "target": [
+        "evidence admission",
+        "working/procedural density"
+      ],
+      "gate": [
+        "apex-evidence-validator",
+        "sigma_memory update"
+      ],
+      "status": "active",
+      "evidence": [
+        "state/sigma_memory.json"
+      ]
+    },
+    {
+      "name": "Hooks",
+      "native": [
+        "cron",
+        "auto_reflux.sh",
+        "phi_tracker.sh"
+      ],
+      "target": [
+        "nightly controlled evolution",
+        "no tight loops"
+      ],
+      "gate": [
+        "cron job enabled",
+        "full_mirror PHI"
+      ],
+      "status": "active",
+      "evidence": [
+        "scripts/auto_reflux.sh"
+      ]
+    },
+    {
+      "name": "Rules",
+      "native": [
+        "AGENTS.md",
+        "SOUL.md",
+        "TOOLS.md"
+      ],
+      "target": [
+        "no fake data",
+        "approval gates",
+        "destructive-action pause"
+      ],
+      "gate": [
+        "superpowers gate",
+        "evidence validator"
+      ],
+      "status": "active",
+      "evidence": [
+        "skills/apex-ecc-runtimeos/SKILL.md"
+      ]
+    },
+    {
+      "name": "Multi-agent",
+      "native": [
+        "sessions_spawn",
+        "apex-praison-chain"
+      ],
+      "target": [
+        "role graph",
+        "critic separation"
+      ],
+      "gate": [
+        "praison activation"
+      ],
+      "status": "active",
+      "evidence": [
+        "state/apex-praison-activation.json"
+      ]
+    },
+    {
+      "name": "Session State",
+      "native": [
+        "state/*.json",
+        "trajectory logs"
+      ],
+      "target": [
+        "resume-safe artifacts",
+        "bounded context"
+      ],
+      "gate": [
+        "fusion engine report"
+      ],
+      "status": "active",
+      "evidence": [
+        "state/apex-fusion-engine-latest.json"
+      ]
+    },
+    {
+      "name": "Security",
+      "native": [
+        "apex-secrets-gate",
+        "apex-hygiene",
+        "harness bridge"
+      ],
+      "target": [
+        "safe command boundary",
+        "secret scan",
+        "workspace bound"
+      ],
+      "gate": [
+        "security gate pass"
+      ],
+      "status": "active",
+      "evidence": [
+        "scripts/apex-secrets-gate/apex-secrets-gate"
+      ]
+    },
+    {
+      "name": "Observability",
+      "native": [
+        "task_runs.jsonl",
+        "phi_history.jsonl",
+        "fusion reports"
+      ],
+      "target": [
+        "traceable runs",
+        "metrics from artifacts"
+      ],
+      "gate": [
+        "append-only task run"
+      ],
+      "status": "active",
+      "evidence": [
+        "memory/metrics/task_runs.jsonl"
+      ]
+    },
+    {
+      "name": "Governance",
+      "native": [
+        "evidence schema",
+        "superpowers gate"
+      ],
+      "target": [
+        "human approval for risky actions",
+        "quality gates"
+      ],
+      "gate": [
+        "evidence validator"
+      ],
+      "status": "active",
+      "evidence": [
+        "schemas/apex-evidence.schema.json"
+      ]
+    },
+    {
+      "name": "Learning",
+      "native": [
+        "evolver",
+        "autoresearch",
+        "devour ledgers"
+      ],
+      "target": [
+        "devour-\u003edistill-\u003ereimplement-\u003everify-\u003eadmit"
+      ],
+      "gate": [
+        "fusion gate"
+      ],
+      "status": "active",
+      "evidence": [
+        "scripts/apex-evolver-core/apex-evolver-core"
+      ]
+    }
+  ],
+  "fusion_ok": true,
+  "evidence_ok": true,
+  "security_ok": true,
+  "governance": [
+    "No destructive operations without explicit approval.",
+    "No fabricated metrics; PHI must read full_mirror artifacts.",
+    "Every upgrade must pass fusion + evidence + hygiene gates.",
+    "Nightly work must be incremental, committed, and reversible."
+  ],
+  "next_action": "nightly_incremental_refactor",
+  "format": "apex-ecc-runtimeos-1.0"
+}
