@@ -54,3 +54,28 @@ domains: 10/10 active
 ## Boundary
 
 This is not a claim of autonomous unrestricted AGI. It is a controlled local runtime harness that can evolve code only through audited gates and repository commits.
+
+## Phasor LLM Layer
+
+Added local phasor router:
+
+- `scripts/apex-phasor-llm/main.go`
+- `state/apex-phasor-llm-latest.json`
+
+Purpose:
+
+```text
+task vector × model vector × quantum-router × twelve-factor gate → selected LLM + fallbacks
+```
+
+Selftest result:
+
+```text
+status: success
+selected: zai/glm-5-turbo
+fallbacks: deepseek/deepseek-v4-pro, zai/glm-5v-turbo, zai/glm-5.1, zhipuai/glm-5-flash
+alignment: 0.911
+twelve_factor_gate: present
+```
+
+Boundary: this is local route optimization, not provider config mutation. It does not expose or edit API keys.

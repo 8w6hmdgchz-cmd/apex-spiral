@@ -1,0 +1,40 @@
+{
+  "id": "apex-phasor-1779777017",
+  "started_at": "2026-05-26T14:30:17+08:00",
+  "task": "Refactor APEX RuntimeOS Go code with evidence gates and no fake data",
+  "intent": "code",
+  "selected": "zai/glm-5-turbo",
+  "fallbacks": [
+    "deepseek/deepseek-v4-pro",
+    "zai/glm-5v-turbo",
+    "zai/glm-5.1",
+    "zhipuai/glm-5-flash"
+  ],
+  "task_vector": {
+    "Reasoning": 0.7,
+    "Code": 1,
+    "Speed": 0.6,
+    "Cost": 0.6,
+    "Context": 0.8,
+    "Multimodal": 0,
+    "Safety": 1
+  },
+  "selected_vector": {
+    "Reasoning": 0.5,
+    "Code": 0.5,
+    "Speed": 0.95,
+    "Cost": 0.9,
+    "Context": 0.5,
+    "Multimodal": 0,
+    "Safety": 0.75
+  },
+  "alignment": 0.911,
+  "twelve_factor_gate": "present",
+  "status": "success",
+  "reason": "phasor alignment combines task vector, model vector, quantum-router output, and APEX twelve-factor gate.",
+  "evidence": [
+    "scripts/quantum-router/main.go",
+    "state/apex-12factor-agent-latest.json"
+  ],
+  "format": "apex-phasor-llm-1.0"
+}

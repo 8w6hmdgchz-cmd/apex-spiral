@@ -1,8 +1,8 @@
 {
-  "learn_rate": 0.925,
-  "decay_factor": 0.987,
+  "learn_rate": 0.928,
+  "decay_factor": 0.988,
   "max_entries": 10000,
-  "retention_threshold": 0.375,
+  "retention_threshold": 0.372,
   "memory_entries": [
     {
       "id": "working_apex_12factor_gate_active",
@@ -59,6 +59,20 @@
       "memory_type": "Working",
       "access_count": 39,
       "source": "state/apex-fusion-engine-latest.json"
+    },
+    {
+      "id": "working_phasor_llm_active",
+      "content": "[Working] apex-phasor-llm is active: it combines task vector, model vector, quantum-router output, and twelve-factor gate to select local LLM routes with fallbacks.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779777105,
+      "importance": 0.98,
+      "memory_type": "Working",
+      "access_count": 39,
+      "source": "state/apex-phasor-llm-latest.json"
     },
     {
       "id": "working_phi_tracker_full_mirror",
@@ -373,6 +387,20 @@
       "source": "memory/devour/dawn_gate/ledger.md"
     },
     {
+      "id": "working_phasor_selftest_result",
+      "content": "[Working] Phasor LLM selftest selected zai/glm-5-turbo with fallbacks deepseek/deepseek-v4-pro, zai/glm-5v-turbo, zai/glm-5.1, zhipuai/glm-5-flash; alignment 0.911.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779777104,
+      "importance": 0.95,
+      "memory_type": "Working",
+      "access_count": 38,
+      "source": "state/apex-phasor-llm-latest.json"
+    },
+    {
       "id": "procedural_12factor_verify",
       "content": "[Procedural] Verify Twelve-Factor APEX gate with: scripts/apex-12factor-agent/apex-12factor-agent --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-12factor-agent-latest.json",
       "embedding": [
@@ -539,6 +567,20 @@
       "memory_type": "Episodic",
       "access_count": 23,
       "source": "memory/failure_cases.jsonl"
+    },
+    {
+      "id": "procedural_phasor_verify",
+      "content": "[Procedural] Verify phasor LLM route with: scripts/apex-phasor-llm/apex-phasor-llm --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-phasor-llm-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779777103,
+      "importance": 0.94,
+      "memory_type": "Procedural",
+      "access_count": 37,
+      "source": "state/apex-phasor-llm-latest.json"
     },
     {
       "id": "procedural_ecc_nightly",
@@ -783,6 +825,20 @@
       "memory_type": "Working",
       "access_count": 27,
       "source": "memory/devour/paperqa_evidence/ledger.md"
+    },
+    {
+      "id": "semantic_phasor_llm_boundary",
+      "content": "[Semantic] Local phasor LLM improves efficiency through route scoring and fallbacks; it does not mutate provider credentials or claim AGI by itself.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779777102,
+      "importance": 0.9,
+      "memory_type": "Semantic",
+      "access_count": 36,
+      "source": "state/apex-phasor-llm-latest.json"
     },
     {
       "id": "semantic_full_mirror_vs_baseline",
