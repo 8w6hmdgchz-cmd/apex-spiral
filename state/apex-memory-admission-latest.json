@@ -1,13 +1,13 @@
 {
-  "id": "apex-memory-admit-1779782501",
-  "started_at": "2026-05-26T16:01:41+08:00",
+  "id": "apex-memory-admit-1779782763",
+  "started_at": "2026-05-26T16:06:03+08:00",
   "status": "success",
-  "input": "state/apex-failure-evidence.json",
+  "input": "state/apex-fusion-evidence.json",
   "validated": true,
-  "added": 12,
+  "added": 0,
   "skipped": 0,
   "rejected": 0,
-  "deduped": 0,
+  "deduped": 1,
   "pruned": 0,
   "memory_count": 438,
   "sigma_memory": 0.3754,
@@ -21,7 +21,7 @@
   "quality_floor": 0.72,
   "capacity": 500,
   "evidence": [
-    "state/apex-failure-evidence.json",
+    "state/apex-fusion-evidence.json",
     "state/sigma_memory.json",
     "state/apex-memory-admission-evidence-report.json"
   ],

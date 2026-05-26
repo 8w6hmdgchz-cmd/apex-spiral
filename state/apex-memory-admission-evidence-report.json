@@ -1,7 +1,7 @@
 {
   "status": "success",
-  "checked": 12,
-  "passed": 12,
+  "checked": 1,
+  "passed": 1,
   "errors": null,
   "format": "apex-evidence-validator-1.0"
 }

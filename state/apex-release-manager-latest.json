@@ -1,22 +1,22 @@
 {
-  "id": "apex-release-1779782096",
-  "started_at": "2026-05-26T15:54:56+08:00",
+  "id": "apex-release-1779782763",
+  "started_at": "2026-05-26T16:06:03+08:00",
   "status": "success",
-  "version": "v0.0.0-apex-20260526-155456",
-  "commit": "37c7cffcb5e4",
-  "previous_commit": "2e33d6226cf3",
+  "version": "v0.0.0-apex-20260526-160603",
+  "commit": "6d32f90ec109",
+  "previous_commit": "8e57b54c8112",
   "branch": "main",
-  "release_notes": "releases/v0.0.0-apex-20260526-155456/RELEASE_NOTES.md",
-  "rollback_manifest": "releases/v0.0.0-apex-20260526-155456/ROLLBACK.json",
+  "release_notes": "releases/v0.0.0-apex-20260526-160603/RELEASE_NOTES.md",
+  "rollback_manifest": "releases/v0.0.0-apex-20260526-160603/ROLLBACK.json",
   "artifacts": [
     {
-      "path": "releases/v0.0.0-apex-20260526-155456/RELEASE_NOTES.md",
-      "sha256": "ce1318393dffca5ac594d4b9597d438e761a59a28f928ecec921f04e718e1272",
+      "path": "releases/v0.0.0-apex-20260526-160603/RELEASE_NOTES.md",
+      "sha256": "254cbff798c35bfbc761867359ed885dd952a675ccbf915f3320cda4ecd77ef1",
       "size": 535
     },
     {
-      "path": "releases/v0.0.0-apex-20260526-155456/ROLLBACK.json",
-      "sha256": "a89ecba8e9f84f69a6d63eceee5a35d09b8812b28dfeeb1fef07161d454e8977",
+      "path": "releases/v0.0.0-apex-20260526-160603/ROLLBACK.json",
+      "sha256": "aeb663e859bae92c0938eaa2bf60c7941cf181a8410ddafda52dc3fa89cfff60",
       "size": 197
     }
   ],
@@ -31,8 +31,8 @@
   "publish_mode": "prepared_local_no_external_release",
   "evidence": [
     "state/apex-release-manager-latest.json",
-    "releases/v0.0.0-apex-20260526-155456/RELEASE_NOTES.md",
-    "releases/v0.0.0-apex-20260526-155456/ROLLBACK.json"
+    "releases/v0.0.0-apex-20260526-160603/RELEASE_NOTES.md",
+    "releases/v0.0.0-apex-20260526-160603/ROLLBACK.json"
   ],
   "format": "apex-release-manager-1.0"
 }

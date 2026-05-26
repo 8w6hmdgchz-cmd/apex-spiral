@@ -1,6 +1,6 @@
 {
-  "id": "apex-dispatch-1779780362",
-  "started_at": "2026-05-26T15:26:02+08:00",
+  "id": "apex-dispatch-1779782762",
+  "started_at": "2026-05-26T16:06:02+08:00",
   "objective": "Improve APEX RuntimeOS efficiency by dispatching research build verify memory tasks with phasor-selected models",
   "status": "success",
   "phasor_evidence": "state/apex-phasor-llm-latest.json",
