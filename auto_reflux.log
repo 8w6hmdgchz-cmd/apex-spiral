@@ -1649,3 +1649,51 @@ an editor opened by 'git commit'. Please make sure all processes
 are terminated then try again. If it still fails, a git process
 may have crashed in this repository earlier:
 remove the file manually to continue.
+[2026-05-26 07:31:09] =========================================
+[2026-05-26 07:31:09] 🔄 自动回流管道 V10.1 启动
+[2026-05-26 07:31:09] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-26 07:31:09] 📊 V10.1 PHI 追踪...
+[2026-05-26 07:31:09]   PHI=67.71%
+[2026-05-26 07:31:09]   瓶颈=Θ_llm_agent
+[2026-05-26 07:31:09]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-26 07:31:09] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-26 07:31:39]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+[2026-05-26 07:31:43] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-26 07:31:43]   📝 未提交文件数: 5
+[2026-05-26 07:31:43]   Ω_dawn = .272000 (git_sync=.800, auto_learn=.340000)
+[2026-05-26 07:31:43]   ΔG_safe = 1.0661141609199323
+[2026-05-26 07:31:43] [4/5] Git提交...
+[main 627c6fc] 🔄 auto reflux V10.1 2026-05-26 07:31
+ 1 file changed, 1 insertion(+)
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+   779a7c8..39ffe5a  main       -> origin/main
+error: cannot rebase: You have unstaged changes.
+error: Please commit or stash them.
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'github.com:8w6hmdgchz-cmd/apex-spiral.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-05-26 07:31:51]   ⚠️ push失败, 尝试force-with-lease
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+ + 39ffe5a...627c6fc main -> main (forced update)
+[2026-05-26 07:31:55] [5/5] Gist备份...
+[2026-05-26 07:31:55] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Already up to date.
+[main 5a7a57a] xuanji ssh gist backup 2026-05-26 07:32:03
+ 7 files changed, 217 insertions(+), 140 deletions(-)
+[2026-05-26 07:32:03] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   05b49f2..5a7a57a  main -> main
+[2026-05-26 07:32:08] gist backup complete
+[2026-05-26 07:32:08] ✅ 回流完成
+[2026-05-26 07:32:08] =========================================
