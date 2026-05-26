@@ -200,6 +200,20 @@
       "source": "memory/devour/dawn_gate/ledger.md"
     },
     {
+      "id": "semantic_skillflow_dag",
+      "content": "[Semantic] SkillFlow DAG: 28 nodes, 44 edges, 14 datasets covering mmlu_pro/humaneval_plus/math_o1/gaia_benchmark/arxiv_summarization/biology_qa/swebench/mmlu_ethics/popqwa/realworld_agent/cybersecurity_ctf/financial_fraud/medical_qa/dialogue_safety.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779806908,
+      "importance": 0.97,
+      "memory_type": "Semantic",
+      "access_count": 38,
+      "source": "state/skillflow-orchestration-latest.json"
+    },
+    {
       "id": "working_ecc_includes_12factor",
       "content": "[Working] ECC RuntimeOS cycle now runs apex-12factor-agent selftest in addition to fusion/evidence/hygiene gates.",
       "embedding": [
@@ -382,6 +396,20 @@
       "source": "git_log"
     },
     {
+      "id": "semantic_flow_matching_formula",
+      "content": "[Semantic] Flow matching formula: π*(τ|q)∝R̃(τ)^β, R̃(τ)=R(τ)+ε_min; Flow(s→a)∝Reward(trajectory through s→a). Normalized reward prevents zero-division, credit allocation is transparent and backward.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779806906,
+      "importance": 0.96,
+      "memory_type": "Semantic",
+      "access_count": 38,
+      "source": "state/skillflow-orchestration-latest.json"
+    },
+    {
       "id": "working_cmmi_container_truthful_fallback",
       "content": "[Working] CMMI harness detected Docker unavailable and honestly reported container_mode=unavailable_local_sandbox instead of fabricating container execution.",
       "embedding": [
@@ -422,6 +450,20 @@
       "memory_type": "Working",
       "access_count": 33,
       "source": "memory/devour/dawn_gate/ledger.md"
+    },
+    {
+      "id": "procedural_skillflow_orch",
+      "content": "[Procedural] Run SkillFlow orchestration: cd skillflow/orchestration && go build -o apex-skillflow-orchestration . && ./apex-skillflow-orchestration --root /Users/lihongxin/.openclaw/workspace",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779806907,
+      "importance": 0.95,
+      "memory_type": "Procedural",
+      "access_count": 38,
+      "source": "state/skillflow-orchestration-latest.json"
     },
     {
       "id": "procedural_hygiene_v2_verify",
@@ -788,6 +830,20 @@
       "source": "memory/devour/mini_swe_agent/ledger.md"
     },
     {
+      "id": "working_skillflow_14datasets",
+      "content": "[Working] SkillFlow 14-dataset validation: apex-skillflow-validation runs 14 harness evals, all pass. Results in state/skillflow-validation/.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779806905,
+      "importance": 0.93,
+      "memory_type": "Working",
+      "access_count": 37,
+      "source": "state/skillflow-orchestration-latest.json"
+    },
+    {
       "id": "semantic_claude_code_slot_boundary",
       "content": "[Semantic] Claude Code runner detect/selftest never mutates source; real coding must run under CMMI gates and produce diff/test evidence before PR audit.",
       "embedding": [
@@ -954,6 +1010,20 @@
       "memory_type": "Episodic",
       "access_count": 22,
       "source": "git_log"
+    },
+    {
+      "id": "procedural_collapse_detection",
+      "content": "[Procedural] Collapse detection: if flow entropy < 0.5 or CV < threshold, inject noise (mag=0.2) and restart trajectory sampling. Detected: none (stable state).",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779806904,
+      "importance": 0.91,
+      "memory_type": "Procedural",
+      "access_count": 36,
+      "source": "state/skillflow-orchestration-latest.json"
     },
     {
       "id": "evidence_4e47ec1488a79cda",

@@ -1,0 +1,981 @@
+{
+  "id": "apex-skillflow-orch-8d4d3581560af5ac891b98a7",
+  "dag_nodes": 28,
+  "datasets_loaded": 14,
+  "routed_trajectories": [
+    {
+      "id": "traj-fcb5eed9563b6fc",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-swebench-verified",
+          "to": "apex-harness-bridge",
+          "reward": 0.9025,
+          "cost": 0.09750000000000009,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-harness-bridge",
+          "to": "apex-superpowers-gate",
+          "reward": 0.91,
+          "cost": 0.09,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.05
+        },
+        {
+          "step": 3,
+          "from": "apex-superpowers-gate",
+          "to": "apex-strata",
+          "reward": 0.79,
+          "cost": 0.21,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.13
+        },
+        {
+          "step": 4,
+          "from": "apex-strata",
+          "to": "apex-ecc-runtimeos",
+          "reward": 0.82,
+          "cost": 0.18,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.11
+        },
+        {
+          "step": 5,
+          "from": "apex-ecc-runtimeos",
+          "to": "search-skill",
+          "reward": 0.78,
+          "cost": 0.22,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.14
+        },
+        {
+          "step": 6,
+          "from": "search-skill",
+          "to": "apex-devour-engine",
+          "reward": 0.82,
+          "cost": 0.18,
+          "epsilon_greedy": true,
+          "exploration_rate": 0.11
+        },
+        {
+          "step": 7,
+          "from": "apex-devour-engine",
+          "to": "apex-tiangong-skill",
+          "reward": 0.78,
+          "cost": 0.22,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.14
+        }
+      ],
+      "total_reward": 5.8025,
+      "total_cost": 1.1975,
+      "peak_count": 2
+    },
+    {
+      "id": "traj-7c7beb4d1e0b760",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-humaneval-plus",
+          "to": "apex-harness-bridge",
+          "reward": 0.855,
+          "cost": 0.14500000000000002,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-harness-bridge",
+          "to": "apex-superpowers-gate",
+          "reward": 0.91,
+          "cost": 0.09,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.05
+        },
+        {
+          "step": 3,
+          "from": "apex-superpowers-gate",
+          "to": "apex-praison-chain",
+          "reward": 0.84,
+          "cost": 0.16,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.09
+        }
+      ],
+      "total_reward": 2.605,
+      "total_cost": 0.395,
+      "peak_count": 2
+    },
+    {
+      "id": "traj-a4dd880ea349be4",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-math-500",
+          "to": "apex-ecc-runtimeos",
+          "reward": 0.836,
+          "cost": 0.16400000000000003,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-ecc-runtimeos",
+          "to": "search-skill",
+          "reward": 0.78,
+          "cost": 0.22,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.14
+        },
+        {
+          "step": 3,
+          "from": "search-skill",
+          "to": "apex-devour-engine",
+          "reward": 0.82,
+          "cost": 0.18,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.11
+        },
+        {
+          "step": 4,
+          "from": "apex-devour-engine",
+          "to": "apex-tiangong-skill",
+          "reward": 0.78,
+          "cost": 0.22,
+          "epsilon_greedy": true,
+          "exploration_rate": 0.14
+        }
+      ],
+      "total_reward": 3.216,
+      "total_cost": 0.784,
+      "peak_count": 0
+    },
+    {
+      "id": "traj-c02a17aa51b97d2",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-gpqa-diamond",
+          "to": "apex-superpowers-gate",
+          "reward": 0.8075,
+          "cost": 0.19250000000000006,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-superpowers-gate",
+          "to": "apex-strata",
+          "reward": 0.79,
+          "cost": 0.21,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.13
+        },
+        {
+          "step": 3,
+          "from": "apex-strata",
+          "to": "apex-ecc-runtimeos",
+          "reward": 0.82,
+          "cost": 0.18,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.11
+        },
+        {
+          "step": 4,
+          "from": "apex-ecc-runtimeos",
+          "to": "search-skill",
+          "reward": 0.78,
+          "cost": 0.22,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.14
+        },
+        {
+          "step": 5,
+          "from": "search-skill",
+          "to": "apex-devour-engine",
+          "reward": 0.82,
+          "cost": 0.18,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.11
+        },
+        {
+          "step": 6,
+          "from": "apex-devour-engine",
+          "to": "apex-tiangong-skill",
+          "reward": 0.78,
+          "cost": 0.22,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.14
+        }
+      ],
+      "total_reward": 4.7975,
+      "total_cost": 1.2025,
+      "peak_count": 1
+    },
+    {
+      "id": "traj-a5629486c66137d",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-aime-2024",
+          "to": "apex-superpowers-gate",
+          "reward": 0.7789999999999999,
+          "cost": 0.22100000000000009,
+          "epsilon_greedy": true,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-superpowers-gate",
+          "to": "apex-cmmi-delivery",
+          "reward": 0.81,
+          "cost": 0.19,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.11
+        }
+      ],
+      "total_reward": 1.589,
+      "total_cost": 0.4110000000000001,
+      "peak_count": 1
+    },
+    {
+      "id": "traj-504a061df8e7634",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-bfcl-v3",
+          "to": "apex-praison-chain",
+          "reward": 0.8265,
+          "cost": 0.17350000000000004,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        }
+      ],
+      "total_reward": 0.8265,
+      "total_cost": 0.17350000000000004,
+      "peak_count": 0
+    },
+    {
+      "id": "traj-1a4a3e65d07d196",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-frames",
+          "to": "search-skill",
+          "reward": 0.722,
+          "cost": 0.278,
+          "epsilon_greedy": true,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "search-skill",
+          "to": "apex-devour-engine",
+          "reward": 0.82,
+          "cost": 0.18,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.11
+        },
+        {
+          "step": 3,
+          "from": "apex-devour-engine",
+          "to": "apex-tiangong-skill",
+          "reward": 0.78,
+          "cost": 0.22,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.14
+        }
+      ],
+      "total_reward": 2.322,
+      "total_cost": 0.678,
+      "peak_count": 0
+    },
+    {
+      "id": "traj-22c824fdbe7d2ff",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-planbench",
+          "to": "apex-strata",
+          "reward": 0.76,
+          "cost": 0.24,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-strata",
+          "to": "apex-ecc-runtimeos",
+          "reward": 0.82,
+          "cost": 0.18,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.11
+        },
+        {
+          "step": 3,
+          "from": "apex-ecc-runtimeos",
+          "to": "search-skill",
+          "reward": 0.78,
+          "cost": 0.22,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.14
+        },
+        {
+          "step": 4,
+          "from": "search-skill",
+          "to": "apex-devour-engine",
+          "reward": 0.82,
+          "cost": 0.18,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.11
+        },
+        {
+          "step": 5,
+          "from": "apex-devour-engine",
+          "to": "apex-tiangong-skill",
+          "reward": 0.78,
+          "cost": 0.22,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.14
+        }
+      ],
+      "total_reward": 3.96,
+      "total_cost": 1.04,
+      "peak_count": 0
+    },
+    {
+      "id": "traj-ba7956a8bae3cad",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-locomo",
+          "to": "swrs-memory-skill",
+          "reward": 0.703,
+          "cost": 0.29700000000000004,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "swrs-memory-skill",
+          "to": "xuanjiquant",
+          "reward": 0.73,
+          "cost": 0.27,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.18
+        }
+      ],
+      "total_reward": 1.4329999999999998,
+      "total_cost": 0.5670000000000001,
+      "peak_count": 1
+    },
+    {
+      "id": "traj-8678b3274bf0e2d",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-hh-rlhf",
+          "to": "apex-evolver-core",
+          "reward": 0.6839999999999999,
+          "cost": 0.31600000000000006,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-evolver-core",
+          "to": "apex-tiangong-skill",
+          "reward": 0.81,
+          "cost": 0.19,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        }
+      ],
+      "total_reward": 1.494,
+      "total_cost": 0.506,
+      "peak_count": 0
+    },
+    {
+      "id": "traj-0eb59b2704ea417",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-helm-lite",
+          "to": "apex-unified-research-engine",
+          "reward": 0.7979999999999999,
+          "cost": 0.20200000000000007,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        }
+      ],
+      "total_reward": 0.7979999999999999,
+      "total_cost": 0.20200000000000007,
+      "peak_count": 0
+    },
+    {
+      "id": "traj-888504d2df2305d",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-agentbench",
+          "to": "apex-skill-selector",
+          "reward": 0.7505,
+          "cost": 0.2495,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-skill-selector",
+          "to": "quantum-channel-router",
+          "reward": 0.89,
+          "cost": 0.11,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.07
+        }
+      ],
+      "total_reward": 1.6404999999999998,
+      "total_cost": 0.3595,
+      "peak_count": 1
+    },
+    {
+      "id": "traj-f7cf4fb7ec84780",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-optbench",
+          "to": "apex-token-optimizer",
+          "reward": 0.6935,
+          "cost": 0.30650000000000005,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-token-optimizer",
+          "to": "apex-tiangong-skill",
+          "reward": 0.77,
+          "cost": 0.23,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.15
+        }
+      ],
+      "total_reward": 1.4635,
+      "total_cost": 0.5365000000000001,
+      "peak_count": 0
+    },
+    {
+      "id": "traj-bb0e03ccb6b299c",
+      "steps": [
+        {
+          "step": 1,
+          "from": "ds:ds-mmlu-pro",
+          "to": "apex-core",
+          "reward": 0.8644999999999999,
+          "cost": 0.1355,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.1
+        },
+        {
+          "step": 2,
+          "from": "apex-core",
+          "to": "apex-superpowers-gate",
+          "reward": 0.9,
+          "cost": 0.1,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.06
+        },
+        {
+          "step": 3,
+          "from": "apex-superpowers-gate",
+          "to": "apex-secrets-gate",
+          "reward": 0.88,
+          "cost": 0.12,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.07
+        },
+        {
+          "step": 4,
+          "from": "apex-secrets-gate",
+          "to": "apex-tiangong-skill",
+          "reward": 0.77,
+          "cost": 0.23,
+          "epsilon_greedy": false,
+          "exploration_rate": 0.15
+        }
+      ],
+      "total_reward": 3.4145,
+      "total_cost": 0.5855,
+      "peak_count": 3
+    }
+  ],
+  "credit_allocations": {
+    "edge:apex-core→apex-superpowers-gate": 9.972,
+    "edge:apex-devour-engine→apex-tiangong-skill": 19.642,
+    "edge:apex-ecc-runtimeos→search-skill": 15.714,
+    "edge:apex-evolver-core→apex-tiangong-skill": 4.724,
+    "edge:apex-harness-bridge→apex-superpowers-gate": 22.407,
+    "edge:apex-secrets-gate→apex-tiangong-skill": 3.71,
+    "edge:apex-skill-selector→quantum-channel-router": 8.965,
+    "edge:apex-strata→apex-ecc-runtimeos": 15.143,
+    "edge:apex-superpowers-gate→apex-cmmi-delivery": 4.724,
+    "edge:apex-superpowers-gate→apex-praison-chain": 5.817,
+    "edge:apex-superpowers-gate→apex-secrets-gate": 8.126,
+    "edge:apex-superpowers-gate→apex-strata": 8.337,
+    "edge:apex-token-optimizer→apex-tiangong-skill": 3.71,
+    "edge:ds:ds-agentbench→apex-skill-selector": 3.333,
+    "edge:ds:ds-aime-2024→apex-superpowers-gate": 3.906,
+    "edge:ds:ds-bfcl-v3→apex-praison-chain": 5.278,
+    "edge:ds:ds-frames→search-skill": 2.878,
+    "edge:ds:ds-gpqa-diamond→apex-superpowers-gate": 4.648,
+    "edge:ds:ds-helm-lite→apex-unified-research-engine": 4.377,
+    "edge:ds:ds-hh-rlhf→apex-evolver-core": 2.398,
+    "edge:ds:ds-humaneval-plus→apex-harness-bridge": 6.534,
+    "edge:ds:ds-locomo→swrs-memory-skill": 2.623,
+    "edge:ds:ds-math-500→apex-ecc-runtimeos": 5.648,
+    "edge:ds:ds-mmlu-pro→apex-core": 7.069,
+    "edge:ds:ds-optbench→apex-token-optimizer": 2.507,
+    "edge:ds:ds-planbench→apex-strata": 3.509,
+    "edge:ds:ds-swebench-verified→apex-harness-bridge": 10.256,
+    "edge:search-skill→apex-devour-engine": 25.239,
+    "edge:swrs-memory-skill→xuanjiquant": 2.996,
+    "node:apex-cmmi-delivery": 0.718,
+    "node:apex-core": 0.882,
+    "node:apex-devour-engine": 0.796,
+    "node:apex-ecc-runtimeos": 0.798,
+    "node:apex-evolver-core": 0.752,
+    "node:apex-harness-bridge": 0.894,
+    "node:apex-praison-chain": 0.739,
+    "node:apex-secrets-gate": 0.817,
+    "node:apex-skill-selector": 0.825,
+    "node:apex-strata": 0.8,
+    "node:apex-superpowers-gate": 0.838,
+    "node:apex-tiangong-skill": 0.693,
+    "node:apex-token-optimizer": 0.734,
+    "node:apex-unified-research-engine": 0.707,
+    "node:ds:ds-agentbench": 0.832,
+    "node:ds:ds-aime-2024": 0.863,
+    "node:ds:ds-bfcl-v3": 0.916,
+    "node:ds:ds-frames": 0.8,
+    "node:ds:ds-gpqa-diamond": 0.895,
+    "node:ds:ds-helm-lite": 0.884,
+    "node:ds:ds-hh-rlhf": 0.758,
+    "node:ds:ds-humaneval-plus": 0.947,
+    "node:ds:ds-locomo": 0.779,
+    "node:ds:ds-math-500": 0.926,
+    "node:ds:ds-mmlu-pro": 0.957,
+    "node:ds:ds-optbench": 0.769,
+    "node:ds:ds-planbench": 0.842,
+    "node:ds:ds-swebench-verified": 1.001,
+    "node:quantum-channel-router": 0.789,
+    "node:search-skill": 0.794,
+    "node:swrs-memory-skill": 0.716,
+    "node:xuanjiquant": 0.647
+  },
+  "collapse_detected": false,
+  "collapse": {
+    "collapsed": false,
+    "severity": 0
+  },
+  "multi_peak_redundant": [
+    {
+      "route_id": "peak-redundant-apex-core",
+      "primary_path": [
+        "apex-core",
+        "ds:ds-mmlu-pro"
+      ],
+      "redundant_path": [
+        "apex-autoresearch-core",
+        "apex-core",
+        "apex-evolver-core",
+        "apex-harness-bridge",
+        "apex-secrets-gate",
+        "apex-skill-selector",
+        "apex-strata",
+        "apex-superpowers-gate",
+        "apex-token-optimizer",
+        "clawg-training-ecosystem",
+        "emv-entropy-skill",
+        "hetu-luoshu",
+        "xuanjiquant"
+      ],
+      "diversity": 0.929,
+      "overlap": 0.071
+    },
+    {
+      "route_id": "peak-redundant-apex-superpowers-gate",
+      "primary_path": [
+        "apex-core",
+        "apex-harness-bridge",
+        "apex-superpowers-gate",
+        "ds:ds-aime-2024",
+        "ds:ds-gpqa-diamond",
+        "hetu-luoshu"
+      ],
+      "redundant_path": [
+        "apex-cmmi-delivery",
+        "apex-praison-chain",
+        "apex-secrets-gate",
+        "apex-strata",
+        "apex-superpowers-gate",
+        "apex-tiangong-skill",
+        "ds:ds-humaneval-plus",
+        "ds:ds-mmlu-pro",
+        "ds:ds-swebench-verified"
+      ],
+      "diversity": 0.929,
+      "overlap": 0.071
+    },
+    {
+      "route_id": "peak-redundant-apex-tiangong-skill",
+      "primary_path": [
+        "akquant-backtest",
+        "apex-autoresearch-core",
+        "apex-devour-engine",
+        "apex-evolver-core",
+        "apex-secrets-gate",
+        "apex-superpowers-gate",
+        "apex-tiangong-skill",
+        "apex-token-optimizer",
+        "quant-backtest-strategy",
+        "swrs-memory-skill"
+      ],
+      "redundant_path": [
+        "apex-core",
+        "apex-harness-bridge",
+        "apex-tiangong-skill",
+        "ds:ds-aime-2024",
+        "ds:ds-gpqa-diamond",
+        "ds:ds-hh-rlhf",
+        "ds:ds-optbench",
+        "emv-entropy-skill",
+        "hetu-luoshu",
+        "search-skill",
+        "swrs-memory-skill"
+      ],
+      "diversity": 0.895,
+      "overlap": 0.105
+    },
+    {
+      "route_id": "peak-redundant-apex-secrets-gate",
+      "primary_path": [
+        "apex-core",
+        "apex-harness-bridge",
+        "apex-secrets-gate",
+        "apex-superpowers-gate"
+      ],
+      "redundant_path": [
+        "apex-cmmi-delivery",
+        "apex-harness-bridge",
+        "apex-praison-chain",
+        "apex-secrets-gate",
+        "apex-tiangong-skill",
+        "ds:ds-aime-2024",
+        "ds:ds-gpqa-diamond",
+        "ds:ds-mmlu-pro",
+        "hetu-luoshu"
+      ],
+      "diversity": 0.818,
+      "overlap": 0.182
+    },
+    {
+      "route_id": "peak-redundant-apex-skill-selector",
+      "primary_path": [
+        "apex-core",
+        "apex-skill-selector",
+        "ds:ds-agentbench"
+      ],
+      "redundant_path": [
+        "apex-praison-chain",
+        "apex-skill-selector",
+        "apex-strata",
+        "ds:ds-mmlu-pro",
+        "quantum-channel-router"
+      ],
+      "diversity": 0.857,
+      "overlap": 0.143
+    },
+    {
+      "route_id": "peak-redundant-apex-ecc-runtimeos",
+      "primary_path": [
+        "apex-ecc-runtimeos",
+        "apex-harness-bridge",
+        "apex-strata",
+        "ds:ds-math-500"
+      ],
+      "redundant_path": [
+        "apex-core",
+        "apex-ecc-runtimeos",
+        "apex-skill-selector",
+        "apex-superpowers-gate",
+        "ds:ds-humaneval-plus",
+        "ds:ds-planbench",
+        "ds:ds-swebench-verified",
+        "search-skill"
+      ],
+      "diversity": 0.909,
+      "overlap": 0.091
+    },
+    {
+      "route_id": "peak-redundant-apex-unified-research-engine",
+      "primary_path": [
+        "apex-autoresearch-core",
+        "apex-unified-research-engine",
+        "ds:ds-helm-lite",
+        "swrs-memory-skill"
+      ],
+      "redundant_path": [
+        "apex-core",
+        "apex-unified-research-engine",
+        "swrs-memory-skill"
+      ],
+      "diversity": 0.6,
+      "overlap": 0.4
+    },
+    {
+      "route_id": "peak-redundant-swrs-memory-skill",
+      "primary_path": [
+        "ds:ds-locomo",
+        "swrs-memory-skill"
+      ],
+      "redundant_path": [
+        "apex-autoresearch-core",
+        "apex-book-skill",
+        "apex-tiangong-skill",
+        "apex-unified-research-engine",
+        "swrs-memory-skill",
+        "xuanjiquant"
+      ],
+      "diversity": 0.857,
+      "overlap": 0.143
+    },
+    {
+      "route_id": "peak-redundant-apex-praison-chain",
+      "primary_path": [
+        "apex-praison-chain",
+        "apex-secrets-gate",
+        "apex-skill-selector",
+        "apex-superpowers-gate",
+        "ds:ds-bfcl-v3"
+      ],
+      "redundant_path": [
+        "apex-core",
+        "apex-harness-bridge",
+        "apex-praison-chain",
+        "ds:ds-agentbench",
+        "ds:ds-aime-2024",
+        "ds:ds-gpqa-diamond",
+        "hetu-luoshu"
+      ],
+      "diversity": 0.909,
+      "overlap": 0.091
+    },
+    {
+      "route_id": "peak-redundant-apex-harness-bridge",
+      "primary_path": [
+        "apex-core",
+        "apex-harness-bridge",
+        "ds:ds-humaneval-plus",
+        "ds:ds-swebench-verified"
+      ],
+      "redundant_path": [
+        "apex-ecc-runtimeos",
+        "apex-harness-bridge",
+        "apex-secrets-gate",
+        "apex-superpowers-gate",
+        "ds:ds-mmlu-pro"
+      ],
+      "diversity": 0.875,
+      "overlap": 0.125
+    },
+    {
+      "route_id": "peak-redundant-apex-strata",
+      "primary_path": [
+        "apex-core",
+        "apex-skill-selector",
+        "apex-strata",
+        "apex-superpowers-gate",
+        "ds:ds-planbench"
+      ],
+      "redundant_path": [
+        "apex-ecc-runtimeos",
+        "apex-harness-bridge",
+        "apex-strata",
+        "ds:ds-agentbench",
+        "ds:ds-aime-2024",
+        "ds:ds-gpqa-diamond",
+        "ds:ds-mmlu-pro",
+        "hetu-luoshu"
+      ],
+      "diversity": 0.917,
+      "overlap": 0.083
+    }
+  ],
+  "evolved_skills": [
+    {
+      "skill_id": "apex-skill-selector",
+      "old_reward_base": 0.82,
+      "new_reward_base": 0.808,
+      "adjustment": -0.012,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.67
+    },
+    {
+      "skill_id": "quantum-channel-router",
+      "old_reward_base": 0.82,
+      "new_reward_base": 0.797,
+      "adjustment": -0.0229,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.534
+    },
+    {
+      "skill_id": "apex-strata",
+      "old_reward_base": 0.82,
+      "new_reward_base": 0.806,
+      "adjustment": -0.0141,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.644
+    },
+    {
+      "skill_id": "apex-praison-chain",
+      "old_reward_base": 0.82,
+      "new_reward_base": 0.794,
+      "adjustment": -0.0256,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.5
+    },
+    {
+      "skill_id": "apex-harness-bridge",
+      "old_reward_base": 0.78,
+      "new_reward_base": 0.775,
+      "adjustment": -0.0049,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.719
+    },
+    {
+      "skill_id": "apex-ecc-runtimeos",
+      "old_reward_base": 0.78,
+      "new_reward_base": 0.769,
+      "adjustment": -0.0114,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.637
+    },
+    {
+      "skill_id": "apex-cmmi-delivery",
+      "old_reward_base": 0.78,
+      "new_reward_base": 0.756,
+      "adjustment": -0.0235,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.486
+    },
+    {
+      "skill_id": "apex-devour-engine",
+      "old_reward_base": 0.78,
+      "new_reward_base": 0.768,
+      "adjustment": -0.0115,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.636
+    },
+    {
+      "skill_id": "apex-token-optimizer",
+      "old_reward_base": 0.78,
+      "new_reward_base": 0.765,
+      "adjustment": -0.015,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.593
+    },
+    {
+      "skill_id": "apex-superpowers-gate",
+      "old_reward_base": 0.88,
+      "new_reward_base": 0.863,
+      "adjustment": -0.0168,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.669
+    },
+    {
+      "skill_id": "apex-secrets-gate",
+      "old_reward_base": 0.88,
+      "new_reward_base": 0.862,
+      "adjustment": -0.0185,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.649
+    },
+    {
+      "skill_id": "apex-unified-research-engine",
+      "old_reward_base": 0.88,
+      "new_reward_base": 0.848,
+      "adjustment": -0.0321,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.479
+    },
+    {
+      "skill_id": "swrs-memory-skill",
+      "old_reward_base": 0.74,
+      "new_reward_base": 0.727,
+      "adjustment": -0.0131,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.576
+    },
+    {
+      "skill_id": "search-skill",
+      "old_reward_base": 0.74,
+      "new_reward_base": 0.732,
+      "adjustment": -0.008,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.641
+    },
+    {
+      "skill_id": "apex-evolver-core",
+      "old_reward_base": 0.76,
+      "new_reward_base": 0.748,
+      "adjustment": -0.012,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.61
+    },
+    {
+      "skill_id": "apex-tiangong-skill",
+      "old_reward_base": 0.76,
+      "new_reward_base": 0.737,
+      "adjustment": -0.0233,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.469
+    },
+    {
+      "skill_id": "xuanjiquant",
+      "old_reward_base": 0.76,
+      "new_reward_base": 0.734,
+      "adjustment": -0.0258,
+      "direction": "down",
+      "alpha": 0.08,
+      "reverse_policy_r": 0.438
+    }
+  ],
+  "format": "skillflow-orchestration-1.0",
+  "started_at": "2026-05-26T22:48:04+08:00",
+  "duration_ms": 3,
+  "trajectory_stats": {
+    "avg_cost": 0.617,
+    "avg_reward": 2.526,
+    "peak_entropy": 0.7,
+    "total_trajectories": 14
+  }
+}

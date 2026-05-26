@@ -1,0 +1,183 @@
+{
+  "entries": [
+    {
+      "id": "evo-20260526T144613Z",
+      "timestamp": "2026-05-26T14:46:13Z",
+      "event_type": "reverse_policy_evolution",
+      "source": "apex-skillflow-evolution",
+      "payload": {
+        "collapse_resolutions": [],
+        "credit_allocations": {
+          "akquant-backtest": 0,
+          "apex-autoresearch-core": 0.01,
+          "apex-book-skill": 0.01,
+          "apex-claude-code-runner": 0.01,
+          "apex-cmmi-delivery": 0.01,
+          "apex-container-backend": 0,
+          "apex-core": 0.01,
+          "apex-devour-engine": 0,
+          "apex-ecc-runtimeos": 0.01,
+          "apex-eval-harness": 0.01,
+          "apex-evidence-validator": 0,
+          "apex-evolver-core": 0.01,
+          "apex-fusion-engine": 0.01,
+          "apex-harness-bridge": 0.01,
+          "apex-hygiene": 0.01,
+          "apex-memory-admission": 0,
+          "apex-mini-executor": 0,
+          "apex-praison-chain": 0.01,
+          "apex-secrets-gate": 0,
+          "apex-strata": 0.01,
+          "apex-superpowers-gate": 0,
+          "apex-tiangong-skill": 0.01,
+          "apex-token-optimizer": 0.01,
+          "apex-unified-research-engine": 0.01,
+          "clawg-training-ecosystem": 0.01,
+          "xuanjiquant": 0.01
+        },
+        "evolution_id": "apex-skillflow-evo-20260526T144613Z",
+        "evolved_skill_count": 22,
+        "evolved_skills": [
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "apex-tiangong-skill"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "apex-core"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.76,
+            "old_reward": 0.75,
+            "skill_id": "apex-evolver-core"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.76,
+            "old_reward": 0.75,
+            "skill_id": "apex-claude-code-runner"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "apex-book-skill"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.76,
+            "old_reward": 0.75,
+            "skill_id": "apex-praison-chain"
+          },
+          {
+            "adjustment": 0,
+            "new_reward": 0.7,
+            "old_reward": 0.7,
+            "skill_id": "apex-container-backend"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "apex-hygiene"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "xuanjiquant"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.73,
+            "old_reward": 0.72,
+            "skill_id": "apex-token-optimizer"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "apex-ecc-runtimeos"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "apex-fusion-engine"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "clawg-training-ecosystem"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.76,
+            "old_reward": 0.75,
+            "skill_id": "apex-harness-bridge"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "apex-unified-research-engine"
+          },
+          {
+            "adjustment": 0,
+            "new_reward": 0.72,
+            "old_reward": 0.72,
+            "skill_id": "apex-mini-executor"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.73,
+            "old_reward": 0.72,
+            "skill_id": "apex-eval-harness"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.71,
+            "old_reward": 0.7,
+            "skill_id": "apex-cmmi-delivery"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.76,
+            "old_reward": 0.75,
+            "skill_id": "apex-strata"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.73,
+            "old_reward": 0.72,
+            "skill_id": "apex-autoresearch-core"
+          },
+          {
+            "adjustment": 0,
+            "new_reward": 0.7,
+            "old_reward": 0.7,
+            "skill_id": "apex-secrets-gate"
+          },
+          {
+            "adjustment": 0,
+            "new_reward": 0.7,
+            "old_reward": 0.7,
+            "skill_id": "akquant-backtest"
+          }
+        ],
+        "flow_entropy_after": 4.7,
+        "flow_entropy_before": 0.85,
+        "reverse_policy": true,
+        "schema_datasets": 14,
+        "state_source": "synthetic",
+        "total_skills": 26
+      }
+    }
+  ]
+}

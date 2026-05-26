@@ -1,0 +1,18 @@
+{
+  "datasets": [
+    {"id": "mmlu_pro", "domain": "reasoning", "nodes": ["apex-strata", "apex-evolver-core"]},
+    {"id": "humaneval_plus", "domain": "code", "nodes": ["apex-claude-code-runner", "apex-harness-bridge"]},
+    {"id": "math_o1", "domain": "math", "nodes": ["apex-autoresearch-core", "apex-token-optimizer"]},
+    {"id": "gaia_benchmark", "domain": "agentic", "nodes": ["apex-ecc-runtimeos", "apex-fusion-engine"]},
+    {"id": "arxiv_summarization", "domain": "nlp", "nodes": ["apex-book-skill", "apex-unified-research-engine"]},
+    {"id": "biology_qa", "domain": "science", "nodes": ["clawg-training-ecosystem", "apex-devour-engine"]},
+    {"id": "swebench", "domain": "swe", "nodes": ["apex-mini-executor", "apex-eval-harness"]},
+    {"id": "mmlu_ethics", "domain": "ethics", "nodes": ["apex-secrets-gate", "apex-evidence-validator"]},
+    {"id": "popqwa", "domain": "reasoning", "nodes": ["apex-praison-chain", "apex-superpowers-gate"]},
+    {"id": "realworld_agent", "domain": "embodied", "nodes": ["apex-container-backend", "apex-memory-admission"]},
+    {"id": "cybersecurity_ctf", "domain": "security", "nodes": ["apex-secrets-gate", "apex-hygiene"]},
+    {"id": "financial_fraud", "domain": "finance", "nodes": ["akquant-backtest", "xuanjiquant"]},
+    {"id": "medical_qa", "domain": "biomed", "nodes": ["clawg-training-ecosystem", "apex-tiangong-skill"]},
+    {"id": "dialogue_safety", "domain": "safety", "nodes": ["apex-core", "apex-cmmi-delivery"]}
+  ]
+}

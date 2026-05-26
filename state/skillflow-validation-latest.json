@@ -1,0 +1,124 @@
+{
+  "id": "apex-skillflow-val-1779806623735",
+  "started_at": "2026-05-26T14:43:42Z",
+  "status": "pass",
+  "total": 14,
+  "passed": 14,
+  "failed": 0,
+  "skipped": 0,
+  "results": [
+    {
+      "dataset_id": "mmlu_pro",
+      "domain": "reasoning",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/mmlu_pro.json"
+    },
+    {
+      "dataset_id": "humaneval_plus",
+      "domain": "code",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/humaneval_plus.json"
+    },
+    {
+      "dataset_id": "math_o1",
+      "domain": "math",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/math_o1.json"
+    },
+    {
+      "dataset_id": "gaia_benchmark",
+      "domain": "agentic",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/gaia_benchmark.json"
+    },
+    {
+      "dataset_id": "arxiv_summarization",
+      "domain": "nlp",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/arxiv_summarization.json"
+    },
+    {
+      "dataset_id": "biology_qa",
+      "domain": "science",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/biology_qa.json"
+    },
+    {
+      "dataset_id": "swebench",
+      "domain": "swe",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/swebench.json"
+    },
+    {
+      "dataset_id": "mmlu_ethics",
+      "domain": "ethics",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/mmlu_ethics.json"
+    },
+    {
+      "dataset_id": "popqwa",
+      "domain": "reasoning",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/popqwa.json"
+    },
+    {
+      "dataset_id": "realworld_agent",
+      "domain": "embodied",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/realworld_agent.json"
+    },
+    {
+      "dataset_id": "cybersecurity_ctf",
+      "domain": "security",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/cybersecurity_ctf.json"
+    },
+    {
+      "dataset_id": "financial_fraud",
+      "domain": "finance",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/financial_fraud.json"
+    },
+    {
+      "dataset_id": "medical_qa",
+      "domain": "biomed",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/medical_qa.json"
+    },
+    {
+      "dataset_id": "dialogue_safety",
+      "domain": "safety",
+      "status": "pass",
+      "accuracy": 1,
+      "trajectories": 2,
+      "evidence_path": "/Users/lihongxin/.openclaw/workspace/state/skillflow-validation/dialogue_safety.json"
+    }
+  ],
+  "format": "skillflow-validation-1.0"
+}

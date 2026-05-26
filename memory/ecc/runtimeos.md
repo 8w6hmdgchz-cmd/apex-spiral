@@ -299,3 +299,23 @@ transient_dirty: 1
 ```
 
 Purpose: prevent runtime state churn from masquerading as source progress while preserving intentional evidence snapshots.
+
+## SkillFlow Activation
+
+Built from scratch via 5 parallel subagents (Rust core + Go orchestration + evolution + validation).
+
+```text
+skillflow/
+  core/          ← Rust: π*∝R̃^β, credit allocation, collapse detection
+  orchestration/  ← Go: TTB DAG routing, 14 trajectories
+  evolution/     ← Go: reverse policy, 22+ skills evolved
+  validation/    ← Go: 14-dataset harness
+```
+
+**Verified:**
+- DAG: 28 nodes / 44 edges / 4 multi-peak groups
+- Rust core: cargo test 29/29 passed
+- Go orch: 14 routes / 61 credit allocations / 11 redundant paths
+- Evolution: reverse policy applied, no collapse
+- Validation: 14/14 datasets harness pass
+- PHI: 57.37% / Σ_memory 0.378 / memory 438 entries
