@@ -219,3 +219,30 @@ publish_mode: prepared_local_no_external_release
 ```
 
 External GitHub Release publishing still requires explicit permission/tooling; local artifact preparation is automatic.
+
+## Memory Admission v2
+
+Upgraded `apex-memory-admission` to format `apex-memory-admission-2.0`.
+
+New gates:
+
+```text
+quality_floor: 0.72
+content dedupe: enabled
+capacity: 500
+failure/rollback/repair claim → Procedural memory
+rank = importance + bounded access_count bonus
+```
+
+Latest verification:
+
+```text
+status: success
+validated: true
+added: 0
+skipped/deduped: duplicate fusion evidence was not re-admitted
+memory_count: 426
+sigma_memory: 0.3716
+```
+
+This prevents Σ_memory inflation from repeated identical evidence.

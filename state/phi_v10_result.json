@@ -1,22 +1,23 @@
 {
-  "timestamp": "2026-05-26T07:54:57.079573+00:00",
+  "timestamp": "2026-05-26T07:57:58.784402+00:00",
   "version": "V10.1",
-  "phi_ratio_equiv": 57.33,
-  "evolution_score": 0.573298,
+  "phi_ratio_equiv": 57.32,
+  "evolution_score": 0.573179,
   "delta_g": 1.116614,
-  "delta_g_final": 0.671777,
+  "delta_g_final": 0.671451,
   "bottleneck": "Σ_memory",
-  "sigma_memory": 0.3732,
+  "sigma_memory": 0.3716,
   "tau_trace": 0.98,
   "omega_dawn": 0.7176,
-  "release_manager": "active",
-  "release_version": "v0.0.0-apex-20260526-155456",
-  "memory_count": 430,
+  "memory_admission": "v2",
+  "memory_quality_floor": 0.72,
+  "memory_deduped": 1,
+  "memory_pruned": 0,
+  "memory_count": 426,
   "memory_types": {
-    "Working": 74,
+    "Working": 70,
     "Episodic": 177,
     "Procedural": 64,
     "Semantic": 115
-  },
-  "release_added": 3
+  }
 }

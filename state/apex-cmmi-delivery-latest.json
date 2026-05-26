@@ -1,7 +1,7 @@
 {
-  "id": "apex-cmmi-1779782097",
-  "started_at": "2026-05-26T15:54:57+08:00",
-  "objective": "APEX CMMI with release preparation",
+  "id": "apex-cmmi-1779782243",
+  "started_at": "2026-05-26T15:57:23+08:00",
+  "objective": "APEX Memory Admission v2 quality governance",
   "status": "success",
   "container_mode": "unavailable_local_sandbox",
   "docker_available": false,
