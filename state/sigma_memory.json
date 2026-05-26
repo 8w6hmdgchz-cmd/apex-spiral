@@ -1,9 +1,23 @@
 {
-  "learn_rate": 0.915,
-  "decay_factor": 0.984,
+  "learn_rate": 0.918,
+  "decay_factor": 0.985,
   "max_entries": 10000,
-  "retention_threshold": 0.39,
+  "retention_threshold": 0.385,
   "memory_entries": [
+    {
+      "id": "working_praison_transmission_skill_active",
+      "content": "[Working] apex-praison-chain now has --mode activate and serves as the background-callable APEX formula transmission skill for role graph, tool gates, fusion gates, evidence admission, and memory ledger.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770413,
+      "importance": 0.99,
+      "memory_type": "Working",
+      "access_count": 39,
+      "source": "state/apex-praison-activation.json"
+    },
     {
       "id": "working_fusion_engine_core_driver",
       "content": "[Working] apex-fusion-engine is now the core local driver that runs evolver, autoresearch, superpowers gate, CLI/MCP harness bridge, and dawn gate as one evidence-producing closed loop.",
@@ -45,6 +59,20 @@
       "memory_type": "Working",
       "access_count": 34,
       "source": "memory/devour/dawn_gate/ledger.md"
+    },
+    {
+      "id": "working_praison_activation_verified",
+      "content": "[Working] Praison activation was verified with state/apex-praison-activation.json, fusion engine 5/5 gates, and evidence validator success.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770412,
+      "importance": 0.97,
+      "memory_type": "Working",
+      "access_count": 38,
+      "source": "state/apex-praison-activation.json"
     },
     {
       "id": "working_apex_hygiene_real_dirty_filter",
@@ -287,6 +315,20 @@
       "memory_type": "Working",
       "access_count": 33,
       "source": "memory/devour/dawn_gate/ledger.md"
+    },
+    {
+      "id": "procedural_praison_activation_command",
+      "content": "[Procedural] Activate Praison transmission with: scripts/apex-praison-chain/apex-praison-chain --mode activate --task \"activate APEX formula transmission chain for verified closed-loop work across any scenario\" --process hierarchical --out state/apex-praison-activation.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770411,
+      "importance": 0.95,
+      "memory_type": "Procedural",
+      "access_count": 38,
+      "source": "state/apex-praison-activation.json"
     },
     {
       "id": "procedural_fusion_engine_selftest",
@@ -559,6 +601,20 @@
         "apex-iterate.sh",
         "memory_manager.py"
       ]
+    },
+    {
+      "id": "semantic_praison_no_mysticism",
+      "content": "[Semantic] PraisonAI transfer is an engineering chain: role agents, task graph, tool gates, fusion verification, evidence admission, and memory ledger; no mystical or fabricated ability is accepted.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770410,
+      "importance": 0.91,
+      "memory_type": "Semantic",
+      "access_count": 36,
+      "source": "state/apex-praison-activation.json"
     },
     {
       "id": "working_evidence_validator_safe_paths",

@@ -1,0 +1,163 @@
+{
+  "id": "apex-praison-148b4891e9",
+  "created_at": "2026-05-26T12:39:28+08:00",
+  "objective": "activate APEX formula transmission chain for verified closed-loop work across any scenario",
+  "process_mode": "hierarchical",
+  "apex_formula": "ApexPraisonChain = RoleAgents × TaskGraph × ProcessMode × ToolGate × VerifyLoop × MemLedger",
+  "agents": [
+    {
+      "name": "planner",
+      "role": "strategy architect",
+      "goal": "decompose the objective into a minimal dependency graph",
+      "backstory": "PraisonAI-style coordinator: role-first planning, explicit task ownership, no hidden work.",
+      "tools": [
+        "read",
+        "exec",
+        "web_search"
+      ],
+      "guardrails": [
+        "state assumptions",
+        "avoid external writes without approval"
+      ],
+      "deliverables": [
+        "task graph",
+        "acceptance criteria"
+      ]
+    },
+    {
+      "name": "builder",
+      "role": "implementation agent",
+      "goal": "produce concrete files, code, commands, or artifacts",
+      "backstory": "Execution-focused agent: every claim should map to an artifact or command output.",
+      "tools": [
+        "read",
+        "write",
+        "edit",
+        "exec"
+      ],
+      "guardrails": [
+        "small reversible changes",
+        "compile before claim"
+      ],
+      "deliverables": [
+        "patches",
+        "build logs",
+        "artifact paths"
+      ]
+    },
+    {
+      "name": "critic",
+      "role": "verification agent",
+      "goal": "find failure modes and verify with the smallest meaningful gate",
+      "backstory": "Adversarial reviewer: rejects self-scoring without evidence.",
+      "tools": [
+        "exec",
+        "read"
+      ],
+      "guardrails": [
+        "do not rubber-stamp",
+        "cite failing evidence"
+      ],
+      "deliverables": [
+        "test result",
+        "risk list",
+        "go/no-go"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T1",
+      "title": "Clarify objective and constraints",
+      "agent": "planner",
+      "depends_on": null,
+      "input": "activate APEX formula transmission chain for verified closed-loop work across any scenario",
+      "expected_output": "one-page plan with acceptance criteria",
+      "verify": [
+        "objective is restated as testable outputs"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "T2",
+      "title": "Build or modify concrete artifact",
+      "agent": "builder",
+      "depends_on": [
+        "T1"
+      ],
+      "input": "activate APEX formula transmission chain for verified closed-loop work across any scenario",
+      "expected_output": "files or executable artifact",
+      "verify": [
+        "git diff shows intentional changes",
+        "build/check passes"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "T3",
+      "title": "Distill reusable knowledge",
+      "agent": "planner",
+      "depends_on": [
+        "T1"
+      ],
+      "input": "activate APEX formula transmission chain for verified closed-loop work across any scenario",
+      "expected_output": "memory/skill entry with source and usage",
+      "verify": [
+        "source path/commit recorded",
+        "future invocation documented"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "T4",
+      "title": "Independent verification",
+      "agent": "critic",
+      "depends_on": [
+        "T2",
+        "T3"
+      ],
+      "input": "activate APEX formula transmission chain for verified closed-loop work across any scenario",
+      "expected_output": "go/no-go report",
+      "verify": [
+        "smallest meaningful test passed",
+        "known limitations listed"
+      ],
+      "status": "pending"
+    }
+  ],
+  "score": {
+    "role_coverage": 0.75,
+    "dependency_clarity": 1,
+    "verification_power": 0.875,
+    "tool_safety": 0.85,
+    "memory_continuity": 0.8,
+    "composite": 0.854
+  },
+  "activation": {
+    "status": "active",
+    "transmission_chain": [
+      "APEX formula mirror: identify shortest real bottleneck before acting",
+      "Praison role chain: planner -\u003e builder -\u003e critic -\u003e memory archivist",
+      "OpenHands execution boundary: bounded filesystem/terminal action through harness bridge",
+      "Fusion engine: run evolver/autoresearch/superpowers/harness/dawn gates",
+      "Evidence validator: admit only sourced, committed, verified records"
+    ],
+    "required_gates": [
+      "scripts/apex-praison-chain/apex-praison-chain --mode activate",
+      "scripts/apex-fusion-engine/apex-fusion-engine --mode selftest",
+      "scripts/apex-evidence-validator/apex-evidence-validator --mode validate"
+    ],
+    "evidence_outputs": [
+      "state/apex-praison-activation.json",
+      "state/apex-fusion-engine-latest.json",
+      "state/apex-fusion-evidence-report.json"
+    ],
+    "no_virtual_data": [
+      "No fabricated benchmark values.",
+      "No memory admission without source_repo/source_commit/source_path/context_id.",
+      "No PHI promotion without a runnable gate artifact."
+    ],
+    "background_use": "Use this skill when a task needs multi-agent decomposition, execution, verification, and memory admission as one closed APEX loop."
+  },
+  "next_action": "execute_with_verification"
+}

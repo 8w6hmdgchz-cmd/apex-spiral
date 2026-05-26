@@ -25,3 +25,30 @@ The useful transfer is not mystical ability. It is an engineering pattern:
 ```bash
 /Users/lihongxin/.openclaw/workspace/scripts/apex-praison-chain/apex-praison-chain --task "your task" --process hierarchical
 ```
+
+## 2026-05-26 Activation Upgrade
+
+Praison chain is now a background-callable APEX transmission skill, not only a planner.
+
+New activation mode:
+
+```bash
+scripts/apex-praison-chain/apex-praison-chain --mode activate \
+  --task "activate APEX formula transmission chain for verified closed-loop work across any scenario" \
+  --process hierarchical \
+  --out state/apex-praison-activation.json
+```
+
+Activation formula:
+
+```text
+ApexPraisonTransmission = APEXFormulaMirror × RoleAgents × TaskGraph × ToolGate × FusionGate × EvidenceAdmission × MemLedger
+```
+
+Verification evidence:
+
+- `state/apex-praison-activation.json`: activation status `active`, composite score `0.854`
+- `state/apex-fusion-engine-latest.json`: fusion status `success`, gates `5/5`
+- `state/apex-fusion-evidence-report.json`: evidence validator `success`, checked `1`, passed `1`
+
+No-virtual-data rule remains binding: activation is only accepted when backed by runnable artifacts and evidence-validator admission.

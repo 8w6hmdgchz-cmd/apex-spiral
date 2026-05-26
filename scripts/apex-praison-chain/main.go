@@ -47,7 +47,17 @@ type ChainPlan struct {
 	Agents      []AgentRole `json:"agents"`
 	Tasks       []TaskNode  `json:"tasks"`
 	Score       Score       `json:"score"`
+	Activation  Activation  `json:"activation,omitempty"`
 	NextAction  string      `json:"next_action"`
+}
+
+type Activation struct {
+	Status          string   `json:"status"`
+	Transmission    []string `json:"transmission_chain"`
+	RequiredGates   []string `json:"required_gates"`
+	EvidenceOutputs []string `json:"evidence_outputs"`
+	NoVirtualData   []string `json:"no_virtual_data"`
+	BackgroundUse   string   `json:"background_use"`
 }
 
 type Score struct {
@@ -60,7 +70,7 @@ type Score struct {
 }
 
 func main() {
-	mode := flag.String("mode", "plan", "plan|roles|score|skill")
+	mode := flag.String("mode", "plan", "plan|roles|score|skill|activate")
 	objective := flag.String("task", "", "task/objective to transform into a Praison-style APEX chain")
 	process := flag.String("process", "hierarchical", "sequential|parallel|hierarchical")
 	out := flag.String("out", "", "optional JSON output path")
@@ -83,6 +93,9 @@ func main() {
 		emit(plan.Agents, *out)
 	case "score":
 		emit(plan.Score, *out)
+	case "activate":
+		plan.Activation = BuildActivation(plan)
+		emit(plan, *out)
 	default:
 		fmt.Fprintf(os.Stderr, "unknown mode: %s\n", *mode)
 		os.Exit(1)
@@ -140,6 +153,35 @@ func deriveTasks(objective string, agents []AgentRole, process string) []TaskNod
 		add("T3", "Verify and archive", "critic", []string{"T2"}, "verification and memory update", []string{"result reproducible", "memory updated if durable"})
 	}
 	return tasks
+}
+
+func BuildActivation(plan ChainPlan) Activation {
+	return Activation{
+		Status: "active",
+		Transmission: []string{
+			"APEX formula mirror: identify shortest real bottleneck before acting",
+			"Praison role chain: planner -> builder -> critic -> memory archivist",
+			"OpenHands execution boundary: bounded filesystem/terminal action through harness bridge",
+			"Fusion engine: run evolver/autoresearch/superpowers/harness/dawn gates",
+			"Evidence validator: admit only sourced, committed, verified records",
+		},
+		RequiredGates: []string{
+			"scripts/apex-praison-chain/apex-praison-chain --mode activate",
+			"scripts/apex-fusion-engine/apex-fusion-engine --mode selftest",
+			"scripts/apex-evidence-validator/apex-evidence-validator --mode validate",
+		},
+		EvidenceOutputs: []string{
+			"state/apex-praison-activation.json",
+			"state/apex-fusion-engine-latest.json",
+			"state/apex-fusion-evidence-report.json",
+		},
+		NoVirtualData: []string{
+			"No fabricated benchmark values.",
+			"No memory admission without source_repo/source_commit/source_path/context_id.",
+			"No PHI promotion without a runnable gate artifact.",
+		},
+		BackgroundUse: "Use this skill when a task needs multi-agent decomposition, execution, verification, and memory admission as one closed APEX loop.",
+	}
 }
 
 func scorePlan(agents []AgentRole, tasks []TaskNode, process string) Score {

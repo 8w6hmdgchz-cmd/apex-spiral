@@ -30,6 +30,12 @@ From the installed repository README/source snapshot:
 ## Core Formula
 
 ```text
+ApexPraisonTransmission = APEXFormulaMirror × RoleAgents × TaskGraph × ToolGate × FusionGate × EvidenceAdmission × MemLedger
+```
+
+The older planning core remains:
+
+```text
 ApexPraisonChain = RoleAgents × TaskGraph × ProcessMode × ToolGate × VerifyLoop × MemLedger
 ```
 
@@ -54,6 +60,34 @@ Use for complex tasks where the work benefits from explicit agent roles:
 | VerifyLoop | Forces concrete checks before final claims |
 | MemLedger | Records durable lessons into memory or skills |
 
+## Background Activation Protocol
+
+Use this skill as a reusable APEX transmission chain when a task must move from intent to verified system change:
+
+1. Run `apex-praison-chain --mode activate` to create role/task/guardrail/evidence plan.
+2. Execute concrete work through local tools or `apex-harness-bridge` when a CLI/MCP boundary is needed.
+3. Run `apex-fusion-engine --mode selftest` to verify evolver/autoresearch/superpowers/harness/dawn gates together.
+4. Run `apex-evidence-validator` before admitting claims into memory.
+5. Update `state/phi_v10_result.json` only from real artifacts, never from invented scores.
+
+Activation command:
+
+```bash
+cd /Users/lihongxin/.openclaw/workspace/scripts/apex-praison-chain
+./apex-praison-chain --mode activate \
+  --task "activate APEX formula transmission chain for verified closed-loop work" \
+  --process hierarchical \
+  --out /Users/lihongxin/.openclaw/workspace/state/apex-praison-activation.json
+```
+
+Required evidence outputs:
+
+```text
+state/apex-praison-activation.json
+state/apex-fusion-engine-latest.json
+state/apex-fusion-evidence-report.json
+```
+
 ## CLI
 
 ```bash
@@ -67,6 +101,9 @@ cd /Users/lihongxin/.openclaw/workspace/scripts/apex-praison-chain
 
 # Emit score only
 ./apex-praison-chain --mode score --task "吸收GitHub repo为本地skill"
+
+# Activate full APEX transmission plan
+./apex-praison-chain --mode activate --task "闭环执行并证据入库" --process hierarchical
 
 # Print skill summary
 ./apex-praison-chain --mode skill
