@@ -1,0 +1,76 @@
+{
+  "id": "apex-cmmi-1779779441",
+  "started_at": "2026-05-26T15:10:41+08:00",
+  "objective": "APEX CMMI industrial delivery closed loop",
+  "status": "success",
+  "container_mode": "unavailable_local_sandbox",
+  "docker_available": false,
+  "formula": "Apex_CMMI = Apex_agent × (Plan→Code→Audit→Test→Release) × EvidenceGate",
+  "phases": [
+    {
+      "id": "P1",
+      "name": "APEX Formula Planning",
+      "owner": "GPT/phasor planner",
+      "standard": "CMMI PP + IPM",
+      "gate": "phasor route + twelve-factor gate",
+      "evidence": [
+        "state/apex-phasor-llm-latest.json",
+        "state/apex-12factor-agent-latest.json"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "P2",
+      "name": "Claude-Code Implementation Slot",
+      "owner": "coding agent",
+      "standard": "CMMI TS + PI",
+      "gate": "git diff + build gate",
+      "evidence": [
+        "scripts/apex-agent-dispatch/main.go"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "P3",
+      "name": "APEX PR Audit",
+      "owner": "GPT/APEX reviewer",
+      "standard": "CMMI VER + VAL",
+      "gate": "fusion + evidence validator",
+      "evidence": [
+        "state/apex-fusion-engine-latest.json",
+        "state/apex-fusion-evidence-report.json"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "P4",
+      "name": "Automated Test Closure",
+      "owner": "harness",
+      "standard": "CMMI PPQA + CM",
+      "gate": "ECC cycle + 12factor + hygiene",
+      "evidence": [
+        "state/apex-ecc-runtimeos-latest.json",
+        "state/apex-hygiene-latest.json"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "P5",
+      "name": "GitHub Release Sync",
+      "owner": "governance",
+      "standard": "CMMI CM + DAR",
+      "gate": "safe rebase/push",
+      "evidence": [
+        "memory/metrics/task_runs.jsonl"
+      ],
+      "status": "pass"
+    }
+  ],
+  "evidence": [
+    "state/apex-cmmi-delivery-latest.json",
+    "state/apex-fusion-engine-latest.json",
+    "state/apex-fusion-evidence-report.json"
+  ],
+  "next": "use_as_default_delivery_harness",
+  "format": "apex-cmmi-delivery-1.0"
+}

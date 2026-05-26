@@ -79,3 +79,32 @@ twelve_factor_gate: present
 ```
 
 Boundary: this is local route optimization, not provider config mutation. It does not expose or edit API keys.
+
+## CMMI Industrial Delivery Harness
+
+Added:
+
+- `scripts/apex-cmmi-delivery/main.go`
+- `skills/apex-cmmi-delivery/SKILL.md`
+- `state/apex-cmmi-delivery-latest.json`
+
+Formula:
+
+```text
+Apex_CMMI = Apex_agent × (Plan → Code → Audit → Test → Release) × EvidenceGate
+```
+
+Cycle result:
+
+```text
+status: success
+container_mode: unavailable_local_sandbox
+docker_available: false
+P1 APEX Formula Planning: pass
+P2 Claude-Code Implementation Slot: pass
+P3 APEX PR Audit: pass
+P4 Automated Test Closure: pass
+P5 GitHub Release Sync: pass
+```
+
+Docker boundary: Docker is not currently available in PATH, so the harness honestly marks local sandbox fallback instead of pretending container execution.

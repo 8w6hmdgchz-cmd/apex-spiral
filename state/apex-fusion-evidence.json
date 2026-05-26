@@ -1,11 +1,11 @@
 [
   {
-    "id": "fusion:apex-fusion-1779777581",
+    "id": "fusion:apex-fusion-1779779431",
     "claim": "APEX fusion engine executed phasor LLM routing, agent dispatch planning, evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts.",
     "source_repo": "8w6hmdgchz-cmd/apex-spiral",
-    "source_commit": "6b1bd059d425",
+    "source_commit": "daab6ecb9ce4",
     "source_path": "scripts/apex-fusion-engine/main.go",
-    "context_id": "apex-fusion-1779777581",
+    "context_id": "apex-fusion-1779779431",
     "score": 1,
     "verification": {
       "command": "scripts/apex-fusion-engine/apex-fusion-engine --mode selftest",
