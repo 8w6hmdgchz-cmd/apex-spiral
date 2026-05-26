@@ -108,3 +108,33 @@ P5 GitHub Release Sync: pass
 ```
 
 Docker boundary: Docker is not currently available in PATH, so the harness honestly marks local sandbox fallback instead of pretending container execution.
+
+## Evidence-backed Memory Admission
+
+Added:
+
+- `scripts/apex-memory-admission/main.go`
+- `state/apex-memory-admission-latest.json`
+- `state/apex-memory-admission-evidence-report.json`
+
+Flow:
+
+```text
+fusion evidence → apex-evidence-validator → sigma_memory admission → PHI full mirror
+```
+
+CMMI delivery now has six phases:
+
+```text
+Plan → Code → Audit → Test → Memory → Release
+```
+
+Latest verification:
+
+```text
+memory_admission_status: success
+validated: true
+sigma_memory: 0.3687
+cmmi_status: success
+P1..P6: pass
+```

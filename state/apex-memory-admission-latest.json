@@ -1,0 +1,23 @@
+{
+  "id": "apex-memory-admit-1779780362",
+  "started_at": "2026-05-26T15:26:02+08:00",
+  "status": "success",
+  "input": "state/apex-fusion-evidence.json",
+  "validated": true,
+  "added": 1,
+  "skipped": 0,
+  "memory_count": 418,
+  "sigma_memory": 0.3687,
+  "type_counts": {
+    "Episodic": 177,
+    "Procedural": 61,
+    "Semantic": 112,
+    "Working": 68
+  },
+  "evidence": [
+    "state/apex-fusion-evidence.json",
+    "state/sigma_memory.json",
+    "state/apex-memory-admission-evidence-report.json"
+  ],
+  "format": "apex-memory-admission-1.0"
+}

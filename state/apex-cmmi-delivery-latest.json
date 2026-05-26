@@ -1,11 +1,11 @@
 {
-  "id": "apex-cmmi-1779779441",
-  "started_at": "2026-05-26T15:10:41+08:00",
-  "objective": "APEX CMMI industrial delivery closed loop",
+  "id": "apex-cmmi-1779780362",
+  "started_at": "2026-05-26T15:26:02+08:00",
+  "objective": "APEX CMMI with automatic memory admission",
   "status": "success",
   "container_mode": "unavailable_local_sandbox",
   "docker_available": false,
-  "formula": "Apex_CMMI = Apex_agent × (Plan→Code→Audit→Test→Release) × EvidenceGate",
+  "formula": "Apex_CMMI = Apex_agent × (Plan→Code→Audit→Test→Memory→Release) × EvidenceGate",
   "phases": [
     {
       "id": "P1",
@@ -56,6 +56,18 @@
     },
     {
       "id": "P5",
+      "name": "Evidence Memory Admission",
+      "owner": "memory governor",
+      "standard": "CMMI MA + PPQA",
+      "gate": "evidence validator + sigma memory admission",
+      "evidence": [
+        "state/apex-memory-admission-latest.json",
+        "state/apex-memory-admission-evidence-report.json"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "P6",
       "name": "GitHub Release Sync",
       "owner": "governance",
       "standard": "CMMI CM + DAR",
@@ -69,7 +81,8 @@
   "evidence": [
     "state/apex-cmmi-delivery-latest.json",
     "state/apex-fusion-engine-latest.json",
-    "state/apex-fusion-evidence-report.json"
+    "state/apex-fusion-evidence-report.json",
+    "state/apex-memory-admission-latest.json"
   ],
   "next": "use_as_default_delivery_harness",
   "format": "apex-cmmi-delivery-1.0"

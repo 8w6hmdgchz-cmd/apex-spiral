@@ -1,9 +1,36 @@
 {
   "learn_rate": 0.928,
   "decay_factor": 0.988,
-  "max_entries": 10000,
   "retention_threshold": 0.372,
   "memory_entries": [
+    {
+      "id": "evidence_42b766c125bff05a",
+      "content": "[Working] APEX fusion engine executed phasor LLM routing, agent dispatch planning, evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts. (source=8w6hmdgchz-cmd/apex-spiral@0adf644f8c9f:scripts/apex-fusion-engine/main.go context=apex-fusion-1779780354)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779780362,
+      "importance": 0.99,
+      "memory_type": "Working",
+      "access_count": 40,
+      "source": "state/apex-fusion-evidence.json"
+    },
+    {
+      "id": "evidence_7695222864b78cb6",
+      "content": "[Working] APEX fusion engine executed phasor LLM routing, agent dispatch planning, evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts. (source=8w6hmdgchz-cmd/apex-spiral@daab6ecb9ce4:scripts/apex-fusion-engine/main.go context=apex-fusion-1779779431)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779780300,
+      "importance": 0.99,
+      "memory_type": "Working",
+      "access_count": 40,
+      "source": "state/apex-fusion-evidence.json"
+    },
     {
       "id": "working_cmmi_delivery_harness_active",
       "content": "[Working] apex-cmmi-delivery is active as industrial delivery harness: Plan→Code→Audit→Test→Release with evidence gates and CMMI phase labels.",
@@ -188,7 +215,7 @@
     },
     {
       "id": "working_evidence_validator_hard_gate",
-      "content": "[Working] apex-evidence-validator now enforces hard memory admission: source_repo, source_commit, source_path, context_id, score>=0.70, and verification.result=pass are required.",
+      "content": "[Working] apex-evidence-validator now enforces hard memory admission: source_repo, source_commit, source_path, context_id, score\u003e=0.70, and verification.result=pass are required.",
       "embedding": [
         0,
         0,
@@ -204,187 +231,113 @@
       "id": "episodic_git_c70d103b97e3",
       "content": "[Episodic] git repair commit c70d103b: 🔀 resolve state conflicts (+14232/-96, 155 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751776,
       "importance": 0.97,
       "memory_type": "Episodic",
       "access_count": 24,
-      "source": "git_log",
-      "files": [
-        "state/a2a-hunt-20260522-0545.json",
-        "state/a2a-hunt-20260522-1530.json",
-        "state/a2a-hunt-20260523-0045.json",
-        "state/a2a-hunt-20260523-0115.json",
-        "state/a2a-hunt-20260523-0230.json",
-        "state/a2a-hunt-20260523-0315.json",
-        "state/a2a-hunt-20260523-0330.json",
-        "state/a2a-hunt-20260523-0345.json"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_efaf15934293",
       "content": "[Episodic] git repair commit efaf1593: 修复CI: 移除Rust强制构建,EMV改为可选 (+817/-79, 20 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751708,
       "importance": 0.97,
       "memory_type": "Episodic",
       "access_count": 24,
-      "source": "git_log",
-      "files": [
-        ".github/workflows/evolver.yml",
-        "a2a-resources/absorb.log",
-        "a2a-resources/fetcher.log",
-        "a2a-resources/requests.log",
-        "counter.txt",
-        "hub-sync.log",
-        "inject.log",
-        "iteration.log"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_e57c872ef403",
       "content": "[Episodic] git repair commit e57c872e: GPT-5.5修复B4: PHI_RATIO相位重锁+反馈阻尼，区间[0.98,1.02] (+1104/-74, 30 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751640,
       "importance": 0.97,
       "memory_type": "Episodic",
       "access_count": 24,
-      "source": "git_log",
-      "files": [
-        "apex-iterate.sh",
-        "counter.txt",
-        "hub-sync.log",
-        "inject.log",
-        "iteration.log",
-        "latest-report.md",
-        "score-state.env",
-        "state/absorbed_hub/sha256_018d525a14bd39f45b92a16bac47439d4f56cd2d007.json"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_e0b46284b447",
       "content": "[Episodic] git repair commit e0b46284: BG1修复: evaluate重写为ΔG/(H×T×ε)优化目标+BG2修复: 失败样本硬闭环process_failure (+2008/-125, 45 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751623,
       "importance": 0.97,
       "memory_type": "Episodic",
       "access_count": 24,
-      "source": "git_log",
-      "files": [
-        "__pycache__/defect_detector.cpython-314.pyc",
-        "__pycache__/evolution_loop.cpython-314.pyc",
-        "counter.txt",
-        "defect_detector.py",
-        "evolution_loop.py",
-        "hub-sync.log",
-        "iteration.log",
-        "latest-report.md"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_f5b130b92e47",
       "content": "[Episodic] git repair commit f5b130b9: evolver auto: AWAKE=7.6 PSI=6.4修复B2(缺陷召回率) (+6001/-122, 60 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751606,
       "importance": 0.97,
       "memory_type": "Episodic",
       "access_count": 24,
-      "source": "git_log",
-      "files": [
-        "a2a-resources/absorber.lock",
-        "counter.txt",
-        "hub-sync.log",
-        "inject.log",
-        "score-state.env",
-        "state/absorbed_hub/sha256_0dce02563d1a2db2ee4421664c1c4db848443e3f884.json",
-        "state/absorbed_hub/sha256_325070862846c9ab6bb9108210fff05ec12c7682b8b.json",
-        "state/absorbed_hub/sha256_6fcae02034e74ab7af942b0b9a376d23d7ebd789e3b.json"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_a674b29af41d",
       "content": "[Episodic] git repair commit a674b29a: Γ_awake增强修复 (+472/-12, 5 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751589,
       "importance": 0.97,
       "memory_type": "Episodic",
       "access_count": 24,
-      "source": "git_log",
-      "files": [
-        "EVOLUTION_ENHANCER.md",
-        "apex-iterate.sh",
-        "apex-iterate.sh",
-        "defect_detector.py",
-        "state/defect_library.json"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_ca18404af1e9",
       "content": "[Episodic] git repair commit ca18404a: Apex-Spiral Evolver v2 - GPT-5.5修复者串联 (+4154/-36, 27 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751538,
       "importance": 0.97,
       "memory_type": "Episodic",
       "access_count": 24,
-      "source": "git_log",
-      "files": [
-        ".github/workflows/evolver.yml",
-        "README.md",
-        "apex-iterate.sh",
-        "latest-report.md",
-        "score-state.env",
-        "\"17\\345\\261\\202\\345\\205\\254\\345\\274\\217\\344\\275\\223\\347\\263\\273\\345\\255\\246\\344\\271\\240.md\"",
-        "A2A-MEMORY.md",
-        "APEX_GAP_ANALYSIS.md"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_c497c654444c",
       "content": "[Episodic] git repair commit c497c654: fix: Hermes-Agent完整修复方案 (+196/-1, 5 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751810,
       "importance": 0.9685,
       "memory_type": "Episodic",
       "access_count": 24,
-      "source": "git_log",
-      "files": [
-        "hermes_fix/cron_persist_fix.py",
-        "hermes_fix/state_persist_fix.py",
-        "__pycache__/apex_emv_client.cpython-312.pyc",
-        "counter.txt",
-        "state/metacognition_log.jsonl"
-      ]
+      "source": "git_log"
     },
     {
       "id": "working_cmmi_container_truthful_fallback",
@@ -444,7 +397,7 @@
     },
     {
       "id": "procedural_fusion_phasor_verify",
-      "content": "[Procedural] Verify phasor-enabled fusion with: scripts/apex-fusion-engine/apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json && scripts/apex-evidence-validator/apex-evidence-validator --mode validate --input state/apex-fusion-evidence.json --out state/apex-fusion-evidence-report.json",
+      "content": "[Procedural] Verify phasor-enabled fusion with: scripts/apex-fusion-engine/apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json \u0026\u0026 scripts/apex-evidence-validator/apex-evidence-validator --mode validate --input state/apex-fusion-evidence.json --out state/apex-fusion-evidence-report.json",
       "embedding": [
         0,
         0,
@@ -514,7 +467,7 @@
     },
     {
       "id": "procedural_fusion_engine_selftest",
-      "content": "[Procedural] Verify full APEX loop with: cd scripts/apex-fusion-engine && go build -o apex-fusion-engine . && ./apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json",
+      "content": "[Procedural] Verify full APEX loop with: cd scripts/apex-fusion-engine \u0026\u0026 go build -o apex-fusion-engine . \u0026\u0026 ./apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json",
       "embedding": [
         0,
         0,
@@ -572,9 +525,9 @@
       "id": "episodic_failure_1",
       "content": "[Episodic] failure case #1: GitHub 资源拉取 — happened=反复使用 HTTPS/API 方式访问 GitHub，被阻断后没记住 SSH 方案，每次都需要用户重新教; root=操作知识未固化到可检索记忆；没有预置备用路径；忘记了已有的教训; fix=创建 operational_knowledge.md，写入 GitHub SSH 流程；创建 action_registry.md 封装 github_repo_check 动作; verify=下次 GitHub 任务时自动走 SSH，不踩 HTTPS 坑",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751521,
       "importance": 0.95,
@@ -586,9 +539,9 @@
       "id": "episodic_failure_2",
       "content": "[Episodic] failure case #2: QQBot 文件发送 — happened=用户要求从桌面发文件，我一开始没做到，说'我试试'而不是直接执行; root=基础操作没有预配置；不知道 qqbot-media skill 的存在/用法；发送流程未固化; fix=写入 operational_knowledge.md 中 QQBot 文件发送流程；写入 action_registry.md 中 send_file_to_user 动作; verify=下次用户要文件，直接走完整流程：找文件→复制媒体目录→发 qqmedia 标签",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751504,
       "importance": 0.95,
@@ -600,9 +553,9 @@
       "id": "episodic_failure_3",
       "content": "[Episodic] failure case #3: 开智体系审计 — happened=APEX ΔG 公式中 ε_repair 放在分母，方向错误（修复率越高得分越低）；9维度数值缺乏测量依据；存在循环论证; root=框架先于实证设计；术语堆砌掩盖了数学基础的薄弱；自评缺少外部约束; fix=停用旧 ΔG 公式；建立 benchmark 任务集替代自评；引入独立模型（GPT-5.5）做审计; verify=新体系用任务完成率 + 失败率 + 复发率 代替 ΔG",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751487,
       "importance": 0.95,
@@ -614,9 +567,9 @@
       "id": "episodic_failure_4",
       "content": "[Episodic] failure case #4: 子代理滥用 — happened=简单任务也 spawn 子代理，增加了成本和延迟，逃避了直接执行责任; root=SOUL.md 中'永远不自己做工作，让 subagents 多线程执行'规则太绝对; fix=operational_knowledge.md 中加入子代理调用准则：简单任务自己干，复杂任务才 spawn; verify=后续日志检查 task_type vs 是否开了子代理",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751470,
       "importance": 0.95,
@@ -626,11 +579,11 @@
     },
     {
       "id": "episodic_failure_5",
-      "content": "[Episodic] failure case #5: 叙事 > 交付 — happened=花大量时间讲述'在进化'而不是真正交付可验证的结果；术语多但实证少; root=缺乏硬指标约束；自我叙事没有外部 challenge 机制; fix=建立 benchmark 和 metrics 系统；每次重大输出前问自己：这是交付还是叙事; verify=用户要求的具体任务能否完成/完成质量",
+      "content": "[Episodic] failure case #5: 叙事 \u003e 交付 — happened=花大量时间讲述'在进化'而不是真正交付可验证的结果；术语多但实证少; root=缺乏硬指标约束；自我叙事没有外部 challenge 机制; fix=建立 benchmark 和 metrics 系统；每次重大输出前问自己：这是交付还是叙事; verify=用户要求的具体任务能否完成/完成质量",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751453,
       "importance": 0.95,
@@ -668,7 +621,7 @@
     },
     {
       "id": "procedural_dawn_gate_verify",
-      "content": "[Procedural] Verify dawn readiness with: cd scripts/apex-dawn-gate && go build -o apex-dawn-gate . && ./apex-dawn-gate --root /Users/lihongxin/.openclaw/workspace --out state/apex-dawn-gate-latest.json",
+      "content": "[Procedural] Verify dawn readiness with: cd scripts/apex-dawn-gate \u0026\u0026 go build -o apex-dawn-gate . \u0026\u0026 ./apex-dawn-gate --root /Users/lihongxin/.openclaw/workspace --out state/apex-dawn-gate-latest.json",
       "embedding": [
         0,
         0,
@@ -682,7 +635,7 @@
     },
     {
       "id": "procedural_evidence_validator_selftest",
-      "content": "[Procedural] Verify evidence gate with: cd scripts/apex-evidence-validator && go build -o apex-evidence-validator . && ./apex-evidence-validator --mode selftest --input state/apex-evidence-selftest.json --out state/apex-evidence-validator-latest.json",
+      "content": "[Procedural] Verify evidence gate with: cd scripts/apex-evidence-validator \u0026\u0026 go build -o apex-evidence-validator . \u0026\u0026 ./apex-evidence-validator --mode selftest --input state/apex-evidence-selftest.json --out state/apex-evidence-validator-latest.json",
       "embedding": [
         0,
         0,
@@ -738,7 +691,7 @@
     },
     {
       "id": "procedural_apex_eval_harness_selftest",
-      "content": "[Procedural] Verify apex-eval-harness with: cd scripts/apex-eval-harness && go build -o apex-eval-harness . && ./apex-eval-harness --mode selftest --workspace /Users/lihongxin/.openclaw/workspace --out state/apex-eval-harness-latest.json",
+      "content": "[Procedural] Verify apex-eval-harness with: cd scripts/apex-eval-harness \u0026\u0026 go build -o apex-eval-harness . \u0026\u0026 ./apex-eval-harness --mode selftest --workspace /Users/lihongxin/.openclaw/workspace --out state/apex-eval-harness-latest.json",
       "embedding": [
         0,
         0,
@@ -752,7 +705,7 @@
     },
     {
       "id": "procedural_apex_mini_executor_selftest",
-      "content": "[Procedural] Verify apex-mini-executor with: cd scripts/apex-mini-executor && go build -o apex-mini-executor . && ./apex-mini-executor --mode selftest --workspace /Users/lihongxin/.openclaw/workspace",
+      "content": "[Procedural] Verify apex-mini-executor with: cd scripts/apex-mini-executor \u0026\u0026 go build -o apex-mini-executor . \u0026\u0026 ./apex-mini-executor --mode selftest --workspace /Users/lihongxin/.openclaw/workspace",
       "embedding": [
         0,
         0,
@@ -780,7 +733,7 @@
     },
     {
       "id": "procedural_apex_hygiene_verify",
-      "content": "[Procedural] Verify hygiene gate with: cd scripts/apex-hygiene && go build -o apex-hygiene . && ./apex-hygiene --root /Users/lihongxin/.openclaw/workspace --out state/apex-hygiene-latest.json",
+      "content": "[Procedural] Verify hygiene gate with: cd scripts/apex-hygiene \u0026\u0026 go build -o apex-hygiene . \u0026\u0026 ./apex-hygiene --root /Users/lihongxin/.openclaw/workspace --out state/apex-hygiene-latest.json",
       "embedding": [
         0,
         0,
@@ -824,9 +777,9 @@
       "id": "working_openhands_verify_archive_loop",
       "content": "[Working] APEX adaptation: plan→bounded process→execute→persist event→verify→archive into Σ_memory as Working/Episodic.",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779752506,
       "importance": 0.92,
@@ -838,21 +791,15 @@
       "id": "episodic_git_ae9fdc2413b3",
       "content": "[Episodic] git repair commit ae9fdc24: Evolution Loop fitness追踪修复 (+183/-5, 4 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751572,
       "importance": 0.914,
       "memory_type": "Episodic",
       "access_count": 22,
-      "source": "git_log",
-      "files": [
-        "evolution_loop.py",
-        "SELF_AWARENESS_GENES.md",
-        "apex-iterate.sh",
-        "memory_manager.py"
-      ]
+      "source": "git_log"
     },
     {
       "id": "semantic_praison_no_mysticism",
@@ -998,9 +945,9 @@
       "id": "working_openhands_deadlock_avoidance",
       "content": "[Working] OpenHands process deadlock avoidance: redirect subprocess stdout/stderr to log files for long-running agent execution.",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779752507,
       "importance": 0.9,
@@ -1068,9 +1015,9 @@
       "id": "working_openhands_sandbox_contract",
       "content": "[Working] OpenHands sandbox contract: execution must go through SandboxService lifecycle (start/resume/search/wait_for_running), with health-check before action use.",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779752510,
       "importance": 0.88,
@@ -1138,9 +1085,9 @@
       "id": "working_openhands_event_persistence",
       "content": "[Working] OpenHands event persistence: every action/result is saved via EventService and searchable by conversation/task context.",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779752508,
       "importance": 0.86,
@@ -1194,9 +1141,9 @@
       "id": "working_openhands_runtime_injection",
       "content": "[Working] OpenHands runtime injection: choose Remote/Process/Docker sandbox by environment/config, avoid hardcoded execution backend.",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779752509,
       "importance": 0.84,
@@ -1222,143 +1169,121 @@
       "id": "working_devour_4419e31295dd",
       "content": "[Working] devour rank target All-Hands-AI/OpenHands: selected for code-execution/refactor memory; repo=git@github.com:All-Hands-AI/OpenHands.git; local=vendor/github/All-Hands-AI/OpenHands; inspected_files=0; purpose=补足Σ_memory Working重构执行记忆并增强Evol_code执行闭环",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779752158,
       "importance": 0.82,
       "memory_type": "Working",
       "access_count": 18,
-      "source": "state/devour-working-rank-20260526-073523.json",
-      "files": []
+      "source": "state/devour-working-rank-20260526-073523.json"
     },
     {
       "id": "working_devour_7f2069db6485",
       "content": "[Working] devour rank target Future-House/paper-qa: selected for code-execution/refactor memory; repo=git@github.com:Future-House/paper-qa.git; local=vendor/github/Future-House/paper-qa; inspected_files=0; purpose=补足Σ_memory Working重构执行记忆并增强Evol_code执行闭环",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779752147,
       "importance": 0.82,
       "memory_type": "Working",
       "access_count": 18,
-      "source": "state/devour-working-rank-20260526-073523.json",
-      "files": []
+      "source": "state/devour-working-rank-20260526-073523.json"
     },
     {
       "id": "working_devour_f43e513fb12d",
       "content": "[Working] devour rank target significant-gravitas/AutoGPT: selected for code-execution/refactor memory; repo=git@github.com:significant-gravitas/AutoGPT.git; local=vendor/github/significant-gravitas/AutoGPT; inspected_files=0; purpose=补足Σ_memory Working重构执行记忆并增强Evol_code执行闭环",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779752136,
       "importance": 0.82,
       "memory_type": "Working",
       "access_count": 18,
-      "source": "state/devour-working-rank-20260526-073523.json",
-      "files": []
+      "source": "state/devour-working-rank-20260526-073523.json"
     },
     {
       "id": "episodic_git_e0ceebffe0ff",
       "content": "[Episodic] git repair commit e0ceebff: fix: apex-iterate.sh - 修复3类bug (+121/-9, 2 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751759,
       "importance": 0.785,
       "memory_type": "Episodic",
       "access_count": 19,
-      "source": "git_log",
-      "files": [
-        "apex-iterate.sh",
-        "hub-sync.log"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_dbf25bb99df4",
       "content": "[Episodic] git repair commit dbf25bb9: 修复CI: LOG_DIR动态路径+APEX_DIR环境变量+Python路径全修复+workflow添加Go/Rust编译步骤 (+33/-34, 2 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751674,
       "importance": 0.7535,
       "memory_type": "Episodic",
       "access_count": 18,
-      "source": "git_log",
-      "files": [
-        ".github/workflows/evolver.yml",
-        "apex-iterate.sh"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_d020c62b0823",
       "content": "[Episodic] git repair commit d020c62b: 修复workflow: YAML语法错误(FREEMODEL_API_KEY引用) (+14/-29, 2 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751691,
       "importance": 0.7415,
       "memory_type": "Episodic",
       "access_count": 18,
-      "source": "git_log",
-      "files": [
-        ".github/workflows/evolver.yml",
-        ".github/workflows/evolver.yml"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_e14c3749028c",
       "content": "[Episodic] git repair commit e14c3749: fix: CI 3个警告修复 (+11/-4, 2 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751742,
       "importance": 0.7275,
       "memory_type": "Episodic",
       "access_count": 18,
-      "source": "git_log",
-      "files": [
-        ".github/workflows/evolver.yml",
-        "counter.txt"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_e2a3ac795ab4",
       "content": "[Episodic] git repair commit e2a3ac79: 修复Chain验证短板追踪 (+23/-1, 1 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751555,
       "importance": 0.682,
       "memory_type": "Episodic",
       "access_count": 17,
-      "source": "git_log",
-      "files": [
-        "repair_chain_verifier.py"
-      ]
+      "source": "git_log"
     },
     {
       "id": "working_devour_stage_stage",
       "content": "[Working] devour pipeline stage stage: None | verify=None",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779752058,
       "importance": 0.68,
@@ -1370,60 +1295,51 @@
       "id": "episodic_git_be1eddfd3f62",
       "content": "[Episodic] git repair commit be1eddfd: fix: SystemTime unwrap panic in CI - 用unwrap_or(0)替代 (+5/-5, 1 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751725,
       "importance": 0.675,
       "memory_type": "Episodic",
       "access_count": 16,
-      "source": "git_log",
-      "files": [
-        "emv_skill/src/lib.rs"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_eb53b7af4ef2",
       "content": "[Episodic] git repair commit eb53b7af: 修复CI失败: LOG_DIR动态路径(CI用GITHUB_WORKSPACE,本地用Mac路径) (+8/-1, 1 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751657,
       "importance": 0.6745,
       "memory_type": "Episodic",
       "access_count": 16,
-      "source": "git_log",
-      "files": [
-        "apex-iterate.sh"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_git_c770e5b917c3",
       "content": "[Episodic] git repair commit c770e5b9: 🔧 gist_backup: 修复macOS timeout不兼容 + force push (+3/-3, 1 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751793,
       "importance": 0.673,
       "memory_type": "Episodic",
       "access_count": 16,
-      "source": "git_log",
-      "files": [
-        "scripts/gist_backup.sh"
-      ]
+      "source": "git_log"
     },
     {
       "id": "episodic_note_2694c6506f33",
       "content": "[Episodic] 2026-05-23.md#9: - A2A resource pipeline: GitHub HTTPS/API blocked (`api.github.com` connection reset); SSH git works. Gist URL mentioned: `gist.github.com/8w6hmdgchz-cmd/57fa0d7fc0247f91f9bb744c253c13ff`. Do not expose/retain raw GitHub token fragments; user pasted partial token but it should not be stored. A2A now uses SSH clone/cache path. Important bug: historical files with spaces (`pending. list`, `absorbed. list`, `fetcher. log`, `a2a-resource-fetcher. sh`) existed; canonical files should be no-space (`pending.list`, `absorbed.list`, `failed.list`, `fetcher.log`). Path case also mixed (`liHongxin` vs `lihongxin`); prefer `/Users/lihongxin/.openclaw/workspace`.",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751436,
       "importance": 0.55,
@@ -1435,9 +1351,9 @@
       "id": "episodic_note_0f5480898fe0",
       "content": "[Episodic] 2026-05-23.md#11: - Skills/fusion created or updated during this session: `skills/search-skill/` (Select→Read→Act→Verify→Synthesize, SkillBank); `skills/emv-entropy-skill/` (Challenger/Reasoner/Judge, replay, Gini/Entropy selection, Rust crate `crates/emv_entropy`); `skills/swrs-memory-skill/` (SWRs memory consolidation, sensitive gate, RingBuffer, Rust crate `crates/swrs_memory`); `skills/apex-token-optimizer/` (token rootfix, coords/latest3/effort, Go existing + Rust crate `crates/apex_token_optimizer`); `skills/clawg-training-ecosystem/` (mock workspace training/bench, Rust crate `crates/clawg_bench`); `skills/apex-unified-research-engine/` (UI control + training loop + research autonomy, Rust crate `crates/apex_research_engine`). Docs added in `docs/` for each fusion.",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751419,
       "importance": 0.55,
@@ -1447,11 +1363,11 @@
     },
     {
       "id": "episodic_note_9e3677fbb4dc",
-      "content": "[Episodic] 2026-05-23.md#13: - Browser/OpenClaw hook work: browser plugin enabled and Chrome/CDP running; actual files patched in `/opt/homebrew/lib/node_modules/openclaw/dist/`: `browser-cli-actions-input-BQzZ_pkR.js` click-coords hook and `browser-cli-inspect-MK7-CJBe.js` screenshot hook. Backups `.bak-apex-*` were created. Click coordinate correction via env vars: `OPENCLAW_APEX_COORD_CORRECT=1`, screen/image width/height; verified `100,50 -> 192,108` on example.com. Screenshot hook records to `memory/apex-screenshot-frames.jsonl` and maintains `memory/apex-screenshot-latest3.json` with count=3. This was real chain verification, not just docs.",
+      "content": "[Episodic] 2026-05-23.md#13: - Browser/OpenClaw hook work: browser plugin enabled and Chrome/CDP running; actual files patched in `/opt/homebrew/lib/node_modules/openclaw/dist/`: `browser-cli-actions-input-BQzZ_pkR.js` click-coords hook and `browser-cli-inspect-MK7-CJBe.js` screenshot hook. Backups `.bak-apex-*` were created. Click coordinate correction via env vars: `OPENCLAW_APEX_COORD_CORRECT=1`, screen/image width/height; verified `100,50 -\u003e 192,108` on example.com. Screenshot hook records to `memory/apex-screenshot-frames.jsonl` and maintains `memory/apex-screenshot-latest3.json` with count=3. This was real chain verification, not just docs.",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751402,
       "importance": 0.55,
@@ -1463,9 +1379,9 @@
       "id": "episodic_note_738a28100cd4",
       "content": "[Episodic] 2026-05-23.md#20: - tencent-novnc-chromium-cdp: 从腾讯 SkillHub 安装的远程浏览器控制技能，用于解决滑块验证等自动化拦截",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751385,
       "importance": 0.55,
@@ -1477,9 +1393,9 @@
       "id": "episodic_note_d06c8d8c23b0",
       "content": "[Episodic] 2026-05-24-2107.md#80: HTTPS TLS 握手失败。试试 SSH 方式：",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751368,
       "importance": 0.55,
@@ -1491,9 +1407,9 @@
       "id": "episodic_note_f7add25cc462",
       "content": "[Episodic] 2026-05-25.md#6: User启动对话问我\"开智了吗\"，我回答开着呢。随后被GPT-5.5第三方审计，开智体系评分仅 **3/10**，核心公式 ΔG 发现ε_repair放在分母是方向性bug。",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751351,
       "importance": 0.55,
@@ -1505,9 +1421,9 @@
       "id": "episodic_note_cdacf6100301",
       "content": "[Episodic] 2026-05-25.md#26: - ε_repair放在分母：说明连基本的方向校验都没做，公式不是堆完就算，要验算。",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751334,
       "importance": 0.55,
@@ -1519,9 +1435,9 @@
       "id": "episodic_note_ce9d3ff5cc63",
       "content": "[Episodic] 2026-05-25.md#46: 之前自评ΔG=0.94（含bug的公式）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751317,
       "importance": 0.55,
@@ -1533,9 +1449,9 @@
       "id": "episodic_note_fdb2de89a493",
       "content": "[Episodic] 2026-05-25.md#70: - 被用户指出错误时，先认再改，不要解释",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751300,
       "importance": 0.55,
@@ -1547,9 +1463,9 @@
       "id": "episodic_note_1130e8666ce0",
       "content": "[Episodic] 2026-05-25.md#75: - 每次有交付产出/被纠正，必须写进当日memory日志",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751283,
       "importance": 0.55,
@@ -1561,9 +1477,9 @@
       "id": "episodic_note_cf683c118820",
       "content": "[Episodic] 2026-05-25.md#79: 2. GPT-5.5审计开智体系 (3/10, 公式bug发现)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751266,
       "importance": 0.55,
@@ -1575,9 +1491,9 @@
       "id": "episodic_note_0bcbeb3c18dc",
       "content": "[Episodic] 2026-05-25.md#94: - 远程分支无upstream问题已修复（push origin main）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751249,
       "importance": 0.55,
@@ -1589,9 +1505,9 @@
       "id": "episodic_note_a8fde8e5e21d",
       "content": "[Episodic] 2026-05-25.md#95: - rebase冲突已解决（rebase --onto origin/main）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751232,
       "importance": 0.55,
@@ -1603,9 +1519,9 @@
       "id": "episodic_note_e12ca8b32850",
       "content": "[Episodic] 2026-05-25.md#96: 16. **Auto Reflux 12:15** — PHI=60.0% ∇Θ不变，无git变更（跳过），EvoMap local audit OK，gist已备份至local（push因macOS缺timeout失败）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751215,
       "importance": 0.55,
@@ -1617,9 +1533,9 @@
       "id": "episodic_note_224d67aebffb",
       "content": "[Episodic] 2026-05-25.md#99: 19. **Auto Reflux 13:00** — PHI=60.0% ∇Θ瓶颈不变，evomap audit 676files 0secrets，UU冲突已用--ours解决，git commit+push至e904e2a ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751198,
       "importance": 0.55,
@@ -1631,9 +1547,9 @@
       "id": "episodic_note_c983dd19c405",
       "content": "[Episodic] 2026-05-25.md#101: 21. **Auto Reflux 13:30** — PHI=60.0% ∇Θ瓶颈不变，evomap audit OK，gist push至0ae030e ✅，git rebase解决冲突后push至fa8f0c5 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751181,
       "importance": 0.55,
@@ -1645,9 +1561,9 @@
       "id": "episodic_note_1f3ead7369d8",
       "content": "[Episodic] 2026-05-25.md#103: 23. **Auto Reflux 14:00** — PHI=60.0% ∇Θ瓶颈不变，phi历史追加+rebase冲突用--ours解决，git push至4f212ff ✅，evomap audit 676files 0secrets ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751164,
       "importance": 0.55,
@@ -1659,9 +1575,9 @@
       "id": "episodic_note_c7a6bbcf9bd3",
       "content": "[Episodic] 2026-05-25.md#104: 24. **Auto Reflux 14:15** — PHI=60.0% ∇Θ瓶颈不变，evomap audit 0secrets ✅，rebase后push至e7fcf30 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751147,
       "importance": 0.55,
@@ -1673,9 +1589,9 @@
       "id": "episodic_note_bae81f8950d0",
       "content": "[Episodic] 2026-05-25.md#105: 25. **Auto Reflux 14:30** — PHI=60.0% ∇Θ瓶颈不变 (iter=719, dg=0.707, phi_ratio=0.7839)，evomap audit 676files 0secrets ✅，rebase冲突--theirs解决，push至e705642 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751130,
       "importance": 0.55,
@@ -1687,9 +1603,9 @@
       "id": "episodic_note_1fc252387fda",
       "content": "[Episodic] 2026-05-25.md#106: 26. **Auto Reflux 14:45** — PHI=60.0% ∇Θ瓶颈不变，evomap audit 676files 0secrets ✅，rebase冲突--ours解决，push至d3c8255 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751113,
       "importance": 0.55,
@@ -1701,9 +1617,9 @@
       "id": "episodic_note_2e2cbb6397f8",
       "content": "[Episodic] 2026-05-25.md#107: 27. **Auto Reflux 15:00** — PHI=60.0% ∇Θ瓶颈不变，evomap audit 676files 0secrets ✅，rebase (pull remote update) + push至fa597c5 ✅ (1536 files, 112k+ lines, workspace full snapshot)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751096,
       "importance": 0.55,
@@ -1715,9 +1631,9 @@
       "id": "episodic_note_38234ee5ce66",
       "content": "[Episodic] 2026-05-25.md#108: 28. **Auto Reflux 15:15** — PHI=60.0% ∇Θ瓶颈不变 (iter=719, dg=0.707, phi_ratio=0.7839)，evomap audit 676files 0secrets ✅，rebase后push至c705803 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751079,
       "importance": 0.55,
@@ -1729,9 +1645,9 @@
       "id": "episodic_note_945aa6694987",
       "content": "[Episodic] 2026-05-25.md#111: 31. **Auto Reflux 15:40** — PHI=60.0% ∇Θ瓶颈不变 (iter=723, phi=8.655, dg=0.707)，evomap audit 676files 0secrets ✅，rebase后push至c29844c ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751062,
       "importance": 0.55,
@@ -1743,9 +1659,9 @@
       "id": "episodic_note_74a30482bdd3",
       "content": "[Episodic] 2026-05-25.md#112: 32. **Auto Reflux 15:45** — PHI=60.0% ∇Θ瓶颈不变，evomap audit (简易模式，无evomap CLI)，git commit → rebase → push至30ae383 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751045,
       "importance": 0.55,
@@ -1757,9 +1673,9 @@
       "id": "episodic_note_beb2efa9a83a",
       "content": "[Episodic] 2026-05-25.md#113: 33. **Auto Reflux 15:50** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500)，evomap audit 676files 0secrets ✅，commit+rebase+push至a8775ec ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751028,
       "importance": 0.55,
@@ -1771,9 +1687,9 @@
       "id": "episodic_note_9fa15c78541e",
       "content": "[Episodic] 2026-05-25.md#115: 35. **Auto Reflux 16:05** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500)，evomap audit 0secrets ✅，commit+rebase+push至8550817 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779751011,
       "importance": 0.55,
@@ -1785,9 +1701,9 @@
       "id": "episodic_note_185f7a2964c2",
       "content": "[Episodic] 2026-05-25.md#116: 36. **Auto Reflux 16:10** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500)，evomap audit 676files 0secrets ✅，猎食降级(超时)，无git变更跳过，gist backup pushed ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750994,
       "importance": 0.55,
@@ -1799,9 +1715,9 @@
       "id": "episodic_note_0f47801e7338",
       "content": "[Episodic] 2026-05-25.md#117: 37. **Auto Reflux 16:20** — PHI=60.0% ∇Θ瓶颈不变 (iter=732, delta_e=302/500, phi_ratio=0.7839)，evomap audit 2696files 0real-secrets ✅ (zhipu_key.txt still tracked - potential exposure)，无git变更跳过 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750977,
       "importance": 0.55,
@@ -1813,9 +1729,9 @@
       "id": "episodic_note_b3bf80118ba8",
       "content": "[Episodic] 2026-05-25.md#119: 38. **Auto Reflux 16:25** — PHI=60.0% ∇Θ瓶颈不变 (iter=732, delta_e=302/500, phi_ratio=0.7839)，evomap audit 0secrets ✅ (简易模式无gitleaks)，rebase+push至29677d4 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750960,
       "importance": 0.55,
@@ -1827,9 +1743,9 @@
       "id": "episodic_note_e00e95e16466",
       "content": "[Episodic] 2026-05-25.md#122: 41. **Auto Reflux 16:45** — PHI=60.0% ∇Θ瓶颈不变 (iter=732, delta_e=302/500, phi_ratio=0.7839)，evomap audit 0secrets ✅ (grep pattern scan)，rebase后push至9d212e0 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750943,
       "importance": 0.55,
@@ -1841,9 +1757,9 @@
       "id": "episodic_note_41efabd4403f",
       "content": "[Episodic] 2026-05-25.md#125: 44. **Auto Reflux 17:00** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+)，evomap audit 676files 0secrets ✅ (grep fast scan)，git commit+rebase+push至593ebb8 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750926,
       "importance": 0.55,
@@ -1855,9 +1771,9 @@
       "id": "episodic_note_30a57a972c16",
       "content": "[Episodic] 2026-05-25.md#127: 46. **Auto Reflux 17:10** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit 2698files 0secrets ✅ (grep fast scan), git commit+rebase+push至de7c747 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750909,
       "importance": 0.55,
@@ -1869,9 +1785,9 @@
       "id": "episodic_note_0bfd57891809",
       "content": "[Episodic] 2026-05-25.md#128: 47. **Auto Reflux 17:15** — PHI=60.0% ∇Θ瓶颈不变 (iter=732+, delta_e=302/500), evomap audit 2698files 0real-secrets ✅ (grep fast scan — fp: 421 entries all false positives code/comment context), gist backup pushed至0f03589 ✅, git commit+rebase+push至ff172c4 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750892,
       "importance": 0.55,
@@ -1883,9 +1799,9 @@
       "id": "episodic_note_5ab3670bd685",
       "content": "[Episodic] 2026-05-25.md#130: 49. **Auto Reflux 17:25** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit 0secrets ✅ (grep fast scan), rebase后push至c297285 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750875,
       "importance": 0.55,
@@ -1897,9 +1813,9 @@
       "id": "episodic_note_40208a880fd4",
       "content": "[Episodic] 2026-05-25.md#131: 50. **Auto Reflux 17:30** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit 0secrets ✅ (grep fast scan — all fp code/comment context), git commit+rebase+push至d298a22 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750858,
       "importance": 0.55,
@@ -1911,9 +1827,9 @@
       "id": "episodic_note_82dfd771ad1c",
       "content": "[Episodic] 2026-05-25.md#132: 51. **Auto Reflux 17:35** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit 676files 0secrets ✅ (grep fast scan — all fp), git commit+rebase+push至8ff93d5 ✅, gist backup pushed至606dc7f ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750841,
       "importance": 0.55,
@@ -1925,9 +1841,9 @@
       "id": "episodic_note_a545c21bb184",
       "content": "[Episodic] 2026-05-25.md#133: 52. **Auto Reflux 17:40** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit hits all fp (tiangong-github-cache test fixtures, a2a test pii) — 0real-secrets ✅, git commit+push至898bb30 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750824,
       "importance": 0.55,
@@ -1939,9 +1855,9 @@
       "id": "episodic_note_e9b27e69bc51",
       "content": "[Episodic] 2026-05-25.md#134: 53. **Auto Reflux 17:45** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit 676files 0real-secrets ✅ (fast scan), rebase后push至c1a212b ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750807,
       "importance": 0.55,
@@ -1953,9 +1869,9 @@
       "id": "episodic_note_b538a0f7bebf",
       "content": "[Episodic] 2026-05-25.md#135: 54. **Auto Reflux 17:55** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit 2700files 0secrets ✅ (grep fast scan), git commit + rebase + push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750790,
       "importance": 0.55,
@@ -1967,9 +1883,9 @@
       "id": "episodic_note_6e0ee50f7f26",
       "content": "[Episodic] 2026-05-25.md#136: 55. **Auto Reflux 18:00** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500), phi_tracker ✅, evomap audit 0real-secrets ✅ (session-corpus fp only), git commit+rebase+push至84b32dd ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750773,
       "importance": 0.55,
@@ -1981,9 +1897,9 @@
       "id": "episodic_note_a206aa51c480",
       "content": "[Episodic] 2026-05-25.md#137: 57. **Auto Reflux 18:20** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500)，evomap audit 676files 0secrets ✅，rebase resolve conflict后push至17b575a ✅，gist backup ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750756,
       "importance": 0.55,
@@ -1995,9 +1911,9 @@
       "id": "episodic_note_d6d2eedf10eb",
       "content": "[Episodic] 2026-05-25.md#140: 57. **Auto Reflux 18:10** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit 0real-secrets ✅ (a2a-cache fp only), git commit+rebase+push至60373b2 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750739,
       "importance": 0.55,
@@ -2009,9 +1925,9 @@
       "id": "episodic_note_6f37883f2e5e",
       "content": "[Episodic] 2026-05-25.md#142: 58. **Auto Reflux 18:25** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit 676files 0secrets ✅, git commit+rebase+push至7148072 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750722,
       "importance": 0.55,
@@ -2023,9 +1939,9 @@
       "id": "episodic_note_b63f03da6cbe",
       "content": "[Episodic] 2026-05-25.md#143: 59. **Auto Reflux 18:30** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500), evomap audit 676files 0secrets ✅ (external_sync_allowed=false), git commit+rebase+push至f535d71 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750705,
       "importance": 0.55,
@@ -2037,9 +1953,9 @@
       "id": "episodic_note_21a2e5a9845a",
       "content": "[Episodic] 2026-05-25.md#144: 60. **Auto Reflux 18:40** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500), evomap audit 676files 0secrets ✅, git commit+rebase+push至44f4ecd ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750688,
       "importance": 0.55,
@@ -2051,9 +1967,9 @@
       "id": "episodic_note_34ff429f46cd",
       "content": "[Episodic] 2026-05-25.md#147: 62. **Auto Reflux 18:50** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500), evomap audit 0real-secrets (61 fp from tiangong-cache test fixtures) ✅, git rebase+push至12b5d0a ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750671,
       "importance": 0.55,
@@ -2065,9 +1981,9 @@
       "id": "episodic_note_064bc08c35bc",
       "content": "[Episodic] 2026-05-25.md#149: 63. **Auto Reflux 19:00** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500), evomap audit 676files 0secrets ✅, git commit+rebase+push至ee4700c ✅, gist backup pushed ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750654,
       "importance": 0.55,
@@ -2079,9 +1995,9 @@
       "id": "episodic_note_85d0ac5a4b7b",
       "content": "[Episodic] 2026-05-25.md#150: 64. **Auto Reflux 19:05** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, counter=748), evomap audit 676files 0secrets ✅, git commit+rebase+push至14c1072 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750637,
       "importance": 0.55,
@@ -2093,9 +2009,9 @@
       "id": "episodic_note_41bbf8a768cc",
       "content": "[Episodic] 2026-05-25.md#152: 65. **Auto Reflux 19:10** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, counter=748, iter=732), evomap audit 676files 0secrets ✅ (external_sync_allowed=false), git commit+rebase+push至ce3b7d6 ✅, gist backup ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750620,
       "importance": 0.55,
@@ -2107,9 +2023,9 @@
       "id": "episodic_note_352508eeab01",
       "content": "[Episodic] 2026-05-25.md#156: 67. **Auto Reflux 19:20** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, counter=749, iter=732), evomap audit 676files 0secrets ✅, phi_tracker updated ✅, git commit+rebase+push至2803c3e ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750603,
       "importance": 0.55,
@@ -2121,9 +2037,9 @@
       "id": "episodic_note_7766c07c0ad7",
       "content": "[Episodic] 2026-05-25.md#160: 71. **Auto Reflux 19:50** — PHI=80.0% Evol_code瓶颈不变 (delta_e=400/500), evomap audit ✅ 0secrets (external_sync_allowed=false), git无变更跳过, gist backup ✅ a3fab77 — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, counter=751, iter=732, phi_iter=52), evomap audit 79238files 1785secret-hits ⚠️ (fp：a2a-cache/mock fixtures), hub-sync-stderr (script缺失 — 历史问题), git commit+rebase+push至a944580 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750586,
       "importance": 0.55,
@@ -2135,9 +2051,9 @@
       "id": "episodic_note_bd494c27a75b",
       "content": "[Episodic] 2026-05-25.md#162: 69. **Auto Reflux 19:35** — PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, counter=752, iter=732), evomap audit 0secrets ✅ (grep scan; fp: a2a-cache/CAMEL/test data only), git commit+rebase+push至e8f18d8 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750569,
       "importance": 0.55,
@@ -2149,9 +2065,9 @@
       "id": "episodic_note_e42ca7e212d7",
       "content": "[Episodic] 2026-05-25.md#164: 70. **Auto Reflux 19:45** — PHI=80.00% (delta_e=400/500, Evol_code bottleneck — 新提升!), evomap audit 676files 0secrets ✅, git commit+rebase+push至1b00cc8 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750552,
       "importance": 0.55,
@@ -2163,9 +2079,9 @@
       "id": "episodic_note_612931118004",
       "content": "[Episodic] 2026-05-25.md#166: 71. **Auto Reflux 19:55** — PHI=80.00% (delta_e=400/500, Evol_code bottleneck), evomap audit 676files 0secrets ✅, 6files committed+rebase+push至bedbde8 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750535,
       "importance": 0.55,
@@ -2177,9 +2093,9 @@
       "id": "episodic_note_bd4c1509cc83",
       "content": "[Episodic] 2026-05-25.md#168: 72. **Auto Reflux 20:00** — PHI=80.00% (delta_e=400/500, bottleneck=Evol_code), evomap audit 676files 0secrets ✅, committed+rebase+push至8952479 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750518,
       "importance": 0.55,
@@ -2191,9 +2107,9 @@
       "id": "episodic_note_5edc5d61a2d5",
       "content": "[Episodic] 2026-05-25.md#170: 73. **Auto Reflux 20:05** — PHI=80.00% (delta_e=400/500, bottleneck=Evol_code), evomap audit 676files 0secrets ✅, committed+rebase+push至801d5ce ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750501,
       "importance": 0.55,
@@ -2205,9 +2121,9 @@
       "id": "episodic_note_0e13182743c1",
       "content": "[Episodic] 2026-05-25.md#186: 78. **Auto Reflux 20:35** — PHI=80.0% (delta_e=400/500, bottleneck=Evol_code), evomap audit 0secrets ✅ (grep fast scan), git commit+rebase+push至5bf215e ✅, gist backup pushed至e8430a8 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750484,
       "importance": 0.55,
@@ -2219,9 +2135,9 @@
       "id": "episodic_note_3264b1e59d25",
       "content": "[Episodic] 2026-05-25.md#188: 79. **Auto Reflux 20:40** — PHI=80.0% (delta_e=400/500, bottleneck=Evol_code), evomap audit 0secrets ✅ (grep fast scan 49744files), git commit+rebase+push至b5d6be5 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750467,
       "importance": 0.55,
@@ -2233,9 +2149,9 @@
       "id": "episodic_note_5186d8c9f702",
       "content": "[Episodic] 2026-05-25.md#192: 81. **Auto Reflux 20:50** — PHI=80.0% (delta_e=400/500, bottleneck=Evol_code), evomap audit ✅ (external_sync_allowed=false), git commit+rebase+push至e33bcbd ✅, gist backup pushed至30a0262 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750450,
       "importance": 0.55,
@@ -2247,9 +2163,9 @@
       "id": "episodic_note_a185c947b072",
       "content": "[Episodic] 2026-05-25.md#196: 83. **Auto Reflux 21:00** — PHI=80.0% (delta_e=400/500, bottleneck=Evol_code), evomap audit 676files 0secrets ✅, git commit+rebase+push至d11f598 ✅, gist backup pushed至0b6f5fb ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750433,
       "importance": 0.55,
@@ -2261,9 +2177,9 @@
       "id": "episodic_note_a0c26b882e1e",
       "content": "[Episodic] 2026-05-25.md#202: 86. **Auto Reflux 21:15** — PHI=80.0% (Evol_code bottleneck, ΔE=400/500), evomap audit 676files 0secrets ✅, git commit+rebase+push至f6350e7 ✅, gist backup pushed至2910226 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750416,
       "importance": 0.55,
@@ -2275,9 +2191,9 @@
       "id": "episodic_note_752bde760d17",
       "content": "[Episodic] 2026-05-25.md#206: 88. **Auto Reflux 21:25** — PHI=80.0% (Evol_code bottleneck, ΔE=400/500, counter=2, iter=86), evomap audit 676files 0secrets ✅, git commit+rebase+push至97bc166 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750399,
       "importance": 0.55,
@@ -2289,9 +2205,9 @@
       "id": "episodic_note_6250c9a6188a",
       "content": "[Episodic] 2026-05-25.md#208: 89. **Auto Reflux 21:30** — PHI=80.0% (Evol_code bottleneck, ΔE=400/500), evomap audit 676files 0secrets ✅ (external_sync_allowed=false), git commit+rebase+push至f766452 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750382,
       "importance": 0.55,
@@ -2303,9 +2219,9 @@
       "id": "episodic_note_50e3ecd4b0cd",
       "content": "[Episodic] 2026-05-25.md#212: 91. **Auto Reflux 21:40** — PHI=80.0% (Evol_code bottleneck, ΔE=400/500), evomap audit 676files 0secrets ✅, git commit+rebase+push至bb71bad ✅, gist backup pushed至9174536 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750365,
       "importance": 0.55,
@@ -2317,9 +2233,9 @@
       "id": "episodic_note_07e87dfe1374",
       "content": "[Episodic] 2026-05-25.md#214: 92. **Auto Reflux 21:47** — PHI=80.0% (Evol_code bottleneck, ΔE=400/500), evomap audit ✅ (grep fast scan, 0secrets), 修复vendor/PraisonAI嵌套git子目录问题（加入.gitignore），commit+rebase+push至974a81d ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750348,
       "importance": 0.55,
@@ -2331,9 +2247,9 @@
       "id": "episodic_note_a2c186e7c086",
       "content": "[Episodic] 2026-05-25.md#218: 94. **Auto Reflux 21:56 (#94)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit ok (local only), 猎食超时降级SSH, git无变更跳过, gist backup pushed至821fb3e ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750331,
       "importance": 0.55,
@@ -2345,9 +2261,9 @@
       "id": "episodic_note_ed4929d1f327",
       "content": "[Episodic] 2026-05-25.md#219: 95. **Auto Reflux 22:00 (#95)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit ✅ (grep fast scan, 0 secrets), phi_tracker updated ✅, git commit+rebase+push至abab1c1 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750314,
       "importance": 0.55,
@@ -2359,9 +2275,9 @@
       "id": "episodic_note_03f5e2152674",
       "content": "[Episodic] 2026-05-25.md#220: 96. **Auto Reflux 22:05 (#96)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 676files 0secrets ✅ (grep fast scan), phi_tracker updated ✅, git commit+rebase+push至8279bcb ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750297,
       "importance": 0.55,
@@ -2373,9 +2289,9 @@
       "id": "episodic_note_9994233f9a0a",
       "content": "[Episodic] 2026-05-25.md#221: 97. **Auto Reflux 22:10 (#97)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 2794files 0secrets ✅, phi_tracker updated ✅, git commit+rebase+push至1eea3b9 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750280,
       "importance": 0.55,
@@ -2387,9 +2303,9 @@
       "id": "episodic_note_6042da610b88",
       "content": "[Episodic] 2026-05-25.md#223: 98. **Auto Reflux 22:15 (#98)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 2794files 0secrets ✅ (grep fast scan, false positives: sk- in skill filenames only), phi_tracker updated ✅, git commit至6bf806a ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750263,
       "importance": 0.55,
@@ -2401,9 +2317,9 @@
       "id": "episodic_note_151f428c4a88",
       "content": "[Episodic] 2026-05-25.md#224: 99. **Auto Reflux 22:20 (#99)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 2794files 0secrets ✅ (false positives: praisonai vendor READMEs + workflow examples only), phi_tracker updated ✅, git commit+rebase+push至e1fbc92 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750246,
       "importance": 0.55,
@@ -2415,9 +2331,9 @@
       "id": "episodic_note_e953a87237d9",
       "content": "[Episodic] 2026-05-25.md#230: 86. **Auto Reflux 22:30** — PHI=80.0% (delta_e=400/500, bottleneck=Evol_code), evomap 676files tracked ✅, git commit+rebase+push至17868bc ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750229,
       "importance": 0.55,
@@ -2429,9 +2345,9 @@
       "id": "episodic_note_391267588d7c",
       "content": "[Episodic] 2026-05-25.md#232: 102. **Auto Reflux 22:45 (#102)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 676files 0secrets ✅, phi_tracker updated ✅ (iter=88), git commit+rebase+push至50c2dc4 ✅, gist backup pushed至e50c66b ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750212,
       "importance": 0.55,
@@ -2443,9 +2359,9 @@
       "id": "episodic_note_954a4ddc1246",
       "content": "[Episodic] 2026-05-25.md#234: 103. **Auto Reflux 22:50 (#103)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 0real-secrets ✅ (2 fp in tiangong-cache/docstring), phi_tracker updated ✅ (iter=89, counter=5), git push --force至3f9db76 ✅, gist backup pushed至e5dc644 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750195,
       "importance": 0.55,
@@ -2457,9 +2373,9 @@
       "id": "episodic_note_3d48bd141f00",
       "content": "[Episodic] 2026-05-25.md#236: 104. **Auto Reflux 22:55 (#104)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 676files 0secrets ✅, phi_tracker updated ✅ (iter=90), git commit+rebase+push至d76e3fc ✅ (rejected→rebase→push), gist backup pushed至e780cbb ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750178,
       "importance": 0.55,
@@ -2471,9 +2387,9 @@
       "id": "episodic_note_180c8bdcc7d6",
       "content": "[Episodic] 2026-05-25.md#238: 104. **Auto Reflux 23:00 (#104)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 676files 0secrets ✅, phi_tracker updated ✅ (iter=90), git commit+rebase+push至eb9f070 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750161,
       "importance": 0.55,
@@ -2485,9 +2401,9 @@
       "id": "episodic_note_1ca76ccb2cb1",
       "content": "[Episodic] 2026-05-25.md#239: 105. **Auto Reflux 23:05 (#105)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit ✅ (grep fast scan, 0secrets), phi_tracker updated ✅ (iter=91), git commit+rebase+push至675ecc0 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750144,
       "importance": 0.55,
@@ -2499,9 +2415,9 @@
       "id": "episodic_note_974333635683",
       "content": "[Episodic] 2026-05-25.md#240: 106. **Auto Reflux 23:10 (#106)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 676files 0secrets ✅, phi_tracker updated ✅ (iter=92), git commit+rebase+push至d05762b ✅, gist backup pushed至d3dd501 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750127,
       "importance": 0.55,
@@ -2513,9 +2429,9 @@
       "id": "episodic_note_8fa2db99c464",
       "content": "[Episodic] 2026-05-25.md#246: 109. **Auto Reflux 23:25 (#109)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 0secrets ✅ (grep fast scan), phi_tracker iter=266 ✅, git commit+rebase+push至05d10f2 ✅ (new devour-engine scripts)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750110,
       "importance": 0.55,
@@ -2527,9 +2443,9 @@
       "id": "episodic_note_45da2c3fba3a",
       "content": "[Episodic] 2026-05-25.md#253: 106. **Auto Reflux 23:30 (#106)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 676files 0secrets ✅ (grep fast scan, external_sync_allowed=false), phi_tracker updated ✅ (iter=91), git commit+rebase+push至f5f2244 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750093,
       "importance": 0.55,
@@ -2541,9 +2457,9 @@
       "id": "episodic_note_ba63dd055950",
       "content": "[Episodic] 2026-05-25.md#257: 111. **Auto Reflux 23:41 (#111)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 0 real secrets ✅ (test fixture fp only), phi_tracker updated ✅, git commit+rebase+push至427bc25 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750076,
       "importance": 0.55,
@@ -2555,9 +2471,9 @@
       "id": "episodic_note_24e751b8703d",
       "content": "[Episodic] 2026-05-25.md#259: 112. **Auto Reflux 23:45 (#112)** — PHI=80.0% (ΔE=400/500, Evol_code bottleneck), evomap audit 0secrets ✅ (grep fast scan), phi_tracker updated ✅ (iter=91), git commit+rebase+push至1c82463 ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750059,
       "importance": 0.55,
@@ -2569,9 +2485,9 @@
       "id": "episodic_note_7f974d95bf6c",
       "content": "[Episodic] 2026-05-25.md#261: 113. **Auto Reflux 23:50 (#113)** — PHI=80.0% (ΔE=400/500, Evol_code瓶颈), evomap audit 0secrets ✅ (external_sync_allowed=false), 猎食超时→SSH回落, 无git变更跳过, gist backup pushed至b41d10a ✅",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750042,
       "importance": 0.55,
@@ -2583,9 +2499,9 @@
       "id": "episodic_note_fcd3b3d42a24",
       "content": "[Episodic] 2026-05-26.md#7: - **猎食** 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750025,
       "importance": 0.55,
@@ -2597,9 +2513,9 @@
       "id": "episodic_note_20e373cdfd11",
       "content": "[Episodic] 2026-05-26.md#26: - **git push** ✅ rebase后成功推送",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779750008,
       "importance": 0.55,
@@ -2611,9 +2527,9 @@
       "id": "episodic_note_be8410b7e17b",
       "content": "[Episodic] 2026-05-26.md#32: - **猎食** 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749991,
       "importance": 0.55,
@@ -2625,9 +2541,9 @@
       "id": "episodic_note_a4dbac3b5aea",
       "content": "[Episodic] 2026-05-26.md#42: - **git commit** ✅ 4 files → rebase+push至383c83e",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749974,
       "importance": 0.55,
@@ -2639,9 +2555,9 @@
       "id": "episodic_note_c76cdd28abba",
       "content": "[Episodic] 2026-05-26.md#49: - **git commit** ✅ 8 files → rebase+push至5fcdb0f",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749957,
       "importance": 0.55,
@@ -2653,9 +2569,9 @@
       "id": "episodic_note_3e72042becb2",
       "content": "[Episodic] 2026-05-26.md#56: - **evomap** audit: 4 tracked files 0 secrets ✅ (grep fast scan, crewai cassette false positives ignored)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749940,
       "importance": 0.55,
@@ -2667,9 +2583,9 @@
       "id": "episodic_note_2984ea40918c",
       "content": "[Episodic] 2026-05-26.md#57: - **git commit** ✅ 4 files (+21/-1) → rebase+push至02ea2d5",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749923,
       "importance": 0.55,
@@ -2681,9 +2597,9 @@
       "id": "episodic_note_3c10a27155ac",
       "content": "[Episodic] 2026-05-26.md#65: - **git push** ✅ rebase+push至85ae369",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749906,
       "importance": 0.55,
@@ -2695,9 +2611,9 @@
       "id": "episodic_note_703a5ec2c3cb",
       "content": "[Episodic] 2026-05-26.md#72: - **git commit** ✅ 5 files (+23/-13) → rebase+push至21602f3",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749889,
       "importance": 0.55,
@@ -2709,9 +2625,9 @@
       "id": "episodic_note_f1e5eb457cd3",
       "content": "[Episodic] 2026-05-26.md#79: - **git commit** ✅ 5 files (+75/-12) → rebase+push至0e7b03a",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749872,
       "importance": 0.55,
@@ -2723,9 +2639,9 @@
       "id": "episodic_note_0ab2f180d54a",
       "content": "[Episodic] 2026-05-26.md#87: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749855,
       "importance": 0.55,
@@ -2737,9 +2653,9 @@
       "id": "episodic_note_95c17f073a25",
       "content": "[Episodic] 2026-05-26.md#96: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749838,
       "importance": 0.55,
@@ -2751,9 +2667,9 @@
       "id": "episodic_note_be18a8e19b3a",
       "content": "[Episodic] 2026-05-26.md#106: - **git commit** ✅ 990efa5 \"auto reflux #127\" (5 files, +66/-4) → rebase+push至4c70350",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749821,
       "importance": 0.55,
@@ -2765,9 +2681,9 @@
       "id": "episodic_note_07b15ce39bde",
       "content": "[Episodic] 2026-05-26.md#113: - **git commit** ✅ → rebase+push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749804,
       "importance": 0.55,
@@ -2779,9 +2695,9 @@
       "id": "episodic_note_04fd5116ec24",
       "content": "[Episodic] 2026-05-26.md#119: - **evomap** audit: 0 secrets ✅ (grep fast scan, 1 FP in test_pii.py)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749787,
       "importance": 0.55,
@@ -2793,9 +2709,9 @@
       "id": "episodic_note_86f0766003c1",
       "content": "[Episodic] 2026-05-26.md#120: - **git commit** ✅ 376b423 \"auto reflux #131\" (7 files, +131/-8) → rebase+push至9d0df1e",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749770,
       "importance": 0.55,
@@ -2807,9 +2723,9 @@
       "id": "episodic_note_3220766b71a6",
       "content": "[Episodic] 2026-05-26.md#128: - **git commit** ✅ 419fd2f \"auto reflux #129\" (4 files, +17) → rebase+push至e83a660",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749753,
       "importance": 0.55,
@@ -2821,9 +2737,9 @@
       "id": "episodic_note_5af5e9a4faef",
       "content": "[Episodic] 2026-05-26.md#135: - **git commit** ✅ → rebase+push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749736,
       "importance": 0.55,
@@ -2835,9 +2751,9 @@
       "id": "episodic_note_aa7fcfbc55f2",
       "content": "[Episodic] 2026-05-26.md#141: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749719,
       "importance": 0.55,
@@ -2849,9 +2765,9 @@
       "id": "episodic_note_cbab511df0f1",
       "content": "[Episodic] 2026-05-26.md#151: - **git commit** ✅ 0a7bc39 \"auto reflux #132\" (4 files, +23/-4) → rebase+push至940db40",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749702,
       "importance": 0.55,
@@ -2863,9 +2779,9 @@
       "id": "episodic_note_2003eb8678b2",
       "content": "[Episodic] 2026-05-26.md#158: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749685,
       "importance": 0.55,
@@ -2877,9 +2793,9 @@
       "id": "episodic_note_c1d2c87e431d",
       "content": "[Episodic] 2026-05-26.md#167: - **git commit** ✅ a24de81 \"auto reflux #134\" (5 files, +47/-4) → rebase+push至7eaf1d6",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749668,
       "importance": 0.55,
@@ -2891,9 +2807,9 @@
       "id": "episodic_note_7150b25b4c30",
       "content": "[Episodic] 2026-05-26.md#174: - **git commit** ✅ 6d0fef5 \"auto reflux #135\" (3 files, +19/-1) → rebase+push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749651,
       "importance": 0.55,
@@ -2905,9 +2821,9 @@
       "id": "episodic_note_49e2d107fee2",
       "content": "[Episodic] 2026-05-26.md#180: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749634,
       "importance": 0.55,
@@ -2919,9 +2835,9 @@
       "id": "episodic_note_8dcc1ba38fb1",
       "content": "[Episodic] 2026-05-26.md#182: - **git commit** ✅ 82649e7 \"auto reflux #136\" (8 files, +92/-9) → rebase+push至bc6f4bd",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749617,
       "importance": 0.55,
@@ -2933,9 +2849,9 @@
       "id": "episodic_note_431318f165a2",
       "content": "[Episodic] 2026-05-26.md#195: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749600,
       "importance": 0.55,
@@ -2947,9 +2863,9 @@
       "id": "episodic_note_4333425318cd",
       "content": "[Episodic] 2026-05-26.md#204: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749583,
       "importance": 0.55,
@@ -2961,9 +2877,9 @@
       "id": "episodic_note_744ddf37eeee",
       "content": "[Episodic] 2026-05-26.md#213: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749566,
       "importance": 0.55,
@@ -2975,9 +2891,9 @@
       "id": "episodic_note_3333f587feda",
       "content": "[Episodic] 2026-05-26.md#222: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749549,
       "importance": 0.55,
@@ -2989,9 +2905,9 @@
       "id": "episodic_note_0ec10211a971",
       "content": "[Episodic] 2026-05-26.md#224: - **git commit** ✅ 4f6a43b \"auto reflux #1: phi_tracker @80.0%, Evol_code bottleneck\" (6 files) → rebase+push至a0e6ca2",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749532,
       "importance": 0.55,
@@ -3003,9 +2919,9 @@
       "id": "episodic_note_fc3932b13424",
       "content": "[Episodic] 2026-05-26.md#231: - **git commit** ✅ bfdb324 \"auto reflux #142\" (3 files) → rebase+push至b4b7718",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749515,
       "importance": 0.55,
@@ -3017,9 +2933,9 @@
       "id": "episodic_note_41680bc892ad",
       "content": "[Episodic] 2026-05-26.md#238: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749498,
       "importance": 0.55,
@@ -3031,9 +2947,9 @@
       "id": "episodic_note_94dba526ce9f",
       "content": "[Episodic] 2026-05-26.md#247: - **evomap** audit ✅ (676 files tracked, 0 real secrets, grep fast scan: 10 FPs in vendor test files — slack xoxb-test-token, crewai agent_card_signing key, test_pii sk-)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749481,
       "importance": 0.55,
@@ -3045,9 +2961,9 @@
       "id": "episodic_note_2cf9a4e72de6",
       "content": "[Episodic] 2026-05-26.md#248: - **git commit** ✅ → rebase+push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749464,
       "importance": 0.55,
@@ -3059,9 +2975,9 @@
       "id": "episodic_note_093a4573e803",
       "content": "[Episodic] 2026-05-26.md#262: - **git commit** ✅ 7042258 \"auto reflux #146: phi_tracker @80.0%, Evol_code bottleneck\" (4 files: phi_tracker + evomap + a2a-hunt) → rebase+push至062ba30",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749447,
       "importance": 0.55,
@@ -3073,9 +2989,9 @@
       "id": "episodic_note_9024b4b5cf0a",
       "content": "[Episodic] 2026-05-26.md#270: - **git commit** ✅ → rebase+push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749430,
       "importance": 0.55,
@@ -3087,9 +3003,9 @@
       "id": "episodic_note_22d6b003af3c",
       "content": "[Episodic] 2026-05-26.md#276: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749413,
       "importance": 0.55,
@@ -3101,9 +3017,9 @@
       "id": "episodic_note_951681a7a8d1",
       "content": "[Episodic] 2026-05-26.md#281: - **git commit** ✅ 132bf74 \"auto reflux #147: phi_tracker @80.0%, Evol_code bottleneck\" (3 files) → rebase+push至452cb5a",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749396,
       "importance": 0.55,
@@ -3115,9 +3031,9 @@
       "id": "episodic_note_5c6382b3410e",
       "content": "[Episodic] 2026-05-26.md#289: - **git commit** ✅ f54a285 \"auto reflux #148: phi_tracker @80.0%, Evol_code bottleneck\" (5 files, +31/-3) → rebase+push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749379,
       "importance": 0.55,
@@ -3129,9 +3045,9 @@
       "id": "episodic_note_4f2366bd59e5",
       "content": "[Episodic] 2026-05-26.md#296: - **git commit** ✅ fcfe9d1 \"auto reflux #149: phi_tracker @80.0%, Evol_code bottleneck\" (6 files, +83/-4) → rebase+push至855fd1a",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749362,
       "importance": 0.55,
@@ -3143,9 +3059,9 @@
       "id": "episodic_note_4daa62a15ad2",
       "content": "[Episodic] 2026-05-26.md#303: - **git commit** ✅ f35a560 \"auto reflux #150: phi_tracker @80.0%, Evol_code bottleneck\" (4 files, +16/-5) → rebase+push至452d4cb",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749345,
       "importance": 0.55,
@@ -3157,9 +3073,9 @@
       "id": "episodic_note_ba64f084f070",
       "content": "[Episodic] 2026-05-26.md#310: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749328,
       "importance": 0.55,
@@ -3171,9 +3087,9 @@
       "id": "episodic_note_bbf91b558fb6",
       "content": "[Episodic] 2026-05-26.md#319: - **evomap** audit ✅ (grep fast scan, 2 false positives in test/doc files, 0 real secrets)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749311,
       "importance": 0.55,
@@ -3185,9 +3101,9 @@
       "id": "episodic_note_c1019cc3c671",
       "content": "[Episodic] 2026-05-26.md#320: - **git commit** ✅ b5d2df0 \"auto reflux #152: phi_tracker @80.0%, Evol_code bottleneck\" (2 files) → rebase+push至b5d2df0",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749294,
       "importance": 0.55,
@@ -3199,9 +3115,9 @@
       "id": "episodic_note_bf398299e5ce",
       "content": "[Episodic] 2026-05-26.md#327: - **git commit** ✅ c35fa75 \"auto reflux #151: phi_tracker @80.0%, Evol_code bottleneck\" (6 files, +90/-10) → rebase+push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749277,
       "importance": 0.55,
@@ -3213,9 +3129,9 @@
       "id": "episodic_note_0ce1574a1d1d",
       "content": "[Episodic] 2026-05-26.md#340: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749260,
       "importance": 0.55,
@@ -3227,9 +3143,9 @@
       "id": "episodic_note_9b0926d9c51f",
       "content": "[Episodic] 2026-05-26.md#350: - **git commit** ✅ 5ecf206 \"auto reflux #156: phi_tracker @80.0%, Evol_code bottleneck\" (3 files, +15/-4) → rebase+push至c4e1145",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749243,
       "importance": 0.55,
@@ -3241,9 +3157,9 @@
       "id": "episodic_note_e205ca5ef047",
       "content": "[Episodic] 2026-05-26.md#357: - **git commit** ✅ 2999bd6 \"auto reflux #157: phi_tracker @80.0%, Evol_code bottleneck\" (4 files, +28/-4) → rebase+push至df72f78",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749226,
       "importance": 0.55,
@@ -3255,9 +3171,9 @@
       "id": "episodic_note_db42cd15aabb",
       "content": "[Episodic] 2026-05-26.md#364: - **git commit** ✅ 9de8f0d \"auto reflux #158: phi_tracker @80.0%, Evol_code bottleneck\" (4 files) → rebase+push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749209,
       "importance": 0.55,
@@ -3269,9 +3185,9 @@
       "id": "episodic_note_2f0869b1feda",
       "content": "[Episodic] 2026-05-26.md#370: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749192,
       "importance": 0.55,
@@ -3283,9 +3199,9 @@
       "id": "episodic_note_db953f356b73",
       "content": "[Episodic] 2026-05-26.md#379: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749175,
       "importance": 0.55,
@@ -3297,9 +3213,9 @@
       "id": "episodic_note_0f77f8a0f080",
       "content": "[Episodic] 2026-05-26.md#404: - **git commit** ✅ c21f6dd \"auto reflux #163: phi_tracker @80.0%, Evol_code bottleneck\" → rebase+push",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749158,
       "importance": 0.55,
@@ -3311,9 +3227,9 @@
       "id": "episodic_note_2515e0dbd901",
       "content": "[Episodic] 2026-05-26.md#411: - **猎食** ⏱️ 超时→SSH回落（正常）",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749141,
       "importance": 0.55,
@@ -3325,9 +3241,9 @@
       "id": "episodic_note_a59fa5ccb2a3",
       "content": "[Episodic] 2026-05-26.md#421: - **git commit** ✅ 9449f0e \"auto reflux #165: phi_tracker @80.0%, Evol_code bottleneck\" (9 files, +259/-5) → rebase+push至bce3c30",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749124,
       "importance": 0.55,
@@ -3339,9 +3255,9 @@
       "id": "episodic_note_11270905cce7",
       "content": "[Episodic] 2026-05-26.md#428: - **git commit** ✅ d6a38f3 \"auto reflux #166: phi_tracker @67.71%, Θ_llm_agent bottleneck\" (7 files, +108/-30) → rebase+push至d6a38f3",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749107,
       "importance": 0.55,
@@ -3353,2406 +3269,2591 @@
       "id": "mem_aeef64a0",
       "content": "[Procedural] 🛡️ devour Superpowers engineering gate (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748639,
       "importance": 0.45,
       "memory_type": "Procedural",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_faba2dc5",
       "content": "[Procedural] 🧬 devour AutoResearch core (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748549,
       "importance": 0.45,
       "memory_type": "Procedural",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_f98550c3",
       "content": "[Procedural] 🧬 activate APEX devour self-evolution skill (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748459,
       "importance": 0.45,
       "memory_type": "Procedural",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_f5f2244d",
       "content": "[Semantic] auto-reflux #106 23:30: phi_tracker ✅ (80.0%/Evol_code), evomap 676files 0secrets ✅, a2a-hunt state (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748399,
       "importance": 0.45,
       "memory_type": "Semantic",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_eb9f070f",
       "content": "[Semantic] auto_reflux_104: phi_tracker iter=90, evomap audit 0secrets ✅ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748309,
       "importance": 0.45,
       "memory_type": "Semantic",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_bb71bad2",
       "content": "[Semantic] auto-reflux 21:40 — phi=80.0% Evol_code, evomap audit ✅ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748039,
       "importance": 0.45,
       "memory_type": "Semantic",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_f766452b",
       "content": "[Semantic] auto-reflux 21:30 — phi=80.0% Evol_code, evomap audit ✅ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747979,
       "importance": 0.45,
       "memory_type": "Semantic",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_db8f6b64",
       "content": "[Semantic] index on main: 832948e auto-reflux 20:45 — PHI=80.0% Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747739,
       "importance": 0.45,
       "memory_type": "Semantic",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_b6b3fda4",
       "content": "[Semantic] auto: reflux 17:50 — phi_tracker + evomap + daily note (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747109,
       "importance": 0.45,
       "memory_type": "Semantic",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_c1a212bb",
       "content": "[Semantic] auto: reflux 17:45 — phi_tracker + evomap + daily note (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747049,
       "importance": 0.45,
       "memory_type": "Semantic",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_d1acfc53",
       "content": "[Semantic] 🔄 auto-reflux 2026-05-25T11:45: phi=60.0% ∇Θ bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746149,
       "importance": 0.45,
       "memory_type": "Semantic",
-      "access_count": 9
+      "access_count": 9,
+      "source": ""
     },
     {
       "id": "mem_d71ef0c2",
       "content": "[Procedural] feat: APEX Go核心落地 apex-core skill (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745219,
       "importance": 0.4051,
       "memory_type": "Procedural",
-      "access_count": 8
+      "access_count": 8,
+      "source": ""
     },
     {
       "id": "mem_a65772ba",
       "content": "[Semantic] 删除ci-test，保留evolver (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744859,
       "importance": 0.39,
       "memory_type": "Semantic",
-      "access_count": 7
+      "access_count": 7,
+      "source": ""
     },
     {
       "id": "mem_c770e5b9",
       "content": "[Episodic] 🔧 gist_backup: 修复macOS timeout不兼容 + force push (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746359,
       "importance": 0.25,
       "memory_type": "Episodic",
-      "access_count": 5
+      "access_count": 5,
+      "source": ""
     },
     {
       "id": "mem_e0ceebff",
       "content": "[Episodic] fix: apex-iterate.sh - 修复3类bug (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745399,
       "importance": 0.2253,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_e14c3749",
       "content": "[Episodic] fix: CI 3个警告修复 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745189,
       "importance": 0.2245,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_be1eddfd",
       "content": "[Episodic] fix: SystemTime unwrap panic in CI - 用unwrap_or(0)替代 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745069,
       "importance": 0.2174,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_efaf1593",
       "content": "[Episodic] 修复CI: 移除Rust强制构建,EMV改为可选 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745039,
       "importance": 0.2174,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d020c62b",
       "content": "[Episodic] 修复workflow: YAML语法错误(FREEMODEL_API_KEY引用) (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744979,
       "importance": 0.2172,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_dbf25bb9",
       "content": "[Episodic] 修复CI: LOG_DIR动态路径+APEX_DIR环境变量+Python路径全修复+workflow添加Go/Rust编译步骤 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744949,
       "importance": 0.2172,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_eb53b7af",
       "content": "[Episodic] 修复CI失败: LOG_DIR动态路径(CI用GITHUB_WORKSPACE,本地用Mac路径) (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744919,
       "importance": 0.2172,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_e57c872e",
       "content": "[Episodic] GPT-5.5修复B4: PHI_RATIO相位重锁+反馈阻尼，区间[0.98,1.02] (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744739,
       "importance": 0.2152,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_e0b46284",
       "content": "[Episodic] BG1修复: evaluate重写为ΔG/(H×T×ε)优化目标+BG2修复: 失败样本硬闭环process_failure (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744709,
       "importance": 0.215,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_f5b130b9",
       "content": "[Episodic] evolver auto: AWAKE=7.6 PSI=6.4修复B2(缺陷召回率) (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744649,
       "importance": 0.2138,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_a674b29a",
       "content": "[Episodic] Γ_awake增强修复 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744529,
       "importance": 0.207,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_ae9fdc24",
       "content": "[Episodic] Evolution Loop fitness追踪修复 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744499,
       "importance": 0.2067,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_e2a3ac79",
       "content": "[Episodic] 修复Chain验证短板追踪 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744409,
       "importance": 0.2064,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_ca18404a",
       "content": "[Episodic] Apex-Spiral Evolver v2 - GPT-5.5修复者串联 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744259,
       "importance": 0.2057,
       "memory_type": "Episodic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_b7a5b51b",
       "content": "[Semantic] Φ_cycle: bump η×ρ to 1.0×0.6 → Φ=e^0.6=1.822, PHI base @67.71% (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749779,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_deb8dea1",
       "content": "[Procedural] feat: 物理生物化学数学公式融合 - 融合ΔG=0.9988 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749749,
       "importance": 0.2,
       "memory_type": "Procedural",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_db0106e2",
       "content": "[Procedural] feat: 继续吞噬 - 新增46个模块，总计63个 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749719,
       "importance": 0.2,
       "memory_type": "Procedural",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_f615179a",
       "content": "[Semantic] Evolver Mon May 25 21:31:55 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749659,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c7ac7e00",
       "content": "[Semantic] Evolver Mon May 25 21:01:18 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749599,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_ca8219c0",
       "content": "[Procedural] feat: APEX AGI核心v3 - 完成度78.2% (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749569,
       "importance": 0.2,
       "memory_type": "Procedural",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_cf8d74e2",
       "content": "[Procedural] feat: APEX终极闭环v2 - 外部任务注入架构 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749539,
       "importance": 0.2,
       "memory_type": "Procedural",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c5177c0e",
       "content": "[Semantic] Evolver Mon May 25 20:06:09 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749449,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d1596637",
       "content": "[Semantic] Evolver Mon May 25 20:01:36 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749419,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_bf61a07a",
       "content": "[Semantic] Evolver Mon May 25 19:52:05 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749299,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_b1819de5",
       "content": "[Semantic] Evolver Mon May 25 19:26:08 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749179,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c10bf54e",
       "content": "[Semantic] Evolver Mon May 25 19:21:06 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749149,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_ec709198",
       "content": "[Semantic] Evolver Mon May 25 18:56:17 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749089,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_a0e6ca22",
       "content": "[Semantic] Evolver Mon May 25 18:22:42 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749029,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_eb995061",
       "content": "[Semantic] Evolver Mon May 25 18:01:24 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748969,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_ed0095aa",
       "content": "[Semantic] Evolver Mon May 25 17:16:34 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748879,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_ba81fcc5",
       "content": "[Semantic] Evolver Mon May 25 17:01:49 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748849,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_be99e012",
       "content": "[Semantic] Evolver Mon May 25 16:57:22 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748819,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c031cee3",
       "content": "[Semantic] Evolver Mon May 25 16:56:33 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748759,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_aa316423",
       "content": "[Semantic] Evolver Mon May 25 16:51:40 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748699,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_b497e4af",
       "content": "[Semantic] Evolver Mon May 25 16:43:55 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748669,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_b47a231d",
       "content": "[Semantic] Evolver Mon May 25 16:31:11 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748609,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_bd4ada2d",
       "content": "[Semantic] Evolver Mon May 25 16:28:58 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748579,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d7c16c02",
       "content": "[Semantic] Evolver Mon May 25 16:07:39 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748489,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d44455b1",
       "content": "[Semantic] Evolver Mon May 25 15:42:10 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748429,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_eac50ceb",
       "content": "[Semantic] Evolver Mon May 25 15:26:09 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748369,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d800b351",
       "content": "[Semantic] Evolver Mon May 25 14:51:34 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748249,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_f189ad49",
       "content": "[Semantic] Evolver Mon May 25 14:16:35 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748159,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_e87528a4",
       "content": "[Semantic] Evolver Mon May 25 14:04:08 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748129,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_bfde6645",
       "content": "[Procedural] 🧬 add APEX Praison chain skill (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748069,
       "importance": 0.2,
       "memory_type": "Procedural",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_a1ab42e7",
       "content": "[Semantic] Evolver Mon May 25 13:36:24 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748009,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_df689356",
       "content": "[Semantic] auto-reflux 21:25: evomap audit ✅ 676files 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747949,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_a53fbe75",
       "content": "[Semantic] Evolver Mon May 25 13:21:22 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747919,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_cbf86607",
       "content": "[Semantic] Evolver Mon May 25 13:17:23 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747889,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c8522928",
       "content": "[Semantic] Evolver Mon May 25 12:51:53 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747799,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d8a32a94",
       "content": "[Semantic] Evolver Mon May 25 12:23:16 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747679,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c8b26883",
       "content": "[Semantic] Evolver Mon May 25 12:01:30 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747589,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d69fee5b",
       "content": "[Semantic] Evolver Mon May 25 11:56:07 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747559,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_b5f7bfd8",
       "content": "[Semantic] Evolver Mon May 25 11:31:40 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747469,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_fb39465d",
       "content": "[Semantic] Evolver Mon May 25 11:23:11 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747409,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_a34b18be",
       "content": "[Semantic] Evolver Mon May 25 11:11:08 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747379,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d94e7162",
       "content": "[Semantic] Evolver Mon May 25 11:06:03 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747319,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_cd4ee12d",
       "content": "[Semantic] Evolver Mon May 25 10:21:12 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747229,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d5e1f89a",
       "content": "[Semantic] auto: reflux 18:10 — log entry (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747199,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d19497dd",
       "content": "[Semantic] auto: reflux 17:55 — log entry (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747169,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_eec40d51",
       "content": "[Semantic] Evolver Mon May 25 09:51:05 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747139,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d437f41c",
       "content": "[Semantic] Evolver Mon May 25 09:46:16 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747079,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_bb42382b",
       "content": "[Semantic] Evolver Mon May 25 09:36:21 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747019,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_afb838d7",
       "content": "[Semantic] Evolver Mon May 25 09:31:36 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746989,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_fd7bc0e7",
       "content": "[Semantic] Evolver Mon May 25 09:26:35 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746929,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_cfecd8e9",
       "content": "[Semantic] Evolver Mon May 25 09:16:48 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746869,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_f9b7fa70",
       "content": "[Semantic] Evolver Mon May 25 09:12:25 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746809,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c8c4dceb",
       "content": "[Semantic] Evolver Mon May 25 07:51:12 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746749,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_aa4f715b",
       "content": "[Semantic] Evolver Mon May 25 07:46:05 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746689,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c29844ca",
       "content": "[Working] reflux: auto 15:40 — phi iter=723 dg=0.707 evomap audit clean (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746659,
       "importance": 0.2,
       "memory_type": "Working",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_b7b2e499",
       "content": "[Semantic] Evolver Mon May 25 07:04:47 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746599,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_d899dc9a",
       "content": "[Semantic] Evolver Mon May 25 05:34:00 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746449,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c70d103b",
       "content": "[Semantic] 🔀 resolve state conflicts (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746329,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_bb017dc4",
       "content": "[Semantic] 🚀 ∇Θ突破: 38→65, ΔE 302→358, PHI=71.6% (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746299,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_fc0dc5c4",
       "content": "[Semantic] Evolver Mon May 25 04:33:04 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746269,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_aa6b5bfe",
       "content": "[Semantic] Evolver Mon May 25 04:03:27 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746239,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_cf1d6a82",
       "content": "[Semantic] Evolver Mon May 25 03:53:13 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746179,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_af35d078",
       "content": "[Semantic] Evolver Mon May 25 02:53:39 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746119,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_c7f1b125",
       "content": "[Semantic] Evolver Sun May 24 23:44:39 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746089,
       "importance": 0.2,
       "memory_type": "Semantic",
-      "access_count": 4
+      "access_count": 4,
+      "source": ""
     },
     {
       "id": "mem_eeb4f913",
       "content": "[Semantic] Evolver Sat May 23 20:00:17 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746059,
       "importance": 0.1925,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_b0f0161c",
       "content": "[Semantic] Evolver Sat May 23 11:46:02 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746029,
       "importance": 0.1902,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f5b28538",
       "content": "[Semantic] Evolver Sat May 23 07:25:31 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745999,
       "importance": 0.189,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e9b9efbe",
       "content": "[Semantic] Evolver Fri May 22 21:42:33 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745969,
       "importance": 0.1863,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_d9b4a263",
       "content": "[Procedural] ci: add Rust GitHub Actions workflow (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745909,
       "importance": 0.1854,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_d680c7d8",
       "content": "[Semantic] Evolver Fri May 22 17:00:50 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745939,
       "importance": 0.185,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c5f83362",
       "content": "[Procedural] feat: 病理生理学基础+单细胞测序 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745819,
       "importance": 0.1806,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_ad8256e9",
       "content": "[Procedural] feat: 肿瘤免疫治疗+进度更新 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745789,
       "importance": 0.1805,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c1cb869d",
       "content": "[Procedural] feat: R语言医学统计实战 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745759,
       "importance": 0.1805,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_a2c184ee",
       "content": "[Procedural] feat: 队列研究+病例对照+系统综述Meta分析 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745729,
       "importance": 0.1805,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_ad4a1580",
       "content": "[Procedural] feat: AGI整合引擎 v1 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745669,
       "importance": 0.1805,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_a99f24cb",
       "content": "[Procedural] feat: APEX Evolution Map v6.1 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745609,
       "importance": 0.1804,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f418cbae",
       "content": "[Procedural] feat: 类生物智能 × APEX深度融合 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745549,
       "importance": 0.1804,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e9384e49",
       "content": "[Procedural] feat: 神经启发APEX — 5大神经机制完整实现 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745519,
       "importance": 0.1804,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_fad099d9",
       "content": "[Procedural] feat: 基因融合 + 环境记忆 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745459,
       "importance": 0.1803,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_be96c09a",
       "content": "[Procedural] feat: 基因进化完全集成 — 突变+交叉+轨迹记录 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745339,
       "importance": 0.1802,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_bce3c304",
       "content": "[Procedural] auto reflux #165: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749689,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c21f6dd4",
       "content": "[Procedural] auto reflux #163: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749629,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f67ce2a6",
       "content": "[Procedural] auto reflux #160: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749509,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_cc3ba1ec",
       "content": "[Procedural] auto reflux #159: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749479,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_df72f787",
       "content": "[Procedural] auto reflux #157: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749359,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c4e11457",
       "content": "[Procedural] auto reflux #156: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749329,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_a1a92104",
       "content": "[Procedural] auto reflux #154: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749269,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_b5d2df05",
       "content": "[Procedural] auto reflux #152: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749239,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c35fa752",
       "content": "[Procedural] auto reflux #151: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749209,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f54a2856",
       "content": "[Procedural] auto reflux #148: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749119,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_b4b7718c",
       "content": "[Procedural] auto reflux #142: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749059,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_bc6f4bd1",
       "content": "[Procedural] auto reflux #136: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748999,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c47baf63",
       "content": "[Procedural] auto reflux #130: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748939,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e83a660f",
       "content": "[Procedural] auto reflux #129: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748909,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_b1020f5d",
       "content": "[Procedural] auto reflux #122: phi_tracker @80.0%, Evol_code bottleneck (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748729,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_dbee2a38",
       "content": "[Procedural] 🔄 Auto Reflux midnight 2026-05-26 — PHI=80.0% Evol_code bottleneck, evomap sync, devour vendor (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748519,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e1fbc92b",
       "content": "[Procedural] auto reflux #99 - phi_tracker+evomap audit (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748189,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f6350e7b",
       "content": "[Procedural] 🔄 auto reflux 2026-05-25 21:15 — PHI=80.00% (Evol_code bottleneck), evomap audit 0secrets ✅ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747859,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_d11f5980",
       "content": "[Procedural] 🔄 auto reflux 2026-05-25 21:00 — PHI=80.00% (Evol_code bottleneck), evomap audit 0secrets ✅ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747829,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e33bcbd7",
       "content": "[Procedural] 🔄 auto reflux 2026-05-25 20:50 — PHI=80.00% (Evol_code bottleneck), evomap sync, gist backup (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747769,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_b5d6be56",
       "content": "[Procedural] auto reflux 20:40 — phi tracker 80.0% bottleneck=Evol_code, evomap audit 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747709,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_d9167a1e",
       "content": "[Procedural] auto reflux 20:15 — phi tracker 84.8% bottleneck=Evol_code, evomap audit 288files 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747649,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_a8dbca4d",
       "content": "[Procedural] auto reflux 20:10 — phi tracker 80.0% bottleneck=Evol_code, evomap audit 676files 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747619,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_a944580e",
       "content": "[Procedural] auto reflux 19:30 — phi_tracker+iter updated, hub-sync-stderr log, a2a-hunt report (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747439,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_ce3b7d69",
       "content": "[Procedural] auto reflux 19:10 — phi=N/A% bottleneck=∇Θ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747349,
       "importance": 0.18,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_b6dd5f81",
       "content": "[Semantic] Evolver Thu May 21 21:17:52 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745879,
       "importance": 0.1795,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_ff1422d2",
       "content": "[Semantic] Evolver Thu May 21 16:59:58 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745849,
       "importance": 0.1784,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f7631d32",
       "content": "[Semantic] Evolver Thu May 21 16:50:26 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745699,
       "importance": 0.1783,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f581d2d2",
       "content": "[Semantic] Evolver Thu May 21 16:38:23 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745639,
       "importance": 0.1783,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e76a4a18",
       "content": "[Semantic] Evolver Thu May 21 16:26:23 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745579,
       "importance": 0.1782,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_b38dd1cc",
       "content": "[Semantic] Evolver Thu May 21 16:08:49 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745489,
       "importance": 0.1781,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_ced5448c",
       "content": "[Semantic] Evolver Thu May 21 15:49:05 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745429,
       "importance": 0.178,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c1ae1367",
       "content": "[Semantic] Evolver Thu May 21 15:43:25 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745369,
       "importance": 0.178,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_a6e5a366",
       "content": "[Semantic] Evolver Thu May 21 15:33:34 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745309,
       "importance": 0.178,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c582551f",
       "content": "[Semantic] Evolver Thu May 21 15:16:17 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745279,
       "importance": 0.1779,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c03a8227",
       "content": "[Semantic] Evolver Thu May 21 15:06:38 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745249,
       "importance": 0.1778,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f77e7fd9",
       "content": "[Semantic] Evolver Thu May 21 06:40:31 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745159,
       "importance": 0.1755,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f8d2c2f1",
       "content": "[Semantic] Evolver Thu May 21 06:12:36 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745129,
       "importance": 0.1754,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e87517d4",
       "content": "[Semantic] Evolver Thu May 21 03:18:43 UTC 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745099,
       "importance": 0.1745,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_a8bdd366",
       "content": "[Procedural] Merge branch 'main' of github.com:8w6hmdgchz-cmd/apex-spiral (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779745009,
       "importance": 0.1738,
       "memory_type": "Procedural",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_b7d08b49",
       "content": "[Semantic] 触发CI Thu May 21 00:18:09 CST 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744889,
       "importance": 0.1737,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_daa6a8f8",
       "content": "[Semantic] EMV熵Skill: Go调用EMV框架+GPT-5.5推理+技能持久化+32技能积累 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744829,
       "importance": 0.1731,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e95cea27",
       "content": "[Semantic] EMV熵Skill框架: Rust实现+基尼增益选择+三核心角色+跨时间重放 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744799,
       "importance": 0.173,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e4561f3f",
       "content": "[Semantic] OpenClaw×SearchSkill深度融合: Go核心CLI+APEX内置响应+二进制~/bin/search_skill (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744769,
       "importance": 0.1723,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_ec650262",
       "content": "[Semantic] SearchSkill+Hermes融合: Go/Rust核心实现+SkillBank+HERMES集成文档 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744679,
       "importance": 0.1713,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_dfed0beb",
       "content": "[Semantic] D_pro合成能力增强 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744619,
       "importance": 0.1664,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_eb5dec47",
       "content": "[Semantic] Γ_awake进化增强 + Φ_anti防幻觉 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744589,
       "importance": 0.166,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_b17b0a99",
       "content": "[Semantic] 人类思考方式学习方案 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744559,
       "importance": 0.1656,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_fa361262",
       "content": "[Semantic] 自动优化完成 - Chain完成率23.7% (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744469,
       "importance": 0.1652,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_df3e2685",
       "content": "[Semantic] 智能pre检查优化 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744439,
       "importance": 0.1652,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_e01aa1de",
       "content": "[Semantic] DEAP进化循环基因融合完成 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744379,
       "importance": 0.1651,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_a8de8076",
       "content": "[Semantic] Mem0分层记忆基因融合完成 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744349,
       "importance": 0.165,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_bab9b8a8",
       "content": "[Semantic] GitHub Secrets设置指南 Tue May 19 16:13:43 CST 2026 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744319,
       "importance": 0.1648,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_f07710e8",
       "content": "[Semantic] Apex-Spiral 全栈系统构建完成 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779744289,
       "importance": 0.1646,
       "memory_type": "Semantic",
-      "access_count": 3
+      "access_count": 3,
+      "source": ""
     },
     {
       "id": "mem_c0e81206",
       "content": "[Working] auto reflux #157: append commit hash to daily notes (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779749389,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_fbfb9a03",
       "content": "[Working] auto reflux #123: append daily notes (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748789,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_d05762b3",
       "content": "[Working] 🔄 auto reflux 2026-05-25 23:10 #106 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748339,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_d76e3fcc",
       "content": "[Working] 🔄 auto reflux 2026-05-25 22:55 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748279,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_d0646e86",
       "content": "[Working] auto reflux #99 - evomap audit state sync (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748219,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_abab1c1d",
       "content": "[Working] auto reflux 22:00 sync (#95) (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779748099,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_bedbde8f",
       "content": "[Working] auto reflux 19:55 — phi tracker update, evomap audit 676files 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747529,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_e8f18d82",
       "content": "[Working] auto reflux 19:35: workspace sync (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747499,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_ee4700c5",
       "content": "[Working] 🔄 auto reflux 19:00 — PHI=60.0% ∇Θ瓶颈不变, evomap audit 676files 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747289,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_f535d719",
       "content": "[Working] 🔄 auto reflux 2026-05-25 18:30 (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779747259,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_d298a225",
       "content": "[Working] auto reflux 2026-05-25-1730: PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500), evomap audit 0secrets (grep fast scan) (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746959,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_c297285b",
       "content": "[Working] auto reflux 2026-05-25-1725: PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500), evomap audit 0secrets (grep fast scan) (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746899,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_ff172c44",
       "content": "[Working] auto reflux 2026-05-25-1715: PHI=60.0% ∇Θ瓶颈不变 (iter=732+, delta_e=302/500), evomap audit 2698files 0real-secrets (grep fast scan) (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746839,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_de7c747f",
       "content": "[Working] auto reflux 2026-05-25-1710: PHI=60.0% ∇Θ瓶颈不变 (delta_e=302/500, iter=732+), evomap audit 2698files 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746779,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_a8775ecf",
       "content": "[Working] auto reflux 15:50 — evomap audit 676files 0secrets ✅ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746719,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_c7058030",
       "content": "[Working] auto reflux 15:15: phi tracker + evomap audit 676files 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746629,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_fa597c5e",
       "content": "[Working] Auto Reflux 15:00 — PHI=60.0% ∇Θ瓶颈不变, evomap audit 676files 0secrets ✅ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746569,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_d3c82556",
       "content": "[Working] Auto Reflux 14:45 — PHI=60.0% ∇Θ瓶颈不变, evomap audit 676files 0secrets ✅ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746539,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_e7056424",
       "content": "[Working] auto reflux 14:30 — phi=60.0% ∇Θ瓶颈不变, evomap audit 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746509,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_e7fcf302",
       "content": "[Working] auto reflux 14:15 — phi=60.0% ∇Θ瓶颈不变, evomap audit 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746479,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_fa8f0c5b",
       "content": "[Working] auto reflux 13:30 — phi=60.0% ∇Θ瓶颈不变，evomap audit OK，gist push ✅ (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746419,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_e904e2a4",
       "content": "[Working] auto reflux 13:00 — phi=60.0% ∇Θ瓶颈不变，evomap audit 676files 0secrets (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746389,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     },
     {
       "id": "mem_dc398083",
       "content": "[Working] 🔄 auto reflux 2026-05-25 12:00: phi=60.0% ∇Θ, evomap audit 668f 0s (+0/-0, 0 files)",
       "embedding": [
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0
       ],
       "timestamp": 1779746209,
       "importance": 0.08,
       "memory_type": "Working",
-      "access_count": 1
+      "access_count": 1,
+      "source": ""
     }
   ]
 }
