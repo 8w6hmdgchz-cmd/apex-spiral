@@ -1,26 +1,23 @@
 {
-  "timestamp": "2026-05-26T03:09:03.995282+00:00",
+  "timestamp": "2026-05-26T04:35:49.692427+00:00",
   "version": "V10.1",
-  "phi_ratio_equiv": 57.28,
-  "evolution_score": 0.572843,
+  "phi_ratio_equiv": 57.29,
+  "evolution_score": 0.572914,
   "delta_g": 1.116614,
-  "delta_g_total": 0.780774,
-  "delta_g_final": 0.670529,
+  "delta_g_total": 0.781001,
+  "delta_g_final": 0.670724,
   "bottleneck": "Σ_memory",
-  "sigma_memory": 0.3573,
+  "sigma_memory": 0.3582,
   "tau_trace": 0.9967,
   "omega_dawn": 0.7176,
-  "dawn_gate_auto_learn": 0.92,
-  "dawn_gate_ready_score": 1,
-  "dawn_gate_passed": 4,
-  "dawn_gate_checked": 4,
-  "memory_count": 388,
+  "fusion_gate": "passed",
+  "fusion_evidence": "state/apex-fusion-evidence-report.json",
+  "memory_count": 393,
   "memory_types": {
-    "Working": 52,
+    "Working": 55,
     "Episodic": 177,
-    "Procedural": 53,
-    "Semantic": 106
+    "Procedural": 54,
+    "Semantic": 107
   },
-  "dawn_gate_added": 4,
-  "real_dirty": 1
+  "fusion_added": 5
 }

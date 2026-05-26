@@ -1,0 +1,27 @@
+{
+  "architecture": [
+    "fusion engine orchestrates local binaries and records artifacts"
+  ],
+  "evidence": [
+    "state/apex-dawn-gate-latest.json",
+    "state/phi_v10_result.json"
+  ],
+  "implementation": [
+    "scripts/apex-fusion-engine/main.go",
+    "scripts/apex-fusion-engine/go.mod"
+  ],
+  "requirements": [
+    "must pass executor/eval/evidence/hygiene/dawn gates",
+    "must produce evidence paths",
+    "must reject virtual data"
+  ],
+  "task": "APEX fusion engine closes evomap/evolver/autoresearch/superpowers/openhands/CLI/MCP loop",
+  "tests": [
+    "go build ./scripts/apex-fusion-engine",
+    "apex-fusion-engine --mode selftest"
+  ],
+  "verification": [
+    "state/apex-fusion-engine-latest.json",
+    "state/apex-fusion-evidence.json"
+  ]
+}

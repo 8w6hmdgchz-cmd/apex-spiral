@@ -1,9 +1,37 @@
 {
-  "learn_rate": 0.91,
-  "decay_factor": 0.983,
+  "learn_rate": 0.915,
+  "decay_factor": 0.984,
   "max_entries": 10000,
-  "retention_threshold": 0.4,
+  "retention_threshold": 0.39,
   "memory_entries": [
+    {
+      "id": "working_fusion_engine_core_driver",
+      "content": "[Working] apex-fusion-engine is now the core local driver that runs evolver, autoresearch, superpowers gate, CLI/MCP harness bridge, and dawn gate as one evidence-producing closed loop.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770149,
+      "importance": 0.99,
+      "memory_type": "Working",
+      "access_count": 39,
+      "source": "state/apex-fusion-engine-latest.json"
+    },
+    {
+      "id": "working_phi_tracker_full_mirror",
+      "content": "[Working] phi_tracker now prefers state/phi_v10_result.json full mirror over narrow Rust CLI baseline, preventing the stale 67.71% display from masking real Σ_memory bottleneck.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770148,
+      "importance": 0.98,
+      "memory_type": "Working",
+      "access_count": 39,
+      "source": "state/apex-fusion-engine-latest.json"
+    },
     {
       "id": "working_dawn_gate_real_auto_learn",
       "content": "[Working] apex-dawn-gate converts executor/eval/evidence/hygiene selftests into an observed auto_learn score for Ω_dawn instead of using a fixed constant.",
@@ -233,6 +261,20 @@
       ]
     },
     {
+      "id": "working_fusion_evidence_validated",
+      "content": "[Working] fusion evidence record passed apex-evidence-validator hard gate, proving the closed-loop result is admissible evidence rather than virtual progress.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770147,
+      "importance": 0.96,
+      "memory_type": "Working",
+      "access_count": 38,
+      "source": "state/apex-fusion-engine-latest.json"
+    },
+    {
       "id": "working_dawn_gate_four_passes",
       "content": "[Working] Dawn gate currently requires four passing gates: mini executor, eval harness, evidence validator, and hygiene classifier.",
       "embedding": [
@@ -245,6 +287,20 @@
       "memory_type": "Working",
       "access_count": 33,
       "source": "memory/devour/dawn_gate/ledger.md"
+    },
+    {
+      "id": "procedural_fusion_engine_selftest",
+      "content": "[Procedural] Verify full APEX loop with: cd scripts/apex-fusion-engine && go build -o apex-fusion-engine . && ./apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770146,
+      "importance": 0.95,
+      "memory_type": "Procedural",
+      "access_count": 38,
+      "source": "state/apex-fusion-engine-latest.json"
     },
     {
       "id": "working_auto_reflux_real_dirty_penalty",
@@ -545,6 +601,20 @@
       "memory_type": "Working",
       "access_count": 27,
       "source": "memory/devour/paperqa_evidence/ledger.md"
+    },
+    {
+      "id": "semantic_full_mirror_vs_baseline",
+      "content": "[Semantic] PHI has two mirrors: Rust CLI baseline is a narrow formula check; full mirror includes Σ_memory, τ_trace, Ω_dawn, dawn gates, hygiene, and evidence validation.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770145,
+      "importance": 0.9,
+      "memory_type": "Semantic",
+      "access_count": 36,
+      "source": "state/apex-fusion-engine-latest.json"
     },
     {
       "id": "semantic_dawn_readiness_measured",

@@ -15,12 +15,17 @@ ROOT="${ROOT:-/Users/lihongxin/.openclaw/workspace}"
 STATE_DIR="$ROOT/state"
 mkdir -p "$STATE_DIR"
 
+FULL_MIRROR="$STATE_DIR/phi_v10_result.json"
 LATEST="$STATE_DIR/phi_tracker_latest.json"
 HISTORY="$STATE_DIR/phi_history.jsonl"
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
 
 run_apexe() {
+  if [ -f "$FULL_MIRROR" ]; then
+    python3 -c "import json; d=json.load(open('$FULL_MIRROR')); print(json.dumps({'delta_g':d.get('delta_g_final',d.get('delta_g',0.7388)), 'evolution_score':d.get('evolution_score',0.596), 'theta':d.get('theta',0.612), 'k_master':d.get('k_master',1.107), 'epsilon':d.get('epsilon',1.053), 'phi_cycle':d.get('phi_cycle',1.284), 'psi_host':d.get('omega_dawn',d.get('psi_host',0.941)), 'full_mirror': True, 'full_bottleneck': d.get('bottleneck')}))" 2>/dev/null && return
+  fi
+
   APEXE="$ROOT/apex-ene/engine/target/release/apexe"
   if [ ! -f "$APEXE" ]; then
     log "⚠️ apexe 二进制未找到"
@@ -52,17 +57,20 @@ score = float(d.get('evolution_score', 0.596))
 pct = round(score * 100, 2)
 dg = float(d.get('delta_g', 0.7388))
 
-# 瓶颈检测：标准化子公式到[0,1]区间
-dims = [
-    ('Θ_llm_agent', float(d.get('theta', 0.612))),
-    ('K_master', float(d.get('k_master', 1.107))),
-    ('ε_self_repair', float(d.get('epsilon', 1.053))),
-    ('Φ_cycle', float(d.get('phi_cycle', 1.284))),
-    ('Ψ_host', float(d.get('psi_host', 0.941))),
-]
-std = [(name, val / max(val, 1.0)) for name, val in dims]
-worst = min(std, key=lambda x: x[1])
-bottleneck = worst[0]
+# 瓶颈检测：full mirror 优先；否则标准化子公式到[0,1]区间
+if d.get('full_mirror') and d.get('full_bottleneck'):
+    bottleneck = d.get('full_bottleneck')
+else:
+    dims = [
+        ('Θ_llm_agent', float(d.get('theta', 0.612))),
+        ('K_master', float(d.get('k_master', 1.107))),
+        ('ε_self_repair', float(d.get('epsilon', 1.053))),
+        ('Φ_cycle', float(d.get('phi_cycle', 1.284))),
+        ('Ψ_host', float(d.get('psi_host', 0.941))),
+    ]
+    std = [(name, val / max(val, 1.0)) for name, val in dims]
+    worst = min(std, key=lambda x: x[1])
+    bottleneck = worst[0]
 
 directives = {
     'Θ_llm_agent': 'IMPROVE_LLM_ROUTING: optimize model selection & multi-task',
@@ -82,6 +90,7 @@ out = {
     'bottleneck': bottleneck,
     'directive': directive,
     'status': 1 if pct >= 60 else 0,
+    'source': 'full_mirror' if d.get('full_mirror') else 'rust_cli_baseline',
 }
 print(json.dumps(out))
 "

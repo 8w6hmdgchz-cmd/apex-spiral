@@ -1,0 +1,53 @@
+{
+  "id": "apex-research-2e7e7bd66d",
+  "created_at": "2026-05-26T12:34:44+08:00",
+  "question": "APEX fusion engine closes evomap evolver autoresearch superpowers openhands CLI MCP loop without virtual data",
+  "mode": "plan",
+  "evidence_ledger": null,
+  "hypotheses": [
+    {
+      "id": "H1",
+      "text": "Primary hypothesis for: APEX fusion engine closes evomap evolver autoresearch superpowers openhands CLI MCP loop without virtual data",
+      "support": [
+        "no_verified_source_yet"
+      ],
+      "risks": [
+        "insufficient external validation",
+        "confounding or selection bias",
+        "literature/data mismatch"
+      ],
+      "next_test": "collect at least 3 independent evidence sources and run local reproducible analysis if data exists"
+    },
+    {
+      "id": "H0",
+      "text": "Null/negative hypothesis: current evidence is insufficient or effect is not robust",
+      "support": [
+        "default skeptical prior"
+      ],
+      "risks": [
+        "may miss weak but real signal"
+      ],
+      "next_test": "define falsification threshold before analysis"
+    }
+  ],
+  "critique": [
+    "Do not promote H1 unless evidence ledger has verified sources.",
+    "Report negative findings explicitly.",
+    "Check whether the question asks mechanism, association, prediction, or intervention.",
+    "Evidence ledger has fewer than 3 sources; research answer must stay provisional."
+  ],
+  "verification_plan": [
+    "build evidence ledger",
+    "classify claims as verified/hypothesis/unknown",
+    "define falsification criteria",
+    "run local reproducible analysis if dataset exists",
+    "write report with limitations"
+  ],
+  "no_fake_data_rules": [
+    "No claim without source evidence.",
+    "Separate hypothesis from verified finding.",
+    "Unknown effect size/p-value stays unknown.",
+    "Local data results require executable script and artifact path."
+  ],
+  "next_action": "collect_more_verified_evidence"
+}

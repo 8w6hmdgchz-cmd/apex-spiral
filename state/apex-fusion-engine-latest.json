@@ -1,0 +1,53 @@
+{
+  "id": "apex-fusion-1779770084",
+  "started_at": "2026-05-26T12:34:44+08:00",
+  "status": "success",
+  "root": "/Users/lihongxin/.openclaw/workspace",
+  "gates": [
+    {
+      "name": "evolver_cycle",
+      "command": "[/Users/lihongxin/.openclaw/workspace/scripts/apex-evolver-core/apex-evolver-core --mode cycle --root /Users/lihongxin/.openclaw/workspace --out /Users/lihongxin/.openclaw/workspace/state/apex-fusion-evolver.json]",
+      "output_path": "state/apex-fusion-evolver.json",
+      "ok": true,
+      "duration_ms": 179
+    },
+    {
+      "name": "autoresearch_plan",
+      "command": "[/Users/lihongxin/.openclaw/workspace/scripts/apex-autoresearch-core/apex-autoresearch-core --question APEX fusion engine closes evomap evolver autoresearch superpowers openhands CLI MCP loop without virtual data --out /Users/lihongxin/.openclaw/workspace/state/apex-fusion-autoresearch.json]",
+      "output_path": "state/apex-fusion-autoresearch.json",
+      "ok": true,
+      "duration_ms": 454
+    },
+    {
+      "name": "harness_bridge",
+      "command": "[/Users/lihongxin/.openclaw/workspace/scripts/apex-harness-bridge/apex-harness-bridge --mode selftest]",
+      "output_path": "stdout:harness_bridge",
+      "ok": true,
+      "duration_ms": 24
+    },
+    {
+      "name": "superpowers_gate",
+      "command": "[/Users/lihongxin/.openclaw/workspace/scripts/apex-superpowers-gate/apex-superpowers-gate --mode full --input /Users/lihongxin/.openclaw/workspace/state/apex-fusion-superpowers-input.json]",
+      "output_path": "stdout:superpowers_gate",
+      "ok": true,
+      "duration_ms": 6
+    },
+    {
+      "name": "dawn_gate",
+      "command": "[/Users/lihongxin/.openclaw/workspace/scripts/apex-dawn-gate/apex-dawn-gate --root /Users/lihongxin/.openclaw/workspace --out /Users/lihongxin/.openclaw/workspace/state/apex-dawn-gate-latest.json]",
+      "output_path": "state/apex-dawn-gate-latest.json",
+      "ok": true,
+      "duration_ms": 281
+    }
+  ],
+  "evidence": [
+    "state/apex-fusion-evolver.json",
+    "state/apex-fusion-autoresearch.json",
+    "stdout:harness_bridge",
+    "stdout:superpowers_gate",
+    "state/apex-dawn-gate-latest.json"
+  ],
+  "phi_mirror": "state/phi_v10_result.json",
+  "next": "promote_to_phi_tracker_full_mirror",
+  "format": "apex-fusion-engine-1.0"
+}
