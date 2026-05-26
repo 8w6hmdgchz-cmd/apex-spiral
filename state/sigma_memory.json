@@ -102,6 +102,20 @@
       "source": "state/apex-fusion-engine-latest.json"
     },
     {
+      "id": "working_hygiene_v2_active",
+      "content": "[Working] apex-hygiene v2 classifies runtime noise with policies: source commit_or_review, transient do_not_commit_or_ignore, managed_evidence intentional snapshots, managed_release prepared releases.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782763,
+      "importance": 0.98,
+      "memory_type": "Working",
+      "access_count": 39,
+      "source": "state/apex-hygiene-latest.json"
+    },
+    {
       "id": "working_release_manager_active",
       "content": "[Working] apex-release-manager is active: it prepares local release notes, SHA256 checksums, and rollback manifests after CMMI gates.",
       "embedding": [
@@ -243,7 +257,7 @@
     },
     {
       "id": "working_evidence_validator_hard_gate",
-      "content": "[Working] apex-evidence-validator now enforces hard memory admission: source_repo, source_commit, source_path, context_id, score\u003e=0.70, and verification.result=pass are required.",
+      "content": "[Working] apex-evidence-validator now enforces hard memory admission: source_repo, source_commit, source_path, context_id, score>=0.70, and verification.result=pass are required.",
       "embedding": [
         0,
         0,
@@ -254,34 +268,6 @@
       "memory_type": "Working",
       "access_count": 33,
       "source": "memory/devour/jsonschema_validator/ledger.md"
-    },
-    {
-      "id": "working_cmmi_container_truthful_fallback",
-      "content": "[Working] CMMI harness detected Docker unavailable and honestly reported container_mode=unavailable_local_sandbox instead of fabricating container execution.",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779779517,
-      "importance": 0.96,
-      "memory_type": "Working",
-      "access_count": 38,
-      "source": "state/apex-cmmi-delivery-latest.json"
-    },
-    {
-      "id": "working_fusion_evidence_validated",
-      "content": "[Working] fusion evidence record passed apex-evidence-validator hard gate, proving the closed-loop result is admissible evidence rather than virtual progress.",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779770147,
-      "importance": 0.96,
-      "memory_type": "Working",
-      "access_count": 38,
-      "source": "state/apex-fusion-engine-latest.json"
     },
     {
       "id": "episodic_git_c70d103b97e3",
@@ -382,6 +368,48 @@
       "source": "git_log"
     },
     {
+      "id": "episodic_git_c497c654444c",
+      "content": "[Episodic] git repair commit c497c654: fix: Hermes-Agent完整修复方案 (+196/-1, 5 files)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779751810,
+      "importance": 0.9685,
+      "memory_type": "Episodic",
+      "access_count": 24,
+      "source": "git_log"
+    },
+    {
+      "id": "working_cmmi_container_truthful_fallback",
+      "content": "[Working] CMMI harness detected Docker unavailable and honestly reported container_mode=unavailable_local_sandbox instead of fabricating container execution.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779779517,
+      "importance": 0.96,
+      "memory_type": "Working",
+      "access_count": 38,
+      "source": "state/apex-cmmi-delivery-latest.json"
+    },
+    {
+      "id": "working_fusion_evidence_validated",
+      "content": "[Working] fusion evidence record passed apex-evidence-validator hard gate, proving the closed-loop result is admissible evidence rather than virtual progress.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779770147,
+      "importance": 0.96,
+      "memory_type": "Working",
+      "access_count": 38,
+      "source": "state/apex-fusion-engine-latest.json"
+    },
+    {
       "id": "working_dawn_gate_four_passes",
       "content": "[Working] Dawn gate currently requires four passing gates: mini executor, eval harness, evidence validator, and hygiene classifier.",
       "embedding": [
@@ -396,18 +424,18 @@
       "source": "memory/devour/dawn_gate/ledger.md"
     },
     {
-      "id": "episodic_git_c497c654444c",
-      "content": "[Episodic] git repair commit c497c654: fix: Hermes-Agent完整修复方案 (+196/-1, 5 files)",
+      "id": "procedural_hygiene_v2_verify",
+      "content": "[Procedural] Verify runtime noise governance with: scripts/apex-hygiene/apex-hygiene --root /Users/lihongxin/.openclaw/workspace --out state/apex-hygiene-latest.json",
       "embedding": [
         0,
         0,
         0
       ],
-      "timestamp": 1779751810,
-      "importance": 0.9685,
-      "memory_type": "Episodic",
-      "access_count": 24,
-      "source": "git_log"
+      "timestamp": 1779782762,
+      "importance": 0.95,
+      "memory_type": "Procedural",
+      "access_count": 38,
+      "source": "state/apex-hygiene-latest.json"
     },
     {
       "id": "procedural_release_manager_prepare",
@@ -467,7 +495,7 @@
     },
     {
       "id": "procedural_fusion_phasor_verify",
-      "content": "[Procedural] Verify phasor-enabled fusion with: scripts/apex-fusion-engine/apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json \u0026\u0026 scripts/apex-evidence-validator/apex-evidence-validator --mode validate --input state/apex-fusion-evidence.json --out state/apex-fusion-evidence-report.json",
+      "content": "[Procedural] Verify phasor-enabled fusion with: scripts/apex-fusion-engine/apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json && scripts/apex-evidence-validator/apex-evidence-validator --mode validate --input state/apex-fusion-evidence.json --out state/apex-fusion-evidence-report.json",
       "embedding": [
         0,
         0,
@@ -537,7 +565,7 @@
     },
     {
       "id": "procedural_fusion_engine_selftest",
-      "content": "[Procedural] Verify full APEX loop with: cd scripts/apex-fusion-engine \u0026\u0026 go build -o apex-fusion-engine . \u0026\u0026 ./apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json",
+      "content": "[Procedural] Verify full APEX loop with: cd scripts/apex-fusion-engine && go build -o apex-fusion-engine . && ./apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json",
       "embedding": [
         0,
         0,
@@ -590,48 +618,6 @@
       "memory_type": "Working",
       "access_count": 33,
       "source": "memory/devour/mini_swe_agent/ledger.md"
-    },
-    {
-      "id": "semantic_release_publish_boundary",
-      "content": "[Semantic] Release Manager prepares local artifacts and checksums; publishing an external GitHub Release remains an explicit external action requiring permission/tooling.",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779782095,
-      "importance": 0.94,
-      "memory_type": "Semantic",
-      "access_count": 37,
-      "source": "state/apex-release-manager-latest.json"
-    },
-    {
-      "id": "procedural_phasor_verify",
-      "content": "[Procedural] Verify phasor LLM route with: scripts/apex-phasor-llm/apex-phasor-llm --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-phasor-llm-latest.json",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779777103,
-      "importance": 0.94,
-      "memory_type": "Procedural",
-      "access_count": 37,
-      "source": "state/apex-phasor-llm-latest.json"
-    },
-    {
-      "id": "procedural_ecc_nightly",
-      "content": "[Procedural] Nightly controlled evolution entrypoint: /Users/lihongxin/.openclaw/workspace/scripts/apex_ecc_nightly.sh",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779773899,
-      "importance": 0.94,
-      "memory_type": "Procedural",
-      "access_count": 37,
-      "source": "memory/ecc/runtimeos.md"
     },
     {
       "id": "episodic_failure_1",
@@ -691,7 +677,7 @@
     },
     {
       "id": "episodic_failure_5",
-      "content": "[Episodic] failure case #5: 叙事 \u003e 交付 — happened=花大量时间讲述'在进化'而不是真正交付可验证的结果；术语多但实证少; root=缺乏硬指标约束；自我叙事没有外部 challenge 机制; fix=建立 benchmark 和 metrics 系统；每次重大输出前问自己：这是交付还是叙事; verify=用户要求的具体任务能否完成/完成质量",
+      "content": "[Episodic] failure case #5: 叙事 > 交付 — happened=花大量时间讲述'在进化'而不是真正交付可验证的结果；术语多但实证少; root=缺乏硬指标约束；自我叙事没有外部 challenge 机制; fix=建立 benchmark 和 metrics 系统；每次重大输出前问自己：这是交付还是叙事; verify=用户要求的具体任务能否完成/完成质量",
       "embedding": [
         0,
         0,
@@ -704,8 +690,64 @@
       "source": "memory/failure_cases.jsonl"
     },
     {
+      "id": "semantic_runtime_noise_governance",
+      "content": "[Semantic] Runtime noise governance prevents transient logs and managed evidence churn from masquerading as source progress while still allowing intentional gate snapshots.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782761,
+      "importance": 0.94,
+      "memory_type": "Semantic",
+      "access_count": 37,
+      "source": "state/apex-hygiene-latest.json"
+    },
+    {
+      "id": "semantic_release_publish_boundary",
+      "content": "[Semantic] Release Manager prepares local artifacts and checksums; publishing an external GitHub Release remains an explicit external action requiring permission/tooling.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779782095,
+      "importance": 0.94,
+      "memory_type": "Semantic",
+      "access_count": 37,
+      "source": "state/apex-release-manager-latest.json"
+    },
+    {
+      "id": "procedural_phasor_verify",
+      "content": "[Procedural] Verify phasor LLM route with: scripts/apex-phasor-llm/apex-phasor-llm --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-phasor-llm-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779777103,
+      "importance": 0.94,
+      "memory_type": "Procedural",
+      "access_count": 37,
+      "source": "state/apex-phasor-llm-latest.json"
+    },
+    {
+      "id": "procedural_ecc_nightly",
+      "content": "[Procedural] Nightly controlled evolution entrypoint: /Users/lihongxin/.openclaw/workspace/scripts/apex_ecc_nightly.sh",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779773899,
+      "importance": 0.94,
+      "memory_type": "Procedural",
+      "access_count": 37,
+      "source": "memory/ecc/runtimeos.md"
+    },
+    {
       "id": "procedural_dawn_gate_verify",
-      "content": "[Procedural] Verify dawn readiness with: cd scripts/apex-dawn-gate \u0026\u0026 go build -o apex-dawn-gate . \u0026\u0026 ./apex-dawn-gate --root /Users/lihongxin/.openclaw/workspace --out state/apex-dawn-gate-latest.json",
+      "content": "[Procedural] Verify dawn readiness with: cd scripts/apex-dawn-gate && go build -o apex-dawn-gate . && ./apex-dawn-gate --root /Users/lihongxin/.openclaw/workspace --out state/apex-dawn-gate-latest.json",
       "embedding": [
         0,
         0,
@@ -719,7 +761,7 @@
     },
     {
       "id": "procedural_evidence_validator_selftest",
-      "content": "[Procedural] Verify evidence gate with: cd scripts/apex-evidence-validator \u0026\u0026 go build -o apex-evidence-validator . \u0026\u0026 ./apex-evidence-validator --mode selftest --input state/apex-evidence-selftest.json --out state/apex-evidence-validator-latest.json",
+      "content": "[Procedural] Verify evidence gate with: cd scripts/apex-evidence-validator && go build -o apex-evidence-validator . && ./apex-evidence-validator --mode selftest --input state/apex-evidence-selftest.json --out state/apex-evidence-validator-latest.json",
       "embedding": [
         0,
         0,
@@ -789,7 +831,7 @@
     },
     {
       "id": "procedural_apex_eval_harness_selftest",
-      "content": "[Procedural] Verify apex-eval-harness with: cd scripts/apex-eval-harness \u0026\u0026 go build -o apex-eval-harness . \u0026\u0026 ./apex-eval-harness --mode selftest --workspace /Users/lihongxin/.openclaw/workspace --out state/apex-eval-harness-latest.json",
+      "content": "[Procedural] Verify apex-eval-harness with: cd scripts/apex-eval-harness && go build -o apex-eval-harness . && ./apex-eval-harness --mode selftest --workspace /Users/lihongxin/.openclaw/workspace --out state/apex-eval-harness-latest.json",
       "embedding": [
         0,
         0,
@@ -803,7 +845,7 @@
     },
     {
       "id": "procedural_apex_mini_executor_selftest",
-      "content": "[Procedural] Verify apex-mini-executor with: cd scripts/apex-mini-executor \u0026\u0026 go build -o apex-mini-executor . \u0026\u0026 ./apex-mini-executor --mode selftest --workspace /Users/lihongxin/.openclaw/workspace",
+      "content": "[Procedural] Verify apex-mini-executor with: cd scripts/apex-mini-executor && go build -o apex-mini-executor . && ./apex-mini-executor --mode selftest --workspace /Users/lihongxin/.openclaw/workspace",
       "embedding": [
         0,
         0,
@@ -842,6 +884,76 @@
       "memory_type": "Semantic",
       "access_count": 36,
       "source": "memory/ecc/runtimeos.md"
+    },
+    {
+      "id": "procedural_apex_hygiene_verify",
+      "content": "[Procedural] Verify hygiene gate with: cd scripts/apex-hygiene && go build -o apex-hygiene . && ./apex-hygiene --root /Users/lihongxin/.openclaw/workspace --out state/apex-hygiene-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779764264,
+      "importance": 0.92,
+      "memory_type": "Procedural",
+      "access_count": 32,
+      "source": "memory/devour/lefthook_hygiene/ledger.md"
+    },
+    {
+      "id": "procedural_evidence_validator_devour_samples",
+      "content": "[Procedural] Validate recent devour evidence with: scripts/apex-evidence-validator/apex-evidence-validator --mode validate --input state/apex-evidence-devour-samples.json --out state/apex-evidence-validator-devour-report.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761821,
+      "importance": 0.92,
+      "memory_type": "Procedural",
+      "access_count": 32,
+      "source": "memory/devour/jsonschema_validator/ledger.md"
+    },
+    {
+      "id": "working_miniswe_independent_subprocess",
+      "content": "[Working] mini-swe-agent pattern: execute every action as an independent subprocess, avoiding persistent shell state and making sandbox replacement simple.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761355,
+      "importance": 0.92,
+      "memory_type": "Working",
+      "access_count": 32,
+      "source": "memory/devour/mini_swe_agent/ledger.md"
+    },
+    {
+      "id": "working_openhands_verify_archive_loop",
+      "content": "[Working] APEX adaptation: plan→bounded process→execute→persist event→verify→archive into Σ_memory as Working/Episodic.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779752506,
+      "importance": 0.92,
+      "memory_type": "Working",
+      "access_count": 27,
+      "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "episodic_git_ae9fdc2413b3",
+      "content": "[Episodic] git repair commit ae9fdc24: Evolution Loop fitness追踪修复 (+183/-5, 4 files)",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779751572,
+      "importance": 0.914,
+      "memory_type": "Episodic",
+      "access_count": 22,
+      "source": "git_log"
     },
     {
       "id": "evidence_4e47ec1488a79cda",
@@ -901,7 +1013,7 @@
     },
     {
       "id": "evidence_be3827b14cba2741",
-      "content": "[Procedural] APEX failure/repair lesson: {\"id\": 5, \"timestamp\": \"2026-05-25T09:00:00+08:00\", \"task\": \"叙事 \u003e 交付\", \"what_happened\": \"花大量时间讲述'在进化'而不是真正交付可验证的结果；术语多但实证少\", \"root_cause\": \"缺乏硬指标约束；自我叙事没有外部 c (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/failure_cases.jsonl context=memory/failure_cases.jsonl#L5)",
+      "content": "[Procedural] APEX failure/repair lesson: {\"id\": 5, \"timestamp\": \"2026-05-25T09:00:00+08:00\", \"task\": \"叙事 > 交付\", \"what_happened\": \"花大量时间讲述'在进化'而不是真正交付可验证的结果；术语多但实证少\", \"root_cause\": \"缺乏硬指标约束；自我叙事没有外部 c (source=8w6hmdgchz-cmd/apex-spiral@0000000:memory/failure_cases.jsonl context=memory/failure_cases.jsonl#L5)",
       "embedding": [
         0,
         0,
@@ -1012,62 +1124,6 @@
       "source": "state/apex-failure-evidence.json"
     },
     {
-      "id": "procedural_apex_hygiene_verify",
-      "content": "[Procedural] Verify hygiene gate with: cd scripts/apex-hygiene \u0026\u0026 go build -o apex-hygiene . \u0026\u0026 ./apex-hygiene --root /Users/lihongxin/.openclaw/workspace --out state/apex-hygiene-latest.json",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779764264,
-      "importance": 0.92,
-      "memory_type": "Procedural",
-      "access_count": 32,
-      "source": "memory/devour/lefthook_hygiene/ledger.md"
-    },
-    {
-      "id": "procedural_evidence_validator_devour_samples",
-      "content": "[Procedural] Validate recent devour evidence with: scripts/apex-evidence-validator/apex-evidence-validator --mode validate --input state/apex-evidence-devour-samples.json --out state/apex-evidence-validator-devour-report.json",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779761821,
-      "importance": 0.92,
-      "memory_type": "Procedural",
-      "access_count": 32,
-      "source": "memory/devour/jsonschema_validator/ledger.md"
-    },
-    {
-      "id": "working_miniswe_independent_subprocess",
-      "content": "[Working] mini-swe-agent pattern: execute every action as an independent subprocess, avoiding persistent shell state and making sandbox replacement simple.",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779761355,
-      "importance": 0.92,
-      "memory_type": "Working",
-      "access_count": 32,
-      "source": "memory/devour/mini_swe_agent/ledger.md"
-    },
-    {
-      "id": "working_openhands_verify_archive_loop",
-      "content": "[Working] APEX adaptation: plan→bounded process→execute→persist event→verify→archive into Σ_memory as Working/Episodic.",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779752506,
-      "importance": 0.92,
-      "memory_type": "Working",
-      "access_count": 27,
-      "source": "memory/devour/openhands_exec/ledger.md"
-    },
-    {
       "id": "semantic_praison_no_mysticism",
       "content": "[Semantic] PraisonAI transfer is an engineering chain: role agents, task graph, tool gates, fusion verification, evidence admission, and memory ledger; no mystical or fabricated ability is accepted.",
       "embedding": [
@@ -1150,20 +1206,6 @@
       "memory_type": "Semantic",
       "access_count": 36,
       "source": "state/apex-fusion-engine-latest.json"
-    },
-    {
-      "id": "episodic_git_ae9fdc2413b3",
-      "content": "[Episodic] git repair commit ae9fdc24: Evolution Loop fitness追踪修复 (+183/-5, 4 files)",
-      "embedding": [
-        0,
-        0,
-        0
-      ],
-      "timestamp": 1779751572,
-      "importance": 0.914,
-      "memory_type": "Episodic",
-      "access_count": 22,
-      "source": "git_log"
     },
     {
       "id": "semantic_dawn_readiness_measured",
@@ -1643,7 +1685,7 @@
     },
     {
       "id": "episodic_note_9e3677fbb4dc",
-      "content": "[Episodic] 2026-05-23.md#13: - Browser/OpenClaw hook work: browser plugin enabled and Chrome/CDP running; actual files patched in `/opt/homebrew/lib/node_modules/openclaw/dist/`: `browser-cli-actions-input-BQzZ_pkR.js` click-coords hook and `browser-cli-inspect-MK7-CJBe.js` screenshot hook. Backups `.bak-apex-*` were created. Click coordinate correction via env vars: `OPENCLAW_APEX_COORD_CORRECT=1`, screen/image width/height; verified `100,50 -\u003e 192,108` on example.com. Screenshot hook records to `memory/apex-screenshot-frames.jsonl` and maintains `memory/apex-screenshot-latest3.json` with count=3. This was real chain verification, not just docs.",
+      "content": "[Episodic] 2026-05-23.md#13: - Browser/OpenClaw hook work: browser plugin enabled and Chrome/CDP running; actual files patched in `/opt/homebrew/lib/node_modules/openclaw/dist/`: `browser-cli-actions-input-BQzZ_pkR.js` click-coords hook and `browser-cli-inspect-MK7-CJBe.js` screenshot hook. Backups `.bak-apex-*` were created. Click coordinate correction via env vars: `OPENCLAW_APEX_COORD_CORRECT=1`, screen/image width/height; verified `100,50 -> 192,108` on example.com. Screenshot hook records to `memory/apex-screenshot-frames.jsonl` and maintains `memory/apex-screenshot-latest3.json` with count=3. This was real chain verification, not just docs.",
       "embedding": [
         0,
         0,

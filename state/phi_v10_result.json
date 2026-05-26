@@ -1,21 +1,23 @@
 {
-  "timestamp": "2026-05-26T08:02:36.907404+00:00",
+  "timestamp": "2026-05-26T08:06:03.558398+00:00",
   "version": "V10.1",
-  "phi_ratio_equiv": 57.35,
-  "evolution_score": 0.573473,
+  "phi_ratio_equiv": 57.36,
+  "evolution_score": 0.573552,
   "delta_g": 1.116614,
-  "delta_g_final": 0.67226,
+  "delta_g_final": 0.672477,
   "bottleneck": "Σ_memory",
-  "sigma_memory": 0.3754,
+  "sigma_memory": 0.3764,
   "tau_trace": 0.98,
   "omega_dawn": 0.7176,
-  "failure_miner": "active",
-  "failure_findings": 12,
-  "memory_count": 438,
+  "hygiene": "v2",
+  "hygiene_real_dirty": 3,
+  "hygiene_format": "apex-hygiene-2.0",
+  "memory_count": 441,
   "memory_types": {
-    "Working": 70,
+    "Working": 71,
     "Episodic": 177,
-    "Procedural": 76,
-    "Semantic": 115
-  }
+    "Procedural": 77,
+    "Semantic": 116
+  },
+  "hygiene_added": 3
 }

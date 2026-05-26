@@ -273,3 +273,29 @@ admission_status: success
 added: 12
 sigma_memory: 0.3754
 ```
+
+## Runtime Noise Governance v2
+
+Upgraded `apex-hygiene` to format `apex-hygiene-2.0`.
+
+Categories and policies:
+
+```text
+source            → commit_or_review
+transient         → do_not_commit_or_ignore
+managed_evidence  → commit_only_when_gate_snapshot_intentional
+managed_memory    → commit_when_user/session_memory_relevant
+managed_release   → commit_when_release_manager_prepared
+vendor            → do_not_commit_snapshot_noise
+```
+
+Latest verification:
+
+```text
+format: apex-hygiene-2.0
+real_dirty: 3  # expected during active source edit before commit
+managed_dirty: 15
+transient_dirty: 1
+```
+
+Purpose: prevent runtime state churn from masquerading as source progress while preserving intentional evidence snapshots.
