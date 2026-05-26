@@ -1,12 +1,12 @@
 {
-  "id": "apex-rtau-anchor-1779810362",
-  "timestamp": "2026-05-26T15:46:02Z",
-  "R_tau": 0.8889,
-  "source": "apex-ollama-benchmark (deepseek-chat)",
+  "id": "apex-rtau-anchor-1779813633",
+  "timestamp": "2026-05-26T16:40:33Z",
+  "R_tau": 1.0,
+  "source": "MiniMax-M2.5 via sessions_spawn benchmark",
   "datasets": {
     "mmlu_subset": 1.0,
     "math_direct": 1.0,
-    "truthfulqa_subset": 0.3333
+    "truthfulqa_subset": 1.0
   },
   "weight": {
     "mmlu": 3,
@@ -14,6 +14,7 @@
     "math": 2
   },
   "total_weight": 6,
-  "weighted_R_tau": 0.8889,
+  "weighted_R_tau": 1.0,
+  "model": "scnet/MiniMax-M2.5",
   "format": "apex-rtau-anchor-1.0"
 }

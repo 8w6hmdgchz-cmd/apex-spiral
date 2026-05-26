@@ -1003,6 +1003,206 @@
         "state_source": "orchestration",
         "total_skills": 26
       }
+    },
+    {
+      "id": "evo-20260526T164040Z",
+      "timestamp": "2026-05-26T16:40:40Z",
+      "event_type": "reverse_policy_evolution",
+      "source": "apex-skillflow-evolution",
+      "payload": {
+        "collapse_resolutions": [],
+        "credit_allocations": {
+          "akquant-backtest": 0.03,
+          "apex-autoresearch-core": 0.04,
+          "apex-book-skill": 0.03,
+          "apex-claude-code-runner": 0.04,
+          "apex-cmmi-delivery": 0.01,
+          "apex-container-backend": 0.03,
+          "apex-core": 0,
+          "apex-devour-engine": 0,
+          "apex-ecc-runtimeos": 0,
+          "apex-eval-harness": 0.04,
+          "apex-evidence-validator": 0.03,
+          "apex-evolver-core": 0.01,
+          "apex-fusion-engine": 0.03,
+          "apex-harness-bridge": 0,
+          "apex-hygiene": 0.03,
+          "apex-memory-admission": 0.03,
+          "apex-mini-executor": 0.04,
+          "apex-praison-chain": 0.01,
+          "apex-secrets-gate": 0,
+          "apex-strata": 0.01,
+          "apex-superpowers-gate": 0,
+          "apex-tiangong-skill": 0.01,
+          "apex-token-optimizer": 0.01,
+          "apex-unified-research-engine": 0.01,
+          "clawg-training-ecosystem": 0.03,
+          "xuanjiquant": 0.01
+        },
+        "evolution_id": "apex-skillflow-evo-20260526T164040Z",
+        "evolved_skill_count": 25,
+        "evolved_skills": [
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.48,
+            "old_reward": 0.47,
+            "skill_id": "apex-tiangong-skill"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.62,
+            "old_reward": 0.61,
+            "skill_id": "apex-evolver-core"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.6,
+            "old_reward": 0.59,
+            "skill_id": "apex-token-optimizer"
+          },
+          {
+            "adjustment": 0.03,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-container-backend"
+          },
+          {
+            "adjustment": 0.03,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-memory-admission"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.46,
+            "old_reward": 0.45,
+            "skill_id": "xuanjiquant"
+          },
+          {
+            "adjustment": 0.04,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-claude-code-runner"
+          },
+          {
+            "adjustment": 0.03,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "clawg-training-ecosystem"
+          },
+          {
+            "adjustment": 0.04,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-eval-harness"
+          },
+          {
+            "adjustment": 0,
+            "new_reward": 0.66,
+            "old_reward": 0.66,
+            "skill_id": "apex-superpowers-gate"
+          },
+          {
+            "adjustment": 0,
+            "new_reward": 0.64,
+            "old_reward": 0.64,
+            "skill_id": "apex-core"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.51,
+            "old_reward": 0.5,
+            "skill_id": "apex-cmmi-delivery"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.65,
+            "old_reward": 0.65,
+            "skill_id": "apex-strata"
+          },
+          {
+            "adjustment": 0,
+            "new_reward": 0.71,
+            "old_reward": 0.71,
+            "skill_id": "apex-harness-bridge"
+          },
+          {
+            "adjustment": 0.04,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-autoresearch-core"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.49,
+            "old_reward": 0.48,
+            "skill_id": "apex-unified-research-engine"
+          },
+          {
+            "adjustment": 0,
+            "new_reward": 0.64,
+            "old_reward": 0.64,
+            "skill_id": "apex-devour-engine"
+          },
+          {
+            "adjustment": 0.04,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-mini-executor"
+          },
+          {
+            "adjustment": 0.01,
+            "new_reward": 0.51,
+            "old_reward": 0.5,
+            "skill_id": "apex-praison-chain"
+          },
+          {
+            "adjustment": 0.03,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "akquant-backtest"
+          },
+          {
+            "adjustment": 0,
+            "new_reward": 0.64,
+            "old_reward": 0.64,
+            "skill_id": "apex-ecc-runtimeos"
+          },
+          {
+            "adjustment": 0.03,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-fusion-engine"
+          },
+          {
+            "adjustment": 0.03,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-book-skill"
+          },
+          {
+            "adjustment": 0.03,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-evidence-validator"
+          },
+          {
+            "adjustment": 0.03,
+            "new_reward": 0.74,
+            "old_reward": 0.7,
+            "skill_id": "apex-hygiene"
+          }
+        ],
+        "external_Rtau": 1,
+        "flow_entropy_after": 5.41,
+        "flow_entropy_before": 1,
+        "reverse_policy": true,
+        "rtau_scaling_applied": 1,
+        "rtau_source": "MiniMax-M2.5 via sessions_spawn benchmark",
+        "schema_datasets": 14,
+        "state_source": "orchestration",
+        "total_skills": 26
+      }
     }
   ]
 }
