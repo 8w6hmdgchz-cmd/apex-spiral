@@ -1,14 +1,25 @@
 {
-  "id": "apex-cmmi-1779780362",
-  "started_at": "2026-05-26T15:26:02+08:00",
-  "objective": "APEX CMMI with automatic memory admission",
+  "id": "apex-cmmi-1779780885",
+  "started_at": "2026-05-26T15:34:45+08:00",
+  "objective": "APEX CMMI with container backend detection",
   "status": "success",
   "container_mode": "unavailable_local_sandbox",
   "docker_available": false,
-  "formula": "Apex_CMMI = Apex_agent × (Plan→Code→Audit→Test→Memory→Release) × EvidenceGate",
+  "formula": "Apex_CMMI = Apex_agent × (Container→Plan→Code→Audit→Test→Memory→Release) × EvidenceGate",
   "phases": [
     {
       "id": "P1",
+      "name": "Container Backend Detection",
+      "owner": "runtime platform",
+      "standard": "CMMI SAM + CM",
+      "gate": "docker isolated or explicit local fallback",
+      "evidence": [
+        "state/apex-container-backend-latest.json"
+      ],
+      "status": "pass"
+    },
+    {
+      "id": "P2",
       "name": "APEX Formula Planning",
       "owner": "GPT/phasor planner",
       "standard": "CMMI PP + IPM",
@@ -20,7 +31,7 @@
       "status": "pass"
     },
     {
-      "id": "P2",
+      "id": "P3",
       "name": "Claude-Code Implementation Slot",
       "owner": "coding agent",
       "standard": "CMMI TS + PI",
@@ -31,7 +42,7 @@
       "status": "pass"
     },
     {
-      "id": "P3",
+      "id": "P4",
       "name": "APEX PR Audit",
       "owner": "GPT/APEX reviewer",
       "standard": "CMMI VER + VAL",
@@ -43,7 +54,7 @@
       "status": "pass"
     },
     {
-      "id": "P4",
+      "id": "P5",
       "name": "Automated Test Closure",
       "owner": "harness",
       "standard": "CMMI PPQA + CM",
@@ -55,7 +66,7 @@
       "status": "pass"
     },
     {
-      "id": "P5",
+      "id": "P6",
       "name": "Evidence Memory Admission",
       "owner": "memory governor",
       "standard": "CMMI MA + PPQA",
@@ -67,7 +78,7 @@
       "status": "pass"
     },
     {
-      "id": "P6",
+      "id": "P7",
       "name": "GitHub Release Sync",
       "owner": "governance",
       "standard": "CMMI CM + DAR",
@@ -79,6 +90,7 @@
     }
   ],
   "evidence": [
+    "state/apex-container-backend-latest.json",
     "state/apex-cmmi-delivery-latest.json",
     "state/apex-fusion-engine-latest.json",
     "state/apex-fusion-evidence-report.json",

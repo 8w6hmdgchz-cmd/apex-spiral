@@ -1,0 +1,20 @@
+{
+  "id": "apex-container-1779780875",
+  "started_at": "2026-05-26T15:34:35+08:00",
+  "status": "success",
+  "mode": "local_sandbox_fallback",
+  "image": "golang:1.23-alpine",
+  "command": "pwd \u0026\u0026 ls scripts \u003e/dev/null \u0026\u0026 echo container_backend_ok",
+  "workspace": "/Users/lihongxin/.openclaw/workspace",
+  "duration_ms": 0,
+  "output": "docker binary not found; using local sandbox fallback",
+  "safety": [
+    "workspace mounted read-only by default for detect/selftest where possible",
+    "no host docker mutation when docker unavailable",
+    "fallback is explicit local sandbox, never reported as container success"
+  ],
+  "evidence": [
+    "state/apex-container-backend-latest.json"
+  ],
+  "format": "apex-container-backend-1.0"
+}

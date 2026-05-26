@@ -138,3 +138,31 @@ sigma_memory: 0.3687
 cmmi_status: success
 P1..P6: pass
 ```
+
+## Container Backend Detection
+
+Added:
+
+- `scripts/apex-container-backend/main.go`
+- `state/apex-container-backend-latest.json`
+
+Behavior:
+
+```text
+Docker present + daemon reachable → docker_isolated
+Docker missing/unreachable → local_sandbox_fallback
+```
+
+Latest verification:
+
+```text
+status: success
+mode: local_sandbox_fallback
+docker_available: false
+```
+
+CMMI delivery now starts with container backend detection:
+
+```text
+Container → Plan → Code → Audit → Test → Memory → Release
+```
