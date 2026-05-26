@@ -1,9 +1,23 @@
 {
-  "learn_rate": 0.89,
-  "decay_factor": 0.979,
+  "learn_rate": 0.9,
+  "decay_factor": 0.981,
   "max_entries": 10000,
-  "retention_threshold": 0.41,
+  "retention_threshold": 0.4,
   "memory_entries": [
+    {
+      "id": "working_evidence_validator_hard_gate",
+      "content": "[Working] apex-evidence-validator now enforces hard memory admission: source_repo, source_commit, source_path, context_id, score>=0.70, and verification.result=pass are required.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761824,
+      "importance": 0.97,
+      "memory_type": "Working",
+      "access_count": 33,
+      "source": "memory/devour/jsonschema_validator/ledger.md"
+    },
     {
       "id": "episodic_git_c70d103b97e3",
       "content": "[Episodic] git repair commit c70d103b: 🔀 resolve state conflicts (+14232/-96, 155 files)",
@@ -289,6 +303,20 @@
       "source": "memory/failure_cases.jsonl"
     },
     {
+      "id": "procedural_evidence_validator_selftest",
+      "content": "[Procedural] Verify evidence gate with: cd scripts/apex-evidence-validator && go build -o apex-evidence-validator . && ./apex-evidence-validator --mode selftest --input state/apex-evidence-selftest.json --out state/apex-evidence-validator-latest.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761822,
+      "importance": 0.94,
+      "memory_type": "Procedural",
+      "access_count": 32,
+      "source": "memory/devour/jsonschema_validator/ledger.md"
+    },
+    {
       "id": "working_miniswe_linear_trajectory_operational",
       "content": "[Working] mini-swe-agent devour reimplemented: APEX mini executor stores linear trajectory JSON where each independent command observation has input/output hashes.",
       "embedding": [
@@ -329,6 +357,20 @@
       "memory_type": "Procedural",
       "access_count": 32,
       "source": "memory/devour/mini_swe_agent/ledger.md"
+    },
+    {
+      "id": "procedural_evidence_validator_devour_samples",
+      "content": "[Procedural] Validate recent devour evidence with: scripts/apex-evidence-validator/apex-evidence-validator --mode validate --input state/apex-evidence-devour-samples.json --out state/apex-evidence-validator-devour-report.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761821,
+      "importance": 0.92,
+      "memory_type": "Procedural",
+      "access_count": 32,
+      "source": "memory/devour/jsonschema_validator/ledger.md"
     },
     {
       "id": "working_miniswe_independent_subprocess",
@@ -377,6 +419,20 @@
         "apex-iterate.sh",
         "memory_manager.py"
       ]
+    },
+    {
+      "id": "working_evidence_validator_safe_paths",
+      "content": "[Working] Evidence validator blocks absolute paths and parent traversal in source_path/evidence_path to keep memory evidence workspace-safe.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761823,
+      "importance": 0.91,
+      "memory_type": "Working",
+      "access_count": 31,
+      "source": "memory/devour/jsonschema_validator/ledger.md"
     },
     {
       "id": "working_autogpt_graph_queue_outputs",
@@ -531,6 +587,20 @@
       "memory_type": "Working",
       "access_count": 26,
       "source": "memory/devour/openhands_exec/ledger.md"
+    },
+    {
+      "id": "semantic_jsonschema_validation_error_paths",
+      "content": "[Semantic] jsonschema pattern: schema-first validation, draft-aware validators, structured JSON-path errors, and caution against unsafe remote reference retrieval.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779761820,
+      "importance": 0.86,
+      "memory_type": "Semantic",
+      "access_count": 30,
+      "source": "memory/devour/jsonschema_validator/ledger.md"
     },
     {
       "id": "procedural_autogpt_permission_order",

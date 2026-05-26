@@ -1,0 +1,17 @@
+[
+  {
+    "id": "selftest:mini-exec",
+    "claim": "APEX mini executor selftest passed with trajectory evidence.",
+    "source_repo": "SWE-agent/mini-swe-agent",
+    "source_commit": "adfe20233d456104c38c3129161b54f0fd39f2c7",
+    "source_path": "vendor/github/SWE-agent/mini-swe-agent/src/minisweagent/agents/default.py",
+    "context_id": "mini-selftest-001",
+    "score": 0.95,
+    "verification": {
+      "command": "scripts/apex-mini-executor/apex-mini-executor --mode selftest",
+      "result": "pass",
+      "evidence_path": "state/apex-mini-executor-selftest.traj.json"
+    },
+    "memory_type": "Working"
+  }
+]

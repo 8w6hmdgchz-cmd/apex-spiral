@@ -1,0 +1,32 @@
+[
+  {
+    "id": "devour:miniswe:executor",
+    "claim": "mini-swe-agent linear subprocess execution was reimplemented as apex-mini-executor and passed selftest.",
+    "source_repo": "SWE-agent/mini-swe-agent",
+    "source_commit": "adfe20233d456104c38c3129161b54f0fd39f2c7",
+    "source_path": "vendor/github/SWE-agent/mini-swe-agent/src/minisweagent/agents/default.py",
+    "context_id": "mini-swe-agent-ledger-001",
+    "score": 0.95,
+    "verification": {
+      "command": "scripts/apex-mini-executor/apex-mini-executor --mode selftest",
+      "result": "pass",
+      "evidence_path": "state/apex-mini-executor-selftest.traj.json"
+    },
+    "memory_type": "Working"
+  },
+  {
+    "id": "devour:inspect:eval-harness",
+    "claim": "Inspect AI task/sample/scorer pattern was reimplemented as apex-eval-harness and passed selftest with accuracy 1.",
+    "source_repo": "UKGovernmentBEIS/inspect_ai",
+    "source_commit": "84980c88259ba310ffba142747df73704ff55762",
+    "source_path": "vendor/github/UKGovernmentBEIS/inspect_ai/tests/test_helpers/tasks.py",
+    "context_id": "inspect-ai-ledger-001",
+    "score": 0.94,
+    "verification": {
+      "command": "scripts/apex-eval-harness/apex-eval-harness --mode selftest",
+      "result": "pass",
+      "evidence_path": "state/apex-eval-harness-latest.json"
+    },
+    "memory_type": "Working"
+  }
+]
