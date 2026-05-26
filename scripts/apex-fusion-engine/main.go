@@ -71,6 +71,7 @@ func runFusion(root, mode, out string) FusionReport {
 	rep := FusionReport{ID: id, StartedAt: time.Now().Format(time.RFC3339), Status: "success", Root: root, PhiMirror: "state/phi_v10_result.json", Format: "apex-fusion-engine-1.0"}
 	state := filepath.Join(root, "state")
 	gates := []struct{ name string; args []string; out string }{
+		{"phasor_llm_route", []string{filepath.Join(root, "scripts/apex-phasor-llm/apex-phasor-llm"), "--mode", "route", "--task", "APEX fusion engine closes evomap evolver autoresearch superpowers openhands CLI MCP loop without virtual data", "--root", root, "--out", filepath.Join(state, "apex-phasor-llm-latest.json")}, "state/apex-phasor-llm-latest.json"},
 		{"evolver_cycle", []string{filepath.Join(root, "scripts/apex-evolver-core/apex-evolver-core"), "--mode", "cycle", "--root", root, "--out", filepath.Join(state, "apex-fusion-evolver.json")}, "state/apex-fusion-evolver.json"},
 		{"autoresearch_plan", []string{filepath.Join(root, "scripts/apex-autoresearch-core/apex-autoresearch-core"), "--question", "APEX fusion engine closes evomap evolver autoresearch superpowers openhands CLI MCP loop without virtual data", "--out", filepath.Join(state, "apex-fusion-autoresearch.json")}, "state/apex-fusion-autoresearch.json"},
 		{"harness_bridge", []string{filepath.Join(root, "scripts/apex-harness-bridge/apex-harness-bridge"), "--mode", "selftest"}, "stdout:harness_bridge"},
@@ -99,12 +100,12 @@ func runFusion(root, mode, out string) FusionReport {
 func writeSuperpowersInput(root string) {
 	in := map[string]any{
 		"task": "APEX fusion engine closes evomap/evolver/autoresearch/superpowers/openhands/CLI/MCP loop",
-		"requirements": []string{"must pass executor/eval/evidence/hygiene/dawn gates", "must produce evidence paths", "must reject virtual data"},
+		"requirements": []string{"must pass phasor route/executor/eval/evidence/hygiene/dawn gates", "must produce evidence paths", "must reject virtual data"},
 		"architecture": []string{"fusion engine orchestrates local binaries and records artifacts"},
 		"tests": []string{"go build ./scripts/apex-fusion-engine", "apex-fusion-engine --mode selftest"},
 		"implementation": []string{"scripts/apex-fusion-engine/main.go", "scripts/apex-fusion-engine/go.mod"},
 		"verification": []string{"state/apex-fusion-engine-latest.json", "state/apex-fusion-evidence.json"},
-		"evidence": []string{"state/apex-dawn-gate-latest.json", "state/phi_v10_result.json"},
+		"evidence": []string{"state/apex-phasor-llm-latest.json", "state/apex-dawn-gate-latest.json", "state/phi_v10_result.json"},
 	}
 	writeJSON(filepath.Join(root, "state/apex-fusion-superpowers-input.json"), in)
 }
@@ -124,11 +125,13 @@ func run(root, name, out string, args ...string) GateRun {
 func writeEvidence(root string, rep FusionReport, mode string) {
 	score := 1.0
 	for _, g := range rep.Gates {
-		if !g.OK { score = 0 }
+		if !g.OK {
+			score = 0
+		}
 	}
 	rec := []EvidenceRecord{{
 		ID: "fusion:" + rep.ID,
-		Claim: "APEX fusion engine executed evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts.",
+		Claim: "APEX fusion engine executed phasor LLM routing, evolver, autoresearch, superpowers, CLI/MCP harness bridge, and dawn gate with real evidence artifacts.",
 		SourceRepo: "8w6hmdgchz-cmd/apex-spiral",
 		SourceCommit: currentCommit(root),
 		SourcePath: "scripts/apex-fusion-engine/main.go",

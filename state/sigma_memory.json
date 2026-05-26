@@ -61,6 +61,20 @@
       "source": "state/apex-fusion-engine-latest.json"
     },
     {
+      "id": "working_fusion_phasor_gate_first",
+      "content": "[Working] apex-fusion-engine now runs phasor_llm_route as the first gate before evolver/autoresearch/superpowers/harness/dawn, so model routing is evidence-backed.",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779777303,
+      "importance": 0.98,
+      "memory_type": "Working",
+      "access_count": 39,
+      "source": "state/apex-fusion-engine-latest.json"
+    },
+    {
       "id": "working_phasor_llm_active",
       "content": "[Working] apex-phasor-llm is active: it combines task vector, model vector, quantum-router output, and twelve-factor gate to select local LLM routes with fallbacks.",
       "embedding": [
@@ -385,6 +399,20 @@
       "memory_type": "Working",
       "access_count": 33,
       "source": "memory/devour/dawn_gate/ledger.md"
+    },
+    {
+      "id": "procedural_fusion_phasor_verify",
+      "content": "[Procedural] Verify phasor-enabled fusion with: scripts/apex-fusion-engine/apex-fusion-engine --mode selftest --root /Users/lihongxin/.openclaw/workspace --out state/apex-fusion-engine-latest.json && scripts/apex-evidence-validator/apex-evidence-validator --mode validate --input state/apex-fusion-evidence.json --out state/apex-fusion-evidence-report.json",
+      "embedding": [
+        0,
+        0,
+        0
+      ],
+      "timestamp": 1779777302,
+      "importance": 0.95,
+      "memory_type": "Procedural",
+      "access_count": 38,
+      "source": "state/apex-fusion-engine-latest.json"
     },
     {
       "id": "working_phasor_selftest_result",

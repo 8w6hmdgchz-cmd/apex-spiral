@@ -3,6 +3,7 @@
     "fusion engine orchestrates local binaries and records artifacts"
   ],
   "evidence": [
+    "state/apex-phasor-llm-latest.json",
     "state/apex-dawn-gate-latest.json",
     "state/phi_v10_result.json"
   ],
@@ -11,7 +12,7 @@
     "scripts/apex-fusion-engine/go.mod"
   ],
   "requirements": [
-    "must pass executor/eval/evidence/hygiene/dawn gates",
+    "must pass phasor route/executor/eval/evidence/hygiene/dawn gates",
     "must produce evidence paths",
     "must reject virtual data"
   ],

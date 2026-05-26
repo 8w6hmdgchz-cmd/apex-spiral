@@ -1,23 +1,23 @@
 {
-  "id": "apex-phasor-1779777017",
-  "started_at": "2026-05-26T14:30:17+08:00",
-  "task": "Refactor APEX RuntimeOS Go code with evidence gates and no fake data",
-  "intent": "code",
+  "id": "apex-phasor-1779777302",
+  "started_at": "2026-05-26T14:35:02+08:00",
+  "task": "APEX fusion engine closes evomap evolver autoresearch superpowers openhands CLI MCP loop without virtual data",
+  "intent": "free-fast",
   "selected": "zai/glm-5-turbo",
   "fallbacks": [
-    "deepseek/deepseek-v4-pro",
     "zai/glm-5v-turbo",
-    "zai/glm-5.1",
-    "zhipuai/glm-5-flash"
+    "minimax-portal-cn/MiniMax-M2.7-highspeed",
+    "xiaomimimo/mimo-2.5-pro",
+    "xiaomimimo/mimo-2.5"
   ],
   "task_vector": {
-    "Reasoning": 0.7,
-    "Code": 1,
-    "Speed": 0.6,
-    "Cost": 0.6,
-    "Context": 0.8,
+    "Reasoning": 0,
+    "Code": 0,
+    "Speed": 0.9,
+    "Cost": 0.9,
+    "Context": 0.6,
     "Multimodal": 0,
-    "Safety": 1
+    "Safety": 0.9
   },
   "selected_vector": {
     "Reasoning": 0.5,
@@ -28,7 +28,7 @@
     "Multimodal": 0,
     "Safety": 0.75
   },
-  "alignment": 0.911,
+  "alignment": 0.909,
   "twelve_factor_gate": "present",
   "status": "success",
   "reason": "phasor alignment combines task vector, model vector, quantum-router output, and APEX twelve-factor gate.",
