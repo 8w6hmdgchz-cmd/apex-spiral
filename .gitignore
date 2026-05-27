@@ -16,6 +16,9 @@ YYDS/
 .env.hetluoshu
 XuanjiQuant-main/
 YYDS/
+omega-ml/
+omegav2/
+omega-agi-supremacy
 a2a-resources/*.log
 a2a-resources/*.bak*
 "a2a-resources/ fetcher. log"
