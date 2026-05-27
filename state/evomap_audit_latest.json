@@ -1,1 +1,9 @@
-{"timestamp":"2026-05-27T09:03:55+08:00","version":"V10.1","trace_id":"evomap-1779843837631","file_count":676,"secret_hit_count":0,"external_sync_allowed":false}
+{
+  "timestamp": "2026-05-27T12:32:11+08:00",
+  "version": "V10.1",
+  "trace_id": "evomap-17798563313N",
+  "file_count": 4088,
+  "secret_hit_count": 0,
+  "external_sync_allowed": false,
+  "note": "git-tracked file count; gitleaks unavailable, secret_hit_count defaulted"
+}
