@@ -5641,3 +5641,289 @@ To github.com:8w6hmdgchz-cmd/apex-spiral.git
 From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
  * branch            main       -> FETCH_HEAD
 Your branch is up to date with 'origin/main'.
+[2026-05-27 08:45:00] =========================================
+[2026-05-27 08:45:00] =========================================
+[2026-05-27 08:45:00] 🔄 自动回流管道 V10.1 启动
+[2026-05-27 08:45:00] 🔄 自动回流管道 V10.1 启动
+[2026-05-27 08:45:00] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-27 08:45:00] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-27 08:45:00] 📊 V10.1 PHI 追踪...
+[2026-05-27 08:45:00]   PHI=57.37%
+[2026-05-27 08:45:00]   瓶颈=Σ_memory
+[2026-05-27 08:45:00]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-27 08:45:00]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-27 08:45:00] [2/5] 猎食检查...
+[2026-05-27 08:45:00] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-27 08:45:31]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+[2026-05-27 08:45:31]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+[2026-05-27 08:45:35] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-27 08:45:35] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-27 08:45:36]   📝 未提交文件数: 4 (real=0)
+[2026-05-27 08:45:36]   📝 未提交文件数: 4 (real=0)
+[2026-05-27 08:45:37]   Ω_dawn = .736000 (git_sync=.8000, auto_learn=0.92, real_dirty=0)
+[2026-05-27 08:45:37]   Ω_dawn = .736000 (git_sync=.8000, auto_learn=0.92, real_dirty=0)
+[2026-05-27 08:45:37]   ΔG_safe = 1.0661141609199323
+[2026-05-27 08:45:37]   ΔG_safe = 1.0661141609199323
+[2026-05-27 08:45:37] [4/5] Git提交...
+[2026-05-27 08:45:37] [4/5] Git提交...
+[main 14a3b62] 🔄 auto reflux V10.1 2026-05-27 08:45
+ 1 file changed, 1 insertion(+)
+[main 14a3b62] 🔄 auto reflux V10.1 2026-05-27 08:45
+ 1 file changed, 1 insertion(+)
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+error: cannot rebase: You have unstaged changes.
+error: cannot rebase: You have unstaged changes.
+error: Please commit or stash them.
+error: Please commit or stash them.
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+   3b7bab7..14a3b62  main -> main
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+   3b7bab7..14a3b62  main -> main
+[2026-05-27 08:45:47]   ✅ Git推送成功
+[2026-05-27 08:45:47]   ✅ Git推送成功
+[2026-05-27 08:45:47] [5/5] Gist备份...
+[2026-05-27 08:45:47] [5/5] Gist备份...
+[2026-05-27 08:45:47] updating local gist checkout
+[2026-05-27 08:45:47] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Your branch is up to date with 'origin/main'.
+Already up to date.
+Already up to date.
+[main 0ad9c76] xuanji ssh gist backup 2026-05-27 08:45:56
+ 5 files changed, 24 insertions(+), 9 deletions(-)
+[main 0ad9c76] xuanji ssh gist backup 2026-05-27 08:45:56
+ 5 files changed, 24 insertions(+), 9 deletions(-)
+[2026-05-27 08:45:56] pushing gist over SSH (force, personal backup)
+[2026-05-27 08:45:56] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   bcd5591..0ad9c76  main -> main
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   bcd5591..0ad9c76  main -> main
+[2026-05-27 08:46:00] gist backup complete
+[2026-05-27 08:46:00] gist backup complete
+[2026-05-27 08:46:00] ✅ 回流完成
+[2026-05-27 08:46:00] ✅ 回流完成
+[2026-05-27 08:46:00] =========================================
+[2026-05-27 08:46:00] =========================================
+[2026-05-27 09:00:00] =========================================
+[2026-05-27 09:00:00] =========================================
+[2026-05-27 09:00:00] 🔄 自动回流管道 V10.1 启动
+[2026-05-27 09:00:00] 🔄 自动回流管道 V10.1 启动
+[2026-05-27 09:00:00] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-27 09:00:00] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-27 09:00:00] 📊 V10.1 PHI 追踪...
+[2026-05-27 09:00:00]   PHI=57.37%
+[2026-05-27 09:00:00]   瓶颈=Σ_memory
+[2026-05-27 09:00:00]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-27 09:00:00]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-27 09:00:00] [2/5] 猎食检查...
+[2026-05-27 09:00:00] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-27 09:00:30]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+[2026-05-27 09:00:30]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+[2026-05-27 09:00:34] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-27 09:00:34] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-27 09:00:35]   📝 未提交文件数: 10 (real=0)
+[2026-05-27 09:00:35]   📝 未提交文件数: 10 (real=0)
+[2026-05-27 09:00:37]   Ω_dawn = .736000 (git_sync=.8000, auto_learn=0.92, real_dirty=0)
+[2026-05-27 09:00:37]   Ω_dawn = .736000 (git_sync=.8000, auto_learn=0.92, real_dirty=0)
+[2026-05-27 09:00:37]   ΔG_safe = 1.0661141609199323
+[2026-05-27 09:00:37]   ΔG_safe = 1.0661141609199323
+[2026-05-27 09:00:37] [4/5] Git提交...
+[2026-05-27 09:00:37] [4/5] Git提交...
+[main 1af71ab] 🔄 auto reflux V10.1 2026-05-27 09:00
+ 1 file changed, 1 insertion(+)
+[main 1af71ab] 🔄 auto reflux V10.1 2026-05-27 09:00
+ 1 file changed, 1 insertion(+)
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+error: cannot rebase: You have unstaged changes.
+error: cannot rebase: You have unstaged changes.
+error: Please commit or stash them.
+error: Please commit or stash them.
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+   14a3b62..1af71ab  main -> main
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+   14a3b62..1af71ab  main -> main
+[2026-05-27 09:00:46]   ✅ Git推送成功
+[2026-05-27 09:00:46]   ✅ Git推送成功
+[2026-05-27 09:00:46] [5/5] Gist备份...
+[2026-05-27 09:00:46] [5/5] Gist备份...
+[2026-05-27 09:00:46] updating local gist checkout
+[2026-05-27 09:00:46] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Your branch is up to date with 'origin/main'.
+Already up to date.
+Already up to date.
+[main 260f2cc] xuanji ssh gist backup 2026-05-27 09:00:55
+ 4 files changed, 6 insertions(+), 5 deletions(-)
+[main 260f2cc] xuanji ssh gist backup 2026-05-27 09:00:55
+ 4 files changed, 6 insertions(+), 5 deletions(-)
+[2026-05-27 09:00:55] pushing gist over SSH (force, personal backup)
+[2026-05-27 09:00:55] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   0ad9c76..260f2cc  main -> main
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   0ad9c76..260f2cc  main -> main
+[2026-05-27 09:00:59] gist backup complete
+[2026-05-27 09:00:59] gist backup complete
+[2026-05-27 09:00:59] ✅ 回流完成
+[2026-05-27 09:00:59] ✅ 回流完成
+[2026-05-27 09:00:59] =========================================
+[2026-05-27 09:00:59] =========================================
+[2026-05-27 09:15:00] =========================================
+[2026-05-27 09:15:00] =========================================
+[2026-05-27 09:15:00] 🔄 自动回流管道 V10.1 启动
+[2026-05-27 09:15:00] 🔄 自动回流管道 V10.1 启动
+[2026-05-27 09:15:00] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-27 09:15:00] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-27 09:15:00] 📊 V10.1 PHI 追踪...
+[2026-05-27 09:15:01]   PHI=57.37%
+[2026-05-27 09:15:01]   瓶颈=Σ_memory
+[2026-05-27 09:15:01]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-27 09:15:01]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-27 09:15:01] [2/5] 猎食检查...
+[2026-05-27 09:15:01] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-27 09:15:31]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+[2026-05-27 09:15:31]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+[2026-05-27 09:15:35] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-27 09:15:35] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-27 09:15:36]   📝 未提交文件数: 12 (real=5)
+[2026-05-27 09:15:36]   📝 未提交文件数: 12 (real=5)
+[2026-05-27 09:15:37]   Ω_dawn = .644000 (git_sync=.700000, auto_learn=0.92, real_dirty=5)
+[2026-05-27 09:15:37]   Ω_dawn = .644000 (git_sync=.700000, auto_learn=0.92, real_dirty=5)
+[2026-05-27 09:15:37]   ΔG_safe = 1.0661141609199323
+[2026-05-27 09:15:37]   ΔG_safe = 1.0661141609199323
+[2026-05-27 09:15:37] [4/5] Git提交...
+[2026-05-27 09:15:37] [4/5] Git提交...
+[main 81a738f] 🔄 auto reflux V10.1 2026-05-27 09:15
+ 1 file changed, 1 insertion(+)
+[main 81a738f] 🔄 auto reflux V10.1 2026-05-27 09:15
+ 1 file changed, 1 insertion(+)
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+error: cannot rebase: You have unstaged changes.
+error: cannot rebase: You have unstaged changes.
+error: Please commit or stash them.
+error: Please commit or stash them.
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+   e852f13..81a738f  main -> main
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+   e852f13..81a738f  main -> main
+[2026-05-27 09:15:58]   ✅ Git推送成功
+[2026-05-27 09:15:58]   ✅ Git推送成功
+[2026-05-27 09:15:58] [5/5] Gist备份...
+[2026-05-27 09:15:58] [5/5] Gist备份...
+[2026-05-27 09:15:58] updating local gist checkout
+[2026-05-27 09:15:58] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Your branch is up to date with 'origin/main'.
+Already up to date.
+Already up to date.
+[main 54933d9] xuanji ssh gist backup 2026-05-27 09:16:07
+ 6 files changed, 16 insertions(+), 9 deletions(-)
+[main 54933d9] xuanji ssh gist backup 2026-05-27 09:16:07
+ 6 files changed, 16 insertions(+), 9 deletions(-)
+[2026-05-27 09:16:07] pushing gist over SSH (force, personal backup)
+[2026-05-27 09:16:07] pushing gist over SSH (force, personal backup)
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   260f2cc..54933d9  main -> main
+To gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff.git
+   260f2cc..54933d9  main -> main
+[2026-05-27 09:16:11] gist backup complete
+[2026-05-27 09:16:11] gist backup complete
+[2026-05-27 09:16:11] ✅ 回流完成
+[2026-05-27 09:16:11] ✅ 回流完成
+[2026-05-27 09:16:11] =========================================
+[2026-05-27 09:16:11] =========================================
+[2026-05-27 09:30:00] =========================================
+[2026-05-27 09:30:00] =========================================
+[2026-05-27 09:30:00] 🔄 自动回流管道 V10.1 启动
+[2026-05-27 09:30:00] 🔄 自动回流管道 V10.1 启动
+[2026-05-27 09:30:00] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-27 09:30:00] [1/5] PHI_RATIO追踪 (V10.1)...
+[2026-05-27 09:30:00] 📊 V10.1 PHI 追踪...
+[2026-05-27 09:30:00]   PHI=57.37%
+[2026-05-27 09:30:00]   瓶颈=Σ_memory
+[2026-05-27 09:30:00]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-27 09:30:00]   ✅ 使用 V10.1 ΔG 公式
+[2026-05-27 09:30:00] [2/5] 猎食检查...
+[2026-05-27 09:30:00] [2/5] 猎食检查...
+🔭 猎食优先列表...
+[2026-05-27 09:30:31]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+[2026-05-27 09:30:31]   ⚠️ 猎食超时，降级为SSH快速可达性检测
+c77e5d2a8961d1a353632c462914ff0a32a950f6	HEAD
+0cf78561f1d51c84a21b2190626b21116d5c68bb	HEAD
+[2026-05-27 09:30:34] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-27 09:30:34] [3/5] Ω_dawn 凌晨自进化...
+[2026-05-27 09:30:35]   📝 未提交文件数: 17 (real=5)
+[2026-05-27 09:30:35]   📝 未提交文件数: 17 (real=5)
+[2026-05-27 09:30:36]   Ω_dawn = .644000 (git_sync=.700000, auto_learn=0.92, real_dirty=5)
+[2026-05-27 09:30:36]   Ω_dawn = .644000 (git_sync=.700000, auto_learn=0.92, real_dirty=5)
+[2026-05-27 09:30:36]   ΔG_safe = 1.0661141609199323
+[2026-05-27 09:30:36]   ΔG_safe = 1.0661141609199323
+[2026-05-27 09:30:36] [4/5] Git提交...
+[2026-05-27 09:30:36] [4/5] Git提交...
+[main 64e06af] 🔄 auto reflux V10.1 2026-05-27 09:30
+ 1 file changed, 1 insertion(+)
+[main 64e06af] 🔄 auto reflux V10.1 2026-05-27 09:30
+ 1 file changed, 1 insertion(+)
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+From github.com:8w6hmdgchz-cmd/apex-spiral
+ * branch            main       -> FETCH_HEAD
+error: cannot rebase: You have unstaged changes.
+error: cannot rebase: You have unstaged changes.
+error: Please commit or stash them.
+error: Please commit or stash them.
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+   81a738f..64e06af  main -> main
+To github.com:8w6hmdgchz-cmd/apex-spiral.git
+   81a738f..64e06af  main -> main
+[2026-05-27 09:30:48]   ✅ Git推送成功
+[2026-05-27 09:30:48]   ✅ Git推送成功
+[2026-05-27 09:30:48] [5/5] Gist备份...
+[2026-05-27 09:30:48] [5/5] Gist备份...
+[2026-05-27 09:30:48] updating local gist checkout
+[2026-05-27 09:30:48] updating local gist checkout
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+From gist.github.com:57fa0d7fc0247f91f9bb744c253c13ff
+ * branch            main       -> FETCH_HEAD
+Your branch is up to date with 'origin/main'.
+Your branch is up to date with 'origin/main'.
+Already up to date.
+Already up to date.
+[main 892031a] xuanji ssh gist backup 2026-05-27 09:30:56
+ 5 files changed, 22 insertions(+), 9 deletions(-)
+[main 892031a] xuanji ssh gist backup 2026-05-27 09:30:56
+ 5 files changed, 22 insertions(+), 9 deletions(-)
+[2026-05-27 09:30:56] pushing gist over SSH (force, personal backup)
+[2026-05-27 09:30:56] pushing gist over SSH (force, personal backup)

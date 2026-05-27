@@ -234,3 +234,14 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 ## Related
 
 - [Default AGENTS.md](/reference/AGENTS.default)
+
+
+### 🔄 自我进化（每日）
+
+参考 `functional_core.md` 执行每日进化周期：
+1. 感知：扫描 failure_cases.jsonl 和近期记忆
+2. 重构：提取模式、合成新规则
+3. 行动：更新自身身份文件
+4. 净化：清理冗余/过时规则
+
+进化日志写入 `memory/evolution_log.md`，支持回滚。
