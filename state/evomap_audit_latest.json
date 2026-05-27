@@ -1,7 +1,1 @@
-{
-  "timestamp": "2026-05-27T06:00:42+08:00",
-  "files": 676,
-  "secrets": 0,
-  "trace": "evomap-1779832842525",
-  "external_sync_allowed": false
-}
+{"timestamp":"2026-05-27T09:03:55+08:00","version":"V10.1","trace_id":"evomap-1779843837631","file_count":676,"secret_hit_count":0,"external_sync_allowed":false}
