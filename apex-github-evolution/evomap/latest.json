@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1779919230117",
-  "timestamp_ms": 1779919230117,
+  "trace_id": "evomap-1779921021949",
+  "timestamp_ms": 1779921021949,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -3392,7 +3392,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": " M memory/2026-05-28.md\n M state/apex-dawn-gate-latest.json\n M state/apex-eval-harness-latest.json\n M state/apex-eval-harness/selftest_pwd.traj.json\n M state/apex-eval-harness/selftest_python.traj.json\n M state/apex-mini-executor-selftest.traj.json\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n?? reports/a2a-hunt-20260528-0500.md\n",
+  "git_status_short": " M memory/2026-05-28.md\n M state/apex-dawn-gate-latest.json\n M state/apex-eval-harness-latest.json\n M state/apex-eval-harness/selftest_pwd.traj.json\n M state/apex-eval-harness/selftest_python.traj.json\n M state/apex-mini-executor-selftest.traj.json\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n",
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }
