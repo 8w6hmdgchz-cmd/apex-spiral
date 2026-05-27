@@ -4,3 +4,4 @@
 {"seq": 209, "ts": "2026-05-27T09:30:51.483166+08:00", "phi": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable"}
 {"seq": 210, "ts": "2026-05-27T10:01:27.561733+08:00", "phi": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable"}
 {"seq": 211, "ts": "2026-05-27T16:34:58+08:00", "phi": 57.37, "delta_g": 0.672823, "bottleneck": "Σ_memory", "directive": "MAINTAIN: all stable"}
+{"seq": 231, "ts": "2026-05-27T22:00:48.013769+08:00", "phi": 57.37, "delta_g": 0.6728, "bottleneck": "Σ_memory", "directive": "MAINTAIN: all stable"}
