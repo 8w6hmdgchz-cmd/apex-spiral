@@ -29,7 +29,6 @@ jobs:
             exit 0
           fi
           
-          # 从Gist CDN读取各状态文件
           BASE="https://gist.githubusercontent.com/8w6hmdgchz-cmd/${GIST_ID}/raw"
           
           mkdir -p state
@@ -60,60 +59,67 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIST_ID: ${{ secrets.GIST_ID }}
         run: |
+          set -e
           echo "准备上传状态到Gist..."
           
-          # 准备要上传的文件列表
-          FILES_TO_UPLOAD="counter.txt score-state.env latest-report.md "
-          FILES_TO_UPLOAD+="state/phi_history.jsonl state/defect_history.jsonl "
-          FILES_TO_UPLOAD+="state/repair_history.jsonl state/bug_streak.jsonl "
-          FILES_TO_UPLOAD+="state/consistency_log.jsonl state/lesson_bank.jsonl "
-          FILES_TO_UPLOAD+="state/metacognition_log.jsonl"
-          
-          # 构建Python dict
-          python3 << PYEOF
-import json
+          # 写入Python脚本到临时文件
+          python3 -c "
 import os
-import sys
-
-files = {}
-for f in os.environ.get('FILES_TO_UPLOAD', '').split():
-    if os.path.isfile(f):
-        try:
-            with open(f, 'r') as fh:
-                content = fh.read()
-            fname = os.path.basename(f)
-            files[fname] = {"content": content}
-        except Exception as e:
-            print(f"跳过 {f}: {e}", file=sys.stderr)
-
-result = {
-    "description": "APEX Evolver State $(date '+%Y-%m-%d %H:%M')",
-    "public": False,
-    "files": files
-}
-with open(os.environ.get('GITHUB_ENV', '/tmp/gist_payload.json'), 'w') as f:
-    json.dump(result, f)
-print(f"Prepared {len(files)} files for upload")
-PYEOF
+script_lines = [
+    'import json, os, subprocess',
+    '',
+    'files = {}',
+    \"file_list = [\",
+    \"    'counter.txt',\",
+    \"    'score-state.env',\",
+    \"    'latest-report.md',\",
+    \"    'state/phi_history.jsonl',\",
+    \"    'state/defect_history.jsonl',\",
+    \"    'state/repair_history.jsonl',\",
+    \"    'state/bug_streak.jsonl',\",
+    \"    'state/consistency_log.jsonl',\",
+    \"    'state/lesson_bank.jsonl',\",
+    \"    'state/metacognition_log.jsonl',\",
+    \"]\",
+    'for f in file_list:',
+    '    if os.path.isfile(f):',
+    '        try:',
+    '            with open(f) as fh:',
+    \"                files[os.path.basename(f)] = {'content': fh.read()}\",
+    '        except:',
+    '            pass',
+    \"desc = 'APEX Evolver State ' + subprocess.check_output(['date']).decode().strip()\",
+    \"result = {'description': desc, 'public': False, 'files': files}\",
+    \"outpath = os.environ.get('GITHUB_ENV', '/tmp/gist_payload.json')\",
+    'with open(outpath, \"w\") as fh:',
+    '    json.dump(result, fh)',
+    \"print('Prepared ' + str(len(files)) + ' files -> ' + outpath)\",
+]
+os.makedirs('/tmp', exist_ok=True)
+with open('/tmp/gist_uploader.py', 'w') as f:
+    f.write('\\n'.join(script_lines))
+"
           
-          echo "Payload文件已生成"
+          # 执行脚本
+          python3 /tmp/gist_uploader.py
           
+          # 上传到Gist
           if [ -n "$GIST_ID" ] && [ -f "$GITHUB_ENV" ]; then
-            RESP=$(curl -sL -w '\nHTTP:%{http_code}' -X PATCH \
+            echo "上传到Gist..."
+            RESP=$(curl -sL -w '
+HTTP:%{http_code}' -X PATCH \
               -H "Authorization: Bearer $GH_TOKEN" \
               -H "Content-Type: application/json" \
               -d "@$GITHUB_ENV" \
               "https://api.github.com/gists/$GIST_ID")
             HTTP_CODE=$(echo "$RESP" | grep HTTP: | cut -d: -f2)
-            BODY=$(echo "$RESP" | sed '/HTTP:/d')
-            echo "Gist更新结果: HTTP $HTTP_CODE"
             if [ "$HTTP_CODE" = "200" ]; then
               echo "✅ Gist状态已更新"
             else
-              echo "❌ $BODY" | head -3
+              echo "❌ HTTP $HTTP_CODE"
             fi
           else
-            echo "GIST_ID未设置或payload文件不存在，跳过Gist上传"
+            echo "跳过Gist上传（GIST_ID未设置）"
           fi
 
       - name: 提交状态变更
