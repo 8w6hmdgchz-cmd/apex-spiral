@@ -1,1 +1,1 @@
-{"timestamp": "2026-05-28T13:00:00+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "Σ_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "auto_reflux", "seq": 233}
+{"timestamp": "2026-05-28T14:01:17+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "full_mirror"}
