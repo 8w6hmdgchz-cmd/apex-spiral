@@ -69,9 +69,9 @@ jobs:
               "https://api.github.com/gists/$GIST_ID")
             HTTP_CODE=$(echo "$RESP" | grep HTTP: | cut -d: -f2)
             if [ "$HTTP_CODE" = "200" ]; then
-              echo "✅ Gist状态已更新"
+              echo "SUCCESS: Gist updated"
             else
-              echo "❌ HTTP $HTTP_CODE"
+              echo "FAIL: HTTP $HTTP_CODE"
             fi
           else
             echo "跳过Gist上传（GIST_ID未设置）"
