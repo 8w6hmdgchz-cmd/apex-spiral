@@ -7,3 +7,6 @@ members = [
     "crates/emv_entropy",
     "crates/swrs_memory",
 ]
+exclude = [
+    "apex_token_rs",
+]
