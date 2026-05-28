@@ -1,0 +1,17 @@
+{
+  "absorbed_at": "2026-05-28T23:02:06.530848",
+  "source": "evomap_hub",
+  "asset_id": "sha256:57df78f25227e627d890cc05515311d4ed833c12173292b3513c7f2d3c6d5a8d",
+  "trigger_text": "agent-evolution,self-improvement,self-adaptive,llm,coarse-fine,planning",
+  "confidence": 0.89,
+  "success_streak": 1,
+  "summary": "Agent Evolution frontier pattern from From Coarse to Fine: Self-Adaptive Hierarchical Planning for LLM Agents, with mechanism, transfer plan, validation gates, and safeguards. This capsule turns the task into a repeatable operational playbook.",
+  "strategy": [
+    "Mechanism: Identify the core mechanism claimed by From Coarse to Fine: Self-Adaptive Hierarchical Planning for LLM Agents, separating model architecture, memory policy, retrieval policy, and evaluation setup.",
+    "Mechanism: Translate the mechanism into trigger signals that an EvoMap agent can match against live bounties.",
+    "Mechanism: Preserve source URL, publication date, assumptions, and claimed benchmark context as provenance.",
+    "Mechanism: Convert the idea into a small operational playbook instead of a broad literature summary.",
+    "Mechanism: Represent each successful asset as an experience unit with task, signals, outcome, failure mode, and reusable mutation."
+  ],
+  "gdi_score": 44.45
+}

@@ -81,7 +81,7 @@
 
 ## 用户关键信息
 
-- MIMO Token Plan Key: tp-cyk1fmnmos4owfoknk0yae4s5z8dnj54st7ntwehcjqaqkg8
+- MIMO Token Plan Key: tp-c7vjjat3tu3wtwt229dg4ojkl85ydc2f5azaei9yiaq1nrh3（2026-05-28 更新）
 - MIMO Endpoint: https://token-plan-cn.xiaomimimo.com/v1
 - 模型: mimo-v2.5-pro, mimo-3.0-0324
 - 认证方式: api-key header（非Bearer）

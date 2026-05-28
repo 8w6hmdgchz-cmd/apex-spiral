@@ -1,8 +1,8 @@
 name: Gist State Sync
 
 on:
-  # schedule:
-  #   - cron: "*/15 * * * *"
+  schedule:
+    - cron: "0 */6 * * *"
   workflow_dispatch:
   repository_dispatch:
     types: [sync-requested]
