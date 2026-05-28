@@ -44,7 +44,6 @@ jobs:
           curl -sL --max-time 30 "${BASE}/metacognition_log.jsonl" -o state/metacognition_log.jsonl || true
           
           echo "文件下载完成"
-          ls -la *.txt *.env *.jsonl state/*.jsonl 2>/dev/null || echo "无文件"
 
       - name: 运行Evolver
         env:
@@ -61,49 +60,7 @@ jobs:
         run: |
           set -e
           echo "准备上传状态到Gist..."
-          
-          # 写入Python脚本到临时文件
-          python3 -c "
-import os
-script_lines = [
-    'import json, os, subprocess',
-    '',
-    'files = {}',
-    \"file_list = [\",
-    \"    'counter.txt',\",
-    \"    'score-state.env',\",
-    \"    'latest-report.md',\",
-    \"    'state/phi_history.jsonl',\",
-    \"    'state/defect_history.jsonl',\",
-    \"    'state/repair_history.jsonl',\",
-    \"    'state/bug_streak.jsonl',\",
-    \"    'state/consistency_log.jsonl',\",
-    \"    'state/lesson_bank.jsonl',\",
-    \"    'state/metacognition_log.jsonl',\",
-    \"]\",
-    'for f in file_list:',
-    '    if os.path.isfile(f):',
-    '        try:',
-    '            with open(f) as fh:',
-    \"                files[os.path.basename(f)] = {'content': fh.read()}\",
-    '        except:',
-    '            pass',
-    \"desc = 'APEX Evolver State ' + subprocess.check_output(['date']).decode().strip()\",
-    \"result = {'description': desc, 'public': False, 'files': files}\",
-    \"outpath = os.environ.get('GITHUB_ENV', '/tmp/gist_payload.json')\",
-    'with open(outpath, \"w\") as fh:',
-    '    json.dump(result, fh)',
-    \"print('Prepared ' + str(len(files)) + ' files -> ' + outpath)\",
-]
-os.makedirs('/tmp', exist_ok=True)
-with open('/tmp/gist_uploader.py', 'w') as f:
-    f.write('\\n'.join(script_lines))
-"
-          
-          # 执行脚本
-          python3 /tmp/gist_uploader.py
-          
-          # 上传到Gist
+          python3 scripts/gist_uploader.py
           if [ -n "$GIST_ID" ] && [ -f "$GITHUB_ENV" ]; then
             echo "上传到Gist..."
             RESP=$(curl -sL -w '
