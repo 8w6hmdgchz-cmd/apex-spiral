@@ -62,9 +62,7 @@ jobs:
           echo "准备上传状态到Gist..."
           python3 scripts/gist_uploader.py
           if [ -n "$GIST_ID" ] && [ -f "$GITHUB_ENV" ]; then
-            echo "上传到Gist..."
-            RESP=$(curl -sL -w '
-HTTP:%{http_code}' -X PATCH \
+            RESP=$(curl -sL -w '\\nHTTP:%{http_code}' -X PATCH \\
               -H "Authorization: Bearer $GH_TOKEN" \
               -H "Content-Type: application/json" \
               -d "@$GITHUB_ENV" \
