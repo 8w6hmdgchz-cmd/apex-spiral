@@ -34,7 +34,7 @@ def main():
         'files': files
     }
     
-    outpath = os.environ.get('GITHUB_ENV', '/tmp/gist_payload.json')
+    outpath = os.environ.get('GIST_PAYLOAD_FILE', '/tmp/gist_payload.json')
     with open(outpath, 'w') as fh:
         json.dump(result, fh)
     
