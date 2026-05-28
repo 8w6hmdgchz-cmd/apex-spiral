@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-05-26T12:00:00+08:00",
-  "phi_ratio_equiv": 67.71,
-  "delta_g": 1.048,
-  "bottleneck": "Θ_llm_agent",
-  "directive": "IMPROVE_LLM_ROUTING: optimize model selection & multi-task",
+  "timestamp": "2026-05-28T15:31:19.860487+08:00",
+  "phi_ratio_equiv": 57.37,
+  "delta_g": 0.672823,
+  "bottleneck": "Σ_memory",
+  "directive": "MAINTAIN: all stable",
   "target": "> 60%",
-  "status": 1,
-  "iter": 175,
-  "seq": 175
+  "status": 0,
+  "iter": 250,
+  "seq": 250
 }
