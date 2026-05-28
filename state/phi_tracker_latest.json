@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-28T09:31:08+08:00",
+  "timestamp": "2026-05-28T10:00:40.514786+08:00",
   "version": "V10.1",
   "evolution_score": 0.573678,
   "phi_ratio_equiv": 57.37,
@@ -7,5 +7,5 @@
   "bottleneck": "Σ_memory",
   "directive": "MAINTAIN: all stable",
   "status": 0,
-  "source": "full_mirror"
+  "source": "auto_reflux"
 }
