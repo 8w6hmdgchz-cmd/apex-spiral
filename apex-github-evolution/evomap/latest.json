@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1779989470110",
-  "timestamp_ms": 1779989470110,
+  "trace_id": "evomap-1779996650908",
+  "timestamp_ms": 1779996650908,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -3392,7 +3392,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": " M apex-github-evolution/evomap/latest.json\n M state/apex-dawn-gate-latest.json\n M state/apex-eval-harness-latest.json\n M state/apex-eval-harness/selftest_pwd.traj.json\n M state/apex-eval-harness/selftest_python.traj.json\n M state/apex-mini-executor-selftest.traj.json\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n?? scripts/ci_fix_agent.py\n?? scripts/ci_fix_worker.py\n",
+  "git_status_short": " M scripts/apex-12factor-agent/apex-12factor-agent\n M scripts/apex-agent-dispatch/apex-agent-dispatch\n M scripts/apex-claude-code-runner/apex-claude-code-runner\n M scripts/apex-cmmi-delivery/apex-cmmi-delivery\n M scripts/apex-container-backend/apex-container-backend\n M scripts/apex-dawn-gate/apex-dawn-gate\n M scripts/apex-ecc-runtimeos/apex-ecc-runtimeos\n M scripts/apex-evidence-validator/apex-evidence-validator\n M scripts/apex-failure-miner/apex-failure-miner\n M scripts/apex-fusion-engine/apex-fusion-engine\n M scripts/apex-hygiene/apex-hygiene\n M scripts/apex-memory-admission/apex-memory-admission\n M scripts/apex-phasor-llm/apex-phasor-llm\n M scripts/apex-praison-chain/apex-praison-chain\n M scripts/apex-release-manager/apex-release-manager\n M state/apex-dawn-gate-latest.json\n M state/apex-eval-harness-latest.json\n M state/apex-eval-harness/selftest_pwd.traj.json\n M state/apex-eval-harness/selftest_python.traj.json\n M state/apex-mini-executor-selftest.traj.json\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n?? scripts/ci_fix_agent.py\n?? scripts/ci_fix_worker.py\n",
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }
