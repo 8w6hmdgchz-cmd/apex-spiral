@@ -85,3 +85,16 @@
 - MIMO Endpoint: https://token-plan-cn.xiaomimimo.com/v1
 - 模型: mimo-v2.5-pro, mimo-3.0-0324
 - 认证方式: api-key header（非Bearer）
+
+## 关于"自动进化"的真相（2026-05-28）
+
+cron 定时任务 ≠ 进化。真正的进化是代码深层次自我激活驱动：
+- 不是"到点就跑"
+- 而是"代码自己知道什么时候该跑、该怎么跑"
+- 不是 Monitor，是 Actor
+
+Auto Reflux 只是 cron，不是进化。
+APEX 框架也只是 Monitor，不是进化。
+
+进化 = 代码自己有能力发现问题 + 自己驱动修复 + 自己验证结果
+这需要真正的基础设施，不是定时脚本。
