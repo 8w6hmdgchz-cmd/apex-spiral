@@ -1,7 +1,7 @@
 {
-  "eval_id": "apex-eval-1779975038",
+  "eval_id": "apex-eval-1779976838",
   "status": "success",
-  "started_at": "2026-05-28T21:30:38+08:00",
+  "started_at": "2026-05-28T22:00:38+08:00",
   "samples": [
     {
       "task": {
@@ -12,9 +12,9 @@
       },
       "status": "success",
       "score": 1,
-      "output": "{\n  \"info\": {\n    \"dry_run\": false,\n    \"run_id\": \"apex-mini-1779975038\",\n    \"started_at\": \"2026-05-28T21:30:38+08:00\",\n    \"workspace\": \"/Users/lihongxin/.openclaw/workspace\"\n  },\n  \"messages\": [\n    {\n      \"run_id\": \"apex-mini-1779975038\",\n      \"step\": 1,\n      \"role\": \"observation\",\n      \"command\": \"pwd\",\n      \"output\": \"/Users/lihongxin/.openclaw/workspace\\n\",\n      \"started_at\": \"2026-05-28T21:30:38+08:00\",\n      \"duration_ms\": 103,\n      \"input_hash\": \"a1159e9df3670d54\",\n      \"output_hash\": \"098675c7e1a23f31\"\n    }\n  ],\n  \"trajectory_format\": \"apex-mini-executor-1.0\"\n}\n",
-      "started_at": "2026-05-28T21:30:38+08:00",
-      "duration_ms": 115,
+      "output": "{\n  \"info\": {\n    \"dry_run\": false,\n    \"run_id\": \"apex-mini-1779976838\",\n    \"started_at\": \"2026-05-28T22:00:38+08:00\",\n    \"workspace\": \"/Users/lihongxin/.openclaw/workspace\"\n  },\n  \"messages\": [\n    {\n      \"run_id\": \"apex-mini-1779976838\",\n      \"step\": 1,\n      \"role\": \"observation\",\n      \"command\": \"pwd\",\n      \"output\": \"/Users/lihongxin/.openclaw/workspace\\n\",\n      \"started_at\": \"2026-05-28T22:00:38+08:00\",\n      \"duration_ms\": 145,\n      \"input_hash\": \"a1159e9df3670d54\",\n      \"output_hash\": \"098675c7e1a23f31\"\n    }\n  ],\n  \"trajectory_format\": \"apex-mini-executor-1.0\"\n}\n",
+      "started_at": "2026-05-28T22:00:38+08:00",
+      "duration_ms": 160,
       "trajectory": "/Users/lihongxin/.openclaw/workspace/state/apex-eval-harness/selftest_pwd.traj.json"
     },
     {
@@ -26,9 +26,9 @@
       },
       "status": "success",
       "score": 1,
-      "output": "{\n  \"info\": {\n    \"dry_run\": false,\n    \"run_id\": \"apex-mini-1779975038\",\n    \"started_at\": \"2026-05-28T21:30:38+08:00\",\n    \"workspace\": \"/Users/lihongxin/.openclaw/workspace\"\n  },\n  \"messages\": [\n    {\n      \"run_id\": \"apex-mini-1779975038\",\n      \"step\": 1,\n      \"role\": \"observation\",\n      \"command\": \"python3 -c 'print(2+2)'\",\n      \"output\": \"4\\n\",\n      \"started_at\": \"2026-05-28T21:30:38+08:00\",\n      \"duration_ms\": 179,\n      \"input_hash\": \"280dc3a8f2569667\",\n      \"output_hash\": \"7de1555df0c27003\"\n    }\n  ],\n  \"trajectory_format\": \"apex-mini-executor-1.0\"\n}\n",
-      "started_at": "2026-05-28T21:30:38+08:00",
-      "duration_ms": 194,
+      "output": "{\n  \"info\": {\n    \"dry_run\": false,\n    \"run_id\": \"apex-mini-1779976838\",\n    \"started_at\": \"2026-05-28T22:00:38+08:00\",\n    \"workspace\": \"/Users/lihongxin/.openclaw/workspace\"\n  },\n  \"messages\": [\n    {\n      \"run_id\": \"apex-mini-1779976838\",\n      \"step\": 1,\n      \"role\": \"observation\",\n      \"command\": \"python3 -c 'print(2+2)'\",\n      \"output\": \"4\\n\",\n      \"started_at\": \"2026-05-28T22:00:38+08:00\",\n      \"duration_ms\": 232,\n      \"input_hash\": \"280dc3a8f2569667\",\n      \"output_hash\": \"7de1555df0c27003\"\n    }\n  ],\n  \"trajectory_format\": \"apex-mini-executor-1.0\"\n}\n",
+      "started_at": "2026-05-28T22:00:38+08:00",
+      "duration_ms": 251,
       "trajectory": "/Users/lihongxin/.openclaw/workspace/state/apex-eval-harness/selftest_python.traj.json"
     }
   ],
