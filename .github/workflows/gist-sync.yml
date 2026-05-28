@@ -25,25 +25,21 @@ jobs:
         run: |
           echo "GIST_ID: $GIST_ID"
           if [ -z "$GIST_ID" ]; then
-            echo "GIST_ID未设置，跳过同步"
+            echo "GIST_ID not set, skip sync"
             exit 0
           fi
           
           BASE="https://gist.githubusercontent.com/8w6hmdgchz-cmd/${GIST_ID}/raw"
-          
           mkdir -p state
           
-          curl -sL --max-time 30 "${BASE}/counter.txt" -o counter.txt || true
-          curl -sL --max-time 30 "${BASE}/score-state.env" -o score-state.env || true
-          curl -sL --max-time 30 "${BASE}/phi_history.jsonl" -o state/phi_history.jsonl || true
-          curl -sL --max-time 30 "${BASE}/defect_history.jsonl" -o state/defect_history.jsonl || true
-          curl -sL --max-time 30 "${BASE}/repair_history.jsonl" -o state/repair_history.jsonl || true
-          curl -sL --max-time 30 "${BASE}/bug_streak.jsonl" -o state/bug_streak.jsonl || true
-          curl -sL --max-time 30 "${BASE}/consistency_log.jsonl" -o state/consistency_log.jsonl || true
-          curl -sL --max-time 30 "${BASE}/lesson_bank.jsonl" -o state/lesson_bank.jsonl || true
-          curl -sL --max-time 30 "${BASE}/metacognition_log.jsonl" -o state/metacognition_log.jsonl || true
+          for f in counter.txt score-state.env latest-report.md; do
+            curl -sL --max-time 30 "${BASE}/${f}" -o "${f}" || true
+          done
+          for f in phi_history.jsonl defect_history.jsonl repair_history.jsonl bug_streak.jsonl consistency_log.jsonl lesson_bank.jsonl metacognition_log.jsonl; do
+            curl -sL --max-time 30 "${BASE}/${f}" -o "state/${f}" || true
+          done
           
-          echo "文件下载完成"
+          echo "Download complete"
 
       - name: 运行Evolver
         env:
@@ -59,22 +55,23 @@ jobs:
           GIST_ID: ${{ secrets.GIST_ID }}
         run: |
           set -e
-          echo "准备上传状态到Gist..."
+          echo "Uploading to Gist..."
           python3 scripts/gist_uploader.py
           if [ -n "$GIST_ID" ] && [ -f "$GITHUB_ENV" ]; then
-            RESP=$(curl -sL -w '\\nHTTP:%{http_code}' -X PATCH \\
+            echo "POST to Gist..."
+            HTTP_CODE=$(curl -sL -o /dev/null -w "%{http_code}" -X PATCH \
               -H "Authorization: Bearer $GH_TOKEN" \
               -H "Content-Type: application/json" \
               -d "@$GITHUB_ENV" \
               "https://api.github.com/gists/$GIST_ID")
-            HTTP_CODE=$(echo "$RESP" | grep HTTP: | cut -d: -f2)
+            echo "HTTP_CODE: $HTTP_CODE"
             if [ "$HTTP_CODE" = "200" ]; then
               echo "SUCCESS: Gist updated"
             else
               echo "FAIL: HTTP $HTTP_CODE"
             fi
           else
-            echo "跳过Gist上传（GIST_ID未设置）"
+            echo "SKIP: GIST_ID not set"
           fi
 
       - name: 提交状态变更
@@ -84,4 +81,4 @@ jobs:
           git add -A
           git diff --cached --stat
           git commit -m "Evolver $(date '+%Y-%m-%d %H:%M') [skip ci]" || true
-          git push origin main || echo "Push失败（无changes或无权限）"
+          git push origin main || echo "Push failed"
