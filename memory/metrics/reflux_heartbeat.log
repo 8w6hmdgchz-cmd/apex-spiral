@@ -3,3 +3,4 @@
 2026-05-28 02:30 | reflux | PHI=57.47 delta_g=0.6778 | Σ_memory
 2026-05-28 11:33 | reflux #244 | PHI=57.37 ΔG=0.6728 Σ_memory | evomap 0secrets ✅ | git committed ✅
 2026-05-28 12:00 | reflux #245 | PHI=57.37 ΔG=0.6728 Σ_memory | evomap 0secrets ✅ | git committed+push 8443e6a ✅
+2026-05-29 06:32 | reflux #195 | PHI=57.37 ΔG=0.672823 Σ_memory | evomap 680 files 0 secrets ✅ external_sync=false | git committed fdb6b51 ✅ | untracked ci_fix scripts contain mail credential ⚠️ not committed
