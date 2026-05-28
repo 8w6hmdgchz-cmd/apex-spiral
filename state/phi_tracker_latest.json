@@ -1,6 +1,1 @@
-{
-  "phi": 0.7513,
-  "delta_g": 0.6728,
-  "bottleneck": "\u03a3_memory",
-  "seq": 1
-}
+{"timestamp": "2026-05-28T16:30:24+08:00", "version": "V10.1", "evolution_score": 0.7513, "phi_ratio_equiv": 75.13, "delta_g": 0.7513, "bottleneck": "Phi_cycle", "directive": "IMPROVE: self-awareness loop", "status": 0, "source": "full_mirror"}
