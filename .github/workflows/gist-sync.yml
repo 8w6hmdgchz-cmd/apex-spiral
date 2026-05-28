@@ -62,45 +62,47 @@ jobs:
         run: |
           echo "准备上传状态到Gist..."
           
-          # 准备要上传的文件
-          FILES_JSON=""
-          FIRST=true
+          # 准备要上传的文件列表
+          FILES_TO_UPLOAD="counter.txt score-state.env latest-report.md "
+          FILES_TO_UPLOAD+="state/phi_history.jsonl state/defect_history.jsonl "
+          FILES_TO_UPLOAD+="state/repair_history.jsonl state/bug_streak.jsonl "
+          FILES_TO_UPLOAD+="state/consistency_log.jsonl state/lesson_bank.jsonl "
+          FILES_TO_UPLOAD+="state/metacognition_log.jsonl"
           
-          for f in counter.txt score-state.env latest-report.md \
-                   state/phi_history.jsonl state/defect_history.jsonl \
-                   state/repair_history.jsonl state/bug_streak.jsonl \
-                   state/consistency_log.jsonl state/lesson_bank.jsonl \
-                   state/metacognition_log.jsonl; do
-            if [ -f "$f" ]; then
-              CONTENT=$(cat "$f" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))' 2>/dev/null || echo '""')
-              FILENAME=$(basename "$f")
-              if [ "$FIRST" = true ]; then
-                FIRST=false
-              else
-                FILES_JSON+=","
-              fi
-              FILES_JSON+="\"$FILENAME\": {\"content\": $CONTENT}"
-            fi
-          done
-          
-          PAYLOAD=$(python3 -c "
-import json, sys
-files = {$FILES_JSON}
+          # 构建Python dict
+          python3 << PYEOF
+import json
+import os
+import sys
+
+files = {}
+for f in os.environ.get('FILES_TO_UPLOAD', '').split():
+    if os.path.isfile(f):
+        try:
+            with open(f, 'r') as fh:
+                content = fh.read()
+            fname = os.path.basename(f)
+            files[fname] = {"content": content}
+        except Exception as e:
+            print(f"跳过 {f}: {e}", file=sys.stderr)
+
 result = {
-    'description': 'APEX Evolver State $(date '+%Y-%m-%d %H:%M')',
-    'public': False,
-    'files': files
+    "description": "APEX Evolver State $(date '+%Y-%m-%d %H:%M')",
+    "public": False,
+    "files": files
 }
-print(json.dumps(result))
-")
+with open(os.environ.get('GITHUB_ENV', '/tmp/gist_payload.json'), 'w') as f:
+    json.dump(result, f)
+print(f"Prepared {len(files)} files for upload")
+PYEOF
           
-          echo "Payload大小: ${#PAYLOAD} bytes"
+          echo "Payload文件已生成"
           
-          if [ -n "$GIST_ID" ]; then
+          if [ -n "$GIST_ID" ] && [ -f "$GITHUB_ENV" ]; then
             RESP=$(curl -sL -w '\nHTTP:%{http_code}' -X PATCH \
               -H "Authorization: Bearer $GH_TOKEN" \
               -H "Content-Type: application/json" \
-              -d "$PAYLOAD" \
+              -d "@$GITHUB_ENV" \
               "https://api.github.com/gists/$GIST_ID")
             HTTP_CODE=$(echo "$RESP" | grep HTTP: | cut -d: -f2)
             BODY=$(echo "$RESP" | sed '/HTTP:/d')
@@ -111,7 +113,7 @@ print(json.dumps(result))
               echo "❌ $BODY" | head -3
             fi
           else
-            echo "GIST_ID未设置，跳过Gist上传"
+            echo "GIST_ID未设置或payload文件不存在，跳过Gist上传"
           fi
 
       - name: 提交状态变更

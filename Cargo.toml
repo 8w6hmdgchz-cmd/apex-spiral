@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/apex_token_optimizer",
+    "crates/apex_research_engine",
+    "crates/clawg_bench",
+    "crates/emv_entropy",
+    "crates/swrs_memory",
+]
