@@ -16,18 +16,32 @@ struct EngineScores {
 }
 
 impl EngineScores {
-    fn ui_control(&self) -> f64 { self.coord_fix * self.token_control }
-    fn training_loop(&self) -> f64 { (self.task_syn + self.train_readiness + self.bench_verify) / 3.0 }
-    fn research_autonomy(&self) -> f64 { (self.era + self.co_scientist + self.robin) / 3.0 }
-    fn engine_apex(&self) -> f64 { self.ui_control() * self.training_loop() * self.research_autonomy() }
+    fn ui_control(&self) -> f64 {
+        self.coord_fix * self.token_control
+    }
+    fn training_loop(&self) -> f64 {
+        (self.task_syn + self.train_readiness + self.bench_verify) / 3.0
+    }
+    fn research_autonomy(&self) -> f64 {
+        (self.era + self.co_scientist + self.robin) / 3.0
+    }
+    fn engine_apex(&self) -> f64 {
+        self.ui_control() * self.training_loop() * self.research_autonomy()
+    }
 }
 
 fn ts() -> u64 {
-    SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs()
 }
 
 fn arg_value(args: &[String], key: &str, default: &str) -> String {
-    args.windows(2).find(|w| w[0] == key).map(|w| w[1].clone()).unwrap_or_else(|| default.to_string())
+    args.windows(2)
+        .find(|w| w[0] == key)
+        .map(|w| w[1].clone())
+        .unwrap_or_else(|| default.to_string())
 }
 
 fn write_project(root: &Path, question: &str, scores: &EngineScores) -> std::io::Result<PathBuf> {
@@ -49,7 +63,11 @@ fn write_project(root: &Path, question: &str, scores: &EngineScores) -> std::io:
 fn main() -> std::io::Result<()> {
     let args: Vec<String> = env::args().collect();
     let root = PathBuf::from(arg_value(&args, "--root", "research/apex"));
-    let question = arg_value(&args, "--question", "Build a reproducible APEX research pipeline");
+    let question = arg_value(
+        &args,
+        "--question",
+        "Build a reproducible APEX research pipeline",
+    );
     let scores = EngineScores {
         coord_fix: 1.0,
         token_control: 0.95,
@@ -74,12 +92,30 @@ mod tests {
     use super::*;
     #[test]
     fn engine_multiplies_modules() {
-        let s = EngineScores { coord_fix:1.0, token_control:1.0, task_syn:1.0, train_readiness:1.0, bench_verify:1.0, era:1.0, co_scientist:1.0, robin:1.0 };
+        let s = EngineScores {
+            coord_fix: 1.0,
+            token_control: 1.0,
+            task_syn: 1.0,
+            train_readiness: 1.0,
+            bench_verify: 1.0,
+            era: 1.0,
+            co_scientist: 1.0,
+            robin: 1.0,
+        };
         assert!((s.engine_apex() - 1.0).abs() < 1e-9);
     }
     #[test]
     fn partial_scores_less_than_one() {
-        let s = EngineScores { coord_fix:1.0, token_control:0.5, task_syn:1.0, train_readiness:1.0, bench_verify:1.0, era:1.0, co_scientist:1.0, robin:1.0 };
+        let s = EngineScores {
+            coord_fix: 1.0,
+            token_control: 0.5,
+            task_syn: 1.0,
+            train_readiness: 1.0,
+            bench_verify: 1.0,
+            era: 1.0,
+            co_scientist: 1.0,
+            robin: 1.0,
+        };
         assert!((s.engine_apex() - 0.5).abs() < 1e-9);
     }
 }

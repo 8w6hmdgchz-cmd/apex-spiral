@@ -9,7 +9,9 @@ fn counts(labels: &[&str]) -> BTreeMap<String, usize> {
 }
 
 fn gini(labels: &[&str]) -> f64 {
-    if labels.is_empty() { return 0.0; }
+    if labels.is_empty() {
+        return 0.0;
+    }
     let n = labels.len() as f64;
     let sum_sq: f64 = counts(labels)
         .values()
@@ -22,13 +24,19 @@ fn gini(labels: &[&str]) -> f64 {
 }
 
 fn entropy(labels: &[&str]) -> f64 {
-    if labels.is_empty() { return 0.0; }
+    if labels.is_empty() {
+        return 0.0;
+    }
     let n = labels.len() as f64;
     counts(labels)
         .values()
         .map(|&c| {
             let p = c as f64 / n;
-            if p == 0.0 { 0.0 } else { -p * p.log2() }
+            if p == 0.0 {
+                0.0
+            } else {
+                -p * p.log2()
+            }
         })
         .sum()
 }
@@ -38,13 +46,17 @@ where
     F: Fn(&[&str]) -> f64,
 {
     let n = (left.len() + right.len()) as f64;
-    if n == 0.0 { return 0.0; }
+    if n == 0.0 {
+        return 0.0;
+    }
     (left.len() as f64 / n) * metric(left) + (right.len() as f64 / n) * metric(right)
 }
 
 fn main() {
     // Demo labels: accept/reject/rewrite outcomes for candidate skill mutations.
-    let parent = ["accept", "accept", "rewrite", "reject", "accept", "rewrite", "reject", "accept"];
+    let parent = [
+        "accept", "accept", "rewrite", "reject", "accept", "rewrite", "reject", "accept",
+    ];
     let left = ["accept", "accept", "accept", "rewrite"];
     let right = ["reject", "rewrite", "reject", "accept"];
 
@@ -58,7 +70,11 @@ fn main() {
     println!("parent_entropy={:.6}", h_parent);
     println!("information_gain={:.6}", info_gain);
 
-    let selected = if g_gain >= info_gain { "gini_path" } else { "entropy_path" };
+    let selected = if g_gain >= info_gain {
+        "gini_path"
+    } else {
+        "entropy_path"
+    };
     println!("selected_mutation_path={}", selected);
 }
 

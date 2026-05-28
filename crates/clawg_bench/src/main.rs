@@ -14,14 +14,20 @@ struct TaskSpec {
 }
 
 fn ts() -> u64 {
-    SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs()
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs()
 }
 
 fn create_task(root: &Path) -> std::io::Result<TaskSpec> {
     let id = format!("clawg_{}", ts());
     let ws = root.join("workspaces").join(&id);
     fs::create_dir_all(&ws)?;
-    fs::write(ws.join("notes.txt"), "Project: mock local file operation training\nStatus: draft\n")?;
+    fs::write(
+        ws.join("notes.txt"),
+        "Project: mock local file operation training\nStatus: draft\n",
+    )?;
     let spec = TaskSpec {
         id: id.clone(),
         persona_intent: "Organize a mock project note and create a summary file".into(),
@@ -40,7 +46,10 @@ fn create_task(root: &Path) -> std::io::Result<TaskSpec> {
 
 fn simulate_agent(spec: &TaskSpec) -> std::io::Result<()> {
     let src = fs::read_to_string(spec.workspace.join("notes.txt"))?;
-    fs::write(spec.workspace.join(&spec.required_file), format!("# Summary\n\n{}\n", src.trim()))?;
+    fs::write(
+        spec.workspace.join(&spec.required_file),
+        format!("# Summary\n\n{}\n", src.trim()),
+    )?;
     Ok(())
 }
 
@@ -98,7 +107,14 @@ mod tests {
     }
     #[test]
     fn verify_missing_zero() {
-        let spec = TaskSpec { id:"x".into(), persona_intent:"".into(), skill_grounding:"".into(), workspace: PathBuf::from("/tmp/definitely_missing_clawg"), required_file:"nope".into(), required_contains:"x".into() };
+        let spec = TaskSpec {
+            id: "x".into(),
+            persona_intent: "".into(),
+            skill_grounding: "".into(),
+            workspace: PathBuf::from("/tmp/definitely_missing_clawg"),
+            required_file: "nope".into(),
+            required_contains: "x".into(),
+        };
         assert_eq!(auto_verify(&spec), 0.0);
     }
 }
