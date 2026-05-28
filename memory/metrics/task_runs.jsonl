@@ -23,3 +23,6 @@
 {"timestamp":"2026-05-26T16:02:00+08:00","task":"activate_failure_case_miner","result":"pass","verification":"apex-failure-miner && apex-evidence-validator && apex-memory-admission","evidence":"state/apex-failure-miner-latest.json","findings":12,"admitted":12}
 {"timestamp":"2026-05-26T16:06:00+08:00","task":"upgrade_runtime_noise_governance_v2","result":"pass","verification":"apex-hygiene v2 && apex-cmmi-delivery cycle","evidence":"state/apex-hygiene-latest.json","format":"apex-hygiene-2.0"}
 {"timestamp":"2026-05-26T22:50:00+08:00","task":"skillflow_activation","result":"pass","evidence":"state/skillflow-dag.json","dag":"28n/44e","routes":14,"credits":61,"evolved":17,"validation":"14/14 pass","collapse":false,"peaks":11}
+{"timestamp": "2026-05-28T17:12:00+08:00", "task": "failure_cases.jsonl 补录MLX下载失败案例", "success": true, "notes": "新增id=6,7；回归case 1；写入MLX管理checklist"}
+{"timestamp": "2026-05-28T17:15:00+08:00", "task": "operational_knowledge.md 追加MLX模型管理条目", "success": true, "notes": "包含下载checklist、验证命令、CDN路径说明"}
+{"timestamp": "2026-05-28T17:05:00+08:00", "task": "Qwen3.6-35B-Heretic-MLX 对话测试", "success": true, "notes": "成功运行，未审查版Qwen3.6；Qwen3-Coder-Next内存超限无法运行"}

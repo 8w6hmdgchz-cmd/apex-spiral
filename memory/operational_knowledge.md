@@ -103,3 +103,38 @@ ls -la ~/.openclaw/media/qqbot/
 1. 做完后立即写入 `operational_knowledge.md`
 2. 如果是重复性操作，同时加进 `action_registry.md`
 3. 下次别再查一遍
+
+## MLX模型管理（2026-05-28补）
+
+### 下载前 checklist
+1. `df -h` 查磁盘余量
+2. `python3 -c "from safetensors import safe_open"` 验证工具
+3. 查 config.json 确认内存需求（model_size_bytes + overhead < 可用内存）
+4. `curl -sI --max-time 5 <url>` 确认 CDN 可达（不follow重定向）
+5. 确认 tokenizer.json 不是 Git LFS（tokenizer.json 空 = 需要单独下载）
+
+### 模型验证命令
+```bash
+python3 -c "
+from safetensors import safe_open
+import os
+for f in os.listdir('.'):
+    if f.endswith('.safetensors'):
+        try:
+            with safe_open(f, framework='mlx') as sf:
+                list(sf.keys())
+            print(f'OK: {f}')
+        except:
+            print(f'CORRUPT: {f}')
+"
+```
+
+### hf-mirror CDN 路径
+- 小文件(≈<1MB): `raw/` 路径直接返回内容
+- 大文件(≈>1MB): `resolve/` 返回302 → xethub.hf.co（常封）
+- 备选: `modelers.cn API` 查其他镜像
+
+### 常见问题
+- safetensors报错"offset out of range" → 文件截断，需重新下载
+- Metal内存超限 → 查 `iogpu.wired_limit_mb`，或换更小的量化版本
+- tokenizer.json 空 → 是Git LFS指针，需单独 curl resolve/ 下载
