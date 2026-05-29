@@ -5,14 +5,14 @@
 
 set -euo pipefail
 
-BASE_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment/a2a-resources"
+BASE_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
 PENDING_FILE="$BASE_DIR/pending.list"
 ABSORBED_FILE="$BASE_DIR/absorbed.list"
 FAILED_FILE="$BASE_DIR/failed.list"
 ABSORB_LOG="$BASE_DIR/absorb.log"
 INHERIT_FILE="$BASE_DIR/inherited.list"
 RESOURCE_CACHE_DIR="$BASE_DIR/cache"
-LOCK_FILE="$BASE_DIR/absorber.lock"
+LOCK_FILE="/Users/lihongxin/.openclaw/workspace/a2a-resources/absorber.lock"
 mkdir -p "$BASE_DIR" "$RESOURCE_CACHE_DIR"
 
 # ── 锁机制：防止多进程并发 ──
@@ -41,25 +41,22 @@ append_unique_line() {
 }
 
 # 已知无效 repo 快速跳过（避免重复尝试）
-is_known_bad() {
-  local repo="$1"
-  case "$repo" in
-    RefuelAI/Reflexion|reflexion-ai/|openai/openai-agents|spinning-up)
-      return 0 ;;
-    *)
-      return 1 ;;
-  esac
-}
+# is_known_bad() {
+#   local repo="$1"
+#   # 只禁用真正不存在的仓库别名
+#   case "$repo" in
+#     openai/openai-agents) return 0 ;;  # 正确名字是 openai/openai-agents-python
+#     *) return 1 ;;
+#   esac
+# }
 
 fetch_readme() {
   local repo="$1"
   local target_dir="$2"
   mkdir -p "$target_dir"
 
-  # 已知无效 repo 直接跳过
-  if is_known_bad "$repo"; then
-    return 1
-  fi
+  # 已知无效 repo 直接跳过（已禁用，让所有真实repo都能尝试）
+  # if is_known_bad "$repo"; then return 1; fi
 
   local ok=1
   # 直接访问 raw.githubusercontent.com，设置较短超时
@@ -117,13 +114,13 @@ absorb_pending() {
       continue
     fi
 
-    # 已知无效 repo
-    if is_known_bad "$repo"; then
-      append_unique_line "$FAILED_FILE" "$key"
-      echo "[$(timestamp)] ⏭️ 已知无效repo，跳过: $key" >> "$ABSORB_LOG"
-      ((skipped_bad++))
-      continue
-    fi
+    # 已知无效 repo（已禁用，让所有真实repo都能尝试）
+    # if is_known_bad "$repo"; then
+    #   append_unique_line "$FAILED_FILE" "$key"
+    #   echo "[$(timestamp)] ⏭️ 已知无效repo，跳过: $key" >> "$ABSORB_LOG"
+    #   ((skipped_bad++))
+    #   continue
+    # fi
 
     # 尝试获取
     if fetch_readme "$repo" "$target"; then

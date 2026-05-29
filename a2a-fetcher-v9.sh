@@ -1,5 +1,6 @@
 #!/bin/bash
 # A2A 抓取 v9 - 简单版，只验证已存在的仓库
+# 支持SSH/HTTPS/ghproxy多路 fallback
 set -euo pipefail
 LOG_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
 CACHE="$LOG_DIR/cache"
@@ -28,6 +29,28 @@ REPOS=(
   "anthropic/anthropic-sdk-python|工具调用"
 )
 
+# SSH timeout settings
+export GIT_SSH_COMMAND="ssh -o ConnectTimeout=15 -o ServerAliveInterval=60 -o ServerAliveCountMax=3"
+
+# clone_with_fallback <repo> <dest_dir>
+# Returns 0 on success, non-zero on failure
+clone_with_fallback() {
+  local repo="$1" dest="$2"
+  local methods=(
+    "git clone --depth=1 git@github.com:${repo}.git ${dest}"
+    "git clone --depth=1 https://github.com/${repo}.git ${dest}"
+    "git clone --depth=1 https://ghproxy.com/https://github.com/${repo}.git ${dest}"
+  )
+  for cmd in "${methods[@]}"; do
+    echo "  尝试: $cmd"
+    if eval "$cmd" 2>/dev/null; then
+      return 0
+    fi
+    echo "  失败，重试下一个方法..."
+  done
+  return 1
+}
+
 CLONED=0
 for item in "${REPOS[@]}"; do
   repo="${item%%|*}"
@@ -35,8 +58,8 @@ for item in "${REPOS[@]}"; do
   dir="$CACHE/${repo//\//_}"
   [ -d "$dir" ] && continue
   echo "克隆: $repo"
-  if git clone --depth 1 "git@github.com:$repo.git" "$dir" 2>/dev/null; then
-    append "$LOG_DIR/pending.list" "$cat|$repo|github_ssh"
+  if clone_with_fallback "$repo" "$dir"; then
+    append "$LOG_DIR/pending.list" "$cat|$repo|github_clone"
     ((CLONED++))
   fi
 done
