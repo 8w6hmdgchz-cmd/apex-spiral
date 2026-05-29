@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1779939218405",
-  "timestamp_ms": 1779939218405,
+  "trace_id": "evomap-1780012870202",
+  "timestamp_ms": 1780012870202,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -8,7 +8,7 @@
     "skills/hetu-luoshu",
     "skills/apex-token-optimizer"
   ],
-  "file_count": 676,
+  "file_count": 680,
   "files": [
     {
       "path": "apex_token_rs/Cargo.toml",
@@ -57,18 +57,18 @@
     },
     {
       "path": "clawg-mvp/datasets/processed/summary.json",
-      "bytes": 112,
-      "sha256": "bb31a80c7af649289ef8b83cb5f3f31896f5997c0ba477072a918c3894629c50"
+      "bytes": 111,
+      "sha256": "08dfd6f53dc70a4f2ff7336e7af5cd773804ad5ef0b46e24078c148272f5e4f3"
     },
     {
       "path": "clawg-mvp/datasets/processed/reports.jsonl",
-      "bytes": 3196,
-      "sha256": "5b00950ac475d9de5d4ddad4f6da08f5f55e90b6a01195ce7c6e12eb12b59cbc"
+      "bytes": 3199,
+      "sha256": "8209d3e8426dec97352481a64dde27a31e667b11206bc288d3835b0bd2fa07c2"
     },
     {
       "path": "clawg-mvp/datasets/raw/tasks.jsonl",
       "bytes": 8120,
-      "sha256": "273603f73e8a72185e33118d10db0763e5389ff9ce7f5825b5282057889b1ed0"
+      "sha256": "31d6ea5bf1b20471a52520aaf772bd0d9b9232039cfb7925b5752a86d948bc1d"
     },
     {
       "path": "clawg-mvp/py/data_pipeline/generate_tasks.py",
@@ -107,8 +107,8 @@
     },
     {
       "path": "apex-unified-engine/reports/latest_report.json",
-      "bytes": 5609,
-      "sha256": "68d6e75c32f1104abe8ac01349002bb5719f2028ce7dc484d2355351e5a99218"
+      "bytes": 5607,
+      "sha256": "e45964727b9fa1d00350abaf5175d49f90342292043554d6effc481599c85c0c"
     },
     {
       "path": "apex-unified-engine/reports/apex-engine-1779541233301-49bc7313/engine_report.json",
@@ -294,6 +294,11 @@
       "path": "apex-unified-engine/reports/apex-engine-1779564645740-98e323a0/engine_report.json",
       "bytes": 5607,
       "sha256": "d1fc12f891d9cf7c4bfadb16a4c780c01bba20750102808dc52eb9562fb278eb"
+    },
+    {
+      "path": "apex-unified-engine/reports/apex-engine-1780000296581-22a22f09/engine_report.json",
+      "bytes": 5607,
+      "sha256": "e45964727b9fa1d00350abaf5175d49f90342292043554d6effc481599c85c0c"
     },
     {
       "path": "apex-unified-engine/reports/apex-engine-1779532229893-fd11a62f/engine_report.json",
@@ -2776,6 +2781,21 @@
       "sha256": "b0eedecd64bb414317a22e5b2d3cdbe0616e0bf27698394d9a99b60433be0248"
     },
     {
+      "path": "apex-unified-engine/reports/apex-engine-1780000296581-22a22f09/research/robin_plan_analysis.json",
+      "bytes": 753,
+      "sha256": "e3c46a7f4186cc5e31cf7fd25b2b871c7ed996f41b67d40f0b37a9429234b022"
+    },
+    {
+      "path": "apex-unified-engine/reports/apex-engine-1780000296581-22a22f09/research/era_tree.json",
+      "bytes": 745,
+      "sha256": "cd08ff7fca6b85c3f65647bfdce329f2a4d081e1e3c177f2f3ac0b1b7c80df97"
+    },
+    {
+      "path": "apex-unified-engine/reports/apex-engine-1780000296581-22a22f09/research/co_scientist_hypotheses.json",
+      "bytes": 844,
+      "sha256": "b0eedecd64bb414317a22e5b2d3cdbe0616e0bf27698394d9a99b60433be0248"
+    },
+    {
       "path": "apex-unified-engine/reports/apex-engine-1779564645740-98e323a0/research/robin_plan_analysis.json",
       "bytes": 753,
       "sha256": "e3c46a7f4186cc5e31cf7fd25b2b871c7ed996f41b67d40f0b37a9429234b022"
@@ -3392,7 +3412,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": " M state/apex-dawn-gate-latest.json\n M state/apex-eval-harness-latest.json\n M state/apex-eval-harness/selftest_pwd.traj.json\n M state/apex-eval-harness/selftest_python.traj.json\n M state/apex-mini-executor-selftest.traj.json\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n?? reports/a2a-hunt-20260528-1132.md\n",
+  "git_status_short": " M state/apex-dawn-gate-latest.json\n M state/apex-eval-harness-latest.json\n M state/apex-eval-harness/selftest_pwd.traj.json\n M state/apex-eval-harness/selftest_python.traj.json\n M state/apex-mini-executor-selftest.traj.json\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n",
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }
