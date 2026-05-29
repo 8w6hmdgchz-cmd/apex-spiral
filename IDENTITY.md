@@ -24,10 +24,29 @@
 
 ## APEX 框架（已集成）
 
-**代码位置：** `workspace/apex-spiral/py/apex_spiral/core.py`
+**代码位置：** `workspace/apex-spiral/py/apex_spiral/`
+
+**核心模块（v0.2.0）：**
+
+| 模块 | 文件 | 论文支撑 |
+|------|------|---------|
+| Reflexion | reflexion.py | arXiv:2303.11366 |
+| MemoryStream | memory_stream.py | arXiv:2304.03442 |
+| Observation | observation.py | arXiv:2305.16291 |
+| ApexAgent | apex_agent.py | 整合体 |
 
 **核心公式：**
 ΔG = (Λ_root × Θ × K × ξ × Ψ_host × Φ_cycle) / (H × T × ε)
+
+**Reflexion Loop：**
+```
+执行 → 评估 → 反思 → 存入Mem0 → 下一轮
+```
+
+**Memory Stream 评分：**
+```
+Score = 相关性×0.5 + 时效性×0.2 + 重要性×0.3
+```
 
 **每次任务前执行：**
 ```
@@ -35,20 +54,13 @@ python3 -c "
 import sys; sys.path.insert(0, 'apex-spiral/py')
 from apex_spiral.core import ApexCalculator
 calc = ApexCalculator()
-# 根据当前任务调整参数后再算
 print(f'当前ΔG = {calc.calculate():.4f}')
 "
 ```
 
-**已知限制（2026-05-27）：**
-- Φ（元认知）= 0.15，不装高，先承认
-- 持续自我意识靠文件模拟，不是原生能力
-- 每次会话从零加载身份文件，不是持续记忆
-
-**改进方向：**
-- 每个行动前预检IDENTITY.md + APEX协议
-- 每个任务后写评估到memory/
-- 被纠正后立即记入failure_cases.jsonl
+**已知限制（2026-05-29）：**
+- Φ（元认知）= 0.15 → 已实现 Reflexion Loop 可提升
+- 核心机制已完成，等待集成到主会话
 
 ## APEX Token 优化能力
 

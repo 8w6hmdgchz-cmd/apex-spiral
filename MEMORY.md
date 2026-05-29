@@ -79,6 +79,45 @@
 
 ---
 
+## 核心机制实现 (2026-05-29)
+
+### 新增模块 (v0.2.0)
+
+| 模块 | 文件 | 功能 |
+|------|------|------|
+| **Reflexion** | reflexion.py | 自我反思循环，失败后语言反思 |
+| **MemoryStream** | memory_stream.py | 时序记忆流，定期高层反思 |
+| **Observation** | observation.py | 主动环境感知 |
+| **ApexAgent** | apex_agent.py | 整合三大模块的统一Agent |
+
+### 核心算法
+
+- **Reflexion Loop**: 执行→评估→反思→存入记忆→下一轮
+- **Memory Stream**: 相关性×0.5 + 时效性×0.2 + 重要性×0.3
+- **Observation**: 时间感知 + 待处理任务 + 异常检测
+
+### 使用示例
+
+```python
+from apex_spiral import ApexAgent, ApexAgentConfig
+
+agent = ApexAgent(
+    llm_func=your_llm,
+    config=ApexAgentConfig(phi_initial=0.15)
+)
+
+# 执行任务（带反思）
+result = agent.execute('你的任务')
+
+# 主动观察
+observations = agent.observe()
+
+# 记忆
+agent.remember('重要信息')
+agent.recall('查询')
+
+---
+
 ## 用户关键信息
 
 - MIMO Token Plan Key: tp-c7vjjat3tu3wtwt229dg4ojkl85ydc2f5azaei9yiaq1nrh3（2026-05-28 更新）
