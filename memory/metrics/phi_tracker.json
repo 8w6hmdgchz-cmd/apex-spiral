@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-05-28T15:31:19.860487+08:00",
+  "timestamp": "2026-05-29T22:00:00.000000+08:00",
   "phi_ratio_equiv": 57.37,
   "delta_g": 0.672823,
   "bottleneck": "Σ_memory",
   "directive": "MAINTAIN: all stable",
   "target": "> 60%",
   "status": 0,
-  "iter": 250,
-  "seq": 250
+  "iter": 251,
+  "seq": 251
 }

@@ -5,3 +5,4 @@
 {"timestamp":"2026-05-25T23:45:00+08:00","phi_iter":91,"counter":7,"phi":80.0,"delta_e":400,"bottleneck":"Evol_code","delta_components":{"alpha_psi":85,"beta_omega":72,"lambda_phi":65,"nabla_theta":38,"evol_code":140},"action":"auto_reflux","seq":112}
 {"seq": 209, "ts": "2026-05-27T09:30:51.483166+08:00", "phi": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable"}
 {"timestamp": "2026-05-28T12:30:28+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "auto_reflux_wake"}
+{"timestamp": "2026-05-29T22:00:00.000000+08:00", "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "Σ_memory", "seq": 251}
