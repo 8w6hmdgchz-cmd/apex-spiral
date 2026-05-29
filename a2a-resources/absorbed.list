@@ -97,3 +97,20 @@ vllm-project_vllm|vllm-project/vllm|cache_scan
 长上下文|langchain-ai/langgraph|memory_consolidation
 长上下文|langchain-ai/langgraph|memory_system
 长上下文|langchain-ai/langgraph|retrieval
+EleutherAI_gpt-neox|EleutherAI/gpt-neox|cache_scan
+facebookresearch_llama|facebookresearch/llama|cache_scan
+huggingface_transformers|huggingface/transformers|cache_scan
+大模型|EleutherAI/gpt-neox|github_clone
+LLAMA模型|facebookresearch/llama|github_clone
+google_brax|google/brax|cache_scan
+huggingface_peft|huggingface/peft|cache_scan
+rasbt_LLMs-from-scratch|rasbt/LLMs-from-scratch|cache_scan
+强化学习|google/brax|github_clone
+PEFT微调|huggingface/peft|github_clone
+from scratch实现|rasbt/LLMs-from-scratch|github_clone
+QwenLM_Qwen2|QwenLM/Qwen2|cache_scan
+deepseek-ai_DeepSeek-V2|deepseek-ai/DeepSeek-V2|cache_scan
+nvidia_TensorRT-LLM|nvidia/TensorRT-LLM|cache_scan
+DeepSeekV2|deepseek-ai/DeepSeek-V2|github_clone
+Qwen2大模型|QwenLM/Qwen2|github_clone
+TensorRT大模型|nvidia/TensorRT-LLM|github_clone

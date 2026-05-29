@@ -19952,3 +19952,27 @@
 [2026-05-29 18:30 GMT+8] ♻️ 已缓存，吸收+遗传: ChatGPT克隆|lm-sys/FastChat|github_clone
 [2026-05-29 18:30 GMT+8] ♻️ 已缓存，吸收+遗传: AutoGPT|Significant-Gravitas/AutoGPT|github_clone
 [2026-05-29 18:31 GMT+8] 🔍 扫描缓存目录...
+[2026-05-29 18:38 GMT+8] 🔍 扫描缓存目录...
+[2026-05-29 18:38 GMT+8] ♻️ 缓存扫描吸收: EleutherAI_gpt-neox
+[2026-05-29 18:38 GMT+8] ♻️ 缓存扫描吸收: facebookresearch_llama
+[2026-05-29 18:38 GMT+8] ♻️ 缓存扫描吸收: huggingface_transformers
+[2026-05-29 18:38 GMT+8] ♻️ 已缓存，吸收+遗传: 大模型|EleutherAI/gpt-neox|github_clone
+[2026-05-29 18:38 GMT+8] ♻️ 已缓存，吸收+遗传: LLAMA模型|facebookresearch/llama|github_clone
+[2026-05-29 18:39 GMT+8] 🔍 扫描缓存目录...
+[2026-05-29 18:39 GMT+8] 🔍 扫描缓存目录...
+[2026-05-29 18:42 GMT+8] 🔍 扫描缓存目录...
+[2026-05-29 18:57 GMT+8] 🔍 扫描缓存目录...
+[2026-05-29 18:57 GMT+8] ♻️ 缓存扫描吸收: google_brax
+[2026-05-29 18:57 GMT+8] ♻️ 缓存扫描吸收: huggingface_peft
+[2026-05-29 18:57 GMT+8] ♻️ 缓存扫描吸收: rasbt_LLMs-from-scratch
+[2026-05-29 18:57 GMT+8] ♻️ 已缓存，吸收+遗传: 强化学习|google/brax|github_clone
+[2026-05-29 18:57 GMT+8] ♻️ 已缓存，吸收+遗传: PEFT微调|huggingface/peft|github_clone
+[2026-05-29 18:57 GMT+8] ♻️ 已缓存，吸收+遗传: from scratch实现|rasbt/LLMs-from-scratch|github_clone
+[2026-05-29 19:00 GMT+8] 🔍 扫描缓存目录...
+[2026-05-29 19:00 GMT+8] ♻️ 缓存扫描吸收: QwenLM_Qwen2
+[2026-05-29 19:00 GMT+8] ♻️ 缓存扫描吸收: deepseek-ai_DeepSeek-V2
+[2026-05-29 19:00 GMT+8] ♻️ 缓存扫描吸收: nvidia_TensorRT-LLM
+[2026-05-29 19:00 GMT+8] ♻️ 已缓存，吸收+遗传: DeepSeekV2|deepseek-ai/DeepSeek-V2|github_clone
+[2026-05-29 19:00 GMT+8] ♻️ 已缓存，吸收+遗传: Qwen2大模型|QwenLM/Qwen2|github_clone
+[2026-05-29 19:00 GMT+8] ♻️ 已缓存，吸收+遗传: TensorRT大模型|nvidia/TensorRT-LLM|github_clone
+[2026-05-29 19:00 GMT+8] 🔍 扫描缓存目录...
