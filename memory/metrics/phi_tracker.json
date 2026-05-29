@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-05-29T22:35:38.385333+08:00",
-  "phi_ratio_equiv": 60.04,
-  "delta_g": 0.751278,
-  "bottleneck": "\u03a3_memory",
-  "directive": "MAINTAIN: all stable",
+  "timestamp": "2026-05-30T05:31:28.566890",
+  "phi_ratio_equiv": 57.37,
+  "delta_g": 0.672823,
+  "bottleneck": "Σ_memory",
+  "directive": "INIT: baseline established",
   "target": "> 60%",
   "status": 0,
-  "iter": 252,
-  "seq": 253
+  "iter": 254,
+  "seq": 254
 }
