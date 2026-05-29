@@ -291,3 +291,6 @@
 {"timestamp": "2026-05-30T03:32:09+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "full_mirror"}
 {"timestamp": "2026-05-30T03:45:01+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "full_mirror"}
 {"timestamp": "2026-05-30T04:00:01+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "full_mirror"}
+{"ts":"2026-05-29T20:02:28Z","ΔG":0.7513,"Φ":0.5737,"Σ_mem":0.62,"Λ_root":0.89}
+{"timestamp": "2026-05-30T04:15:00+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "full_mirror"}
+{"timestamp": "2026-05-30T04:30:00+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "full_mirror"}
