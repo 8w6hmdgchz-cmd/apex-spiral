@@ -1,10 +1,10 @@
 {
   "lastChecks": {
-    "phi_tracker": 1780021931,
-    "git_commit": 1780021931,
-    "evomap_sync": 1780021931
+    "phi_tracker": 1780025603,
+    "git_commit": 1780025603,
+    "evomap_sync": 1780025603
   },
-  "lastRefluxSeq": 251,
-  "lastRefluxTime": "2026-05-29T10:30:59+08:00",
+  "lastRefluxSeq": 252,
+  "lastRefluxTime": "2026-05-29T11:33:00+08:00",
   "status": "✅ reflux completed successfully"
 }
