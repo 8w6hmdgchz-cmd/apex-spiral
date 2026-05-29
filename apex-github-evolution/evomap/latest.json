@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1780054440457",
-  "timestamp_ms": 1780054440457,
+  "trace_id": "evomap-1780081274559",
+  "timestamp_ms": 1780081274559,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -3412,7 +3412,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": "",
+  "git_status_short": "A  memory/2026-05-30.md\nM  scripts/apex-12factor-agent/apex-12factor-agent\nM  scripts/apex-agent-dispatch/apex-agent-dispatch\nM  scripts/apex-claude-code-runner/apex-claude-code-runner\nM  scripts/apex-cmmi-delivery/apex-cmmi-delivery\nM  scripts/apex-container-backend/apex-container-backend\nM  scripts/apex-dawn-gate/apex-dawn-gate\nM  scripts/apex-ecc-runtimeos/apex-ecc-runtimeos\nM  scripts/apex-evidence-validator/apex-evidence-validator\nM  scripts/apex-failure-miner/apex-failure-miner\nM  scripts/apex-fusion-engine/apex-fusion-engine\nM  scripts/apex-hygiene/apex-hygiene\nM  scripts/apex-memory-admission/apex-memory-admission\nM  scripts/apex-phasor-llm/apex-phasor-llm\nM  scripts/apex-praison-chain/apex-praison-chain\nM  scripts/apex-release-manager/apex-release-manager\nM  state/apex-dawn-gate-latest.json\nM  state/apex-eval-harness-latest.json\nM  state/apex-eval-harness/selftest_pwd.traj.json\nM  state/apex-eval-harness/selftest_python.traj.json\nM  state/apex-mini-executor-selftest.traj.json\nM  state/phi_history.jsonl\nM  state/phi_tracker_latest.json\n",
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }
