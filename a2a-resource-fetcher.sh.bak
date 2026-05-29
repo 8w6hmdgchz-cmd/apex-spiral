@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-LOG_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
+LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment/a2a-resources"
 PENDING_FILE="$LOG_DIR/pending.list"
 REQUESTS_FILE="$LOG_DIR/requests.log"
 mkdir -p "$LOG_DIR"

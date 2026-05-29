@@ -10,9 +10,9 @@ import math
 from datetime import datetime
 
 # 路径配置
-EMV_BINARY = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/emv_skill/target/release/emv_skill"
+EMV_BINARY = "/Users/lihongxin/.openclaw/workspace/a2a-resources/emv_skill/target/release/emv_skill"
 SKILLBANK_PATH = "/tmp/emv_skillbank.json"
-GINI_SKILL_PATH = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/emv_skill/target/release/gini_skill"
+GINI_SKILL_PATH = "/Users/lihongxin/.openclaw/workspace/a2a-resources/emv_skill/target/release/gini_skill"
 
 class EMVOrchestrator:
     """

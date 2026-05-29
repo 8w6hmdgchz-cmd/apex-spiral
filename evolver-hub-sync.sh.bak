@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-LOG_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
+LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
 STATE_DIR="$LOG_DIR/state"
 HUB_URL="https://evomap.ai"
 SYNC_LOG="$LOG_DIR/hub-sync.log"

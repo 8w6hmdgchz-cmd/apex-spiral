@@ -8,8 +8,8 @@ import os
 import sys
 from pathlib import Path
 
-STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state")
-SCORE_FILE = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/score-state.env")
+STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/a2a-resources/state")
+SCORE_FILE = Path("/Users/lihongxin/.openclaw/workspace/a2a-resources/score-state.env")
 
 def load_defect_library():
     """加载已知缺陷库"""

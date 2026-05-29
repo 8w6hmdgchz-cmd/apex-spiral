@@ -4,7 +4,7 @@ import json
 import sys
 from datetime import datetime
 
-LOG_DIR = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state"
+LOG_DIR = "/Users/lihongxin/.openclaw/workspace/a2a-resources/state"
 FEEDBACK_LOG = f"{LOG_DIR}/feedback_log.jsonl"
 SHORTBOARD_LOG = f"{LOG_DIR}/shortboard_scan.jsonl"
 

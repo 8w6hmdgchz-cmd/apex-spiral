@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
-STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state")
+STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/a2a-resources/state")
 PHI_FILE = STATE_DIR / "phi_history.jsonl"
 DEFECT_FILE = STATE_DIR / "defect_history.jsonl"
 EVOLUTION_LOG = STATE_DIR / "evolution_log.jsonl"

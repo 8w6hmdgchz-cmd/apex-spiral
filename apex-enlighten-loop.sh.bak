@@ -2,7 +2,7 @@
 # ApexSpiral 全模块开智循环
 # 每15分钟执行一次apex-enlighten.py
 
-SCRIPT_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
+SCRIPT_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
 PYTHON_SCRIPT="$SCRIPT_DIR/apex-enlighten.py"
 LOG_DIR="$SCRIPT_DIR"
 LOG_FILE="$LOG_DIR/enlighten-loop.log"

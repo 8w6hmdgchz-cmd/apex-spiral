@@ -6,7 +6,7 @@
 
 set -u
 
-LOG_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
+LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
 STATE_DIR="$LOG_DIR/state"
 ENLIGHT_LOG="$STATE_DIR/enlight_log.jsonl"
 mkdir -p "$STATE_DIR"
@@ -23,7 +23,7 @@ RESULT=$(python3 - << 'PYEOF'
 import json, math, datetime, random
 from pathlib import Path
 
-state_dir = Path("/Users/lihongxin/.openclaw/workspace/state")
+state_dir = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state")
 phi_file = state_dir / "phi_history.jsonl"
 
 # 读取历史
@@ -298,7 +298,7 @@ d = json.load(sys.stdin)
 bugs = d['bugs']
 gaps = d['gaps']
 
-state_dir = Path("/Users/lihongxin/.openclaw/workspace/state")
+state_dir = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state")
 improvement_file = state_dir / "improvement_history.jsonl"
 
 fixed = []
@@ -363,7 +363,7 @@ bugs = d2['bugs']
 gaps = d2['gaps']
 
 # 基于修复后的参数重新计算
-improvement_file = Path("/Users/lihongxin/.openclaw/workspace/state/improvement_history.jsonl")
+improvement_file = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state/improvement_history.jsonl")
 improvements = []
 if improvement_file.exists():
     for line in improvement_file.read_text(errors='ignore').splitlines()[-10:]:
@@ -482,7 +482,7 @@ import json
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
-log_file = Path("/Users/lihongxin/.openclaw/workspace/state/enlight_log.jsonl")
+log_file = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state/enlight_log.jsonl")
 
 entry = {
     "ts": int(datetime.now(timezone(timedelta(hours=8))).timestamp()),

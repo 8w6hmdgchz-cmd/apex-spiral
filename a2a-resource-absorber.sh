@@ -93,6 +93,33 @@ absorb_pending() {
 
   touch "$PENDING_FILE" "$ABSORBED_FILE" "$FAILED_FILE" "$INHERIT_FILE"
 
+  # 扫描缓存目录，吸收所有有内容的 repo
+  echo "[$(timestamp)] 🔍 扫描缓存目录..." >> "$ABSORB_LOG"
+  for cache_dir in "$RESOURCE_CACHE_DIR"/*/; do
+    [ -d "$cache_dir" ] || continue
+    cache_name=$(basename "$cache_dir")
+    
+    # 转换目录名到 repo 格式 (QwenLM_Qwen-Agent -> QwenLM/Qwen-Agent)
+    repo_path="${cache_name//_//}"
+    
+    # 检查是否有内容 (README 或代码文件)
+    has_readme=false
+    has_code=false
+    [ -f "$cache_dir/README.md" ] && has_readme=true
+    for ext in py rs go js ts java cpp c h yaml yml json txt md; do
+      [ $(find "$cache_dir" -name "*.$ext" 2>/dev/null | wc -l) -gt 0 ] && has_code=true && break
+    done
+    
+    if [ "$has_readme" = true ] || [ "$has_code" = true ]; then
+      key="$cache_name|$repo_path|cache_scan"
+      if ! grep -qF "$key" "$ABSORBED_FILE" 2>/dev/null; then
+        append_unique_line "$ABSORBED_FILE" "$key"
+        append_unique_line "$INHERIT_FILE" "$key"
+        echo "[$(timestamp)] ♻️ 缓存扫描吸收: $cache_name" >> "$ABSORB_LOG"
+      fi
+    fi
+  done
+
   while IFS='|' read -r name repo keyword; do
     [ -z "${name:-}" ] && continue
     [ -z "${repo:-}" ] && continue

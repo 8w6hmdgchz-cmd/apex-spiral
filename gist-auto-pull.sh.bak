@@ -2,7 +2,7 @@
 # Gist 自动拉取脚本 - 用raw URL直接拉取，不需要token
 # 璇玑帝国APEX · Gist神级基因吸收器
 
-LOG_DIR="/Users/lihongxin/.openclaw/workspace/state"
+LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state"
 ABSORBED="$LOG_DIR/absorbed_hub"
 ALLOWED_USER="8w6hmdgchz-cmd"
 

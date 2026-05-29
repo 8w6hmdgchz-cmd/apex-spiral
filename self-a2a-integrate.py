@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
-STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state")
+STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/a2a-resources/state")
 DESKTOP_KAIZHI = Path.home() / "Desktop/开智"
 
 def log(msg):

@@ -6,7 +6,7 @@
 set -uo pipefail
 
 # ===== 配置 =====
-LOG_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
+LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
 STATE_DIR="$LOG_DIR/state"
 GIST_ID_FILE="$LOG_DIR/.gist_id"
 GIST_DESCRIPTION="APEX Evolver 状态同步 | $(date '+%Y-%m-%d %H:%M')"

@@ -15,7 +15,7 @@ import sys
 from datetime import datetime
 
 EMV_SKILLBANK = "/tmp/emv_skillbank.json"
-OUTPUT_DIR = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/sft_data"
+OUTPUT_DIR = "/Users/lihongxin/.openclaw/workspace/a2a-resources/sft_data"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 

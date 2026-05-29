@@ -10,8 +10,8 @@ import os
 from datetime import datetime
 from collections import Counter
 
-LESSON_BANK_FILE = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state/lesson_bank.jsonl"
-CONSISTENCY_LOG = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state/consistency_log.jsonl"
+LESSON_BANK_FILE = "/Users/lihongxin/.openclaw/workspace/a2a-resources/state/lesson_bank.jsonl"
+CONSISTENCY_LOG = "/Users/lihongxin/.openclaw/workspace/a2a-resources/state/consistency_log.jsonl"
 
 # 默认推理路径数
 DEFAULT_N_PATHS = 5

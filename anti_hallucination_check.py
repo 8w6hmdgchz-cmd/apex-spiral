@@ -17,8 +17,8 @@ OVER_CERTAIN = [
     "毫无疑问", "完全确定", "毫无问题"
 ]
 
-REFLECTION_LOG = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state/reflection_log.jsonl"
-LESSON_BANK_FILE = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state/lesson_bank.jsonl"
+REFLECTION_LOG = "/Users/lihongxin/.openclaw/workspace/a2a-resources/state/reflection_log.jsonl"
+LESSON_BANK_FILE = "/Users/lihongxin/.openclaw/workspace/a2a-resources/state/lesson_bank.jsonl"
 
 # ============================================================
 # Reflexion-style Lesson Bank (来源: GitHub Gist 57fa0d7)

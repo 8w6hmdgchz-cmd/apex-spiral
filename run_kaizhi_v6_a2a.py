@@ -2,8 +2,8 @@
 import json, subprocess, sys
 from pathlib import Path
 
-STATE = Path('/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state')
-BASE = Path('/Users/lihongxin/.openclaw/workspace/apex-enlightenment')
+STATE = Path('/Users/lihongxin/.openclaw/workspace/a2a-resources/state')
+BASE = Path('/Users/lihongxin/.openclaw/workspace/a2a-resources')
 EVO = STATE / 'evolution_log.jsonl'
 
 last_dg = None

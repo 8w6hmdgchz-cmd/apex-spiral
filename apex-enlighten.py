@@ -12,7 +12,7 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
 # ========== 配置 ==========
-WORK_DIR = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment")
+WORK_DIR = Path("/Users/lihongxin/.openclaw/workspace/a2a-resources")
 STATE_DIR = WORK_DIR / "state"
 ENLIGHT_LOG = STATE_DIR / "enlight_log.jsonl"
 MODE_FILE = STATE_DIR / "loop_mode.txt"

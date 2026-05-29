@@ -11,8 +11,8 @@ set -eu
 : "${FREEMODEL_API_KEY:=${FREEMODEL_API_KEY_BACKUP:-}}"
 
 # LOG_DIR: CI环境用GITHUB_WORKSPACE，本地开发用Mac路径
-if [ -d "/Users/lihongxin/.openclaw/workspace/a2a-resources" ]; then
-    LOG_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
+if [ -d "/Users/lihongxin/.openclaw/workspace/apex-enlightenment" ]; then
+    LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
 elif [ -n "${GITHUB_WORKSPACE:-}" ]; then
     LOG_DIR="${GITHUB_WORKSPACE}"
 else
@@ -521,8 +521,8 @@ import sys, json, os, subprocess, pathlib
 apex_dirs = [
     os.environ.get('APEX_DIR', ''),
     str(pathlib.Path(__file__).parent) if '__file__' in dir() else '',
-    '/Users/lihongxin/.openclaw/workspace/a2a-resources',
-    str(pathlib.Path.home() / '.openclaw' / 'workspace' / 'a2a-resources'),
+    '/Users/lihongxin/.openclaw/workspace/apex-enlightenment',
+    str(pathlib.Path.home() / '.openclaw' / 'workspace' / 'apex-enlightenment'),
 ]
 for _dir in apex_dirs:
     if _dir and (_dir not in sys.path):

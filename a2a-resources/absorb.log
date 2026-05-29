@@ -19912,3 +19912,43 @@
 [2026-05-29 17:24 GMT+8] ❌ 吸收失败: 待分类|openai/spinning-up|cache_sync
 [2026-05-29 17:24 GMT+8] ♻️ 已缓存，吸收+遗传: 进化算法|deap/deap|github_ssh
 [2026-05-29 17:24 GMT+8] ♻️ 已缓存，吸收+遗传: 长上下文|langchain-ai/langgraph|github_ssh
+[2026-05-29 18:18 GMT+8] ❌ 吸收失败: 待分类|openai/spinning-up|cache_sync
+[2026-05-29 18:18 GMT+8] ♻️ 已缓存，吸收+遗传: 工具调用|anthropics/anthropic-sdk-python|github_clone
+[2026-05-29 18:20 GMT+8] ❌ 吸收失败: 待分类|openai/spinning-up|cache_sync
+[2026-05-29 18:21 GMT+8] ❌ 吸收失败: 待分类|openai/spinning-up|cache_sync
+[2026-05-29 18:29 GMT+8] 🔍 扫描缓存目录...
+[2026-05-29 18:30 GMT+8] 🔍 扫描缓存目录...
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: CAMEL-AI_camel
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: QwenLM_Qwen-Agent
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: Significant-Gravitas_AutoGPT
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: THUDM_AgentBench
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: THUDM_ChatGLM3
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: anthropics_anthropic-sdk-python
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: deap_deap
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: deepseek-ai_deepseek-coder
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: facebookresearch_rlhive
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: geek-ai_MAgent
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: google-a2a_a2a
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: google_generative-ai-python
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: langchain-ai_langchain
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: langchain-ai_langgraph
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: lm-sys_FastChat
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: mem0ai_mem0
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: meta-llama_llama
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: microsoft_autogen
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: milvus-io_milvus
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: mistralai_mistral-src
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: noahshinn_reflexion
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: openai_evals
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: openai_openai-agents-python
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: openai_openai-python
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: pyg-team_pytorch_geometric
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: ray-project_ray
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: tatsu-lab_stanford_alpaca
+[2026-05-29 18:30 GMT+8] ♻️ 缓存扫描吸收: vllm-project_vllm
+[2026-05-29 18:30 GMT+8] ♻️ 已缓存，吸收+遗传: 羊驼大模型|meta-llama/llama|github_clone
+[2026-05-29 18:30 GMT+8] ♻️ 已缓存，吸收+遗传: Mistral大模型|mistralai/mistral-src|github_clone
+[2026-05-29 18:30 GMT+8] ♻️ 已缓存，吸收+遗传: ALPACA指令微调|tatsu-lab/stanford_alpaca|github_clone
+[2026-05-29 18:30 GMT+8] ♻️ 已缓存，吸收+遗传: ChatGPT克隆|lm-sys/FastChat|github_clone
+[2026-05-29 18:30 GMT+8] ♻️ 已缓存，吸收+遗传: AutoGPT|Significant-Gravitas/AutoGPT|github_clone
+[2026-05-29 18:31 GMT+8] 🔍 扫描缓存目录...

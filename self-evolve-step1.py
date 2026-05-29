@@ -3,7 +3,7 @@
 import json, sys, os
 from pathlib import Path
 
-state_dir = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state")
+state_dir = Path("/Users/lihongxin/.openclaw/workspace/a2a-resources/state")
 phi_file = state_dir / "phi_history.jsonl"
 defect_file = state_dir / "defect_history.jsonl"
 

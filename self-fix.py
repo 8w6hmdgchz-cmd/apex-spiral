@@ -5,7 +5,7 @@ import os
 import subprocess
 from datetime import datetime
 
-LOG_DIR = "/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state"
+LOG_DIR = "/Users/lihongxin/.openclaw/workspace/a2a-resources/state"
 FIX_LOG = f"{LOG_DIR}/fix_log.jsonl"
 
 def run_real_test():

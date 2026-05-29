@@ -4,7 +4,7 @@
 
 set -u
 
-STATE_DIR="/Users/lihongxin/.openclaw/workspace/state"
+STATE_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state"
 EVOLUTION_LOG="$STATE_DIR/evolution_log.jsonl"
 DG_VALUE="${1:-0.3}"
 
@@ -100,7 +100,7 @@ entry = {
     "metrics": {"omega_self": omega, "gamma_reflect": gamma, "evolution_score": score},
     "dg": dg
 }
-log_file = Path("/Users/lihongxin/.openclaw/workspace/state/evolution_log.jsonl")
+log_file = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state/evolution_log.jsonl")
 with log_file.open("a") as f:
     f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 PYEOF

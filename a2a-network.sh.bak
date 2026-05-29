@@ -3,7 +3,7 @@
 # 璇玑帝国APEX · 自进化资源池
 # 运行: nohup bash a2a-network.sh &
 
-RESOURCE_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
+RESOURCE_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment/a2a-resources"
 LOG="$RESOURCE_DIR/a2a.log"
 mkdir -p "$RESOURCE_DIR"
 

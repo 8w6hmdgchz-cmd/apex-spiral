@@ -8,8 +8,8 @@ import json, math
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
-STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment/state")
-LOG_DIR = Path("/Users/lihongxin/.openclaw/workspace/apex-enlightenment")
+STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/a2a-resources/state")
+LOG_DIR = Path("/Users/lihongxin/.openclaw/workspace/a2a-resources")
 
 def log(msg):
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {msg}", file=__import__('sys').stderr)

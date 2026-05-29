@@ -6,7 +6,7 @@
 
 set -e
 
-WORK_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
+WORK_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
 LOG_FILE="$WORK_DIR/state/enlight_loop.log"
 MODE_FILE="$WORK_DIR/state/loop_mode.json"
 ITER_FILE="$WORK_DIR/state/iter_count.json"

@@ -5,7 +5,7 @@
 
 set -u
 
-LOG_DIR="/Users/lihongxin/.openclaw/workspace/a2a-resources"
+LOG_DIR="/Users/lihongxin/.openclaw/workspace/apex-enlightenment"
 STATE_DIR="$LOG_DIR/state"
 RESOURCE_LOG="$STATE_DIR/a2a_resource_log.jsonl"
 SHORTAGE_FILE="$STATE_DIR/shortage_bugs.jsonl"
