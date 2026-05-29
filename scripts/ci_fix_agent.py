@@ -59,11 +59,12 @@ def parse_failure_email(msg):
                 if m:
                     commit = m.group(1)
                 
-                # 找 workflow 名称
+                # 找 workflow 名称（case-insensitive，防止 "Gist State Sync" vs "gist-sync" 差异）
                 workflow = None
-                if 'gist-sync' in subject:
+                subject_lower = subject.lower()
+                if 'gist state sync' in subject_lower or 'gist-sync' in subject_lower:
                     workflow = 'gist-sync'
-                elif 'Rust CI' in subject:
+                elif 'rust ci' in subject_lower:
                     workflow = 'Rust CI'
                 
                 # 找 duration 和 annotation 数
@@ -163,7 +164,12 @@ def main():
         if info['workflow'] == 'gist-sync' and info['duration'] == 0.0:
             print(f"    Skipping gist-sync 0.0s failure (runner startup issue)")
             continue
-        
+
+        # gist-sync 非零时长失败——通常是 GIST_ID 未配置或 HTTP 错误，无需自动修复
+        if info['workflow'] == 'gist-sync':
+            print(f"    Skipping gist-sync failure (GIST_ID/config issue, not auto-fixable)")
+            continue
+
         # Rust CI 失败，触发修复
         if info['workflow'] == 'Rust CI':
             retry_key = f"rust_ci_{commit}"
@@ -195,6 +201,9 @@ def main():
             
             fix_queue.write_text(json.dumps(queue, indent=2))
             print(f"    Added to fix queue: {fix_queue}")
+
+    # 保存处理进度，避免重复处理同一封邮件
+    save_state(state)
 
 if __name__ == "__main__":
     main()
