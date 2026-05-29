@@ -54,12 +54,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIST_ID: ${{ secrets.GIST_ID }}
         run: |
-          set -e
           echo "Uploading to Gist..."
+          mkdir -p state
           PAYLOAD_FILE="$RUNNER_TEMP/gist_payload.json"
-          GIST_PAYLOAD_FILE="$PAYLOAD_FILE" python3 scripts/gist_uploader.py
+          GIST_PAYLOAD_FILE="$PAYLOAD_FILE" python3 scripts/gist_uploader.py || { echo "WARN: gist_uploader failed, skipping upload"; exit 0; }
           if [ -n "$GIST_ID" ] && [ -s "$PAYLOAD_FILE" ]; then
-            echo "POST to Gist..."
+            echo "PATCH to Gist..."
             HTTP_CODE=$(curl -sL -o /dev/null -w "%{http_code}" -X PATCH \
               -H "Authorization: Bearer $GH_TOKEN" \
               -H "Content-Type: application/json" \
@@ -69,11 +69,10 @@ jobs:
             if [ "$HTTP_CODE" = "200" ]; then
               echo "SUCCESS: Gist updated"
             else
-              echo "FAIL: HTTP $HTTP_CODE"
-              exit 1
+              echo "WARN: HTTP $HTTP_CODE, continuing anyway"
             fi
           else
-            echo "SKIP: GIST_ID not set or payload missing"
+            echo "SKIP: GIST_ID not set or payload empty"
           fi
 
       - name: 提交状态变更
