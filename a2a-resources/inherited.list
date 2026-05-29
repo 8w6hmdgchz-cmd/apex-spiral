@@ -104,3 +104,5 @@ nvidia_TensorRT-LLM|nvidia/TensorRT-LLM|cache_scan
 DeepSeekV2|deepseek-ai/DeepSeek-V2|github_clone
 Qwen2大模型|QwenLM/Qwen2|github_clone
 TensorRT大模型|nvidia/TensorRT-LLM|github_clone
+allenai_OLMo|allenai/OLMo|cache_scan
+mistralai_cookbook|mistralai/cookbook|cache_scan
