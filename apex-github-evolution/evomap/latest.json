@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1780038142721",
-  "timestamp_ms": 1780038142721,
+  "trace_id": "evomap-1780047267422",
+  "timestamp_ms": 1780047267422,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -3412,7 +3412,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": "",
+  "git_status_short": " M memory/operational_knowledge.md\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n",
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }
