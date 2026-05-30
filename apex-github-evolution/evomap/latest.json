@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1780138975119",
-  "timestamp_ms": 1780138975119,
+  "trace_id": "evomap-1780144370076",
+  "timestamp_ms": 1780144370076,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -3412,7 +3412,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": " M apex-github-evolution/evomap/latest.json\n",
+  "git_status_short": "",
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }
