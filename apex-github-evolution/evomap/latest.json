@@ -1,6 +1,6 @@
 {
-  "trace_id": "evomap-1780122734505",
-  "timestamp_ms": 1780122734505,
+  "trace_id": "evomap-1780129921177",
+  "timestamp_ms": 1780129921177,
   "safe_dirs": [
     "apex_token_rs",
     "clawg-mvp",
@@ -3412,7 +3412,7 @@
     }
   ],
   "secret_hits": [],
-  "git_status_short": "",
+  "git_status_short": " M a2a-resources/state/absorbed_hub/sha256_57df78f25227e627d890cc05515311d4ed833c12173.json\n M a2a-resources/state/absorbed_hub/sha256_aa24d50808337dec0d0382a562b187b1f96169cbdc6.json\n M state/apex-dawn-gate-latest.json\n M state/apex-eval-harness-latest.json\n M state/apex-eval-harness/selftest_pwd.traj.json\n M state/apex-eval-harness/selftest_python.traj.json\n M state/apex-mini-executor-selftest.traj.json\n M state/phi_history.jsonl\n M state/phi_tracker_latest.json\n",
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist."
 }
