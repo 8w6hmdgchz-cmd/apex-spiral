@@ -18,6 +18,14 @@ from apex_spiral.reflexion import ApexReflexion, ReflexionConfig, Reflection, Fe
 from apex_spiral.memory_stream import ApexMemoryStream, MemoryStreamConfig, Memory, MemoryType
 from apex_spiral.observation import ApexObservation, ObservationConfig, Observation, ObservationType
 from apex_spiral.apex_agent import ApexAgent, ApexAgentConfig
+from apex_spiral.apex_memory_bridge import (
+    ApexMemoryBridge,
+    MemoryEntry as SigmaMemoryEntry,
+    MemoryType as SigmaMemoryType,
+    SuperMemoryParams,
+    add_memory_entry,
+    calculate_sigma_memory,
+)
 
 __all__ = [
     # 核心计算
@@ -45,6 +53,12 @@ __all__ = [
     # Agent
     "ApexAgent",
     "ApexAgentConfig",
+    "ApexMemoryBridge",
+    "SigmaMemoryEntry",
+    "SigmaMemoryType",
+    "SuperMemoryParams",
+    "add_memory_entry",
+    "calculate_sigma_memory",
     
     # 版本
     "__version__"

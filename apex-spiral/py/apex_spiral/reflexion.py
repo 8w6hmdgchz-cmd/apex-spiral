@@ -112,13 +112,13 @@ class ApexReflexion:
             feedback = self._evaluate(result)
             
             # 4. 如果成功，结束
-            if feedback.type == FeedbackType.SUCCESS:
+            if feedback == FeedbackType.SUCCESS:
                 # 小幅提升 Φ
                 self.phi = min(1.0, self.phi + self.config.phi_increment_on_success)
                 return result
             
             # 5. 如果失败，反思
-            if feedback.type == FeedbackType.FAILURE:
+            if feedback == FeedbackType.FAILURE:
                 reflection = self._generate_reflection(task, result, feedback)
                 self._store_reflection(reflection)
                 

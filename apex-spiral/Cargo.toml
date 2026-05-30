@@ -5,3 +5,5 @@ edition = "2021"
 
 [lib]
 path = "apex_v10.rs"
+
+[workspace]

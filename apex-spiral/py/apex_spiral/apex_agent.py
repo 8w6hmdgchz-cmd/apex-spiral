@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from .reflexion import ApexReflexion, ReflexionConfig
 from .memory_stream import ApexMemoryStream, MemoryStreamConfig, MemoryType
 from .observation import ApexObservation, ObservationConfig, Observation
+from .apex_memory_bridge import ApexMemoryBridge
 
 
 @dataclass
@@ -21,6 +22,10 @@ class ApexAgentConfig:
     # Memory Stream
     memory_capacity: int = 1000
     reflection_threshold: int = 20
+    
+    # Σ_memory Bridge
+    enable_sigma_memory: bool = True
+    sigma_memory_importance_threshold: float = 0.6
     
     # Observation
     observe_interval_seconds: int = 300
@@ -79,6 +84,9 @@ class ApexAgent:
             )
         )
         
+        # V10.1 Σ_memory 桥接：让 Python 主循环持续喂入 Rust 同构记忆池
+        self.sigma_memory = ApexMemoryBridge(enabled=self.config.enable_sigma_memory)
+        
         # Φ 元认知绑定到 reflexion
         self._phi = self.config.phi_initial
     
@@ -112,11 +120,20 @@ class ApexAgent:
         result = self.reflexion.execute_with_reflection(task, execute_func)
         
         # 添加到记忆
-        self.memory.add(
+        memory_id = self.memory.add(
             content=f"任务: {task}\n结果: {result}",
             memory_type=MemoryType.EXECUTION,
             importance=0.7
         )
+        
+        # 同步到 V10.1 Σ_memory 池；错误被 bridge 捕获，不影响主任务结果
+        if 0.7 >= self.config.sigma_memory_importance_threshold:
+            self.sigma_memory.add_interaction_bundle(
+                task,
+                result,
+                importance=0.7,
+                metadata={"source": "ApexAgent.execute", "memory_stream_id": memory_id},
+            )
         
         return result
     
@@ -140,11 +157,19 @@ class ApexAgent:
         Returns:
             memory_id
         """
-        return self.memory.add(
+        memory_id = self.memory.add(
             content=content,
             memory_type=MemoryType.OBSERVATION,
             importance=importance
         )
+        if importance >= self.config.sigma_memory_importance_threshold:
+            self.sigma_memory.add_interaction_bundle(
+                "manual_remember",
+                content,
+                importance=importance,
+                metadata={"source": "ApexAgent.remember", "memory_stream_id": memory_id},
+            )
+        return memory_id
     
     def recall(self, query: str, n: int = 5) -> List[str]:
         """
@@ -188,7 +213,8 @@ class ApexAgent:
             "phi": self.phi,
             "reflexion": self.reflexion.summary(),
             "memory": self.memory.summary(),
-            "observation": self.observation.summary()
+            "observation": self.observation.summary(),
+            "sigma_memory": self.sigma_memory.summary()
         }
     
     def status(self) -> str:
@@ -204,6 +230,8 @@ class ApexAgent:
             f"记忆数量: {s['memory']['total_memories']}",
             f"见解数量: {s['memory']['insights']}",
             f"观察次数: {s['observation']['total_observations']}",
+            f"Σ_memory: {s['sigma_memory']['sigma_memory']:.6f}",
+            f"Σ_memory条目: {s['sigma_memory']['memory_entries']}",
             "=" * 40
         ]
         
