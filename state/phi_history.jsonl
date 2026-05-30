@@ -373,3 +373,4 @@
 {"timestamp": "2026-05-30T21:30:00+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "full_mirror"}
 {"timestamp": "2026-05-30T21:45:00+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "full_mirror"}
 {"timestamp": "2026-05-30T22:00:00+08:00", "version": "V10.1", "evolution_score": 0.573678, "phi_ratio_equiv": 57.37, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "directive": "MAINTAIN: all stable", "status": 0, "source": "full_mirror"}
+{"ts": 1780149836935, "version": "V10.1", "evolution_score": 0.573678, "delta_g": 0.672823, "bottleneck": "\u03a3_memory", "trigger": "auto-reflux"}
