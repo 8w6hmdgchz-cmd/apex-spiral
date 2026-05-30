@@ -97,3 +97,15 @@ ring_len=1
 [3/3] ensure daily memory note
 ring_lines=       8
 === SWRS CONSOLIDATE END 2026-05-29 23:31:14 +0800 ===
+=== SWRS CONSOLIDATE 2026-05-30 23:33:08 +0800 ===
+[1/3] run Rust scorer smoke test
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `target/debug/swrs_memory`
+trace=a2a_auto_trigger_configured score=0.805 decision=ring_buffer
+trace=one_off_chatter score=0.110 decision=drop
+trace=raw_token_secret score=0.315 decision=reject_sensitive
+ring_len=1
+[2/3] append consolidation trace
+[3/3] ensure daily memory note
+ring_lines=       9
+=== SWRS CONSOLIDATE END 2026-05-30 23:33:09 +0800 ===
