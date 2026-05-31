@@ -1456,5 +1456,7 @@
   "external_sync_allowed": false,
   "next_step": "Review secret_hits and git_status. Ask user before commit/push/gist.",
   "_integrated_from": "apex-github-evolution/evomap/latest.json",
-  "_integrated_at_ms": 1779521663893
+  "_integrated_at_ms": 1779521663893,
+  "last_sync": "2026-05-31 08:03:52",
+  "sync_count": 1
 }
