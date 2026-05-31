@@ -41,31 +41,36 @@ impl SuperUpgradeEngine {
 
     /// 运行完整升级
     pub fn run_full_upgrade(&mut self) {
-        println!("\n{}", "═".repeat(100));
+        println!("
+{}", "═".repeat(100));
         println!("    🚀 NANOGPT-CLAW 2.0 - SUPER UPGRADE");
         println!("    💎 目标：超越hermes-Agent和OpenHuman，一次性完成！");
         println!("{}", "═".repeat(100));
 
         // 显示初始状态
-        println!("\n📊 初始状态：");
+        println!("
+📊 初始状态：");
         let initial_result = self.calculator.calculate();
         println!("{}", format_apex_result(&initial_result));
 
         // 逐步升级
         let milestones: Vec<_> = self.milestones.iter().enumerate().map(|(idx, m)| (idx, m.clone())).collect();
         for (idx, milestone) in milestones {
-            println!("\n{}", "─".repeat(100));
+            println!("
+{}", "─".repeat(100));
             println!("    🔄 里程碑 {} / {}：{:?}", idx + 1, self.milestones.len(), milestone);
             println!("{}", "─".repeat(100));
             
             self.apply_milestone(&milestone);
             
             let result = self.calculator.calculate();
-            println!("\n✓ 升级完成！当前APEX分数：{:.3}", result.final_score);
+            println!("
+✓ 升级完成！当前APEX分数：{:.3}", result.final_score);
         }
 
         // 最终结果
-        println!("\n{}", "═".repeat(100));
+        println!("
+{}", "═".repeat(100));
         println!("    🎉 NANOGPT-CLAW 2.0 - UPGRADE COMPLETE!");
         println!("{}", "═".repeat(100));
 
@@ -81,7 +86,8 @@ impl SuperUpgradeEngine {
 
         match milestone {
             Milestone::BugFixes => {
-                println!("\n   🐛 修复所有遗留bug：");
+                println!("
+   🐛 修复所有遗留bug：");
                 println!("      • 修复handle_llm()路由问题");
                 println!("      • 修复Evolution SQL持久化");
                 println!("      • 修复CoT语义分析");
@@ -97,7 +103,8 @@ impl SuperUpgradeEngine {
             }
             
             Milestone::WebUI => {
-                println!("\n   🌐 实现完整Web UI界面：");
+                println!("
+   🌐 实现完整Web UI界面：");
                 println!("      • React + TypeScript 前端");
                 println!("      • Axum Web服务器");
                 println!("      • 实时聊天界面");
@@ -111,7 +118,8 @@ impl SuperUpgradeEngine {
             }
             
             Milestone::LongTermMemory => {
-                println!("\n   🧠 完善长期记忆系统：");
+                println!("
+   🧠 完善长期记忆系统：");
                 println!("      • 向量数据库集成（ChromaDB/Qdrant）");
                 println!("      • 语义搜索和检索");
                 println!("      • 记忆关联和回忆");
@@ -123,7 +131,8 @@ impl SuperUpgradeEngine {
             }
             
             Milestone::BuiltInSkills => {
-                println!("\n   🛠️ 实现内置技能系统：");
+                println!("
+   🛠️ 实现内置技能系统：");
                 println!("      • 代码生成和修复");
                 println!("      • 文件操作和项目管理");
                 println!("      • 网络搜索和研究");
@@ -137,7 +146,8 @@ impl SuperUpgradeEngine {
             }
             
             Milestone::SelfHealing => {
-                println!("\n   💚 实现自修复与自进化：");
+                println!("
+   💚 实现自修复与自进化：");
                 println!("      • 自动诊断问题");
                 println!("      • 代码自修复");
                 println!("      • 持续学习和改进");
@@ -150,7 +160,8 @@ impl SuperUpgradeEngine {
             }
             
             Milestone::MultiModel => {
-                println!("\n   🤖 实现完整多模型支持：");
+                println!("
+   🤖 实现完整多模型支持：");
                 println!("      • OpenAI GPT-4/GPT-3.5");
                 println!("      • Anthropic Claude");
                 println!("      • Google Gemini");
@@ -164,7 +175,8 @@ impl SuperUpgradeEngine {
             }
             
             Milestone::FinalRelease => {
-                println!("\n   🚀 最终发布：");
+                println!("
+   🚀 最终发布：");
                 println!("      • 完整文档");
                 println!("      • Docker部署");
                 println!("      • CI/CD流水线");
@@ -188,11 +200,13 @@ impl SuperUpgradeEngine {
     }
 
     fn print_comparison(&self) {
-        println!("\n{}", "─".repeat(100));
+        println!("
+{}", "─".repeat(100));
         println!("    📊 与同类产品对比");
         println!("{}", "─".repeat(100));
 
-        println!("\n    NanoGPT-Claw 2.0  vs  hermes-Agent  vs  OpenHuman");
+        println!("
+    NanoGPT-Claw 2.0  vs  hermes-Agent  vs  OpenHuman");
         println!("    ───────────────────────────────────────────────────────────────────");
         println!("    ✅ Web UI          :  🟢 Complete       🟡 Basic       🟢 Complete");
         println!("    ✅ Skills          :  🟢 20+ Built-in   🟡 10+        🟢 15+");
@@ -202,7 +216,8 @@ impl SuperUpgradeEngine {
         println!("    ✅ APEX Evolution  :  🟢 Yes            🔴 No         🔴 No");
         println!("    ✅ Code Gen        :  🟢 Advanced       🟢 Good       🟢 Good");
         println!("    ───────────────────────────────────────────────────────────────────");
-        println!("\n    🎯 结论：NanoGPT-Claw 2.0 全面超越！");
+        println!("
+    🎯 结论：NanoGPT-Claw 2.0 全面超越！");
     }
 }
 

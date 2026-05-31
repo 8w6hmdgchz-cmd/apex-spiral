@@ -8,8 +8,10 @@ use std::sync::Arc;
 use tokio::sync::RwLock;
 use tracing::info;
 
-use feishu::{FeishuGateway, FeishuConfig};
-use github::{GitHubGateway, GitHubConfig};
+use feishu::FeishuGateway;
+use feishu::FeishuConfig;
+use github::GitHubGateway;
+use github::GitHubConfig;
 
 #[derive(Debug, Clone)]
 pub enum GatewayEvent {

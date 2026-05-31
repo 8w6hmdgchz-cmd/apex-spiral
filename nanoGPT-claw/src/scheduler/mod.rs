@@ -193,10 +193,16 @@ impl Scheduler {
     }
 
     pub fn converge_results(&self, main_result: &str, aux_results: &HashMap<String, String>) -> String {
-        let mut output = format!("[MAIN LLM DECISION]\n{}\n\n", main_result);
+        let mut output = format!("[MAIN LLM DECISION]
+{}
+
+", main_result);
 
         for (model, result) in aux_results {
-            output.push_str(&format!("[AUX:{}]\n{}\n\n", model, result));
+            output.push_str(&format!("[AUX:{}]
+{}
+
+", model, result));
         }
 
         output
@@ -208,7 +214,9 @@ impl Scheduler {
         self.ars_retry_count = 0;
 
         let main_prompt = format!(
-            "Analyze this request and break it into subtasks for specialized agents:\n\n{}",
+            "Analyze this request and break it into subtasks for specialized agents:
+
+{}",
             user_input
         );
 

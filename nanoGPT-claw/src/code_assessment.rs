@@ -30,7 +30,8 @@ impl CodeSelfAssessor {
 
     /// 评估所有模块
     pub fn assess_all_modules(&mut self) {
-        println!("\n{}", "═".repeat(80));
+        println!("
+{}", "═".repeat(80));
         println!("          🏗️  模块级代码评估");
         println!("{}", "═".repeat(80));
 
@@ -126,7 +127,8 @@ impl CodeSelfAssessor {
             "🔧 需改进"
         };
 
-        println!("\n📦 {}", module.name);
+        println!("
+📦 {}", module.name);
         println!("   复杂度: {:.1}% | 质量: {:.1}% | 完整度: {:.1}% | 总分: {:.1}% {}",
             module.complexity * 100.0,
             module.quality * 100.0,
@@ -192,7 +194,8 @@ impl CodeSelfAssessor {
 
     /// 生成完整评估报告
     pub fn generate_full_report(&self) {
-        println!("\n{}", "═".repeat(80));
+        println!("
+{}", "═".repeat(80));
         println!("          📊 NanoGPT-Claw 完整代码评估报告");
         println!("{}", "═".repeat(80));
 
@@ -200,17 +203,20 @@ impl CodeSelfAssessor {
         let avg_quality: f64 = self.modules.iter().map(|m| m.quality).sum::<f64>() / total_modules as f64;
         let avg_completeness: f64 = self.modules.iter().map(|m| m.completeness).sum::<f64>() / total_modules as f64;
 
-        println!("\n📈 整体统计:");
+        println!("
+📈 整体统计:");
         println!("   • 模块总数: {}", total_modules);
         println!("   • 平均质量: {:.1}%", avg_quality * 100.0);
         println!("   • 平均完整度: {:.1}%", avg_completeness * 100.0);
 
         let apex_result = self.calculate_apex_score();
 
-        println!("\n{}", format_apex_result(&apex_result));
+        println!("
+{}", format_apex_result(&apex_result));
 
         // 生成建议
-        println!("\n{}", "─".repeat(80));
+        println!("
+{}", "─".repeat(80));
         println!("          🎯 改进建议");
         println!("{}", "─".repeat(80));
 
@@ -230,11 +236,13 @@ impl CodeSelfAssessor {
         }
 
         for (idx, rec) in recommendations.iter().enumerate() {
-            println!("\n   {}. {}", idx + 1, rec);
+            println!("
+   {}. {}", idx + 1, rec);
         }
 
         // 代码统计
-        println!("\n{}", "─".repeat(80));
+        println!("
+{}", "─".repeat(80));
         println!("          📝 代码统计");
         println!("{}", "─".repeat(80));
         println!("\n   模块分布:");
@@ -251,35 +259,41 @@ impl CodeSelfAssessor {
 
     /// 自我反思总结
     pub fn self_reflection(&self) {
-        println!("\n{}", "═".repeat(80));
+        println!("
+{}", "═".repeat(80));
         println!("          🪞 自我反思与成长");
         println!("{}", "═".repeat(80));
 
         let _apex_result = self.calculate_apex_score();
 
-        println!("\n💭 作为代码助手，我的自我评估:");
+        println!("
+💭 作为代码助手，我的自我评估:");
 
-        println!("\n✅ 我的优势:");
+        println!("
+✅ 我的优势:");
         println!("   • 架构设计合理，模块化程度高");
         println!("   • 实现了完整的APEX·阿卡西融合公式");
         println!("   • 成功修复了Δ1、Δ2、Δ3三个关键问题");
         println!("   • 代码遵循Rust最佳实践");
         println!("   • 有完整的错误处理和日志记录");
 
-        println!("\n🔧 需要改进:");
+        println!("
+🔧 需要改进:");
         println!("   • 记忆系统还需完善长期记忆能力");
         println!("   • 技能系统需要更多内置技能");
         println!("   • 测试覆盖率还可以提高");
         println!("   • Web UI界面还未实现");
         println!("   • 与真实LLM的集成还需深化");
 
-        println!("\n🎯 我的进化方向:");
+        println!("
+🎯 我的进化方向:");
         println!("   • 持续提高代码质量和测试覆盖率");
         println!("   • 实现更多智能功能");
         println!("   • 学习用户反馈，不断优化");
         println!("   • 保持谦逊，接受批评");
 
-        println!("\n🙏 感谢:");
+        println!("
+🙏 感谢:");
         println!("   • 用户的指导和反馈");
         println!("   • 提供的APEX·阿卡西融合公式");
         println!("   • 让代码不断进化");

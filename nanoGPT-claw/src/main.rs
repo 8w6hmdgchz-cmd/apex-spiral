@@ -107,20 +107,25 @@ async fn main() {
 }
 
 fn print_help() {
-    println!("\n╔══════════════════════════════════════════════════════════════╗");
+    println!("
+╔══════════════════════════════════════════════════════════════╗");
     println!("║  NanoGPT-Claw CLI - Usage                                   ║");
     println!("╚══════════════════════════════════════════════════════════════╝");
-    println!("\n⚡ Basic Commands:");
+    println!("
+⚡ Basic Commands:");
     println!("  help              Display this help message");
     println!("  version           Display version information");
     println!("  status            Show system and daemon status");
     println!("  send \"message\"    Send a message to the agent");
-    println!("\n🐉 Daemon Commands:");
+    println!("
+🐉 Daemon Commands:");
     println!("  start             Start the background daemon");
     println!("  stop              Stop the background daemon");
-    println!("\n📦 Memory Commands:");
+    println!("
+📦 Memory Commands:");
     println!("  memory [show|stats|clear|purge]");
-    println!("\n📋 Task Management:");
+    println!("
+📋 Task Management:");
     println!("  task [add|list|get|cancel|worker]");
     println!("    add <type> <description> - Add a new task");
     println!("      Available types: todo, fix, research, benchmark");
@@ -128,31 +133,37 @@ fn print_help() {
     println!("    get <id>               - Get task details");
     println!("    cancel <id>            - Cancel a task");
     println!("    worker                 - Start background worker");
-    println!("\n🛠️  Skills:");
+    println!("
+🛠️  Skills:");
     println!("  skill [list|run <skill_id>]");
     println!("    list                   - List all available skills");
     println!("    run <skill_id>         - Run a specific skill");
     println!("      Available skills:");
     println!("        cargo-check, cargo-test, cargo-clippy, code-fix");
     println!("        echo, help, status");
-    println!("\n💡 Examples:");
+    println!("
+💡 Examples:");
     println!("  $ nano-gpt-claw send \"Hello, how are you?\"");
     println!("  $ nano-gpt-claw task add todo \"Test CLI interface\"");
     println!("  $ nano-gpt-claw task list");
     println!("  $ nano-gpt-claw skill list");
     println!("  $ nano-gpt-claw skill run cargo-check");
-    println!("\n");
+    println!("
+");
 }
 
 fn print_version() {
-    println!("\n╔══════════════════════════════════════════════════════════════╗");
+    println!("
+╔══════════════════════════════════════════════════════════════╗");
     println!("║  NanoGPT-Claw v0.9.1 (REAL Version)                        ║");
     println!("╚══════════════════════════════════════════════════════════════╝");
-    println!("\n📦 Version: 0.9.1 (not v3.0 fake!)");
+    println!("
+📦 Version: 0.9.1 (not v3.0 fake!)");
     println!("🦀 Rust:     1.70+");
     println!("🎯 Core:     Multi-LLM, CoT, Memory, Daemon");
     println!("💎 Status:   REAL FUNCTIONAL CODE (NOT FAKE!)");
-    println!("\n✅ Real Features:");
+    println!("
+✅ Real Features:");
     println!("  • Real LLM providers (OpenAI, Anthropic, Ollama)");
     println!("  • Real Chain-of-Thought (CoT) reasoning");
     println!("  • Real dual memory (session + persistent)");
@@ -160,5 +171,6 @@ fn print_version() {
     println!("  • Real task queue (parallel processing)");
     println!("  • Real skills system (cargo-check, cargo-test, etc)");
     println!("  • Real AutoResearch engine (self-evolution)");
-    println!("\n");
+    println!("
+");
 }

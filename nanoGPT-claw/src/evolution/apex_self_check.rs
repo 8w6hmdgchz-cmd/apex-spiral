@@ -51,13 +51,15 @@ impl ApexSelfChecker {
 
     /// 运行完整自检
     pub fn run_full_self_check(&mut self) -> ApexSelfCheckResult {
-        println!("\n{}", "═".repeat(100));
+        println!("
+{}", "═".repeat(100));
         println!("       🔍 APEX·阿卡西融合公式 - 系统自检引擎");
         println!("       💡 主动发现问题、自动分析、优化完善！");
         println!("{}", "═".repeat(100));
 
         let apex_before = self.calculator.calculate();
-        println!("\n📊 初始APEX分数: {:.3}", apex_before.final_score);
+        println!("
+📊 初始APEX分数: {:.3}", apex_before.final_score);
 
         // 执行全面检查
         let mut check_items = Vec::new();
@@ -115,7 +117,8 @@ impl ApexSelfChecker {
 
     /// 架构检查
     fn check_architecture(&self) -> Vec<CheckItem> {
-        println!("\n🏗️  架构检查...");
+        println!("
+🏗️  架构检查...");
         
         vec![
             CheckItem {
@@ -150,7 +153,8 @@ impl ApexSelfChecker {
 
     /// 性能检查
     fn check_performance(&self) -> Vec<CheckItem> {
-        println!("\n⚡ 性能检查...");
+        println!("
+⚡ 性能检查...");
         
         vec![
             CheckItem {
@@ -185,7 +189,8 @@ impl ApexSelfChecker {
 
     /// 安全性检查
     fn check_security(&self) -> Vec<CheckItem> {
-        println!("\n🔒 安全性检查...");
+        println!("
+🔒 安全性检查...");
         
         vec![
             CheckItem {
@@ -220,7 +225,8 @@ impl ApexSelfChecker {
 
     /// 连通性检查
     fn check_connectivity(&self) -> Vec<CheckItem> {
-        println!("\n🔗 连通性检查...");
+        println!("
+🔗 连通性检查...");
         
         vec![
             CheckItem {
@@ -273,7 +279,8 @@ impl ApexSelfChecker {
 
     /// 完整性检查
     fn check_completeness(&self) -> Vec<CheckItem> {
-        println!("\n📦 完整性检查...");
+        println!("
+📦 完整性检查...");
         
         vec![
             CheckItem {
@@ -369,14 +376,16 @@ impl ApexSelfChecker {
             .collect();
         
         if !perf_issues.is_empty() {
-            recommendations.push("\n⚡ 性能优化建议:".to_string());
+            recommendations.push("
+⚡ 性能优化建议:".to_string());
             for issue in perf_issues {
                 recommendations.push(format!("  • {}: {}", issue.name, issue.fix_suggestion));
             }
         }
 
         // 通用优化建议
-        recommendations.push("\n💡 持续优化方向:".to_string());
+        recommendations.push("
+💡 持续优化方向:".to_string());
         recommendations.push("  • 添加完整测试覆盖（目标>80%）".to_string());
         recommendations.push("  • 运行 cargo audit 检查依赖".to_string());
         recommendations.push("  • 完善文档和README".to_string());
@@ -387,11 +396,13 @@ impl ApexSelfChecker {
 
     /// 显示检查结果
     fn display_results(&self, checks: &[CheckItem], passed: usize, failed: usize, warnings: usize) {
-        println!("\n{}", "─".repeat(100));
+        println!("
+{}", "─".repeat(100));
         println!("       📋 检查结果汇总");
         println!("{}", "─".repeat(100));
 
-        println!("\n📊 统计信息:");
+        println!("
+📊 统计信息:");
         println!("   总检查项: {}", checks.len());
         println!("   ✅ 通过: {} ({}%)", passed, (passed as f64 / checks.len() as f64 * 100.0) as i32);
         println!("   ⚠️  警告: {} ({}%)", warnings, (warnings as f64 / checks.len() as f64 * 100.0) as i32);
@@ -402,7 +413,8 @@ impl ApexSelfChecker {
         // 按严重性分组显示
         let p0_checks: Vec<_> = checks.iter().filter(|c| c.severity == Severity::Critical).collect();
         if !p0_checks.is_empty() {
-            println!("\n🚨 P0阻断级问题 ({}个):", p0_checks.len());
+            println!("
+🚨 P0阻断级问题 ({}个):", p0_checks.len());
             for check in p0_checks {
                 let status_icon = match check.status.as_str() {
                     "PASS" => "✅",
@@ -415,7 +427,8 @@ impl ApexSelfChecker {
 
         let p1_checks: Vec<_> = checks.iter().filter(|c| c.severity == Severity::High).collect();
         if !p1_checks.is_empty() {
-            println!("\n🔴 P1高危问题 ({}个):", p1_checks.len());
+            println!("
+🔴 P1高危问题 ({}个):", p1_checks.len());
             for check in p1_checks {
                 let status_icon = match check.status.as_str() {
                     "PASS" => "✅",
@@ -428,7 +441,8 @@ impl ApexSelfChecker {
 
         let warning_checks: Vec<_> = checks.iter().filter(|c| c.status == "WARNING").collect();
         if !warning_checks.is_empty() {
-            println!("\n🟡 警告项 ({}个):", warning_checks.len());
+            println!("
+🟡 警告项 ({}个):", warning_checks.len());
             for check in warning_checks {
                 println!("   ⚠️  {} - {}", check.name, check.description);
             }

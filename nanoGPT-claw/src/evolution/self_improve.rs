@@ -45,7 +45,8 @@ impl SelfEvolutionEngine {
     /// 运行完整的三轮进化
     pub async fn run_three_round_evolution(&mut self) -> Vec<EvolutionRecord> {
         info!("🚀 开始 APEX·阿卡西融合公式三轮进化");
-        println!("\n{}", "═".repeat(80));
+        println!("
+{}", "═".repeat(80));
         println!("          🌀 APEX·阿卡西融合 - 三轮自我进化");
         println!("{}", "═".repeat(80));
 
@@ -59,7 +60,8 @@ impl SelfEvolutionEngine {
 
     /// 运行单轮进化
     async fn run_single_round(&mut self, round_num: u8) {
-        println!("\n{}", "─".repeat(80));
+        println!("
+{}", "─".repeat(80));
         println!("      🔄 第 {} 轮进化开始", round_num);
         println!("{}", "─".repeat(80));
 
@@ -73,13 +75,15 @@ impl SelfEvolutionEngine {
 
         let improvement = after_result.final_score - before_result.final_score;
 
-        println!("\n📊 第 {} 轮效果对比:", round_num);
+        println!("
+📊 第 {} 轮效果对比:", round_num);
         println!("   • 进化前: {:.3}", before_result.final_score);
         println!("   • 进化后: {:.3}", after_result.final_score);
         println!("   • 提升:   {:.3} ({:.1}%)", improvement, improvement * 100.0);
 
         if !changes.is_empty() {
-            println!("\n✅ 本轮改进:");
+            println!("
+✅ 本轮改进:");
             for change in &changes {
                 println!("   • {}", change);
             }
@@ -102,7 +106,8 @@ impl SelfEvolutionEngine {
 
         self.records.push(record);
 
-        println!("\n💡 改进建议:");
+        println!("
+💡 改进建议:");
         for rec in &after_result.recommendations {
             println!("   • {}", rec);
         }
@@ -181,9 +186,12 @@ impl SelfEvolutionEngine {
     pub fn generate_final_report(&self) -> String {
         let mut report = String::new();
 
-        report.push_str(&format!("\n{}", "═".repeat(80)));
-        report.push_str("\n          📊 APEX·阿卡西融合 - 三轮进化报告");
-        report.push_str(&format!("\n{}", "═".repeat(80)));
+        report.push_str(&format!("
+{}", "═".repeat(80)));
+        report.push_str("
+          📊 APEX·阿卡西融合 - 三轮进化报告");
+        report.push_str(&format!("
+{}", "═".repeat(80)));
 
         // 不再计算总提升量
 
@@ -194,14 +202,20 @@ impl SelfEvolutionEngine {
                 EvolutionRound::Round3 => "第3轮",
             };
             
-            report.push_str(&format!("\n\n📌 {} 进化结果:", round_name));
-            report.push_str(&format!("\n   • 前: {:.3} → 后: {:.3}", record.before_score, record.after_score));
-            report.push_str(&format!("\n   • 提升: {:.3} ({:.1}%)", record.improvement, record.improvement * 100.0));
+            report.push_str(&format!("
+
+📌 {} 进化结果:", round_name));
+            report.push_str(&format!("
+   • 前: {:.3} → 后: {:.3}", record.before_score, record.after_score));
+            report.push_str(&format!("
+   • 提升: {:.3} ({:.1}%)", record.improvement, record.improvement * 100.0));
             
             if !record.changes_made.is_empty() {
-                report.push_str("\n   • 改进内容:");
+                report.push_str("
+   • 改进内容:");
                 for change in &record.changes_made {
-                    report.push_str(&format!("\n     - {}", change));
+                    report.push_str(&format!("
+     - {}", change));
                 }
             }
             
@@ -210,12 +224,19 @@ impl SelfEvolutionEngine {
 
         if let (Some(first), Some(last)) = (self.records.first(), self.records.last()) {
             let overall = last.after_score - first.before_score;
-            report.push_str(&format!("\n\n{}", "─".repeat(80)));
-            report.push_str(&format!("\n📈 总体进化效果:"));
-            report.push_str(&format!("\n   • 初始分数: {:.3}", first.before_score));
-            report.push_str(&format!("\n   • 最终分数: {:.3}", last.after_score));
-            report.push_str(&format!("\n   • 总体提升: {:.3} ({:.1}%)", overall, overall * 100.0));
-            report.push_str(&format!("\n{}", "─".repeat(80)));
+            report.push_str(&format!("
+
+{}", "─".repeat(80)));
+            report.push_str(&format!("
+📈 总体进化效果:"));
+            report.push_str(&format!("
+   • 初始分数: {:.3}", first.before_score));
+            report.push_str(&format!("
+   • 最终分数: {:.3}", last.after_score));
+            report.push_str(&format!("
+   • 总体提升: {:.3} ({:.1}%)", overall, overall * 100.0));
+            report.push_str(&format!("
+{}", "─".repeat(80)));
         }
 
         report

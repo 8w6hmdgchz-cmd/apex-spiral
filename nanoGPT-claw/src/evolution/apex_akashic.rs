@@ -407,18 +407,30 @@ pub struct RuntimeData {
 pub fn format_apex_result(result: &ApexAkashicResult) -> String {
     let mut output = String::new();
     
-    output.push_str(&format!("\n╔═══════════════════════════════════════════════════════════════╗\n"));
-    output.push_str(&format!("║          APEX·阿卡西融合完整版 - 进化评估报告                  ║\n"));
-    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣\n"));
-    output.push_str(&format!("║  最终融合分数: {:.3}    置信度: {:.1}%                    ║\n", 
+    output.push_str(&format!("
+╔═══════════════════════════════════════════════════════════════╗
+"));
+    output.push_str(&format!("║          APEX·阿卡西融合完整版 - 进化评估报告                  ║
+"));
+    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
+"));
+    output.push_str(&format!("║  最终融合分数: {:.3}    置信度: {:.1}%                    ║
+", 
         result.final_score, result.confidence * 100.0));
-    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣\n"));
-    output.push_str(&format!("║  阿卡西因子 Ω_A: {:.3}                                          ║\n", result.omega_a));
-    output.push_str(&format!("║  维度乘积1:     {:.6}                                          ║\n", result.dimension_product_1));
-    output.push_str(&format!("║  维度乘积2:     {:.6}                                          ║\n", result.dimension_product_2));
-    output.push_str(&format!("║  总惩罚:        {:.3}%                                         ║\n", result.total_penalty * 100.0));
-    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣\n"));
-    output.push_str(&format!("║  七大维度因子:                                                ║\n"));
+    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
+"));
+    output.push_str(&format!("║  阿卡西因子 Ω_A: {:.3}                                          ║
+", result.omega_a));
+    output.push_str(&format!("║  维度乘积1:     {:.6}                                          ║
+", result.dimension_product_1));
+    output.push_str(&format!("║  维度乘积2:     {:.6}                                          ║
+", result.dimension_product_2));
+    output.push_str(&format!("║  总惩罚:        {:.3}%                                         ║
+", result.total_penalty * 100.0));
+    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
+"));
+    output.push_str(&format!("║  七大维度因子:                                                ║
+"));
     
     let factor_names = [
         "E (Evolution)", "V (Value)", "M (Memory)", "A (Autonomy)", 
@@ -433,12 +445,15 @@ pub fn format_apex_result(result: &ApexAkashicResult) -> String {
             let bar_len = (value * 30.0) as usize;
             output.push_str(&"█".repeat(bar_len));
             output.push_str(&"░".repeat(30 - bar_len));
-            output.push_str(" ║\n");
+            output.push_str(" ║
+");
         }
     }
     
-    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣\n"));
-    output.push_str(&format!("║  十二项惩罚项:                                                ║\n"));
+    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
+"));
+    output.push_str(&format!("║  十二项惩罚项:                                                ║
+"));
     
     let penalty_names = [
         "Δ_Tok (Token)", "Δ_Clw (Claw)", "Δ_Agt (Agent)", "Δ_Pan (Panic)",
@@ -448,20 +463,27 @@ pub fn format_apex_result(result: &ApexAkashicResult) -> String {
     
     for name in &penalty_names {
         if let Some(value) = result.penalties.get(*name) {
-            output.push_str(&format!("║    {:<15} {:.4}                                        ║\n", name, value));
+            output.push_str(&format!("║    {:<15} {:.4}                                        ║
+", name, value));
         }
     }
     
     if !result.recommendations.is_empty() {
-        output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣\n"));
-        output.push_str(&format!("║  改进建议:                                                    ║\n"));
+        output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
+"));
+        output.push_str(&format!("║  改进建议:                                                    ║
+"));
         for rec in &result.recommendations {
-            output.push_str(&format!("║    • {}\n", rec));
+            output.push_str(&format!("║    • {}
+", rec));
         }
     }
     
-    output.push_str(&format!("╚═══════════════════════════════════════════════════════════════╝\n"));
-    output.push_str(&format!("\n致敬: nanoGPT @karpathy - \"The most atomic way to train and run inference\"\n"));
+    output.push_str(&format!("╚═══════════════════════════════════════════════════════════════╝
+"));
+    output.push_str(&format!("
+致敬: nanoGPT @karpathy - \"The most atomic way to train and run inference\"
+"));
     
     output
 }

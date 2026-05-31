@@ -55,7 +55,8 @@ pub async fn process_message(message: &str) -> Result<(), Box<dyn std::error::Er
     let response = middleware.process(ctx).await?;
 
     info!("Response: {}", response.content);
-    println!("\n[Agent] {}", response.content);
+    println!("
+[Agent] {}", response.content);
 
     Ok(())
 }
@@ -67,7 +68,8 @@ pub async fn manage_memory(subcmd: &str) -> Result<(), Box<dyn std::error::Error
     match subcmd {
         "show" | "stats" => {
             let stats = memory.stats().await;
-            println!("\n=== Memory Statistics ===");
+            println!("
+=== Memory Statistics ===");
             println!("Session entries: {}", stats.session_entries);
             println!("Persistent entries: {}", stats.persistent_entries);
         }
@@ -143,7 +145,8 @@ pub async fn add_task(task_type: TaskType, description: String) -> Result<String
 
 pub async fn list_tasks() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     let tasks = TASK_QUEUE.list_tasks().await;
-    println!("\n╔══════════════════════════════════════════════════════════════╗");
+    println!("
+╔══════════════════════════════════════════════════════════════╗");
     println!("║  Background Tasks                                         ║");
     println!("╚══════════════════════════════════════════════════════════════╝");
     
@@ -161,7 +164,8 @@ pub async fn list_tasks() -> Result<(), Box<dyn std::error::Error + Send + Sync 
             TaskStatus::Cancelled => "🚫",
         };
         
-        println!("\n  {} Task [{}]", status_icon, task.id);
+        println!("
+  {} Task [{}]", status_icon, task.id);
         println!("    Type:    {:?}", task.task_type);
         println!("    Status:  {:?}", task.status);
         println!("    Description: {}", task.description);
@@ -187,11 +191,13 @@ pub async fn get_task(task_id: String) -> Result<(), Box<dyn std::error::Error +
             TaskStatus::Cancelled => "🚫",
         };
         
-        println!("\n╔══════════════════════════════════════════════════════════════╗");
+        println!("
+╔══════════════════════════════════════════════════════════════╗");
         println!("║  Task Details                                               ║");
         println!("╚══════════════════════════════════════════════════════════════╝");
         
-        println!("\n  {} Task [{}]", status_icon, task.id);
+        println!("
+  {} Task [{}]", status_icon, task.id);
         println!("  Type:         {:?}", task.task_type);
         println!("  Description:  {}", task.description);
         println!("  Status:       {:?}", task.status);
@@ -228,7 +234,8 @@ pub async fn start_task_worker() {
 pub async fn list_skills() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     let skills = SKILL_REGISTRY.list_skills();
     
-    println!("\n╔══════════════════════════════════════════════════════════════╗");
+    println!("
+╔══════════════════════════════════════════════════════════════╗");
     println!("║  Available Skills                                          ║");
     println!("╚══════════════════════════════════════════════════════════════╝");
     
@@ -237,7 +244,9 @@ pub async fn list_skills() -> Result<(), Box<dyn std::error::Error + Send + Sync
         return Ok(());
     }
     
-    println!("\nTotal skills: {}\n", skills.len());
+    println!("
+Total skills: {}
+", skills.len());
     
     for skill in skills {
         println!("  🛠️  {}", skill.id);
@@ -249,44 +258,52 @@ pub async fn list_skills() -> Result<(), Box<dyn std::error::Error + Send + Sync
         println!();
     }
     
-    println!("\n💡 Usage: skill run <skill_id>");
+    println!("
+💡 Usage: skill run <skill_id>");
     println!("   Example: skill run cargo-check");
     
     Ok(())
 }
 
 pub async fn run_skill(skill_id: String) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
-    println!("\n🚀 Running skill: {}", skill_id);
+    println!("
+🚀 Running skill: {}", skill_id);
     println!("═══════════════════════════════════════════════════");
     
     match SKILL_REGISTRY.execute(&skill_id, HashMap::new()).await {
         Ok(result) => {
             if result.success {
                 println!("✅ Skill executed successfully!");
-                println!("\n📤 Output:");
+                println!("
+📤 Output:");
                 println!("{}", result.output);
                 
                 if !result.metadata.is_empty() {
-                    println!("\n📊 Metadata:");
+                    println!("
+📊 Metadata:");
                     for (key, value) in &result.metadata {
                         println!("  {}: {}", key, value);
                     }
                 }
                 
-                println!("\n⏱️  Execution time: {}ms", result.execution_time_ms);
+                println!("
+⏱️  Execution time: {}ms", result.execution_time_ms);
             } else {
                 println!("❌ Skill execution failed!");
-                println!("\n📤 Output:");
+                println!("
+📤 Output:");
                 println!("{}", result.output);
             }
         }
         Err(e) => {
             println!("❌ Failed to execute skill: {}", e);
-            println!("\n💡 Try: skill list  (to see available skills)");
+            println!("
+💡 Try: skill list  (to see available skills)");
         }
     }
     
-    println!("═══════════════════════════════════════════════════\n");
+    println!("═══════════════════════════════════════════════════
+");
     
     Ok(())
 }
