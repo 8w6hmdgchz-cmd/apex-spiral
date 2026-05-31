@@ -2,11 +2,23 @@
   "timestamp": "2026-05-30T05:00:57.684117",
   "phi_ratio_equiv": 57.37,
   "delta_g": 0.672823,
-  "bottleneck": "\u03a3_memory",
+  "bottleneck": "Σ_memory",
   "directive": "INIT: baseline established",
   "target": "> 60%",
   "status": 0,
   "iter": 255,
   "seq": 255,
   "last_update": "2026-05-31 08:03:52"
+},
+{
+  "timestamp": "2026-05-31T10:30:01+08:00",
+  "phi_ratio_equiv": 57.37,
+  "delta_g": 0.672823,
+  "bottleneck": "Σ_memory",
+  "directive": "MAINTAIN: all stable",
+  "target": "> 60%",
+  "status": 0,
+  "iter": 256,
+  "seq": 256,
+  "last_update": "2026-05-31 10:30:01"
 }
