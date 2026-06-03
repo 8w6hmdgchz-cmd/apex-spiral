@@ -35,7 +35,10 @@ def _walk_py() -> list:
     out = []
     for root, dirs, files in os.walk(WS):
         rel_root = os.path.relpath(root, str(WS))
-        if any(("/" + seg + "/") in ("/" + rel_root + "/") for seg in _SKIP_DIRS):
+        # R1 bug-027 fix: 上一版只匹配路径包含 skip 段, 但 /apex_spiral 与 /apex-spiral
+        # 视为不同段, 漏匹配让 V11 自身代码进入 H 复杂度, 拉低 H. 改 in-segment 匹配.
+        parts = rel_root.split("/")
+        if any(seg in _SKIP_DIRS for seg in parts):
             continue
         for f in files:
             if f.endswith(".py"):

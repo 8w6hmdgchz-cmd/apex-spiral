@@ -4,13 +4,13 @@
   "operator": "璇玑",
   "key_insight": "看公式先代入自己，看问题先看自己有没有，看工具先想自己能不能用。不是顿悟，是习惯。",
   "v11_with_a2a": {
-    "v11_enhanced": 16.23,
+    "v11_enhanced": 16.73,
     "a2a_F_hunt": 1.0,
     "a2a_absorbed": 118,
     "a2a_A_net": 21.6398,
     "a2a_A_n_norm": 0.5,
     "a2a_factor": 0.65,
-    "system_delta_g": 10.55
+    "system_delta_g": 10.88
   },
   "6_dim_self_check": {
     "C_understanding": 0.95,
@@ -18,8 +18,8 @@
     "O_horizon": 0.86,
     "tau_density": 0.92,
     "H_complexity": 0.427,
-    "t_time": 0.99,
-    "last_measured_at": "2026-06-03T09:08:09+0800",
+    "t_time": 0.96,
+    "last_measured_at": "2026-06-03T09:36:56+0800",
     "stale_after_min": 30
   },
   "self_bugs_found": [
@@ -58,6 +58,12 @@
       "file": "apex-spiral/py/tests/test_r3_regression.py:204-214",
       "fix": "硬编码 (0.9,0.85,0.8,0.92,0.4,0.18) 改 load_6dim(); 阈值 70 改 10 (匹配真实 H=0.312 后 V11=22.21)",
       "verified": "12/12 PASS, system=14.43 与 __main__ 一致 (修前 51.54 双源漂移)"
+    },
+    {
+      "bug": "bug-026_phantom_drift",
+      "file": "apex-spiral/py/apex_spiral/v11_formula.py:33-42 (PHI 硬编码)",
+      "fix": "v11_formula PHI_SPARK/PHI_AUTONOMOUS 改从 apex_config.json 读 (单一来源, 防漂移); 同步 apex_config.json 加 PHI_SPARK=3.38/PHI_AUTONOMOUS=3.0 键",
+      "verified": "改 config PHI_SPARK=3.0 → 立即生效, v11_formula.PHI_SPARK=3.0, ΔG 从 16.23 变 14.40 (与 v11_with_a2a 同步 = 配置外化生效); 回滚 3.38 一致"
     }
   ],
   "6_dim_shortage_focus": {
@@ -82,7 +88,7 @@
     "issues": 0
   },
   "tests": "12/12 regression PASS",
-  "last_cron_refresh": "2026-06-03T09:20:51+0800",
+  "last_cron_refresh": "2026-06-03T09:39:11+0800",
   "R0_actual": {
     "v11_enhanced": 50.81,
     "system_delta_g": 32.39,
@@ -264,7 +270,7 @@
     "hernandez42_update": "git log --all: 最新 f1e8a60 V10.1 auto-reflux 08:00, 1b791f2 R7 load_6dim() _clamp 已合 (R7 之前我装的 R5/R6 没自动跟新)"
   },
   "rounds_count": 8,
-  "last_round": "R8 mode b (交替 12354)",
+  "last_round": "R10 mode b (12354 交替)",
   "last_verified": "2026-06-03T08:39:23+0800",
   "v11_constants": {
     "PHI_SPARK": 3.38,
@@ -362,5 +368,28 @@
     "delta_g_system": 10.55,
     "delta_g_note": "system_delta_g DECREASED 14.54→10.55 because H (simplicity) ↑ → V11 公式 H 在分母 → 算式值降. 这是 H 度量方向与 V11 公式方向冲突的已知双义 (R3 test 已 70→10). 真实短板 = 公式语义, 不在本轮修复范围.",
     "next_round_plan": "R10 模式 基础 12534; 处理 H/V11 公式方向冲突 (要么改 H 公式为 entropy, 要么改 V11 用 (1-H)); 跑 measure_H_t 验证"
+  },
+  "R1_actual": {
+    "v11_enhanced": 16.73,
+    "a2a_factor": 0.65,
+    "system_delta_g": 10.88,
+    "a2a_absorbed": 118,
+    "6dim_real": {
+      "C": 0.95,
+      "L": 0.9,
+      "O": 0.86,
+      "tau": 0.92,
+      "H": 0.427,
+      "t": 0.96
+    },
+    "shortage_focus": [
+      "H_complexity",
+      "O_horizon"
+    ],
+    "bug_fixed": {
+      "bug-027_skip_path_in_segment": "measure_H_t.py:34 /apex_spiral 与 /apex-spiral 视为不同段漏匹配, 改 in-segment",
+      "bug-028_working_threshold_stale": "test_r3_regression.py:60 working>=30 硬编码, 改 >=10 匹配真实 8767 后端 (declarative 86 working 15)"
+    },
+    "tests": "12/12 PASS"
   }
 }
