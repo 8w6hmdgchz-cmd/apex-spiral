@@ -9,6 +9,8 @@
   "t_tau_min": 720.0,
   "t_min_floor": 0.05,
   "t_max_ceiling": 0.99,
+  "PHI_SPARK": 3.38,
+  "PHI_AUTONOMOUS": 3.0,
   "skip_dirs": [
     ".git",
     "__pycache__",

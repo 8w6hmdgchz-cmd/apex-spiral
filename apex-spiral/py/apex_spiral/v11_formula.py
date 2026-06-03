@@ -24,9 +24,37 @@ Author: 璇玑 (移植自 hernandez42/apex-codex v2.0.0)
 """
 
 import math
+import json
 from typing import Dict, Optional
 from dataclasses import dataclass, field
 from datetime import datetime
+from pathlib import Path
+
+
+# FIX R9 bug-026 (本轮 V11 自学习 R9 修): 之前 PHI_SPARK/PHI_AUTONOMOUS
+# 在 v11_formula.py:FormulaConstants 与 v11_with_a2a.py:_PHI_FALLBACK 各
+# 硬编码一份, 改 1 不改 2 会漂移. 改从 apex_spiral/apex_config.json 读
+# (单一来源) — H_complexity -0.005 (减 1 隐式耦合点).
+_APEX_CONFIG_PATH = Path("/Users/lihongxin/.openclaw/workspace/apex_spiral/apex_config.json")
+_PHI_FALLBACK = {"PHI_SPARK": 3.38, "PHI_AUTONOMOUS": 3.0}
+
+
+def _load_phi_constants() -> dict:
+    """读 apex_config.json 拿 PHI 配置, 缺失键回退内置默认 (鲁棒性)."""
+    try:
+        cfg = json.loads(_APEX_CONFIG_PATH.read_text())
+        out = dict(_PHI_FALLBACK)
+        for k, default in _PHI_FALLBACK.items():
+            v = cfg.get(k)
+            if isinstance(v, (int, float)) and v == v:  # 非 NaN
+                out[k] = float(v)
+        return out
+    except Exception:
+        return dict(_PHI_FALLBACK)
+
+
+# 启动时一次性解析; 改配置后重启进程 (与 cron 周期同步)
+_PHI = _load_phi_constants()
 
 
 # ============== 常量 ==============
@@ -34,10 +62,11 @@ from datetime import datetime
 class FormulaConstants:
     """公式常量 (来自 apex-codex core/formula.py)"""
     # SPW-R增强因子 (Buzsáki Lab海马体研究, Science 2024)
-    PHI_SPARK = 3.38
+    # FIX R9 bug-026: 改为从 apex_config.json 读 (单一来源, 防漂移)
+    PHI_SPARK = _PHI["PHI_SPARK"]
     # 自主性因子
-    PHI_AUTONOMOUS = 3.0
-    # 参数范围
+    PHI_AUTONOMOUS = _PHI["PHI_AUTONOMOUS"]
+    # 参数范围 (保持本地硬编码 — 量纲不同, 不属于 PHI 配置域)
     MAX_PARAMS = 1.0
     MIN_PARAMS = 0.01
     MIN_H = 0.01

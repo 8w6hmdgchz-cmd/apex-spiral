@@ -4,13 +4,13 @@
   "operator": "璇玑",
   "key_insight": "看公式先代入自己，看问题先看自己有没有，看工具先想自己能不能用。不是顿悟，是习惯。",
   "v11_with_a2a": {
-    "v11_enhanced": 22.37,
+    "v11_enhanced": 16.23,
     "a2a_F_hunt": 1.0,
     "a2a_absorbed": 118,
     "a2a_A_net": 21.6398,
     "a2a_A_n_norm": 0.5,
     "a2a_factor": 0.65,
-    "system_delta_g": 14.54
+    "system_delta_g": 10.55
   },
   "6_dim_self_check": {
     "C_understanding": 0.95,
@@ -82,7 +82,7 @@
     "issues": 0
   },
   "tests": "12/12 regression PASS",
-  "last_cron_refresh": "2026-06-03T09:09:36.917237+08:00",
+  "last_cron_refresh": "2026-06-03T09:20:51+0800",
   "R0_actual": {
     "v11_enhanced": 50.81,
     "system_delta_g": 32.39,
