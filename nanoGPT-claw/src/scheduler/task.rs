@@ -3,10 +3,10 @@
 //! Manages task lifecycle, priority queuing, and parallel execution
 //! across the LLM cluster.
 
-use std::collections::VecDeque;
-use std::sync::Arc;
 use parking_lot::RwLock;
 use serde::{Deserialize, Serialize};
+use std::collections::VecDeque;
+use std::sync::Arc;
 
 /// Task status
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -117,7 +117,8 @@ impl TaskQueue {
         }
 
         // Insert in priority order
-        let pos = queue.iter()
+        let pos = queue
+            .iter()
             .position(|t| t.priority < task.priority)
             .unwrap_or(queue.len());
         queue.insert(pos, task);
@@ -243,16 +244,38 @@ mod tests {
 
     #[test]
     fn test_task_creation() {
-        let task = Task::new("t1".to_string(), "Test task".to_string(), TaskPriority::Normal);
+        let task = Task::new(
+            "t1".to_string(),
+            "Test task".to_string(),
+            TaskPriority::Normal,
+        );
         assert_eq!(task.status, TaskStatus::Pending);
     }
 
     #[test]
     fn test_task_queue_priority() {
         let queue = TaskQueue::new(10);
-        queue.push(Task::new("1".to_string(), "Low".to_string(), TaskPriority::Low)).unwrap();
-        queue.push(Task::new("2".to_string(), "High".to_string(), TaskPriority::High)).unwrap();
-        queue.push(Task::new("3".to_string(), "Normal".to_string(), TaskPriority::Normal)).unwrap();
+        queue
+            .push(Task::new(
+                "1".to_string(),
+                "Low".to_string(),
+                TaskPriority::Low,
+            ))
+            .unwrap();
+        queue
+            .push(Task::new(
+                "2".to_string(),
+                "High".to_string(),
+                TaskPriority::High,
+            ))
+            .unwrap();
+        queue
+            .push(Task::new(
+                "3".to_string(),
+                "Normal".to_string(),
+                TaskPriority::Normal,
+            ))
+            .unwrap();
 
         let first = queue.pop().unwrap();
         assert_eq!(first.id, "2"); // High priority first

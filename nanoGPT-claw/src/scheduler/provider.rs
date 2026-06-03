@@ -94,7 +94,7 @@ impl LLMError {
             LLMError::NetworkError(_) => FailoverStrategy::Retry,
         }
     }
-    
+
     pub fn is_retryable(&self) -> bool {
         matches!(self.failover_strategy(), FailoverStrategy::Retry)
     }
@@ -110,13 +110,13 @@ pub trait LLMProvider: Send + Sync {
     async fn complete_with_messages(&self, messages: Vec<ChatMessage>) -> LLMResult<LLMResponse>;
 }
 
-// pub mod openai; // not downloaded
-// pub mod anthropic; // not downloaded
-// pub mod ollama; // not downloaded
+pub mod anthropic;
+pub mod ollama;
+pub mod openai;
 
-// pub use openai::OpenAIProvider;
-// pub use anthropic::AnthropicProvider;
-// pub use ollama::OllamaProvider;
+pub use anthropic::AnthropicProvider;
+pub use ollama::OllamaProvider;
+pub use openai::OpenAIProvider;
 
 use std::collections::HashMap;
 
@@ -143,11 +143,98 @@ impl ProviderRegistry {
         self.providers.keys().cloned().collect()
     }
 
+    /// 创建 ProviderRegistry 从 AppConfig
+    pub fn create_from_config(config: &crate::config::settings::AppConfig) -> Self {
+        let mut registry = Self::new();
+
+        // 从配置注册 providers
+        for (name, provider_config) in &config.llm.providers {
+            if !provider_config.enabled {
+                tracing::debug!("Provider {} is disabled, skipping", name);
+                continue;
+            }
+
+            match name.to_lowercase().as_str() {
+                "openai" => {
+                    let provider = OpenAIProvider::with_custom_url(
+                        provider_config.api_key.clone(),
+                        &provider_config.base_url,
+                        &provider_config.default_model,
+                    );
+                    registry.register(name, Arc::new(provider));
+                }
+                "anthropic" => {
+                    let provider = AnthropicProvider::new(provider_config.api_key.clone());
+                    registry.register(name, Arc::new(provider));
+                }
+                "ollama" => {
+                    let provider = OllamaProvider::new(&provider_config.base_url);
+                    registry.register(name, Arc::new(provider));
+                }
+                _ => {
+                    tracing::warn!("Unknown provider: {}", name);
+                }
+            }
+        }
+
+        if registry.providers.is_empty() {
+            tracing::warn!(
+                "No LLM providers configured in config, falling back to environment variables"
+            );
+            // 如果配置为空，回退到环境变量
+            let env_registry = Self::create_from_env();
+            registry.providers.extend(env_registry.providers);
+        }
+
+        registry
+    }
+
     pub fn create_from_env() -> Self {
-        // Note: OpenAI, Anthropic, Ollama providers require separate module files
-        // This is a placeholder that logs a warning
-        let registry = Self::new();
-        tracing::warn!("LLM providers not fully configured - provider modules not downloaded");
+        let mut registry = Self::new();
+
+        // Custom OpenAI-compatible provider (Groq, sensenova, etc.)
+        // OPENAI_API_BASE + OPENAI_API_MODEL must both be set
+        if let (Ok(base_url), Ok(model)) = (
+            std::env::var("OPENAI_API_BASE"),
+            std::env::var("OPENAI_API_MODEL"),
+        ) {
+            if !base_url.is_empty() && !model.is_empty() {
+                let api_key = std::env::var("OPENAI_API_KEY").unwrap_or_default();
+                registry.register(
+                    "custom",
+                    Arc::new(OpenAIProvider::with_custom_url(api_key, &base_url, &model)),
+                );
+            }
+        }
+
+        // Default OpenAI provider - also respects OPENAI_API_BASE if set
+        if let Ok(api_key) = std::env::var("OPENAI_API_KEY") {
+            if !api_key.is_empty() {
+                let base_url = std::env::var("OPENAI_API_BASE")
+                    .unwrap_or_else(|_| "https://api.openai.com/v1".to_string());
+                let model =
+                    std::env::var("OPENAI_API_MODEL").unwrap_or_else(|_| "gpt-4o".to_string());
+                registry.register(
+                    "openai",
+                    Arc::new(OpenAIProvider::with_custom_url(api_key, &base_url, &model)),
+                );
+            }
+        }
+
+        if let Ok(api_key) = std::env::var("ANTHROPIC_API_KEY") {
+            if !api_key.is_empty() {
+                registry.register("anthropic", Arc::new(AnthropicProvider::new(api_key)));
+            }
+        }
+
+        if let Ok(base_url) = std::env::var("OLLAMA_BASE_URL") {
+            registry.register("ollama", Arc::new(OllamaProvider::new(&base_url)));
+        }
+
+        if registry.providers.is_empty() {
+            tracing::warn!("No LLM providers configured via environment variables");
+        }
+
         registry
     }
 }

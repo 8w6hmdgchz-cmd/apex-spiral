@@ -10,6 +10,7 @@ from .reflexion import ApexReflexion, ReflexionConfig
 from .memory_stream import ApexMemoryStream, MemoryStreamConfig, MemoryType
 from .observation import ApexObservation, ObservationConfig, Observation
 from .apex_memory_bridge import ApexMemoryBridge
+from .reflexion_loop import ReflexionLoop, ReflexionLoopConfig
 
 
 @dataclass
@@ -87,6 +88,13 @@ class ApexAgent:
         # V10.1 Σ_memory 桥接：让 Python 主循环持续喂入 Rust 同构记忆池
         self.sigma_memory = ApexMemoryBridge(enabled=self.config.enable_sigma_memory)
         
+        # 评估器-优化器循环（Reflexion Loop，来自 Anthropic Cookbook）
+        # 与 ApexReflexion 的区别：评估器与生成器完全分离，历史全量传递
+        self.reflexion_loop = ReflexionLoop(
+            llm_func=llm_func,
+            config=ReflexionLoopConfig(max_attempts=self.config.max_attempts)
+        )
+        
         # Φ 元认知绑定到 reflexion
         self._phi = self.config.phi_initial
     
@@ -136,6 +144,59 @@ class ApexAgent:
             )
         
         return result
+    
+    def execute_with_evaluator_optimizer(
+        self,
+        task: str,
+        evaluator_prompt: str,
+        generator_prompt: str,
+        max_attempts: Optional[int] = None
+    ) -> tuple:
+        """
+        使用评估器-优化器循环执行任务（Reflexion Loop）
+        
+        与 execute() 的区别：
+        - 使用独立的评估器 LLM 和生成器 LLM（分离调用）
+        - 历史 attempts 全量传递（不只是最新一条 feedback）
+        - 适合：代码、报告、方案等可迭代优化的任务
+        
+        Args:
+            task: 任务描述
+            evaluator_prompt: 评估器 prompt 模板，包含 {task} 和 {result} 占位符
+            generator_prompt: 生成器 prompt 模板，包含 {task} 和 {context} 占位符
+            max_attempts: 最大尝试次数（覆盖配置）
+        
+        Returns:
+            (final_result, history)
+        """
+        result, history = self.reflexion_loop.loop(
+            task=task,
+            evaluator_prompt=evaluator_prompt,
+            generator_prompt=generator_prompt,
+            max_attempts=max_attempts
+        )
+        
+        # 添加到记忆
+        memory_id = self.memory.add(
+            content=f"任务: {task}\n结果: {result}\n评估器-优化器循环完成",
+            memory_type=MemoryType.EXECUTION,
+            importance=0.7
+        )
+        
+        # 同步到 Σ_memory
+        if 0.7 >= self.config.sigma_memory_importance_threshold:
+            self.sigma_memory.add_interaction_bundle(
+                task,
+                result,
+                importance=0.7,
+                metadata={
+                    "source": "ApexAgent.execute_with_evaluator_optimizer",
+                    "memory_stream_id": memory_id,
+                    "loop_attempts": len(history)
+                },
+            )
+        
+        return result, history
     
     def _default_execute(self, task: str, reflections: List[str]) -> str:
         """默认执行：直接用 LLM"""

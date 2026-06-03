@@ -1,5 +1,3 @@
-
-
 //! CLI Runtime Module - Terminal Control Core
 //!
 //! Provides command-line interface for NanoGPT-Claw operations.
@@ -7,13 +5,15 @@
 
 pub mod commands;
 pub mod daemon;
+pub mod wizard;
 
 use crate::daemon_service::TaskType;
-use tracing::{info, warn, error};
+use tracing::{error, info, warn};
 
 /// CLI command types
 #[derive(Debug, Clone)]
 pub enum CliCommand {
+    Setup,
     Start,
     Stop,
     Status,
@@ -58,6 +58,7 @@ pub fn parse_args(args: &[String]) -> Option<CliCommand> {
     }
 
     match args[0].as_str() {
+        "setup" | "init" | "configure" => Some(CliCommand::Setup),
         "start" => Some(CliCommand::Start),
         "stop" => Some(CliCommand::Stop),
         "status" => Some(CliCommand::Status),
@@ -98,7 +99,7 @@ fn parse_task_cmd(args: &[String]) -> Option<CliCommand> {
                 info!("Available types: todo, fix, research, benchmark, github, autoresearch, openhands");
                 return Some(CliCommand::Help);
             }
-            
+
             let task_type = match args[1].to_lowercase().as_str() {
                 "todo" => TaskType::TodoComplete,
                 "fix" => TaskType::CodeFix,
@@ -112,7 +113,7 @@ fn parse_task_cmd(args: &[String]) -> Option<CliCommand> {
                     return Some(CliCommand::Help);
                 }
             };
-            
+
             let description = args[2..].join(" ");
             Some(CliCommand::Task(TaskCmd::Add(task_type, description)))
         }

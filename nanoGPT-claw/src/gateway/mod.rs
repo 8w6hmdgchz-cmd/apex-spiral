@@ -6,12 +6,10 @@ pub mod github;
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::RwLock;
-use tracing::info;
+use tracing::{debug, info, warn};
 
-use feishu::FeishuGateway;
-use feishu::FeishuConfig;
-use github::GitHubGateway;
-use github::GitHubConfig;
+pub use feishu::{FeishuConfig, FeishuGateway};
+pub use github::{GitHubConfig, GitHubGateway};
 
 #[derive(Debug, Clone)]
 pub enum GatewayEvent {
@@ -66,18 +64,10 @@ pub enum GatewayStatus {
 }
 
 #[derive(Debug, Clone)]
+#[derive(Default)]
 pub struct GatewayConfig {
     pub feishu: FeishuConfig,
     pub github: GitHubConfig,
-}
-
-impl Default for GatewayConfig {
-    fn default() -> Self {
-        Self {
-            feishu: FeishuConfig::default(),
-            github: GitHubConfig::default(),
-        }
-    }
 }
 
 #[allow(dead_code)]
@@ -90,22 +80,59 @@ pub struct GatewayManager {
     shutdown: Arc<RwLock<bool>>,
 }
 
+#[derive(Debug)]
+pub enum GatewayError {
+    GatewayNotEnabled(String),
+    GatewayNotInitialized(String),
+    SendError,
+    Network(String),
+    Authentication(String),
+    Feishu(String),
+    Parse(String),
+    InvalidPayload(String),
+    SignatureVerificationFailed,
+}
+
+impl std::fmt::Display for GatewayError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::GatewayNotEnabled(gw) => write!(f, "Gateway {} not enabled", gw),
+            Self::GatewayNotInitialized(gw) => write!(f, "Gateway {} not initialized", gw),
+            Self::SendError => write!(f, "Failed to send message"),
+            Self::Network(e) => write!(f, "Network error: {}", e),
+            Self::Authentication(e) => write!(f, "Authentication error: {}", e),
+            Self::Feishu(e) => write!(f, "Feishu API error: {}", e),
+            Self::Parse(e) => write!(f, "Parse error: {}", e),
+            Self::InvalidPayload(e) => write!(f, "Invalid payload: {}", e),
+            Self::SignatureVerificationFailed => write!(f, "Signature verification failed"),
+        }
+    }
+}
+
+impl std::error::Error for GatewayError {}
+
 impl GatewayManager {
     pub async fn new(config: GatewayConfig) -> Result<Self, GatewayError> {
         let (event_sender, event_receiver) = tokio::sync::mpsc::channel(100);
         let event_sender_clone = event_sender.clone();
 
+        info!("Initializing GatewayManager...");
+        debug!("Feishu config: enabled={}", config.feishu.enabled);
+        debug!("GitHub config: enabled={}", config.github.enabled);
+
         let feishu = if config.feishu.enabled {
-            let gateway = FeishuGateway::new(config.feishu.clone());
-            Some(gateway)
+            info!("Feishu gateway enabled, creating FeishuGateway...");
+            Some(FeishuGateway::new(config.feishu.clone()))
         } else {
+            info!("Feishu gateway disabled");
             None
         };
 
         let github = if config.github.enabled {
-            let gateway = GitHubGateway::new(config.github.clone());
-            Some(gateway)
+            info!("GitHub gateway enabled, creating GitHubGateway...");
+            Some(GitHubGateway::new(config.github.clone()))
         } else {
+            info!("GitHub gateway disabled");
             None
         };
 
@@ -121,19 +148,29 @@ impl GatewayManager {
 
     pub async fn start(&self) -> Result<(), GatewayError> {
         info!("Starting gateway manager...");
-        
+
         // 启动 Feishu Gateway
-        if let Some(feishu) = &*self.feishu.read().await {
+        let feishu_guard = self.feishu.read().await;
+        if let Some(feishu) = &*feishu_guard {
             info!("Starting Feishu gateway...");
             feishu.start().await?;
+            info!("Feishu gateway started successfully");
+        } else {
+            debug!("Feishu gateway not configured, skipping");
         }
-        
+        drop(feishu_guard);
+
         // 启动 GitHub Gateway
-        if let Some(github) = &*self.github.read().await {
+        let github_guard = self.github.read().await;
+        if let Some(github) = &*github_guard {
             info!("Starting GitHub gateway...");
             github.start().await?;
+            info!("GitHub gateway started successfully");
+        } else {
+            debug!("GitHub gateway not configured, skipping");
         }
-        
+        drop(github_guard);
+
         info!("Gateway manager started successfully");
         Ok(())
     }
@@ -155,8 +192,14 @@ impl GatewayManager {
     ) -> Result<String, GatewayError> {
         let feishu = self.feishu.read().await;
         match feishu.as_ref() {
-            Some(gateway) => gateway.send_message(chat_id, content, msg_type).await,
-            None => Err(GatewayError::GatewayNotEnabled("feishu".to_string())),
+            Some(gateway) => {
+                debug!("Sending Feishu message to chat_id={}", chat_id);
+                gateway.send_message(chat_id, content, msg_type).await
+            }
+            None => {
+                warn!("Feishu gateway not enabled or not initialized");
+                Err(GatewayError::GatewayNotEnabled("feishu".to_string()))
+            }
         }
     }
 
@@ -167,83 +210,14 @@ impl GatewayManager {
     ) -> Result<GatewayWebhookEvent, GatewayError> {
         let github = self.github.read().await;
         match github.as_ref() {
-            Some(gateway) => gateway.handle_webhook(payload, headers).await,
-            None => Err(GatewayError::GatewayNotEnabled("github".to_string())),
+            Some(gateway) => {
+                debug!("Handling GitHub webhook...");
+                gateway.handle_webhook(payload, headers).await
+            }
+            None => {
+                warn!("GitHub gateway not enabled or not initialized");
+                Err(GatewayError::GatewayNotEnabled("github".to_string()))
+            }
         }
-    }
-
-    pub async fn status(&self) -> HashMap<String, GatewayStatus> {
-        let mut statuses = HashMap::new();
-        
-        if let Some(ref feishu) = *self.feishu.read().await {
-            statuses.insert("feishu".to_string(), feishu.status().await);
-        } else {
-            statuses.insert("feishu".to_string(), GatewayStatus::Disconnected);
-        }
-
-        if let Some(ref github) = *self.github.read().await {
-            statuses.insert("github".to_string(), github.status());
-        }
-        statuses
-    }
-
-    pub async fn is_ready(&self) -> bool {
-        let feishu_status = if let Some(ref feishu) = *self.feishu.read().await {
-            feishu.status().await == GatewayStatus::Connected
-        } else {
-            false
-        };
-        feishu_status || self.github.read().await.is_some()
-    }
-}
-
-#[derive(Debug, thiserror::Error)]
-pub enum GatewayError {
-    #[error("Feishu gateway error: {0}")]
-    Feishu(String),
-
-    #[error("GitHub gateway error: {0}")]
-    GitHub(String),
-
-    #[error("Gateway not enabled: {0}")]
-    GatewayNotEnabled(String),
-
-    #[error("Signature verification failed")]
-    SignatureVerificationFailed,
-
-    #[error("Invalid payload: {0}")]
-    InvalidPayload(String),
-
-    #[error("Configuration error: {0}")]
-    Config(String),
-
-    #[error("Connection error: {0}")]
-    Connection(String),
-
-    #[error("Network error: {0}")]
-    Network(String),
-
-    #[error("Authentication error: {0}")]
-    Authentication(String),
-
-    #[error("Parse error: {0}")]
-    Parse(String),
-}
-
-pub type GatewayResult<T> = Result<T, GatewayError>;
-
-pub trait Gateway: Send + Sync {
-    fn start(&self) -> impl std::future::Future<Output = Result<(), GatewayError>> + Send;
-    fn stop(&self) -> impl std::future::Future<Output = Result<(), GatewayError>> + Send;
-    fn status(&self) -> GatewayStatus;
-}
-
-#[cfg(test)]
-mod tests {
-    #[tokio::test]
-    async fn test_gateway_manager_creation() {
-        let config = super::GatewayConfig::default();
-        let manager = super::GatewayManager::new(config).await;
-        assert!(manager.is_ok());
     }
 }

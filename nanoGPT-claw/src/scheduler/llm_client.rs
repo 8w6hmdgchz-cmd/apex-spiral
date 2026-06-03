@@ -4,7 +4,7 @@
 //! with retry logic, timeout handling, and error recovery.
 
 use serde::{Deserialize, Serialize};
-use tracing::{warn, error};
+use tracing::{error, warn};
 
 /// LLM configuration
 #[derive(Debug, Clone)]
@@ -76,7 +76,10 @@ impl LLMClient {
     }
 
     /// Send completion request with retry
-    pub async fn complete(&self, prompt: &str) -> Result<LLMResponse, Box<dyn std::error::Error + Send + Sync>> {
+    pub async fn complete(
+        &self,
+        prompt: &str,
+    ) -> Result<LLMResponse, Box<dyn std::error::Error + Send + Sync>> {
         let mut last_error = None;
         let mut backoff = 1u64;
 
@@ -86,8 +89,12 @@ impl LLMClient {
                 Err(e) => {
                     last_error = Some(e);
                     if attempt < self.config.max_retries - 1 {
-                        warn!("LLM request failed (attempt {}/{}), retrying in {}s...",
-                            attempt + 1, self.config.max_retries, backoff);
+                        warn!(
+                            "LLM request failed (attempt {}/{}), retrying in {}s...",
+                            attempt + 1,
+                            self.config.max_retries,
+                            backoff
+                        );
                         std::thread::sleep(std::time::Duration::from_secs(backoff));
                         backoff *= 2;
                     }
@@ -95,12 +102,18 @@ impl LLMClient {
             }
         }
 
-        error!("LLM request failed after {} attempts: {:?}", self.config.max_retries, last_error);
+        error!(
+            "LLM request failed after {} attempts: {:?}",
+            self.config.max_retries, last_error
+        );
         Err(last_error.unwrap_or_else(|| "Unknown error".into()))
     }
 
     /// Internal HTTP request sender
-    async fn send_request(&self, prompt: &str) -> Result<LLMResponse, Box<dyn std::error::Error + Send + Sync>> {
+    async fn send_request(
+        &self,
+        prompt: &str,
+    ) -> Result<LLMResponse, Box<dyn std::error::Error + Send + Sync>> {
         let request = ChatRequest {
             model: self.config.model.clone(),
             messages: vec![ChatMessage {
@@ -153,7 +166,8 @@ impl LLMClient {
             .await
             .map_err(|e| format!("JSON parse error: {}", e))?;
 
-        let content = api_resp.choices
+        let content = api_resp
+            .choices
             .first()
             .map(|c| c.message.content.clone())
             .unwrap_or_default();
@@ -162,7 +176,10 @@ impl LLMClient {
             content,
             model: self.config.model.clone(),
             usage: api_resp.usage,
-            finish_reason: api_resp.choices.first().and_then(|c| c.finish_reason.clone()),
+            finish_reason: api_resp
+                .choices
+                .first()
+                .and_then(|c| c.finish_reason.clone()),
         })
     }
 

@@ -67,9 +67,11 @@ use serde::{Deserialize, Serialize};
 /// Each mode has different performance and quality trade-offs:
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
+#[derive(Default)]
 pub enum ReasoningMode {
     /// Linear mode: Process each thought step sequentially without recursion.
     /// Fastest but no self-correction. Best for simple, well-defined tasks.
+    #[default]
     Linear,
 
     /// Recursive mode: Allow self-referential thoughts that can re-examine
@@ -81,11 +83,6 @@ pub enum ReasoningMode {
     BeamSearch,
 }
 
-impl Default for ReasoningMode {
-    fn default() -> Self {
-        ReasoningMode::Linear
-    }
-}
 
 /// Configuration for the CoT engine.
 ///

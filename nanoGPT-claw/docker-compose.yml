@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  nano-gpt-claw:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nano-gpt-claw
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/var/log/nano-gpt-claw
+      - ./config.toml:/app/config.toml:ro
+    environment:
+      - RUST_LOG=info
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - FEISHU_APP_ID=${FEISHU_APP_ID:-}
+      - FEISHU_APP_SECRET=${FEISHU_APP_SECRET:-}
+      - FEISHU_VERIFICATION_TOKEN=${FEISHU_VERIFICATION_TOKEN:-}
+      - FEISHU_ENCRYPT_KEY=${FEISHU_ENCRYPT_KEY:-}
+      - GITHUB_WEBHOOK_SECRET=${GITHUB_WEBHOOK_SECRET:-}
+    healthcheck:
+      test: ["CMD", "nano-gpt-claw", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  # Optional: Ollama (local LLM)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    profiles:
+      - with-ollama
+
+  # Optional: PostgreSQL (if needed later)
+  postgres:
+    image: postgres:16-alpine
+    container_name: nano-gpt-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nano-gpt
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nano-gpt-secret}
+      POSTGRES_DB: nano-gpt-claw
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    profiles:
+      - with-postgres
+
+volumes:
+  ollama_data:
+  postgres_data:
+
+networks:
+  default:
+    name: nano-gpt-network

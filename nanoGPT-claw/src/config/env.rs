@@ -11,7 +11,7 @@ static ENV_VAR_REGEX: Lazy<Regex> = Lazy::new(|| {
 
 pub fn interpolate_env_vars(s: &str) -> String {
     let mut result = s.to_string();
-    
+
     for cap in ENV_VAR_REGEX.captures_iter(s) {
         if let Some(var_name) = cap.get(1) {
             let var_name = var_name.as_str();
@@ -22,12 +22,15 @@ pub fn interpolate_env_vars(s: &str) -> String {
                     result = result.replace(&placeholder, &value);
                 }
                 Err(_) => {
-                    warn!("Environment variable ${} not found, leaving placeholder", var_name);
+                    warn!(
+                        "Environment variable ${} not found, leaving placeholder",
+                        var_name
+                    );
                 }
             }
         }
     }
-    
+
     result
 }
 
@@ -67,10 +70,10 @@ mod tests {
     #[test]
     fn test_interpolate_env_vars() {
         std::env::set_var("TEST_VAR", "test_value");
-        
+
         let result = interpolate_env_vars("Hello ${TEST_VAR}");
         assert_eq!(result, "Hello test_value");
-        
+
         std::env::remove_var("TEST_VAR");
     }
 

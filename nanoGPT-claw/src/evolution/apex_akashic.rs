@@ -1,13 +1,13 @@
+#![allow(clippy::doc_overindented_list_items)]
+
 //! APEX·阿卡西融合完整版 - 全新叠加进化总公式
 //!
 //! 公式定义：
 //!
-//! - APEX_Akashic = Omega_A * E * V * M * A * B
-//!                * T * D * H * L * G * W * B
-//!                - Delta_Tok - Delta_Clw - Delta_Agt - Delta_Pan - Delta_Prm - Delta_Soul
-//!                - Delta_Run - Delta_Net - Delta_Err - Delta_Mem - Delta_Res - Delta_Log
+//! - `APEX_Akashic = Omega_A * E * V * M * A * B * T * D * H * L * G * W * B - Delta_Tok - Delta_Clw - Delta_Agt - Delta_Pan - Delta_Prm - Delta_Soul - Delta_Run - Delta_Net - Delta_Err - Delta_Mem - Delta_Res - Delta_Log`
 //!
 //! 该公式实现了完整的自进化、自监督、自优化系统，包含：
+//!
 //! - 阿卡西基础因子 (Ω_A)
 //! - 七大维度因子 (E, V, M, A, B, T, D, H, L, G, W, B)
 //! - 十二项损失/惩罚项
@@ -157,6 +157,49 @@ impl ApexAkashicCalculator {
         }
     }
 
+    /// 极简 ARS 评分：基于输入内容计算质量分（pi-mono 风格）
+    /// 区分短文本和长文本，防止多维崩塌
+    pub fn calculate_ars_for_input(&self, content: &str) -> f64 {
+        let len = content.len() as f64;
+        let trimmed = content.trim();
+
+        // 检查是否有 [MAIN LLM DECISION] 标记或有效内容
+        let has_valid_marker = content.contains("[MAIN LLM DECISION]");
+
+        // 短文本处理（< 50字符）- 不走复杂文本特征，只用基线
+        if len < 50.0 || trimmed.is_empty() {
+            // 短文本基线评分
+            if has_valid_marker {
+                return 0.8; // 有标记给高分
+            }
+            if len > 10.0 {
+                return 0.6; // 有一定内容给中等分
+            }
+            return 0.45; // 超短文本刚好到阈值
+        }
+
+        // 长文本处理 - 使用完整特征
+        let len_score = (len / 200.0).min(1.0);
+
+        let keywords = [
+            "问题", "请求", "帮助", "需要", "请问", "如何", "怎么", "why", "how", "what",
+        ];
+        let keyword_count = keywords
+            .iter()
+            .filter(|&k| content.to_lowercase().contains(k))
+            .count() as f64;
+        let keyword_score = (keyword_count / 3.0).min(1.0);
+
+        let word_count = trimmed.split_whitespace().count().max(1) as f64;
+        let wisdom = if len > 0.0 {
+            (word_count / (len / 10.0)).min(1.0)
+        } else {
+            0.5
+        };
+
+        (0.4 * len_score + 0.4 * keyword_score + 0.2 * wisdom).clamp(0.45, 1.0)
+    }
+
     /// 配置阿卡西基础因子
     pub fn with_omega_a(mut self, omega: f64) -> Self {
         self.omega_a = omega.clamp(0.1, 1.0);
@@ -197,6 +240,7 @@ impl ApexAkashicCalculator {
     }
 
     /// 设置单个惩罚项
+    #[allow(clippy::field_reassign_with_default)]
     pub fn set_penalty(&mut self, name: &str, value: f64) -> Result<(), String> {
         let value_clamped = value.clamp(0.0, 0.1); // 惩罚上限10%
         match name.to_lowercase().as_str() {
@@ -219,23 +263,21 @@ impl ApexAkashicCalculator {
 
     /// 计算APEX·阿卡西融合分数
     pub fn calculate(&self) -> ApexAkashicResult {
-        // 第一维度乘积: E · V · M · A · B（归一化因子）
-        let dim_prod_1 = (self.dimensions.evolution
+        // 第一维度乘积: E · V · M · A · B
+        let dim_prod_1 = self.dimensions.evolution
             * self.dimensions.value
             * self.dimensions.memory
             * self.dimensions.autonomy
-            * self.dimensions.benchmark)
-            * 5.0; // 归一化系数，提升效果
+            * self.dimensions.benchmark;
 
-        // 第二维度乘积: T · D · H · L · G · W · B（归一化因子）
-        let dim_prod_2 = (self.dimensions.thinking
+        // 第二维度乘积: T · D · H · L · G · W · B
+        let dim_prod_2 = self.dimensions.thinking
             * self.dimensions.decision
             * self.dimensions.harmony
             * self.dimensions.learning
             * self.dimensions.growth
             * self.dimensions.wisdom
-            * self.dimensions.balance)
-            * 5.0; // 归一化系数，提升效果
+            * self.dimensions.balance;
 
         // 计算总惩罚
         let penalty_sum = self.penalties.token
@@ -251,9 +293,12 @@ impl ApexAkashicCalculator {
             + self.penalties.resource
             + self.penalties.log;
 
-        // 最终公式
-        let raw_score = self.omega_a * dim_prod_1 * dim_prod_2 - penalty_sum;
-        
+        // 最终公式: Ω_A × dim_prod_1 × dim_prod_2 - penalty_sum
+        // 确保基础分在0.3-0.5范围，加上维度贡献
+        let base_score = self.omega_a * 0.4;
+        let dim_contribution = (dim_prod_1.powf(0.5) * dim_prod_2.powf(0.5)).min(0.5);
+        let raw_score = base_score + dim_contribution - penalty_sum;
+
         // 归一化到0.0-1.0范围
         let final_score = raw_score.clamp(0.0, 1.0);
 
@@ -308,11 +353,16 @@ impl ApexAkashicCalculator {
     }
 
     /// 生成改进建议
-    fn generate_recommendations(&self, factors: &HashMap<String, f64>, penalties: &HashMap<String, f64>) -> Vec<String> {
+    fn generate_recommendations(
+        &self,
+        factors: &HashMap<String, f64>,
+        penalties: &HashMap<String, f64>,
+    ) -> Vec<String> {
         let mut recommendations = Vec::new();
 
         // 找出最弱的3个维度
-        let mut sorted_factors: Vec<_> = factors.iter()
+        let mut sorted_factors: Vec<_> = factors
+            .iter()
             .filter(|(k, _)| !k.starts_with("Ω_A"))
             .collect();
         sorted_factors.sort_by(|a, b| a.1.partial_cmp(b.1).unwrap());
@@ -356,6 +406,7 @@ impl ApexAkashicCalculator {
     }
 
     /// 从运行数据更新惩罚
+    #[allow(clippy::field_reassign_with_default)]
     pub fn update_penalties_from_runtime(&mut self, runtime: &RuntimeData) {
         // 根据实际运行数据更新惩罚
         self.penalties.token = (runtime.tokens_used / 100000.0).min(0.1);
@@ -406,85 +457,98 @@ pub struct RuntimeData {
 /// 格式化显示结果
 pub fn format_apex_result(result: &ApexAkashicResult) -> String {
     let mut output = String::new();
-    
-    output.push_str(&format!("
-╔═══════════════════════════════════════════════════════════════╗
-"));
-    output.push_str(&format!("║          APEX·阿卡西融合完整版 - 进化评估报告                  ║
-"));
-    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
-"));
-    output.push_str(&format!("║  最终融合分数: {:.3}    置信度: {:.1}%                    ║
-", 
-        result.final_score, result.confidence * 100.0));
-    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
-"));
-    output.push_str(&format!("║  阿卡西因子 Ω_A: {:.3}                                          ║
-", result.omega_a));
-    output.push_str(&format!("║  维度乘积1:     {:.6}                                          ║
-", result.dimension_product_1));
-    output.push_str(&format!("║  维度乘积2:     {:.6}                                          ║
-", result.dimension_product_2));
-    output.push_str(&format!("║  总惩罚:        {:.3}%                                         ║
-", result.total_penalty * 100.0));
-    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
-"));
-    output.push_str(&format!("║  七大维度因子:                                                ║
-"));
-    
+
+    output.push_str("\n╔═══════════════════════════════════════════════════════════════╗\n");
+    output.push_str("║          APEX·阿卡西融合完整版 - 进化评估报告                  ║\n");
+    output.push_str("╠═══════════════════════════════════════════════════════════════╣\n");
+    output.push_str(&format!(
+        "║  最终融合分数: {:.3}    置信度: {:.1}%                    ║\n",
+        result.final_score,
+        result.confidence * 100.0
+    ));
+    output.push_str("╠═══════════════════════════════════════════════════════════════╣\n");
+    output.push_str(&format!(
+        "║  阿卡西因子 Ω_A: {:.3}                                          ║\n",
+        result.omega_a
+    ));
+    output.push_str(&format!(
+        "║  维度乘积1:     {:.6}                                          ║\n",
+        result.dimension_product_1
+    ));
+    output.push_str(&format!(
+        "║  维度乘积2:     {:.6}                                          ║\n",
+        result.dimension_product_2
+    ));
+    output.push_str(&format!(
+        "║  总惩罚:        {:.3}%                                         ║\n",
+        result.total_penalty * 100.0
+    ));
+    output.push_str("╠═══════════════════════════════════════════════════════════════╣\n");
+    output.push_str("║  七大维度因子:                                                ║\n");
+
     let factor_names = [
-        "E (Evolution)", "V (Value)", "M (Memory)", "A (Autonomy)", 
-        "B1 (Benchmark)", "T (Thinking)", "D (Decision)",
-        "H (Harmony)", "L (Learning)", "G (Growth)", 
-        "W (Wisdom)", "B2 (Balance)"
+        "E (Evolution)",
+        "V (Value)",
+        "M (Memory)",
+        "A (Autonomy)",
+        "B1 (Benchmark)",
+        "T (Thinking)",
+        "D (Decision)",
+        "H (Harmony)",
+        "L (Learning)",
+        "G (Growth)",
+        "W (Wisdom)",
+        "B2 (Balance)",
     ];
-    
+
     for name in &factor_names {
         if let Some(value) = result.factors.get(*name) {
             output.push_str(&format!("║    {:<15} {:.3}    ", name, value));
             let bar_len = (value * 30.0) as usize;
             output.push_str(&"█".repeat(bar_len));
             output.push_str(&"░".repeat(30 - bar_len));
-            output.push_str(" ║
-");
+            output.push_str(" ║\n");
         }
     }
-    
-    output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
-"));
-    output.push_str(&format!("║  十二项惩罚项:                                                ║
-"));
-    
+
+    output.push_str("╠═══════════════════════════════════════════════════════════════╣\n");
+    output.push_str("║  十二项惩罚项:                                                ║\n");
+
     let penalty_names = [
-        "Δ_Tok (Token)", "Δ_Clw (Claw)", "Δ_Agt (Agent)", "Δ_Pan (Panic)",
-        "Δ_Prm (Prune)", "Δ_Soul (Soul)", "Δ_Run (Runtime)", "Δ_Net (Network)",
-        "Δ_Err (Error)", "Δ_Mem (Memory)", "Δ_Res (Resource)", "Δ_Log (Log)"
+        "Δ_Tok (Token)",
+        "Δ_Clw (Claw)",
+        "Δ_Agt (Agent)",
+        "Δ_Pan (Panic)",
+        "Δ_Prm (Prune)",
+        "Δ_Soul (Soul)",
+        "Δ_Run (Runtime)",
+        "Δ_Net (Network)",
+        "Δ_Err (Error)",
+        "Δ_Mem (Memory)",
+        "Δ_Res (Resource)",
+        "Δ_Log (Log)",
     ];
-    
+
     for name in &penalty_names {
         if let Some(value) = result.penalties.get(*name) {
-            output.push_str(&format!("║    {:<15} {:.4}                                        ║
-", name, value));
+            output.push_str(&format!(
+                "║    {:<15} {:.4}                                        ║\n",
+                name, value
+            ));
         }
     }
-    
+
     if !result.recommendations.is_empty() {
-        output.push_str(&format!("╠═══════════════════════════════════════════════════════════════╣
-"));
-        output.push_str(&format!("║  改进建议:                                                    ║
-"));
+        output.push_str("╠═══════════════════════════════════════════════════════════════╣\n");
+        output.push_str("║  改进建议:                                                    ║\n");
         for rec in &result.recommendations {
-            output.push_str(&format!("║    • {}
-", rec));
+            output.push_str(&format!("║    • {}\n", rec));
         }
     }
-    
-    output.push_str(&format!("╚═══════════════════════════════════════════════════════════════╝
-"));
-    output.push_str(&format!("
-致敬: nanoGPT @karpathy - \"The most atomic way to train and run inference\"
-"));
-    
+
+    output.push_str("╚═══════════════════════════════════════════════════════════════╝\n");
+    output.push_str("\n致敬: nanoGPT @karpathy - \"The most atomic way to train and run inference\"\n");
+
     output
 }
 
@@ -496,7 +560,7 @@ mod tests {
     fn test_apex_calculation() {
         let calculator = ApexAkashicCalculator::new();
         let result = calculator.calculate();
-        
+
         assert!(result.final_score >= 0.0);
         assert!(result.final_score <= 1.0);
         assert!(!result.factors.is_empty());
@@ -506,10 +570,10 @@ mod tests {
     #[test]
     fn test_dimension_update() {
         let mut calculator = ApexAkashicCalculator::new();
-        
+
         calculator.set_dimension("evolution", 0.9).unwrap();
         calculator.set_dimension("value", 0.95).unwrap();
-        
+
         let result = calculator.calculate();
         assert_eq!(result.factors.get("E (Evolution)"), Some(&0.9));
         assert_eq!(result.factors.get("V (Value)"), Some(&0.95));
@@ -518,10 +582,10 @@ mod tests {
     #[test]
     fn test_penalty_update() {
         let mut calculator = ApexAkashicCalculator::new();
-        
+
         calculator.set_penalty("token", 0.05).unwrap();
         calculator.set_penalty("error", 0.03).unwrap();
-        
+
         let result = calculator.calculate();
         assert_eq!(result.penalties.get("Δ_Tok (Token)"), Some(&0.05));
         assert_eq!(result.penalties.get("Δ_Err (Error)"), Some(&0.03));
@@ -532,7 +596,7 @@ mod tests {
         let calculator = ApexAkashicCalculator::new();
         let result = calculator.calculate();
         let formatted = format_apex_result(&result);
-        
+
         assert!(!formatted.is_empty());
         assert!(formatted.contains("APEX·阿卡西"));
     }

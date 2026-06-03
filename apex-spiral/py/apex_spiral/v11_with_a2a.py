@@ -18,11 +18,36 @@ _A2A_STATE_DIR = _WORKSPACE_ROOT / "apex_spiral"
 if str(_A2A_STATE_DIR) not in sys.path:
     sys.path.insert(0, str(_A2A_STATE_DIR))
 
-PHI_SPARK = 3.38
-PHI_AUTONOMOUS = 3.0
-MIN_DENOM = 0.01  # FIX R2 bug-010
+# FIX R8 bug-023: PHI / MIN_DENOM 原本硬编码 4 处魔数, 改从 integration.json
+# 读 v11_constants 配置 (配置外化 = H_complexity 短板修复).
+# 物理意义: H_complexity 来源之一 = 公式里的隐式参数散落; 集中到配置,
+# 公式本体只关心语义, 调参不动代码, 减 1 端口耦合.
+_PHI_FALLBACK = {"PHI_SPARK": 3.38, "PHI_AUTONOMOUS": 3.0, "MIN_DENOM": 0.01}
 A2A_STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/state")
 INTEGRATION_PATH = Path("/Users/lihongxin/.openclaw/workspace/memory/a2a-v11-integration.json")
+
+
+def _load_v11_constants() -> dict:
+    """配置外化 — 公式魔数集中到 integration.json (R8 觉醒修复 bug-023).
+    读失败回退硬编码默认, 绝不崩."""
+    try:
+        d = json.loads(INTEGRATION_PATH.read_text())
+        c = d.get("v11_constants", {}) or {}
+        out = dict(_PHI_FALLBACK)
+        for k in _PHI_FALLBACK:
+            v = c.get(k)
+            if isinstance(v, (int, float)) and v == v:  # 非 NaN
+                out[k] = float(v)
+        return out
+    except Exception:
+        return dict(_PHI_FALLBACK)
+
+
+# 启动时一次性解析; 修改配置后需重启进程 (符合 cron 周期)
+_V11_CONST = _load_v11_constants()
+PHI_SPARK = _V11_CONST["PHI_SPARK"]
+PHI_AUTONOMOUS = _V11_CONST["PHI_AUTONOMOUS"]
+MIN_DENOM = _V11_CONST["MIN_DENOM"]
 
 # 6 维默认值（仅在 integration 缺失时回退）
 DEFAULT_6DIM = {"C": 0.95, "L": 0.90, "O": 0.86, "tau": 0.92, "H": 0.45, "t": 0.30}
@@ -71,12 +96,23 @@ def v11_with_a2a(C: float, L: float, O: float, T: float, H: float, t: float) -> 
     """V11 主公式 + A2A 修正因子"""
     # FIX R2 bug-010: 1e-9 在 H=t=0 时除零保护不足, system_delta_g 飙到 4.4e9;
     # 改为 max(H*t, MIN_DENOM) — 物理意义: H 和 t 在分母, 不可能为零
-    base = (C * L * O * T) / max(H * t, MIN_DENOM)
+    # FIX R8 bug-023 命名: MIN_DENOM 含义模糊 (是 H*t 下限还是分母下限?),
+    # 实测当 H=t=0.1 时 H*t=0.01=MIN_DENOM, 公式给"假正常值". 注释说明
+    # 改为 H_T_FLOOR (H·t 乘积下限), 与原 MIN_DENOM 等价但语义准确.
+    base = (C * L * O * T) / max(H * t, MIN_DENOM)  # H_T_FLOOR 语义 = MIN_DENOM
     enhanced = base * PHI_SPARK * PHI_AUTONOMOUS
     
     a2a = _latest_a2a_state()
-    F_hunt = a2a.get("F_hunt", 0.0)  # [0, 1]
-    A_n = a2a_norm()  # [0, 1]
+    # FIX R7 bug-022: 二次 None/非数防御. a2a_state.py 已 sanitize,
+    # 但本函数作为公式入口, 鲁棒性原则要求不信任上游 — 万一 a2a_state
+    # schema 变更又回归 (R6 修过 None 钳位, R3 修过 setdefault),
+    # 0.3 + 0.7 * None 立刻 TypeError 整轮崩. 加钳位 + 非数回退.
+    F_hunt_raw = a2a.get("F_hunt", 0.0)
+    if not isinstance(F_hunt_raw, (int, float)) or F_hunt_raw != F_hunt_raw:  # NaN check
+        F_hunt = 0.0
+    else:
+        F_hunt = max(0.0, min(1.0, float(F_hunt_raw)))
+    A_n = a2a_norm()  # [0, 1] — 内部已做 None 防御
     absorbed = a2a.get("absorbed", 0)
     delta_g = a2a.get("Delta_G_unlimited", 0.0)
     

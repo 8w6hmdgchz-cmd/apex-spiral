@@ -1,0 +1,62 @@
+# NanoGPT-Claw Configuration File
+
+[application]
+name = "nano-gpt-claw"
+version = "0.1.0"
+
+[daemon]
+pid_file = "/tmp/nano-gpt-claw.pid"
+log_file = "/var/log/nano-gpt-claw.log"
+watch_interval_secs = 30
+max_restarts = 5
+
+[llm]
+default_provider = "openai"
+timeout_secs = 120
+
+[llm.providers.openai]
+enabled = true
+api_key = "${OPENAI_API_KEY}"
+model = "gpt-4o"
+base_url = "https://api.openai.com/v1"
+
+[llm.providers.anthropic]
+enabled = true
+api_key = "${ANTHROPIC_API_KEY}"
+model = "claude-3-opus-20240229"
+base_url = "https://api.anthropic.com/v1"
+
+[llm.providers.ollama]
+enabled = true
+model = "llama3"
+base_url = "${OLLAMA_BASE_URL:-http://localhost:11434}"
+
+[scheduler]
+main_provider = "openai"
+max_concurrent_tasks = 4
+aux_providers = ["code", "logic", "review"]
+
+[memory]
+mode = "sqlite"
+db_path = "./data/memory.db"
+session_max_entries = 10000
+session_ttl_ms = 3600000
+persistent_max_entries = 100000
+embedding_dim = 384
+
+[gateway]
+feishu_enabled = false
+github_enabled = true
+
+[gateway.feishu]
+app_id = "${FEISHU_APP_ID}"
+app_secret = "${FEISHU_APP_SECRET}"
+verification_token = "${FEISHU_VERIFICATION_TOKEN}"
+encrypt_key = "${FEISHU_ENCRYPT_KEY}"
+base_url = "https://open.feishu.cn"
+
+[gateway.github]
+webhook_secret = "${GITHUB_WEBHOOK_SECRET}"
+allowed_repos = []
+allowed_events = ["push", "pull_request", "issue"]
+base_url = "https://api.github.com"

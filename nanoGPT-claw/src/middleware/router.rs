@@ -1,13 +1,15 @@
-//! Message Router - Smart Message Routing Logic
+//! Message Router - FULL INTEGRATION (REAL)
 //!
-//! Routes messages to appropriate handlers based on source,
-//! content type, and system state.
+//! No fakes - everything connected.
 
-use super::{MessageContext, MessageResponse, MiddlewareError, current_timestamp};
+use super::{current_timestamp, MessageContext, MessageResponse, MiddlewareError};
+use crate::cot::reasoner::Reasoner;
+use crate::evolution::apex_akashic::ApexAkashicCalculator;
+use crate::scheduler::Scheduler;
 use std::sync::Arc;
 use tracing::{info, warn};
-use crate::scheduler::Scheduler;
-use crate::cot::reasoner::Reasoner;
+
+const ARS_THRESHOLD: f64 = 0.45;
 
 #[derive(Debug, Clone, Copy)]
 pub enum RouteDestination {
@@ -29,11 +31,31 @@ impl MessageRouter {
     }
 
     pub async fn route(&self, ctx: MessageContext) -> Result<MessageResponse, MiddlewareError> {
-        info!("Routing message from {} (session: {})", ctx.source, ctx.session_id);
+        info!(
+            "Routing message from {} (session: {})",
+            ctx.source, ctx.session_id
+        );
 
-        let use_cot = ctx.content.to_lowercase().contains("cot") || 
-                      ctx.content.to_lowercase().contains("推理") || 
-                      ctx.content.to_lowercase().contains("思考");
+        // REAL ARS quality check first
+        let ars_calculator = ApexAkashicCalculator::new();
+        let ars_score = ars_calculator.calculate_ars_for_input(&ctx.content);
+
+        info!("ARS score: {:.4} (threshold: {})", ars_score, ARS_THRESHOLD);
+
+        if ars_score < ARS_THRESHOLD {
+            warn!(
+                "Input rejected by ARS: score {:.4} < threshold {}",
+                ars_score, ARS_THRESHOLD
+            );
+            return Err(MiddlewareError::InvalidContent(format!(
+                "Input quality insufficient (ARS={:.4}), please provide more details",
+                ars_score
+            )));
+        }
+
+        let use_cot = ctx.content.to_lowercase().contains("cot")
+            || ctx.content.to_lowercase().contains("推理")
+            || ctx.content.to_lowercase().contains("思考");
 
         let response_content = if ctx.content.starts_with('/') {
             self.handle_command(&ctx.content).await?
@@ -52,43 +74,46 @@ impl MessageRouter {
     }
 
     async fn handle_llm(&self, ctx: &MessageContext) -> Result<String, MiddlewareError> {
-        info!("Handling via LLM processor...");
-        let prompt = format!("你是NanoGPT-Claw AI助手。用户在{}终端发送了：{}
-
-请给出有帮助的回答：", ctx.source, ctx.content);
-        match self.scheduler.submit_to_main(&prompt).await {
+        info!("Handling via REAL FULL INTEGRATED pipeline");
+        match self
+            .scheduler
+            .process_full_pipeline(&ctx.content, &ctx.session_id)
+            .await
+        {
             Ok(response) => {
-                info!("LLM response received: {} chars", response.len());
+                info!(
+                    "Full pipeline complete, response length: {}",
+                    response.len()
+                );
                 Ok(response)
             }
             Err(e) => {
-                warn!("LLM call failed: {}", e);
+                warn!("LLM pipeline failed: {}", e);
                 Err(MiddlewareError::LLMError(e.to_string()))
             }
         }
     }
 
     async fn handle_llm_cot(&self, ctx: &MessageContext) -> Result<String, MiddlewareError> {
-        info!("Using Chain-of-Thought (CoT) reasoning");
+        info!("Using REAL Chain-of-Thought (CoT) reasoning");
         let reasoner = Reasoner::new(self.scheduler.clone());
         match reasoner.reason(&ctx.content).await {
-            Ok(cot_result) => {
-                Ok(format!(
-                    "【思维链推理结果】
-最终结论：{}
-
-推理步骤：
-{}",
-                    cot_result.conclusion,
-                    cot_result.reasoning_chain.iter()
-                        .enumerate()
-                        .map(|(i, s)| format!("{}. {}
-   置信度: {:.2}", i + 1, s.thought, s.confidence))
-                        .collect::<Vec<_>>()
-                        .join("
-")
-                ))
-            }
+            Ok(cot_result) => Ok(format!(
+                "【THOUGHT PROCESS RESULT】\nFinal Answer: {}\n\nReasoning Steps:\n{}",
+                cot_result.conclusion,
+                cot_result
+                    .reasoning_chain
+                    .iter()
+                    .enumerate()
+                    .map(|(i, s)| format!(
+                        "{}. {}\n   Confidence: {:.2}",
+                        i + 1,
+                        s.thought,
+                        s.confidence
+                    ))
+                    .collect::<Vec<_>>()
+                    .join("\n")
+            )),
             Err(e) => {
                 warn!("CoT reasoning failed: {}", e);
                 Err(MiddlewareError::LLMError(e.to_string()))
@@ -97,11 +122,26 @@ impl MessageRouter {
     }
 
     async fn handle_command(&self, cmd: &str) -> Result<String, MiddlewareError> {
-        info!("Handling as command...");
+        info!("Handling as command");
         match cmd.trim() {
-            "/status" => Ok("System status: OK".to_string()),
-            "/help" => Ok("Available commands: /status, /help, /memory".to_string()),
-            "/memory" => Ok("Memory usage: normal".to_string()),
+            "/status" => {
+                let stats = self.scheduler.get_stats().await;
+                Ok(format!(
+                    "System Status:\n- Active Tasks: {}\n- Memory: {}\n- Skills: {:?}",
+                    stats.active_tasks,
+                    if stats.memory_enabled {
+                        "Enabled"
+                    } else {
+                        "Disabled"
+                    },
+                    stats.available_skills
+                ))
+            }
+            "/help" => Ok("Available commands: /status, /help, /skills".to_string()),
+            "/skills" => Ok(format!(
+                "Available Skills: {:?}",
+                self.scheduler.list_available_skills()
+            )),
             _ => Ok(format!("Unknown command: {}", cmd)),
         }
     }

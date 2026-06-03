@@ -1,0 +1,297 @@
+name: apex_benchmark_v1
+version: 1.0
+description: 10任务自动评测基准，覆盖短/中/长难度，含评分函数
+
+tasks:
+
+  # ========== 短任务（1-3步）==========
+
+  - id: fibonacci
+    description: 计算第n个斐波那契数
+    difficulty: short
+    prompt: |
+      实现函数 fibonacci(n: int) -> int，返回第n个斐波那契数（从0开始）。
+      示例：fibonacci(0)=0, fibonacci(1)=1, fibonacci(6)=8
+    entry_point: fibonacci
+    test_cases:
+      - inputs: [0]
+        expected: 0
+      - inputs: [1]
+        expected: 1
+      - inputs: [6]
+        expected: 8
+      - inputs: [10]
+        expected: 55
+    atol: 0
+    timeout: 2
+
+  - id: is_palindrome
+    description: 判断字符串是否回文
+    difficulty: short
+    prompt: |
+      实现函数 is_palindrome(s: str) -> bool，忽略大小写和非字母数字字符。
+      示例：is_palindrome("A man a plan a canal Panama") == True
+    entry_point: is_palindrome
+    test_cases:
+      - inputs: ["racecar"]
+        expected: true
+      - inputs: ["hello"]
+        expected: false
+      - inputs: ["A man a plan a canal Panama"]
+        expected: true
+    atol: 0
+    timeout: 2
+
+  - id: max_of_three
+    description: 返回三个数最大值
+    difficulty: short
+    prompt: |
+      实现函数 max_of_three(a: float, b: float, c: float) -> float，返回最大值。
+    entry_point: max_of_three
+    test_cases:
+      - inputs: [1, 5, 3]
+        expected: 5
+      - inputs: [-10, -2, -7]
+        expected: -2
+      - inputs: [3.14, 2.71, 3.15]
+        expected: 3.15
+    atol: 0.0001
+    timeout: 2
+
+  - id: count_vowels
+    description: 统计字符串中元音字母数量
+    difficulty: short
+    prompt: |
+      实现函数 count_vowels(s: str) -> int，统计英文元音（aeiouAEIOU）个数。
+    entry_point: count_vowels
+    test_cases:
+      - inputs: ["hello"]
+        expected: 2
+      - inputs: ["Python"]
+        expected: 1
+      - inputs: [""]
+        expected: 0
+    atol: 0
+    timeout: 2
+
+  - id: reverse_list
+    description: 反转整数列表
+    difficulty: short
+    prompt: |
+      实现函数 reverse_list(lst: list[int]) -> list[int]，返回反转后的新列表。
+    entry_point: reverse_list
+    test_cases:
+      - inputs: [[1, 2, 3, 4, 5]]
+        expected: [5, 4, 3, 2, 1]
+      - inputs: [[]]
+        expected: []
+      - inputs: [[42]]
+        expected: [42]
+    atol: 0
+    timeout: 2
+
+  # ========== 中任务（5-10步）==========
+
+  - id: binary_search
+    description: 二分查找目标元素下标
+    difficulty: medium
+    prompt: |
+      实现函数 binary_search(arr: list[int], target: int) -> int。
+      数组已升序排列，若找到返回下标，否则返回-1。
+    entry_point: binary_search
+    test_cases:
+      - inputs: [[1, 3, 5, 7, 9], 5]
+        expected: 2
+      - inputs: [[1, 3, 5, 7, 9], 4]
+        expected: -1
+      - inputs: [[], 1]
+        expected: -1
+      - inputs: [[2, 4, 6, 8, 10, 12], 10]
+        expected: 4
+    atol: 0
+    timeout: 3
+
+  - id: parse_ini
+    description: 解析INI格式字符串为字典
+    difficulty: medium
+    prompt: |
+      实现函数 parse_ini(content: str) -> dict[str, dict[str, str]]。
+      解析INI字符串，返回 {section: {key: value}}。
+      支持 # 和 ; 开头的注释行，忽略空行。
+      示例输入：
+        [server]
+        host=localhost
+        port=8080
+        # comment
+        [database]
+        dbname=test
+    entry_point: parse_ini
+    test_cases:
+      - inputs: ["[section1]\nkey1=value1\n[section2]\nkey2=value2"]
+        expected:
+          section1:
+            key1: value1
+          section2:
+            key2: value2
+      - inputs: ["[meta]\nname=test\n# comment\n[meta]\nname2=test2"]
+        expected:
+          meta:
+            name: test
+            name2: test2
+    atol: 0
+    timeout: 5
+
+  - id: merge_intervals
+    description: 合并重叠区间
+    difficulty: medium
+    prompt: |
+      实现函数 merge_intervals(intervals: list[list[int]]) -> list[list[int]]。
+      合并所有重叠的区间，返回合并后的区间列表（按起始排序）。
+      示例：merge_intervals([[1,3],[2,6],[8,10],[15,18]]) == [[1,6],[8,10],[15,18]]
+    entry_point: merge_intervals
+    test_cases:
+      - inputs: [[[1, 3], [2, 6], [8, 10], [15, 18]]]
+        expected: [[1, 6], [8, 10], [15, 18]]
+      - inputs: [[[1, 4], [4, 5]]]
+        expected: [[1, 5]]
+      - inputs: [[[1, 4]]]
+        expected: [[1, 4]]
+    atol: 0
+    timeout: 5
+
+  # ========== 长任务（10+步）==========
+
+  - id: http_server
+    description: 简易HTTP服务器（处理GET请求）
+    difficulty: long
+    prompt: |
+      实现函数 make_http_handler() -> dict。
+      返回一个字典，包含 'handle' 函数，签名：handle(method, path, headers, body) -> (status_code, response_headers, response_body)。
+      要求：
+      - 处理 GET / 返回 200 和 "OK"
+      - 处理 GET /health 返回 200 和 "healthy"
+      - 处理 GET /echo?msg=xxx 返回 200 和 xxx 内容
+      - 其他情况返回 404 和 "Not Found"
+      - method 不为 GET 时返回 405 和 "Method Not Allowed"
+    entry_point: make_http_handler
+    test_cases:
+      - inputs: ["GET", "/", {}, ]
+        expected: [200, {}, "OK"]
+      - inputs: ["GET", "/health", {}, ]
+        expected: [200, {}, "healthy"]
+      - inputs: ["GET", "/echo?msg=hello", {}, ]
+        expected: [200, {}, "hello"]
+      - inputs: ["GET", "/unknown", {}, ]
+        expected: [404, {}, "Not Found"]
+      - inputs: ["POST", "/", {}, ]
+        expected: [405, {}, "Method Not Allowed"]
+    atol: 0
+    timeout: 10
+
+  - id: markdown_to_html
+    description: Markdown转HTML（支持标题、列表、代码块）
+    difficulty: long
+    prompt: |
+      实现函数 markdown_to_html(md: str) -> str，转换Markdown为HTML。
+      支持：
+      - # H1, ## H2, ### H3 （转成 <h1>, <h2>, <h3>）
+      - **bold** （转成 <b>bold</b>）
+      - *italic* （转成 <i>italic</i>）
+      - `inline_code` （转成 <code>inline_code</code>）
+      - ```lang\\ncode\\n``` （代码块转成 <pre><code>code</code></pre>）
+      - - item （无序列表项，转成 <li>）
+      - 空行分隔段落，转成 <p>
+    entry_point: markdown_to_html
+    test_cases:
+      - inputs: ["# Hello"]
+        expected: "<h1>Hello</h1>"
+      - inputs: ["**bold** and *italic*"]
+        expected: "<p><b>bold</b> and <i>italic</i></p>"
+      - inputs: ["```python\\nprint(1)\\n```"]
+        expected: "<pre><code>print(1)</code></pre>"
+      - inputs: ["- item1\\n- item2"]
+        expected: "<ul><li>item1</li><li>item2</li></ul>"
+    atol: 0
+    timeout: 15
+
+# ========== 评分器（可直接运行）==========
+
+scorer:
+  type: python_function
+  function: |
+    import ast, time, json, traceback
+    from typing import Any
+
+    def score_task(code: str, task: dict) -> dict:
+        """
+        通用评分器：执行代码，对每个测试用例比较输出。
+        code: 待评测的Python代码（字符串）
+        task: YAML中定义的task字典
+        返回: {"pass": bool, "details": str, "score": float}
+        """
+        ns = {}
+        entry = task["entry_point"]
+        test_cases = task["test_cases"]
+        atol = task.get("atol", 0)
+        timeout = task.get("timeout", 5)
+
+        try:
+            exec(compile(code, "<ast>", "exec"), ns)
+        except Exception as e:
+            return {"pass": False, "details": f"Syntax/Compile Error: {e}", "score": 0.0}
+
+        if entry not in ns:
+            return {"pass": False, "details": f"函数 {entry} 未找到", "score": 0.0}
+
+        fn = ns[entry]
+        passed = 0
+
+        for tc in test_cases:
+            raw_inp = tc["inputs"]
+            expected = tc["expected"]
+
+            # 适配不同参数个数
+            try:
+                if isinstance(raw_inp, list):
+                    result = fn(*raw_inp)
+                else:
+                    result = fn(raw_inp)
+            except Exception as e:
+                # 超时或运行时错误视为失败
+                passed += 0
+                continue
+
+            ok = compare(result, expected, atol)
+            passed += 1 if ok else 0
+
+        score = passed / len(test_cases) if test_cases else 0.0
+        return {"pass": passed == len(test_cases), "details": f"{passed}/{len(test_cases)}", "score": score}
+
+    def compare(a: Any, b: Any, atol: float) -> bool:
+        if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
+            if len(a) != len(b):
+                return False
+            return all(compare(ai, bi, atol) for ai, bi in zip(a, b))
+        if isinstance(a, (int, float)) and isinstance(b, (int, float)):
+            return abs(a - b) <= atol
+        # 布尔值兼容
+        if isinstance(b, bool):
+            a = bool(a)
+        if isinstance(a, str) and isinstance(b, str):
+            return a.strip() == b.strip()
+        return a == b
+
+  # 运行方式：python -c "$(cat scorer.yaml.function)" task.jsonl results.jsonl
+  run_cmd: |
+    python3 -c "
+    import json, sys, ast
+    from your_scorer import score_task, compare
+
+    tasks = [json.loads(l) for l in open('tasks.jsonl')]
+    results = []
+    for task in tasks:
+        code = task.pop('submission')
+        score = score_task(code, task)
+        results.append({'task_id': task['id'], **score})
+    json.dump(results, open('results.jsonl','w'), ensure_ascii=False)
+    "

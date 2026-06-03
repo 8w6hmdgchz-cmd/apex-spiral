@@ -1,0 +1,176 @@
+# NanoGPT-Claw Configuration
+# Lightweight Multi-LLM Closed-Loop Evolution Agent
+
+system:
+  name: "NanoGPT-Claw"
+  version: "0.9.1"
+  mode: "daemon"
+  max_concurrent_tasks: 5
+  language: "zh"
+  timezone: "Asia/Shanghai"
+
+cli:
+  prompt: "nanogpt> "
+  history_size: 100
+  echo: true
+  color_output: true
+  auto_save: true
+
+llm:
+  core_model:
+    id: "core-1"
+    name: "Core Main LLM"
+    role: "core"
+    provider: "openai"
+    api_key: "${OPENAI_API_KEY}"
+    base_url: "https://api.openai.com/v1"
+    model_name: "gpt-4o"
+    max_tokens: 4096
+    temperature: 0.7
+    top_p: 0.9
+    system_prompt: null
+
+  auxiliary_models:
+    - id: "aux-code-1"
+      name: "Code Auditor"
+      role: "code_audit"
+      provider: "openai"
+      api_key: "${OPENAI_API_KEY}"
+      base_url: "https://api.openai.com/v1"
+      model_name: "gpt-3.5-turbo"
+      max_tokens: 2048
+      temperature: 0.3
+      top_p: 0.85
+      system_prompt: null
+
+    - id: "aux-logic-1"
+      name: "Logic Reviewer"
+      role: "logic_review"
+      provider: "openai"
+      api_key: "${OPENAI_API_KEY}"
+      base_url: "https://api.openai.com/v1"
+      model_name: "gpt-3.5-turbo"
+      max_tokens: 2048
+      temperature: 0.5
+      top_p: 0.9
+      system_prompt: null
+
+  providers:
+    openai:
+      enabled: true
+      api_key: "${OPENAI_API_KEY}"
+      base_url: "https://api.openai.com/v1"
+      default_model: "gpt-4o"
+      max_tokens: 4096
+      temperature: 0.7
+      top_p: 0.9
+      timeout_secs: 120
+      priority: 1
+
+  request_timeout_secs: 120
+  max_retries: 3
+  retry_delay_ms: 1000
+  retry_backoff_multiplier: 2.0
+  retry_jitter_factor: 0.1
+  fallback_strategy: "fallback_provider"
+  cache_enabled: true
+  cache_ttl_secs: 3600
+
+memory:
+  short_term_ttl_hours: 24
+  long_term_enabled: true
+  similarity_threshold: 0.75
+  max_short_term_items: 1000
+  max_long_term_items: 10000
+  cleanup_interval_hours: 6
+  storage:
+    backend: "sqlite"
+    path: "./data/memory.db"
+    encryption_enabled: false
+  vector_db: null
+
+skills:
+  enabled: true
+  auto_discover: true
+  skill_paths: ["./skills"]
+  enabled_skills: ["echo", "cargo-check", "cargo-test", "cargo-clippy", "code-fix"]
+  skill_settings: {}
+
+lark:
+  enabled: false
+  app_id: "${FEISHU_APP_ID}"
+  app_secret: "${FEISHU_APP_SECRET}"
+  bot_name: "NanoGPT-Claw Bot"
+  webhook_url: ""
+  verify_token: "${FEISHU_VERIFY_TOKEN}"
+  encrypt_key: null
+  event_callback_url: "/webhook/lark"
+  auto_reply: true
+  allowed_groups: []
+
+github:
+  enabled: false
+  webhook_secret: "${GITHUB_WEBHOOK_SECRET}"
+  app_id: ""
+  private_key: ""
+  repository: ""
+  auto_scan_enabled: true
+  scan_interval_hours: 24
+  auto_commit_enabled: false
+  auto_pr_enabled: false
+  branches: ["main", "master"]
+  allowed_events: ["push", "pull_request", "issues"]
+
+gateway:
+  http_enabled: true
+  http_port: 8080
+  http_host: "0.0.0.0"
+  websocket_enabled: false
+  websocket_port: 8081
+  cors_origins: ["*"]
+  rate_limit_enabled: true
+  rate_limit_requests: 100
+  rate_limit_window_secs: 60
+
+daemon:
+  pid_file: "/tmp/nanogpt-claw.pid"
+  restart_delay_secs: 5
+  max_restart_attempts: 10
+  health_check_interval_secs: 60
+  graceful_shutdown_timeout_secs: 30
+  watch_dog_enabled: true
+
+logging:
+  level: "info"
+  file_enabled: true
+  file_path: "./logs/nanogpt-claw.log"
+  console_enabled: true
+  max_file_size_mb: 100
+  max_files: 10
+  format: "json"
+  include_timestamps: true
+  include_module_path: true
+
+optimization:
+  auto_evolution_enabled: true
+  evolution_interval_hours: 24
+  performance_monitoring_enabled: true
+  benchmark_on_startup: false
+  auto_optimize_prompts: true
+  prompt_learning_rate: 0.01
+
+safety:
+  content_filter_enabled: false
+  content_filter_level: "medium"
+  pii_detection_enabled: false
+  pii_redaction_enabled: false
+  rate_limiting_enabled: true
+  max_session_length_minutes: 480
+  allowed_domains: []
+
+plugins:
+  enabled: false
+  plugin_dir: "./plugins"
+  auto_load: false
+  enabled_plugins: []
+  plugin_settings: {}

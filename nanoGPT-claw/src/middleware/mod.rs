@@ -5,11 +5,11 @@
 
 pub mod router;
 
-use std::collections::HashMap;
-use std::sync::Arc;
 use parking_lot::RwLock;
 use serde::{Deserialize, Serialize};
-use tracing::{info, warn, error};
+use std::collections::HashMap;
+use std::sync::Arc;
+use tracing::{error, info, warn};
 
 use crate::scheduler::Scheduler;
 
@@ -142,11 +142,14 @@ impl MessageMiddleware {
             session.last_message = ctx.timestamp;
             session.message_count += 1;
         } else {
-            sessions.insert(ctx.session_id.clone(), SessionContext {
-                source: ctx.source,
-                last_message: ctx.timestamp,
-                message_count: 1,
-            });
+            sessions.insert(
+                ctx.session_id.clone(),
+                SessionContext {
+                    source: ctx.source,
+                    last_message: ctx.timestamp,
+                    message_count: 1,
+                },
+            );
         }
     }
 
@@ -156,7 +159,9 @@ impl MessageMiddleware {
         }
 
         if ctx.content.len() > 100_000 {
-            return Err(MiddlewareError::InvalidContent("Message too long".to_string()));
+            return Err(MiddlewareError::InvalidContent(
+                "Message too long".to_string(),
+            ));
         }
 
         Ok(())
@@ -171,8 +176,16 @@ impl MessageMiddleware {
         })
     }
 
-    pub async fn sync_context(&self, from: MessageSource, to: MessageSource, session_id: &str) -> Result<(), MiddlewareError> {
-        info!("Syncing context from {} to {} for session {}", from, to, session_id);
+    pub async fn sync_context(
+        &self,
+        from: MessageSource,
+        to: MessageSource,
+        session_id: &str,
+    ) -> Result<(), MiddlewareError> {
+        info!(
+            "Syncing context from {} to {} for session {}",
+            from, to, session_id
+        );
         Ok(())
     }
 }

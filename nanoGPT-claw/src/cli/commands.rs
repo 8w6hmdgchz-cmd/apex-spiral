@@ -1,24 +1,30 @@
-//! CLI Commands - Command Processing and Execution
+//! CLI Commands - FULLY INTEGRATED WITH MEMORY & APEX
+//!
+//! ✅ 真的初始化完整记忆层
+//! ✅ 真的初始化带 APEX 进化的 Scheduler
+//! ✅ 真的调用完整闭环流程
+//!
+//! 不再造假！
 
-use std::sync::Arc;
-use std::collections::HashMap;
-use crate::memory::{MemoryManager, MemoryConfig, MemoryStats as MemStats};
+use crate::daemon_service::{Task, TaskQueue, TaskStatus, TaskType, TaskWorker};
+use crate::memory::{MemoryConfig, MemoryLayer, MemoryStats};
+use crate::middleware::{MessageContext, MessageMiddleware, MessageSource};
 use crate::scheduler::Scheduler;
-use crate::middleware::{MessageMiddleware, MessageContext, MessageSource};
-use crate::daemon_service::{TaskQueue, TaskWorker, Task, TaskType, TaskStatus};
-use crate::skill::SkillRegistry;
-use crate::skill::built_in::{
-    EchoSkill, HelpSkill, StatusSkill,
-    CargoCheckSkill, CargoTestSkill, CargoClippySkill, CodeFixSkill
-};
 use crate::skill::auto_fix::AutoFixSkill;
+use crate::skill::built_in::{
+    CargoCheckSkill, CargoClippySkill, CargoTestSkill, CodeFixSkill, EchoSkill, HelpSkill,
+    StatusSkill,
+};
 use crate::skill::github_api::GitHubApiSkill;
+use crate::skill::SkillRegistry;
+use std::collections::HashMap;
+use std::sync::Arc;
 use tracing::{info, warn};
 
-static TASK_QUEUE: once_cell::sync::Lazy<Arc<TaskQueue>> = 
+static TASK_QUEUE: once_cell::sync::Lazy<Arc<TaskQueue>> =
     once_cell::sync::Lazy::new(|| Arc::new(TaskQueue::new(4)));
 
-static SKILL_REGISTRY: once_cell::sync::Lazy<Arc<SkillRegistry>> = 
+static SKILL_REGISTRY: once_cell::sync::Lazy<Arc<SkillRegistry>> =
     once_cell::sync::Lazy::new(|| {
         let registry = Arc::new(SkillRegistry::new());
         registry.register(Arc::new(EchoSkill::new()));
@@ -33,73 +39,118 @@ static SKILL_REGISTRY: once_cell::sync::Lazy<Arc<SkillRegistry>> =
         registry
     });
 
-pub async fn process_message(message: &str) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
+/// Global app config storage
+static APP_CONFIG: once_cell::sync::Lazy<
+    parking_lot::RwLock<Option<crate::config::settings::AppConfig>>,
+> = once_cell::sync::Lazy::new(|| parking_lot::RwLock::new(None));
+
+/// Initialize app config with environment variables
+pub fn init_app_config() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
+    let app_config = crate::config::init_config()?;
+    let env_config = crate::config::EnvConfig::load();
+    let merged_config = crate::config::merge_env_config(app_config, &env_config);
+    *APP_CONFIG.write() = Some(merged_config);
+    Ok(())
+}
+
+/// Get global config
+pub fn get_app_config() -> Option<crate::config::settings::AppConfig> {
+    APP_CONFIG.read().clone()
+}
+
+/// 真的完整处理，初始化所有系统！
+pub async fn process_message(
+    message: &str,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     if message.trim().is_empty() {
         warn!("Empty message received");
         return Ok(());
     }
 
-    info!("Processing message: {}", message);
+    info!("Processing message with FULL INTEGRATION: {}", message);
 
     let ctx = MessageContext {
         content: message.to_string(),
         source: MessageSource::Cli,
         user_id: "cli_user".to_string(),
-        session_id: uuid_v4(),
+        session_id: "cli_session".to_string(),
         timestamp: chrono_now(),
         metadata: Default::default(),
     };
 
-    let scheduler = Arc::new(Scheduler::new());
+    // 1. 真的初始化完整记忆层！
+    info!("Initializing full MemoryLayer...");
+    let memory_config = MemoryConfig::default();
+    let memory_layer = MemoryLayer::new(memory_config).await?;
+    info!("✅ MemoryLayer initialized!");
+
+    // 2. 真的初始化带 APEX 进化的 Scheduler！
+    info!("Initializing full Scheduler with APEX evolution...");
+    let scheduler: Arc<Scheduler> = if let Some(config) = get_app_config() {
+        info!("✅ Using app config for Scheduler initialization");
+        let mut sched = Scheduler::from_app_config(&config);
+        sched.memory = Some(Arc::new(memory_layer));
+        Arc::new(sched)
+    } else {
+        info!("✅ Using default Scheduler with memory");
+        Arc::new(Scheduler::with_memory(memory_layer))
+    };
+
+    info!("✅ Full Scheduler with APEX evolution initialized!");
+
+    // 3. 创建中间件处理
     let middleware = MessageMiddleware::new(scheduler);
     let response = middleware.process(ctx).await?;
 
-    info!("Response: {}", response.content);
-    println!("
-[Agent] {}", response.content);
+    info!("✅ Response received, length: {}", response.content.len());
+    println!("\n{}", response.content);
 
     Ok(())
 }
 
-pub async fn manage_memory(subcmd: &str) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
+pub async fn manage_memory(
+    subcmd: &str,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     let config = MemoryConfig::default();
-    let memory = MemoryManager::new(config).await?;
+    let memory = MemoryLayer::new(config).await?;
 
     match subcmd {
         "show" | "stats" => {
             let stats = memory.stats().await;
-            println!("
-=== Memory Statistics ===");
-            println!("Session entries: {}", stats.session_entries);
-            println!("Persistent entries: {}", stats.persistent_entries);
+            println!("\n=== 记忆统计 ===");
+            println!("会话条目: {}", stats.session_entries);
+            println!("持久化条目: {}", stats.persistent_entries);
         }
         "clear" => {
-            info!("Clearing session memory...");
+            info!("Clearing session memory");
             memory.clear_session().await;
-            println!("Session memory cleared.");
+            println!("✅ 会话记忆已清空");
         }
         _ => {
-            println!("Unknown memory command: {}", subcmd);
-            println!("Available: show, clear, stats");
+            println!("未知的记忆命令: {}", subcmd);
+            println!("可用命令: show, clear, stats");
         }
     }
 
     Ok(())
 }
 
-pub async fn get_system_status() -> Result<SystemStatus, Box<dyn std::error::Error + Send + Sync + 'static>> {
+pub async fn get_system_status(
+) -> Result<SystemStatus, Box<dyn std::error::Error + Send + Sync + 'static>> {
     let config = MemoryConfig::default();
-    let memory = MemoryManager::new(config).await?;
+    let memory = MemoryLayer::new(config).await?;
     let mem_stats = memory.stats().await;
 
-    let scheduler = Scheduler::new();
+    let scheduler = Scheduler::with_memory(memory);
+    let scheduler_stats = scheduler.get_stats().await;
 
     Ok(SystemStatus {
-        version: "0.1.0".to_string(),
+        version: "0.9.1".to_string(),
         uptime_seconds: get_uptime(),
         memory_stats: mem_stats,
         daemon_running: is_daemon_running(),
         scheduler_active: scheduler.is_active(),
+        apex_score: scheduler_stats.apex_score,
     })
 }
 
@@ -107,16 +158,15 @@ pub async fn get_system_status() -> Result<SystemStatus, Box<dyn std::error::Err
 pub struct SystemStatus {
     pub version: String,
     pub uptime_seconds: u64,
-    pub memory_stats: MemStats,
+    pub memory_stats: MemoryStats,
     pub daemon_running: bool,
     pub scheduler_active: bool,
+    pub apex_score: f64,
 }
 
-pub type MemoryStats = MemStats;
+pub type MemoryStatsAlias = MemoryStats;
 
-fn uuid_v4() -> String {
-    uuid::Uuid::new_v4().to_string()
-}
+
 
 fn chrono_now() -> i64 {
     std::time::SystemTime::now()
@@ -136,25 +186,27 @@ fn is_daemon_running() -> bool {
     std::path::Path::new("/tmp/nano-gpt-claw.pid").exists()
 }
 
-pub async fn add_task(task_type: TaskType, description: String) -> Result<String, Box<dyn std::error::Error + Send + Sync + 'static>> {
+pub async fn add_task(
+    task_type: TaskType,
+    description: String,
+) -> Result<String, Box<dyn std::error::Error + Send + Sync + 'static>> {
     let task = Task::new(task_type, description);
     let task_id = TASK_QUEUE.add_task(task).await?;
-    println!("✅ Task created: [{}]", task_id);
+    println!("✅ 任务创建: [{}]", task_id);
     Ok(task_id)
 }
 
 pub async fn list_tasks() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     let tasks = TASK_QUEUE.list_tasks().await;
-    println!("
-╔══════════════════════════════════════════════════════════════╗");
-    println!("║  Background Tasks                                         ║");
+    println!("\n╔══════════════════════════════════════════════════════════════╗");
+    println!("║  后台任务列表                                                 ║");
     println!("╚══════════════════════════════════════════════════════════════╝");
-    
+
     if tasks.is_empty() {
-        println!("  📭 No tasks found.");
+        println!("  📭 暂无任务");
         return Ok(());
     }
-    
+
     for task in tasks {
         let status_icon = match task.status {
             TaskStatus::Pending => "⏳",
@@ -163,25 +215,26 @@ pub async fn list_tasks() -> Result<(), Box<dyn std::error::Error + Send + Sync 
             TaskStatus::Failed => "❌",
             TaskStatus::Cancelled => "🚫",
         };
-        
-        println!("
-  {} Task [{}]", status_icon, task.id);
-        println!("    Type:    {:?}", task.task_type);
-        println!("    Status:  {:?}", task.status);
-        println!("    Description: {}", task.description);
-        println!("    Progress: {:.1}%", task.progress);
+
+        println!("\n  {} 任务 [{}]", status_icon, task.id);
+        println!("    类型:     {:?}", task.task_type);
+        println!("    状态:     {:?}", task.status);
+        println!("    描述:     {}", task.description);
+        println!("    进度:     {:.1}%", task.progress);
         if let Some(result) = &task.result {
-            println!("    Result: {}", result);
+            println!("    结果:     {}", result);
         }
         if let Some(error) = &task.error {
-            println!("    Error:  {}", error);
+            println!("    错误:     {}", error);
         }
     }
-    
+
     Ok(())
 }
 
-pub async fn get_task(task_id: String) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
+pub async fn get_task(
+    task_id: String,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     if let Some(task) = TASK_QUEUE.get_task(&task_id).await {
         let status_icon = match task.status {
             TaskStatus::Pending => "⏳",
@@ -190,120 +243,123 @@ pub async fn get_task(task_id: String) -> Result<(), Box<dyn std::error::Error +
             TaskStatus::Failed => "❌",
             TaskStatus::Cancelled => "🚫",
         };
-        
-        println!("
-╔══════════════════════════════════════════════════════════════╗");
-        println!("║  Task Details                                               ║");
+
+        println!("\n╔══════════════════════════════════════════════════════════════╗");
+        println!("║  任务详情                                                     ║");
         println!("╚══════════════════════════════════════════════════════════════╝");
-        
-        println!("
-  {} Task [{}]", status_icon, task.id);
-        println!("  Type:         {:?}", task.task_type);
-        println!("  Description:  {}", task.description);
-        println!("  Status:       {:?}", task.status);
-        println!("  Created:      {}", task.created_at);
-        println!("  Started:      {}", task.started_at.as_ref().map(|t| t.to_string()).unwrap_or_else(|| "N/A".to_string()));
-        println!("  Completed:    {}", task.completed_at.as_ref().map(|t| t.to_string()).unwrap_or_else(|| "N/A".to_string()));
-        println!("  Progress:     {:.1}%", task.progress);
-        
+
+        println!("\n  {} 任务 [{}]", status_icon, task.id);
+        println!("  类型:         {:?}", task.task_type);
+        println!("  描述:         {}", task.description);
+        println!("  状态:         {:?}", task.status);
+        println!("  创建时间:     {}", task.created_at);
+        println!(
+            "  开始时间:     {}",
+            task.started_at
+                .as_ref()
+                .map(|t| t.to_string())
+                .unwrap_or_else(|| "N/A".to_string())
+        );
+        println!(
+            "  完成时间:     {}",
+            task.completed_at
+                .as_ref()
+                .map(|t| t.to_string())
+                .unwrap_or_else(|| "N/A".to_string())
+        );
+        println!("  进度:         {:.1}%", task.progress);
+
         if let Some(result) = &task.result {
-            println!("  Result:       {}", result);
+            println!("  结果:         {}", result);
         }
         if let Some(error) = &task.error {
-            println!("  Error:        {}", error);
+            println!("  错误:         {}", error);
         }
     } else {
-        println!("❌ Task not found: {}", task_id);
+        println!("❌ 未找到任务: {}", task_id);
     }
-    
+
     Ok(())
 }
 
-pub async fn cancel_task(task_id: String) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
+pub async fn cancel_task(
+    task_id: String,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     TASK_QUEUE.cancel_task(&task_id).await?;
-    println!("✅ Task cancelled: [{}]", task_id);
+    println!("✅ 任务已取消: [{}]", task_id);
     Ok(())
 }
 
 pub async fn start_task_worker() {
     let worker = TaskWorker::new(TASK_QUEUE.clone());
     worker.start().await;
-    println!("✅ Background task worker started!");
+    println!("✅ 后台任务工作进程已启动！");
 }
 
 pub async fn list_skills() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     let skills = SKILL_REGISTRY.list_skills();
-    
-    println!("
-╔══════════════════════════════════════════════════════════════╗");
-    println!("║  Available Skills                                          ║");
+
+    println!("\n╔══════════════════════════════════════════════════════════════╗");
+    println!("║  可用技能列表                                                 ║");
     println!("╚══════════════════════════════════════════════════════════════╝");
-    
+
     if skills.is_empty() {
-        println!("  📭 No skills registered.");
+        println!("  📭 暂无可使用的技能");
         return Ok(());
     }
-    
-    println!("
-Total skills: {}
-", skills.len());
-    
+
+    println!("\n总技能数: {}\n", skills.len());
+
     for skill in skills {
         println!("  🛠️  {}", skill.id);
-        println!("     Name:    {}", skill.name);
-        println!("     Version: {}", skill.version);
-        println!("     Desc:    {}", skill.description);
-        println!("     Category: {:?}", skill.category);
-        println!("     Enabled: {}", if skill.enabled { "✅" } else { "❌" });
+        println!("    名称:     {}", skill.name);
+        println!("    版本:     {}", skill.version);
+        println!("    描述:     {}", skill.description);
+        println!("    分类:     {:?}", skill.category);
+        println!("    启用:     {}", if skill.enabled { "✅" } else { "❌" });
         println!();
     }
-    
-    println!("
-💡 Usage: skill run <skill_id>");
-    println!("   Example: skill run cargo-check");
-    
+
+    println!("\n💡 使用方法: skill run <技能ID>");
+    println!("   示例: skill run cargo-check");
+
     Ok(())
 }
 
-pub async fn run_skill(skill_id: String) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
-    println!("
-🚀 Running skill: {}", skill_id);
+pub async fn run_skill(
+    skill_id: String,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
+    println!("\n🚀 执行技能: {}", skill_id);
     println!("═══════════════════════════════════════════════════");
-    
+
     match SKILL_REGISTRY.execute(&skill_id, HashMap::new()).await {
         Ok(result) => {
             if result.success {
-                println!("✅ Skill executed successfully!");
-                println!("
-📤 Output:");
+                println!("✅ 技能执行成功！");
+                println!("\n📤 输出:");
                 println!("{}", result.output);
-                
+
                 if !result.metadata.is_empty() {
-                    println!("
-📊 Metadata:");
+                    println!("\n📊 元数据:");
                     for (key, value) in &result.metadata {
                         println!("  {}: {}", key, value);
                     }
                 }
-                
-                println!("
-⏱️  Execution time: {}ms", result.execution_time_ms);
+
+                println!("\n⏱️  执行耗时: {}ms", result.execution_time_ms);
             } else {
-                println!("❌ Skill execution failed!");
-                println!("
-📤 Output:");
+                println!("❌ 技能执行失败！");
+                println!("\n📤 输出:");
                 println!("{}", result.output);
             }
         }
         Err(e) => {
-            println!("❌ Failed to execute skill: {}", e);
-            println!("
-💡 Try: skill list  (to see available skills)");
+            println!("❌ 执行技能时出错: {}", e);
+            println!("\n💡 请执行 'skill list' 查看可用技能");
         }
     }
-    
-    println!("═══════════════════════════════════════════════════
-");
-    
+
+    println!("═══════════════════════════════════════════════════\n");
+
     Ok(())
 }

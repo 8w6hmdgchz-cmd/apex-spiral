@@ -1,3 +1,5 @@
+#![allow(clippy::readonly_write_lock)]
+
 //! # Persistent Memory Module
 //!
 //! Implements long-term SQLite-backed storage with semantic search capabilities.
@@ -40,7 +42,7 @@
 //! let memory = PersistentMemory::new(config).await.unwrap();
 //! ```
 
-use rusqlite::{Connection, params};
+use rusqlite::{params, Connection};
 use std::sync::RwLock;
 
 use crate::memory::MemoryEntry;
@@ -100,7 +102,7 @@ impl PersistentMemory {
     /// or if schema initialization fails.
     pub async fn new(config: DbConfig) -> Result<Self, crate::memory::MemoryError> {
         let conn = Self::init_db(&config)?;
-        
+
         Ok(Self {
             conn: RwLock::new(conn),
             config,
@@ -110,12 +112,12 @@ impl PersistentMemory {
 
     /// Initializes the SQLite database and creates schema if needed.
     fn init_db(config: &DbConfig) -> Result<Connection, crate::memory::MemoryError> {
-        let conn = Connection::open(&config.path)
-            .map_err(|e| crate::memory::MemoryError::Database(e))?;
+        let conn =
+            Connection::open(&config.path).map_err(crate::memory::MemoryError::Database)?;
 
         // Enable WAL mode for better concurrent read performance
         conn.execute_batch("PRAGMA journal_mode=WAL;")
-            .map_err(|e| crate::memory::MemoryError::Database(e))?;
+            .map_err(crate::memory::MemoryError::Database)?;
 
         // Create the memories table
         conn.execute(
@@ -128,18 +130,21 @@ impl PersistentMemory {
                 last_accessed INTEGER NOT NULL
             )",
             [],
-        ).map_err(|e| crate::memory::MemoryError::Database(e))?;
+        )
+        .map_err(crate::memory::MemoryError::Database)?;
 
         // Create indexes for efficient querying
         conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_created_at ON memories(created_at)",
             [],
-        ).map_err(|e| crate::memory::MemoryError::Database(e))?;
+        )
+        .map_err(crate::memory::MemoryError::Database)?;
 
         conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_last_accessed ON memories(last_accessed)",
             [],
-        ).map_err(|e| crate::memory::MemoryError::Database(e))?;
+        )
+        .map_err(crate::memory::MemoryError::Database)?;
 
         Ok(conn)
     }
@@ -153,11 +158,13 @@ impl PersistentMemory {
     /// # Note
     /// If embedding is provided, it's serialized as a blob of f32 values.
     /// Tags are stored as a JSON array string.
-    pub async fn insert(&mut self, key: &str, entry: MemoryEntry) 
-        -> Result<(), crate::memory::MemoryError> 
-    {
+    pub async fn insert(
+        &mut self,
+        key: &str,
+        entry: MemoryEntry,
+    ) -> Result<(), crate::memory::MemoryError> {
         let conn = self.conn.write().unwrap();
-        
+
         // Serialize embedding if present
         let embedding_blob: Option<Vec<u8>> = entry.embedding.as_ref().map(|e| {
             let mut bytes = Vec::with_capacity(e.len() * 4);
@@ -185,7 +192,7 @@ impl PersistentMemory {
                 entry.created_at as i64,
                 entry.last_accessed as i64,
             ],
-        ).map_err(|e| crate::memory::MemoryError::Database(e))?;
+        ).map_err(crate::memory::MemoryError::Database)?;
 
         // Check if we need to evict old entries
         if self.config.max_entries > 0 {
@@ -204,7 +211,7 @@ impl PersistentMemory {
     /// * `Option<MemoryEntry>` - The entry if found, None otherwise
     pub async fn get(&self, key: &str) -> Option<MemoryEntry> {
         let conn = self.conn.read().unwrap();
-        
+
         let result = conn.query_row(
             "SELECT value, embedding, tags, created_at, last_accessed 
              FROM memories WHERE key = ?1",
@@ -255,7 +262,8 @@ impl PersistentMemory {
                 conn.execute(
                     "UPDATE memories SET last_accessed = ?1 WHERE key = ?2",
                     params![now, key],
-                ).ok();
+                )
+                .ok();
                 Some(entry)
             }
             Err(_) => None,
@@ -271,11 +279,10 @@ impl PersistentMemory {
     /// * `bool` - True if the key existed and was removed
     pub async fn remove(&self, key: &str) -> bool {
         let conn = self.conn.write().unwrap();
-        
-        let affected = conn.execute(
-            "DELETE FROM memories WHERE key = ?1",
-            params![key],
-        ).unwrap_or(0);
+
+        let affected = conn
+            .execute("DELETE FROM memories WHERE key = ?1", params![key])
+            .unwrap_or(0);
 
         affected > 0
     }
@@ -297,62 +304,63 @@ impl PersistentMemory {
         &self,
         query_embedding: &[f32],
         top_k: usize,
-    ) -> Result<Vec<(String, MemoryEntry, f32)>, crate::memory::MemoryError> 
-    {
+    ) -> Result<Vec<(String, MemoryEntry, f32)>, crate::memory::MemoryError> {
         let conn = self.conn.read().unwrap();
-        
+
         // Get all entries with embeddings
-        let mut stmt = conn.prepare(
-            "SELECT key, value, embedding, tags, created_at, last_accessed 
-             FROM memories WHERE embedding IS NOT NULL"
-        ).map_err(|e| crate::memory::MemoryError::Database(e))?;
+        let mut stmt = conn
+            .prepare(
+                "SELECT key, value, embedding, tags, created_at, last_accessed 
+             FROM memories WHERE embedding IS NOT NULL",
+            )
+            .map_err(crate::memory::MemoryError::Database)?;
 
-        let rows = stmt.query_map([], |row| {
-            let key: String = row.get(0)?;
-            let value: String = row.get(1)?;
-            let embedding_blob: Vec<u8> = row.get(2)?;
-            let tags_json: Option<String> = row.get(3)?;
-            let created_at: i64 = row.get(4)?;
-            let last_accessed: i64 = row.get(5)?;
+        let rows = stmt
+            .query_map([], |row| {
+                let key: String = row.get(0)?;
+                let value: String = row.get(1)?;
+                let embedding_blob: Vec<u8> = row.get(2)?;
+                let tags_json: Option<String> = row.get(3)?;
+                let created_at: i64 = row.get(4)?;
+                let last_accessed: i64 = row.get(5)?;
 
-            // Deserialize embedding
-            let float_count = embedding_blob.len() / 4;
-            let mut embedding = Vec::with_capacity(float_count);
-            for i in 0..float_count {
-                let f = f32::from_le_bytes([
-                    embedding_blob[i * 4],
-                    embedding_blob[i * 4 + 1],
-                    embedding_blob[i * 4 + 2],
-                    embedding_blob[i * 4 + 3],
-                ]);
-                embedding.push(f);
-            }
+                // Deserialize embedding
+                let float_count = embedding_blob.len() / 4;
+                let mut embedding = Vec::with_capacity(float_count);
+                for i in 0..float_count {
+                    let f = f32::from_le_bytes([
+                        embedding_blob[i * 4],
+                        embedding_blob[i * 4 + 1],
+                        embedding_blob[i * 4 + 2],
+                        embedding_blob[i * 4 + 3],
+                    ]);
+                    embedding.push(f);
+                }
 
-            let tags: Vec<String> = tags_json
-                .as_ref()
-                .and_then(|j| serde_json::from_str(j).ok())
-                .unwrap_or_default();
+                let tags: Vec<String> = tags_json
+                    .as_ref()
+                    .and_then(|j| serde_json::from_str(j).ok())
+                    .unwrap_or_default();
 
-            Ok((key, value, embedding, tags, created_at, last_accessed))
-        }).map_err(|e| crate::memory::MemoryError::Database(e))?;
+                Ok((key, value, embedding, tags, created_at, last_accessed))
+            })
+            .map_err(crate::memory::MemoryError::Database)?;
 
         let mut results: Vec<(String, MemoryEntry, f32)> = Vec::new();
 
-        for row_result in rows {
-            if let Ok((key, value, embedding, tags, created_at, last_accessed)) = row_result {
-                // Calculate cosine similarity
-                let similarity = cosine_similarity(query_embedding, &embedding);
-                
-                let entry = MemoryEntry {
-                    value,
-                    created_at: created_at as u64,
-                    last_accessed: last_accessed as u64,
-                    embedding: Some(embedding),
-                    tags,
-                };
-                
-                results.push((key, entry, similarity));
-            }
+        for row_result in rows.flatten() {
+            let (key, value, embedding, tags, created_at, last_accessed) = row_result;
+            let similarity = cosine_similarity(query_embedding, &embedding);
+
+            let entry = MemoryEntry {
+                value,
+                created_at: created_at as u64,
+                last_accessed: last_accessed as u64,
+                embedding: Some(embedding),
+                tags,
+            };
+
+            results.push((key, entry, similarity));
         }
 
         // Sort by similarity descending
@@ -365,11 +373,8 @@ impl PersistentMemory {
     /// Returns the number of entries in persistent storage.
     pub async fn len(&self) -> usize {
         let conn = self.conn.read().unwrap();
-        conn.query_row(
-            "SELECT COUNT(*) FROM memories",
-            [],
-            |row| row.get(0),
-        ).unwrap_or(0)
+        conn.query_row("SELECT COUNT(*) FROM memories", [], |row| row.get(0))
+            .unwrap_or(0)
     }
 
     /// Returns true if persistent storage is empty.
@@ -381,7 +386,7 @@ impl PersistentMemory {
     pub async fn clear(&self) -> Result<(), crate::memory::MemoryError> {
         let conn = self.conn.write().unwrap();
         conn.execute("DELETE FROM memories", [])
-            .map_err(|e| crate::memory::MemoryError::Database(e))?;
+            .map_err(crate::memory::MemoryError::Database)?;
         Ok(())
     }
 
@@ -389,17 +394,19 @@ impl PersistentMemory {
     pub async fn flush(&self) -> Result<(), crate::memory::MemoryError> {
         let conn = self.conn.write().unwrap();
         conn.execute_batch("PRAGMA wal_checkpoint(PASSIVE);")
-            .map_err(|e| crate::memory::MemoryError::Database(e))?;
+            .map_err(crate::memory::MemoryError::Database)?;
         Ok(())
     }
 
     /// Returns iterator over all entries (for batch processing).
-    pub async fn iter(&self) -> Result<impl Iterator<Item = (String, MemoryEntry)>, crate::memory::MemoryError> {
+    pub async fn iter(
+        &self,
+    ) -> Result<impl Iterator<Item = (String, MemoryEntry)>, crate::memory::MemoryError> {
         let conn = self.conn.read().unwrap();
-        
-        let mut stmt = conn.prepare(
-            "SELECT key, value, embedding, tags, created_at, last_accessed FROM memories"
-        ).map_err(|e| crate::memory::MemoryError::Database(e))?;
+
+        let mut stmt = conn
+            .prepare("SELECT key, value, embedding, tags, created_at, last_accessed FROM memories")
+            .map_err(crate::memory::MemoryError::Database)?;
 
         let entries: Vec<(String, MemoryEntry)> = stmt
             .query_map([], |row| {
@@ -430,15 +437,18 @@ impl PersistentMemory {
                     .and_then(|j| serde_json::from_str(j).ok())
                     .unwrap_or_default();
 
-                Ok((key, MemoryEntry {
-                    value,
-                    created_at: created_at as u64,
-                    last_accessed: last_accessed as u64,
-                    embedding,
-                    tags,
-                }))
+                Ok((
+                    key,
+                    MemoryEntry {
+                        value,
+                        created_at: created_at as u64,
+                        last_accessed: last_accessed as u64,
+                        embedding,
+                        tags,
+                    },
+                ))
             })
-            .map_err(|e| crate::memory::MemoryError::Database(e))?
+            .map_err(crate::memory::MemoryError::Database)?
             .filter_map(|r| r.ok())
             .collect();
 
@@ -446,14 +456,13 @@ impl PersistentMemory {
     }
 
     /// Evicts oldest entries if max_entries is exceeded.
-    fn evict_if_needed(conn: &Connection, max_entries: usize) 
-        -> Result<(), crate::memory::MemoryError> 
-    {
-        let count: i64 = conn.query_row(
-            "SELECT COUNT(*) FROM memories",
-            [],
-            |row| row.get(0),
-        ).unwrap_or(0);
+    fn evict_if_needed(
+        conn: &Connection,
+        max_entries: usize,
+    ) -> Result<(), crate::memory::MemoryError> {
+        let count: i64 = conn
+            .query_row("SELECT COUNT(*) FROM memories", [], |row| row.get(0))
+            .unwrap_or(0);
 
         if count > max_entries as i64 {
             // Delete oldest entries (by created_at) to get down to max_entries
@@ -462,7 +471,8 @@ impl PersistentMemory {
                 "DELETE FROM memories WHERE key IN 
                  (SELECT key FROM memories ORDER BY created_at ASC LIMIT ?1)",
                 params![to_delete],
-            ).map_err(|e| crate::memory::MemoryError::Database(e))?;
+            )
+            .map_err(crate::memory::MemoryError::Database)?;
         }
 
         Ok(())
@@ -553,10 +563,10 @@ mod tests {
 
         let mut memory = PersistentMemory::new(config).await.unwrap();
         memory.insert("key1", make_entry("value1")).await.unwrap();
-        
+
         let removed = memory.remove("key1").await;
         assert!(removed);
-        
+
         let retrieved = memory.get("key1").await;
         assert!(retrieved.is_none());
     }
@@ -574,7 +584,7 @@ mod tests {
 
         memory.insert("k1", make_entry("v1")).await.unwrap();
         memory.insert("k2", make_entry("v2")).await.unwrap();
-        
+
         assert_eq!(memory.len().await, 2);
     }
 

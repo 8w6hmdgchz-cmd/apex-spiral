@@ -2,10 +2,10 @@
 //!
 //! Coordinates all modules: Web UI ↔ LLM ↔ Skills ↔ Memory ↔ Evolution
 
-use crate::skill::SkillRegistry;
-use crate::skill::built_in;
 use crate::evolution::apex_akashic::ApexAkashicResult;
-use serde::{Serialize, Deserialize};
+use crate::skill::built_in;
+use crate::skill::SkillRegistry;
+use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -29,7 +29,7 @@ impl SystemCoordinator {
     pub fn new() -> Self {
         let registry = SkillRegistry::new();
         built_in::register_all(&registry);
-        
+
         Self {
             state: SystemCoordinatorState {
                 skill_registry: Arc::new(registry),
@@ -46,8 +46,9 @@ impl SystemCoordinator {
         self.log_event(SystemEvent::UserMessage {
             content: content.clone(),
             timestamp: chrono::Utc::now().timestamp(),
-        }).await;
-        
+        })
+        .await;
+
         format!("[Coordinated Response] Processed: {}", content)
     }
 
@@ -82,5 +83,7 @@ impl SystemCoordinator {
 }
 
 impl Default for SystemCoordinator {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }

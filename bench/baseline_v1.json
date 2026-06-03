@@ -1,0 +1,553 @@
+{
+  "benchmark": "apex_benchmark_v1",
+  "version": "1.0",
+  "total_tasks": 10,
+  "passed": 8,
+  "pass_rate": 0.8,
+  "average_runtime_sec": 14.12,
+  "results": [
+    {
+      "task_id": "fibonacci",
+      "passed": true,
+      "runtime_sec": 4.19,
+      "error_msg": "",
+      "generated_code": "def fibonacci(n: int) -> int:\n    if n <= 1:\n        return n\n    \n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    \n    return b",
+      "test_results": [
+        {
+          "inputs": [
+            0
+          ],
+          "expected": 0,
+          "actual": 0,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            1
+          ],
+          "expected": 1,
+          "actual": 1,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            6
+          ],
+          "expected": 8,
+          "actual": 8,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            10
+          ],
+          "expected": 55,
+          "actual": 55,
+          "passed": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "task_id": "is_palindrome",
+      "passed": true,
+      "runtime_sec": 4.49,
+      "error_msg": "",
+      "generated_code": "def is_palindrome(s: str) -> bool:\n    cleaned = ''.join(ch.lower() for ch in s if ch.isalnum())\n    return cleaned == cleaned[::-1]",
+      "test_results": [
+        {
+          "inputs": [
+            "racecar"
+          ],
+          "expected": true,
+          "actual": true,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            "hello"
+          ],
+          "expected": false,
+          "actual": false,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            "A man a plan a canal Panama"
+          ],
+          "expected": true,
+          "actual": true,
+          "passed": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "task_id": "max_of_three",
+      "passed": true,
+      "runtime_sec": 2.62,
+      "error_msg": "",
+      "generated_code": "def max_of_three(a: float, b: float, c: float) -> float:\n    return max(a, b, c)",
+      "test_results": [
+        {
+          "inputs": [
+            1,
+            5,
+            3
+          ],
+          "expected": 5,
+          "actual": 5,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            -10,
+            -2,
+            -7
+          ],
+          "expected": -2,
+          "actual": -2,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            3.14,
+            2.71,
+            3.15
+          ],
+          "expected": 3.15,
+          "actual": 3.15,
+          "passed": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "task_id": "count_vowels",
+      "passed": true,
+      "runtime_sec": 8.7,
+      "error_msg": "",
+      "generated_code": "def count_vowels(s: str) -> int:\n    vowels = set('aeiouAEIOU')\n    count = 0\n    for char in s:\n        if char in vowels:\n            count += 1\n    return count",
+      "test_results": [
+        {
+          "inputs": [
+            "hello"
+          ],
+          "expected": 2,
+          "actual": 2,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            "Python"
+          ],
+          "expected": 1,
+          "actual": 1,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            ""
+          ],
+          "expected": 0,
+          "actual": 0,
+          "passed": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "task_id": "reverse_list",
+      "passed": true,
+      "runtime_sec": 4.44,
+      "error_msg": "",
+      "generated_code": "def reverse_list(lst: list[int]) -> list[int]:\n    return lst[::-1]",
+      "test_results": [
+        {
+          "inputs": [
+            [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          ],
+          "expected": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          "actual": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            []
+          ],
+          "expected": [],
+          "actual": [],
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            [
+              42
+            ]
+          ],
+          "expected": [
+            42
+          ],
+          "actual": [
+            42
+          ],
+          "passed": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "task_id": "binary_search",
+      "passed": true,
+      "runtime_sec": 3.66,
+      "error_msg": "",
+      "generated_code": "def binary_search(arr: list[int], target: int) -> int:\n    left, right = 0, len(arr) - 1\n    \n    while left <= right:\n        mid = left + (right - left) // 2\n        \n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    \n    return -1",
+      "test_results": [
+        {
+          "inputs": [
+            [
+              1,
+              3,
+              5,
+              7,
+              9
+            ],
+            5
+          ],
+          "expected": 2,
+          "actual": 2,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            [
+              1,
+              3,
+              5,
+              7,
+              9
+            ],
+            4
+          ],
+          "expected": -1,
+          "actual": -1,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            [],
+            1
+          ],
+          "expected": -1,
+          "actual": -1,
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            [
+              2,
+              4,
+              6,
+              8,
+              10,
+              12
+            ],
+            10
+          ],
+          "expected": 4,
+          "actual": 4,
+          "passed": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "task_id": "parse_ini",
+      "passed": true,
+      "runtime_sec": 20.94,
+      "error_msg": "",
+      "generated_code": "def parse_ini(content: str) -> dict[str, dict[str, str]]:\n    result = {}\n    current_section = None\n    \n    for line in content.splitlines():\n        line = line.strip()\n        \n        # 跳过空行和注释行\n        if not line or line.startswith('#') or line.startswith(';'):\n            continue\n            \n        # 处理节\n        if line.startswith('[') and line.endswith(']'):\n            current_section = line[1:-1]\n            if current_section not in result:\n                result[current_section] = {}\n            continue\n            \n        # 处理键值对\n        if '=' in line and current_section is not None:\n            key, _, value = line.partition('=')\n            result[current_section][key.strip()] = value.strip()\n            \n    return result",
+      "test_results": [
+        {
+          "inputs": [
+            "[section1]\nkey1=value1\n[section2]\nkey2=value2"
+          ],
+          "expected": {
+            "section1": {
+              "key1": "value1"
+            },
+            "section2": {
+              "key2": "value2"
+            }
+          },
+          "actual": {
+            "section1": {
+              "key1": "value1"
+            },
+            "section2": {
+              "key2": "value2"
+            }
+          },
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            "[meta]\nname=test\n# comment\n[meta]\nname2=test2"
+          ],
+          "expected": {
+            "meta": {
+              "name": "test",
+              "name2": "test2"
+            }
+          },
+          "actual": {
+            "meta": {
+              "name": "test",
+              "name2": "test2"
+            }
+          },
+          "passed": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "task_id": "merge_intervals",
+      "passed": true,
+      "runtime_sec": 8.26,
+      "error_msg": "",
+      "generated_code": "def merge_intervals(intervals: list[list[int]]) -> list[list[int]]:\n    if not intervals:\n        return []\n    \n    # 按起始位置排序\n    intervals.sort(key=lambda x: x[0])\n    merged = [intervals[0]]\n    \n    for current in intervals[1:]:\n        last = merged[-1]\n        # 如果当前区间与上一个区间重叠\n        if current[0] <= last[1]:\n            # 合并区间，取结束位置的最大值\n            last[1] = max(last[1], current[1])\n        else:\n            merged.append(current)\n    \n    return merged",
+      "test_results": [
+        {
+          "inputs": [
+            [
+              [
+                1,
+                6
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                8,
+                10
+              ],
+              [
+                15,
+                18
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              15,
+              18
+            ]
+          ],
+          "actual": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              15,
+              18
+            ]
+          ],
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            [
+              [
+                1,
+                5
+              ],
+              [
+                4,
+                5
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              5
+            ]
+          ],
+          "actual": [
+            [
+              1,
+              5
+            ]
+          ],
+          "passed": true,
+          "error": ""
+        },
+        {
+          "inputs": [
+            [
+              [
+                1,
+                4
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              4
+            ]
+          ],
+          "actual": [
+            [
+              1,
+              4
+            ]
+          ],
+          "passed": true,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "task_id": "http_server",
+      "passed": false,
+      "runtime_sec": 38.62,
+      "error_msg": "",
+      "generated_code": "import urllib.parse\n\ndef make_http_handler() -> dict:\n    def handle(method: str, path: str, headers: dict, body: str) -> tuple:\n        if method != \"GET\":\n            return (405, {\"Content-Type\": \"text/plain\"}, \"Method Not Allowed\")\n        \n        parsed_url = urllib.parse.urlparse(path)\n        actual_path = parsed_url.path\n        query_params = urllib.parse.parse_qs(parsed_url.query)\n        \n        if actual_path == \"/\":\n            return (200, {\"Content-Type\": \"text/plain\"}, \"OK\")\n        elif actual_path == \"/health\":\n            return (200, {\"Content-Type\": \"text/plain\"}, \"healthy\")\n        elif actual_path == \"/echo\" and \"msg\" in query_params:\n            msg = query_params[\"msg\"][0]\n            return (200, {\"Content-Type\": \"text/plain\"}, msg)\n        else:\n            return (404, {\"Content-Type\": \"text/plain\"}, \"Not Found\")\n    \n    return {\"handle\": handle}",
+      "test_results": [
+        {
+          "inputs": [
+            "GET",
+            "/",
+            {}
+          ],
+          "expected": [
+            200,
+            {},
+            "OK"
+          ],
+          "actual": null,
+          "passed": false,
+          "error": "make_http_handler() takes 0 positional arguments but 3 were given"
+        },
+        {
+          "inputs": [
+            "GET",
+            "/health",
+            {}
+          ],
+          "expected": [
+            200,
+            {},
+            "healthy"
+          ],
+          "actual": null,
+          "passed": false,
+          "error": "make_http_handler() takes 0 positional arguments but 3 were given"
+        },
+        {
+          "inputs": [
+            "GET",
+            "/echo?msg=hello",
+            {}
+          ],
+          "expected": [
+            200,
+            {},
+            "hello"
+          ],
+          "actual": null,
+          "passed": false,
+          "error": "make_http_handler() takes 0 positional arguments but 3 were given"
+        },
+        {
+          "inputs": [
+            "GET",
+            "/unknown",
+            {}
+          ],
+          "expected": [
+            404,
+            {},
+            "Not Found"
+          ],
+          "actual": null,
+          "passed": false,
+          "error": "make_http_handler() takes 0 positional arguments but 3 were given"
+        },
+        {
+          "inputs": [
+            "POST",
+            "/",
+            {}
+          ],
+          "expected": [
+            405,
+            {},
+            "Method Not Allowed"
+          ],
+          "actual": null,
+          "passed": false,
+          "error": "make_http_handler() takes 0 positional arguments but 3 were given"
+        }
+      ]
+    },
+    {
+      "task_id": "markdown_to_html",
+      "passed": false,
+      "runtime_sec": 45.27,
+      "error_msg": "Function 'markdown_to_html' not found",
+      "generated_code": "",
+      "test_results": []
+    }
+  ]
+}

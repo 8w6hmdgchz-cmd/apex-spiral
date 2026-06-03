@@ -1,3 +1,5 @@
+#![allow(clippy::arc_with_non_send_sync)]
+
 //! Evolution Module - Auto Self-Evolution Iteration Core
 //!
 //! Implements the core self-evolution mechanism that enables NanoGPT-Claw
@@ -6,23 +8,23 @@
 //!
 //! 包含 APEX·阿卡西融合完整版 - 全新叠加进化总公式
 
-pub mod bench;
 pub mod apex_akashic;
+pub mod apex_self_check;
+pub mod bench;
 pub mod self_improve;
 pub mod super_upgrade;
-pub mod apex_self_check;
 
 #[cfg(test)]
 mod apex_akashic_tests;
 
+use self::apex_akashic::{format_apex_result, ApexAkashicCalculator, ApexAkashicResult};
 use self::bench::BenchmarkAnalyzer;
-use self::apex_akashic::{ApexAkashicCalculator, ApexAkashicResult, format_apex_result};
+use parking_lot::RwLock;
+use rusqlite::{params, Connection};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::Arc;
-use parking_lot::RwLock;
-use rusqlite::{Connection, params};
-use tracing::{info, error};
-use serde::{Serialize, Deserialize};
+use tracing::{error, info};
 
 /// Evolution engine configuration
 pub struct EvolutionConfig {
@@ -113,9 +115,18 @@ impl EvolutionEngine {
     /// Initialize evolution engine and database
     pub async fn initialize(&self) {
         info!("Initializing evolution engine...");
-        info!("  Benchmark interval: {} hours", self.config.benchmark_interval_hours);
-        info!("  Max iterations/day: {}", self.config.max_iterations_per_day);
-        info!("  Improvement threshold: {:.2}", self.config.improvement_threshold);
+        info!(
+            "  Benchmark interval: {} hours",
+            self.config.benchmark_interval_hours
+        );
+        info!(
+            "  Max iterations/day: {}",
+            self.config.max_iterations_per_day
+        );
+        info!(
+            "  Improvement threshold: {:.2}",
+            self.config.improvement_threshold
+        );
         info!("  DB path: {}", self.config.db_path);
 
         // Initialize database
@@ -126,7 +137,10 @@ impl EvolutionEngine {
         // Load historical events from persistent storage
         self.load_events().await;
 
-        info!("Evolution engine initialized ({} historical events)", self.events.read().len());
+        info!(
+            "Evolution engine initialized ({} historical events)",
+            self.events.read().len()
+        );
     }
 
     /// Initialize SQLite database
@@ -171,8 +185,14 @@ impl EvolutionEngine {
         )?;
 
         // Create indexes
-        conn.execute("CREATE INDEX IF NOT EXISTS idx_ev_timestamp ON evolution_events(timestamp)", [])?;
-        conn.execute("CREATE INDEX IF NOT EXISTS idx_ev_type ON evolution_events(event_type)", [])?;
+        conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_ev_timestamp ON evolution_events(timestamp)",
+            [],
+        )?;
+        conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_ev_type ON evolution_events(event_type)",
+            [],
+        )?;
 
         *self.db_conn.write() = Some(conn);
 
@@ -182,9 +202,9 @@ impl EvolutionEngine {
     /// Run full benchmark with Φ_APEX*∞ scoring
     pub async fn run_benchmark(&self) -> BenchmarkResult {
         info!("Starting Φ_APEX*∞ benchmark...");
-        
+
         let benchmark = self.analyzer.run_comparison().await;
-        
+
         let result = BenchmarkResult {
             framework_name: benchmark.framework.clone(),
             score: benchmark.overall_score,
@@ -194,10 +214,9 @@ impl EvolutionEngine {
         };
 
         // Save benchmark result to memory and DB
-        self.benchmarks.write().insert(
-            result.framework_name.clone(),
-            result.clone()
-        );
+        self.benchmarks
+            .write()
+            .insert(result.framework_name.clone(), result.clone());
         self.save_benchmark(&result).await;
 
         // Record benchmark event
@@ -229,31 +248,32 @@ impl EvolutionEngine {
     /// 运行 APEX·阿卡西融合进化评估
     pub async fn run_apex_evolution(&self) -> ApexAkashicResult {
         info!("Starting APEX·阿卡西融合进化评估...");
-        
+
         let stats = self.get_stats();
-        
+
         // 更新计算器的维度因子
         {
             let mut calc = self.apex_calculator.write();
-            
+
             // 根据当前统计更新维度
-            calc.set_dimension("evolution", stats.total_events as f64 / 100.0).ok();
+            calc.set_dimension("evolution", stats.total_events as f64 / 100.0)
+                .ok();
             calc.set_dimension("value", stats.total_improvement).ok();
             calc.set_dimension("benchmark", stats.current_score).ok();
-            
+
             // 设置惩罚
             let _events_count = stats.total_events as f64;
             let avg_penalty = 0.02;
             calc.set_penalty("token", avg_penalty).ok();
             calc.set_penalty("error", 0.01).ok();
         }
-        
+
         // 计算结果
         let result = {
             let calc = self.apex_calculator.read();
             calc.calculate()
         };
-        
+
         // 记录进化事件
         let event = EvolutionEvent {
             id: format!("apex_{}", uuid_simple()),
@@ -263,21 +283,27 @@ impl EvolutionEngine {
             delta_score: result.final_score - *self.current_score.read(),
             details: {
                 let mut map = HashMap::new();
-                map.insert("apex_score".to_string(), format!("{:.3}", result.final_score));
+                map.insert(
+                    "apex_score".to_string(),
+                    format!("{:.3}", result.final_score),
+                );
                 map.insert("omega_a".to_string(), format!("{:.3}", result.omega_a));
-                map.insert("penalties".to_string(), format!("{:.3}", result.total_penalty));
+                map.insert(
+                    "penalties".to_string(),
+                    format!("{:.3}", result.total_penalty),
+                );
                 map
             },
         };
         self.record_event(event).await;
-        
+
         // 更新当前分数
         *self.current_score.write() = result.final_score;
         self.save_current_score(result.final_score).await;
-        
+
         // 打印格式化结果
         info!("{}", format_apex_result(&result));
-        
+
         result
     }
 
@@ -304,7 +330,7 @@ impl EvolutionEngine {
         if let Some(conn) = guard.as_ref() {
             let details_json = serde_json::to_string(&event.details).unwrap_or_default();
             let event_type_str = format!("{:?}", event.event_type);
-            
+
             let result = conn.execute(
                 "INSERT OR REPLACE INTO evolution_events (id, timestamp, event_type, description, delta_score, details)
                  VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
@@ -330,7 +356,7 @@ impl EvolutionEngine {
         if let Some(conn) = guard.as_ref() {
             let strengths_json = serde_json::to_string(&benchmark.strengths).unwrap_or_default();
             let weaknesses_json = serde_json::to_string(&benchmark.weaknesses).unwrap_or_default();
-            
+
             let result = conn.execute(
                 "INSERT OR REPLACE INTO benchmarks (framework_name, score, strengths, weaknesses, timestamp)
                  VALUES (?1, ?2, ?3, ?4, ?5)",
@@ -374,7 +400,10 @@ impl EvolutionEngine {
 
     /// Process task completion and trigger evolution if needed
     pub async fn process_completion(&self, task_id: &str, success: bool, score_delta: f64) {
-        info!("Processing task completion: {} (success: {}, delta: {:.3})", task_id, success, score_delta);
+        info!(
+            "Processing task completion: {} (success: {}, delta: {:.3})",
+            task_id, success, score_delta
+        );
 
         if success {
             let (_old_score, _new_score, improvement) = {
@@ -391,7 +420,11 @@ impl EvolutionEngine {
                     id: format!("ev_{}", uuid_simple()),
                     timestamp: current_timestamp(),
                     event_type: EvolutionEventType::Improvement,
-                    description: format!("Task {} improved score by {:.2}%", task_id, improvement * 100.0),
+                    description: format!(
+                        "Task {} improved score by {:.2}%",
+                        task_id,
+                        improvement * 100.0
+                    ),
                     delta_score: improvement,
                     details: HashMap::new(),
                 };
@@ -404,10 +437,12 @@ impl EvolutionEngine {
     pub fn get_stats(&self) -> EvolutionStats {
         let events = self.events.read();
         let total_events = events.len();
-        let improvements = events.iter()
+        let improvements = events
+            .iter()
             .filter(|e| e.event_type == EvolutionEventType::Improvement)
             .count();
-        let total_improvement: f64 = events.iter()
+        let total_improvement: f64 = events
+            .iter()
             .filter(|e| e.event_type == EvolutionEventType::Improvement)
             .map(|e| e.delta_score)
             .sum();
@@ -424,11 +459,7 @@ impl EvolutionEngine {
     /// Get recent evolution events
     pub fn get_recent_events(&self, limit: usize) -> Vec<EvolutionEvent> {
         let events = self.events.read();
-        events.iter()
-            .rev()
-            .take(limit)
-            .cloned()
-            .collect()
+        events.iter().rev().take(limit).cloned().collect()
     }
 
     // Private helpers
@@ -461,8 +492,9 @@ impl EvolutionEngine {
             let event_iter = stmt.query_map([], |row| {
                 let event_type_str: String = row.get(2)?;
                 let details_str: String = row.get(5)?;
-                let details: HashMap<String, String> = serde_json::from_str(&details_str).unwrap_or_default();
-                
+                let details: HashMap<String, String> =
+                    serde_json::from_str(&details_str).unwrap_or_default();
+
                 let event_type = match event_type_str.as_str() {
                     "Benchmark" => EvolutionEventType::Benchmark,
                     "Improvement" => EvolutionEventType::Improvement,
@@ -485,10 +517,8 @@ impl EvolutionEngine {
             match event_iter {
                 Ok(iter) => {
                     let mut events = self.events.write();
-                    for event_result in iter {
-                        if let Ok(event) = event_result {
-                            events.push(event);
-                        }
+                    for event in iter.flatten() {
+                        events.push(event);
                     }
                 }
                 Err(e) => {
@@ -497,7 +527,9 @@ impl EvolutionEngine {
             }
 
             // Load benchmarks
-            let mut stmt = match conn.prepare("SELECT framework_name, score, strengths, weaknesses, timestamp FROM benchmarks") {
+            let mut stmt = match conn.prepare(
+                "SELECT framework_name, score, strengths, weaknesses, timestamp FROM benchmarks",
+            ) {
                 Ok(stmt) => stmt,
                 Err(e) => {
                     error!("Failed to prepare statement for loading benchmarks: {}", e);
@@ -508,9 +540,11 @@ impl EvolutionEngine {
             let bench_iter = stmt.query_map([], |row| {
                 let strengths_str: String = row.get(2)?;
                 let weaknesses_str: String = row.get(3)?;
-                
-                let strengths: Vec<String> = serde_json::from_str(&strengths_str).unwrap_or_default();
-                let weaknesses: Vec<String> = serde_json::from_str(&weaknesses_str).unwrap_or_default();
+
+                let strengths: Vec<String> =
+                    serde_json::from_str(&strengths_str).unwrap_or_default();
+                let weaknesses: Vec<String> =
+                    serde_json::from_str(&weaknesses_str).unwrap_or_default();
 
                 Ok(BenchmarkResult {
                     framework_name: row.get(0)?,
@@ -524,10 +558,8 @@ impl EvolutionEngine {
             match bench_iter {
                 Ok(iter) => {
                     let mut benchmarks = self.benchmarks.write();
-                    for bench_result in iter {
-                        if let Ok(bench) = bench_result {
-                            benchmarks.insert(bench.framework_name.clone(), bench);
-                        }
+                    for bench in iter.flatten() {
+                        benchmarks.insert(bench.framework_name.clone(), bench);
                     }
                 }
                 Err(e) => {
@@ -572,6 +604,9 @@ fn current_timestamp() -> i64 {
 
 fn uuid_simple() -> String {
     use std::time::{SystemTime, UNIX_EPOCH};
-    let ns = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_nanos();
+    let ns = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
     format!("{:016x}", ns)
 }

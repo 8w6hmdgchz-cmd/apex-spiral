@@ -2,18 +2,17 @@
 //!
 //! 完整集成系统协调器，实现所有模块的真正连通
 
+use crate::evolution::apex_akashic::ApexAkashicResult;
+use crate::system::coordinator::SystemCoordinator;
 use axum::{
-    routing::{get, post},
-    Router,
-    Json,
     extract::State,
     response::Html,
+    routing::{get, post},
+    Json, Router,
 };
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use tokio::sync::RwLock;
-use crate::system::coordinator::SystemCoordinator;
-use crate::evolution::apex_akashic::ApexAkashicResult;
 
 /// 聊天消息
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -62,7 +61,8 @@ pub fn create_integrated_router() -> Router {
 
 /// 集成的首页
 async fn integrated_home_page() -> Html<&'static str> {
-    Html(r#"
+    Html(
+        r#"
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -367,7 +367,8 @@ async fn integrated_home_page() -> Html<&'static str> {
     </script>
 </body>
 </html>
-    "#)
+    "#,
+    )
 }
 
 /// 处理集成聊天
@@ -376,13 +377,15 @@ async fn handle_integrated_chat(
     Json(request): Json<ChatRequest>,
 ) -> Json<ChatResponse> {
     let user_msg = request.messages.last().unwrap();
-    
+
     let mut history = state.chat_history.write().await;
     history.push(user_msg.clone());
 
     // 使用协调器处理完整管道
     let coordinator = state.coordinator.read().await;
-    let response_content = coordinator.process_user_input(user_msg.content.clone()).await;
+    let response_content = coordinator
+        .process_user_input(user_msg.content.clone())
+        .await;
 
     let response_msg = ChatMessage {
         role: "assistant".to_string(),
@@ -395,7 +398,7 @@ async fn handle_integrated_chat(
     // 获取当前状态
     let apex_score = Some(coordinator.get_apex_score().await);
     let memory_count = coordinator.get_memory_count().await;
-    
+
     let events = coordinator.get_event_log().await;
     let recent_events: Vec<String> = events
         .iter()
@@ -413,9 +416,7 @@ async fn handle_integrated_chat(
 }
 
 /// 获取集成的APEX分数
-async fn get_integrated_apex_score(
-    State(state): State<WebAppState>,
-) -> Json<ApexAkashicResult> {
+async fn get_integrated_apex_score(State(state): State<WebAppState>) -> Json<ApexAkashicResult> {
     let coordinator = state.coordinator.read().await;
     Json(coordinator.get_apex_score().await)
 }
@@ -429,13 +430,11 @@ pub struct SystemStatusResponse {
 }
 
 /// 获取系统状态
-async fn get_system_status(
-    State(state): State<WebAppState>,
-) -> Json<SystemStatusResponse> {
+async fn get_system_status(State(state): State<WebAppState>) -> Json<SystemStatusResponse> {
     let coordinator = state.coordinator.read().await;
     let apex_score = coordinator.get_apex_score().await;
     let memory_count = coordinator.get_memory_count().await;
-    
+
     let events = coordinator.get_event_log().await;
     let recent_events: Vec<String> = events
         .iter()

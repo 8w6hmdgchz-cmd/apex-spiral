@@ -3,14 +3,15 @@
 //! 基于真实v0.9.1的代码，真实功能
 //! CLI，后台任务，真实LLM，真实任务
 
-use nano_gpt_claw::cli::{self, CliCommand, TaskCmd, MemoryCmd, SkillCmd};
 use nano_gpt_claw::cli::commands::{
-    process_message, manage_memory, get_system_status,
-    add_task, list_tasks, get_task, cancel_task, start_task_worker,
-    list_skills, run_skill
+    add_task, cancel_task, get_system_status, get_task, list_skills, list_tasks,
+    manage_memory, process_message, run_skill, start_task_worker,
 };
 use nano_gpt_claw::cli::daemon;
-use tracing::{info, error};
+use nano_gpt_claw::cli::wizard;
+use nano_gpt_claw::cli::{self, CliCommand, MemoryCmd, SkillCmd, TaskCmd};
+use nano_gpt_claw::config::EnvConfig;
+use tracing::{error, info};
 
 #[tokio::main]
 async fn main() {
@@ -18,12 +19,74 @@ async fn main() {
         .with_max_level(tracing::Level::INFO)
         .init();
 
+    let env_config = EnvConfig::load();
+    env_config.print_status();
+
     let args: Vec<String> = std::env::args().skip(1).collect();
     let command = cli::parse_args(&args).unwrap_or(CliCommand::Help);
+
+    let is_setup_cmd = matches!(command, CliCommand::Setup);
+    let should_check_first_run = !is_setup_cmd && wizard::check_first_run();
+
+    if should_check_first_run {
+        println!("\n\x1b[33m⚠️  首次运行检测到，需要先进行配置...\x1b[0m");
+        println!("\n运行 `setup` 命令启动配置向导：");
+        println!("  \x1b[32m$ nano-gpt-claw setup\x1b[0m");
+        println!();
+        
+        match &command {
+            CliCommand::Start | CliCommand::Help => {
+                let mut wizard = wizard::ConfigWizard::new();
+                match wizard.run() {
+                    Ok(should_start) => {
+                        if should_start {
+                            println!();
+                            println!("\x1b[33m正在启动 NanoGPT-Claw Daemon...\x1b[0m");
+                            if let Err(e) = daemon::start_daemon().await {
+                                error!("Failed to start daemon: {}", e);
+                                std::process::exit(1);
+                            }
+                        } else {
+                            println!("\x1b[90m配置已保存，可稍后运行 `start` 启动服务。\x1b[0m");
+                            std::process::exit(0);
+                        }
+                    }
+                    Err(e) => {
+                        error!("Setup failed: {}", e);
+                        std::process::exit(1);
+                    }
+                }
+            }
+            _ => {
+                std::process::exit(1);
+            }
+        }
+    }
 
     cli::print_banner();
 
     match command {
+        CliCommand::Setup => {
+            let mut wizard = wizard::ConfigWizard::new();
+            match wizard.run() {
+                Ok(should_start) => {
+                    if should_start {
+                        println!();
+                        println!("\x1b[33m正在启动 NanoGPT-Claw Daemon...\x1b[0m");
+                        if let Err(e) = daemon::start_daemon().await {
+                            error!("Failed to start daemon: {}", e);
+                            std::process::exit(1);
+                        }
+                    } else {
+                        println!("\x1b[90m配置已保存，可稍后运行 `start` 启动服务。\x1b[0m");
+                    }
+                }
+                Err(e) => {
+                    error!("Setup failed: {}", e);
+                    std::process::exit(1);
+                }
+            }
+        }
         CliCommand::Help => print_help(),
         CliCommand::Version => print_version(),
         CliCommand::Start => match daemon::start_daemon().await {
@@ -44,12 +107,10 @@ async fn main() {
                 Err(e) => error!("Failed to get system status: {}", e),
             }
         }
-        CliCommand::Send(msg) => {
-            match process_message(&msg).await {
-                Ok(_) => (),
-                Err(e) => error!("Failed to process message: {}", e),
-            }
-        }
+        CliCommand::Send(msg) => match process_message(&msg).await {
+            Ok(_) => (),
+            Err(e) => error!("Failed to process message: {}", e),
+        },
         CliCommand::Memory(cmd) => {
             let subcmd = match cmd {
                 MemoryCmd::Show | MemoryCmd::Stats => "stats",
@@ -60,72 +121,65 @@ async fn main() {
                 Err(e) => error!("Failed to manage memory: {}", e),
             }
         }
-        CliCommand::Task(task_cmd) => {
-            match task_cmd {
-                TaskCmd::Add(task_type, description) => {
-                    if let Err(e) = add_task(task_type, description).await {
-                        error!("Failed to add task: {}", e);
-                    }
-                }
-                TaskCmd::List => {
-                    if let Err(e) = list_tasks().await {
-                        error!("Failed to list tasks: {}", e);
-                    }
-                }
-                TaskCmd::Get(task_id) => {
-                    if let Err(e) = get_task(task_id).await {
-                        error!("Failed to get task: {}", e);
-                    }
-                }
-                TaskCmd::Cancel(task_id) => {
-                    if let Err(e) = cancel_task(task_id).await {
-                        error!("Failed to cancel task: {}", e);
-                    }
-                }
-                TaskCmd::Worker => {
-                    start_task_worker().await;
-                    info!("Press Ctrl+C to exit...");
-                    tokio::time::sleep(std::time::Duration::from_secs(3600)).await;
+        CliCommand::Task(task_cmd) => match task_cmd {
+            TaskCmd::Add(task_type, description) => {
+                if let Err(e) = add_task(task_type, description).await {
+                    error!("Failed to add task: {}", e);
                 }
             }
-        }
-        CliCommand::Skill(skill_cmd) => {
-            match skill_cmd {
-                SkillCmd::List => {
-                    if let Err(e) = list_skills().await {
-                        error!("Failed to list skills: {}", e);
-                    }
-                }
-                SkillCmd::Run(skill_id) => {
-                    if let Err(e) = run_skill(skill_id).await {
-                        error!("Failed to run skill: {}", e);
-                    }
+            TaskCmd::List => {
+                if let Err(e) = list_tasks().await {
+                    error!("Failed to list tasks: {}", e);
                 }
             }
-        }
+            TaskCmd::Get(task_id) => {
+                if let Err(e) = get_task(task_id).await {
+                    error!("Failed to get task: {}", e);
+                }
+            }
+            TaskCmd::Cancel(task_id) => {
+                if let Err(e) = cancel_task(task_id).await {
+                    error!("Failed to cancel task: {}", e);
+                }
+            }
+            TaskCmd::Worker => {
+                start_task_worker().await;
+                info!("Press Ctrl+C to exit...");
+                tokio::time::sleep(std::time::Duration::from_secs(3600)).await;
+            }
+        },
+        CliCommand::Skill(skill_cmd) => match skill_cmd {
+            SkillCmd::List => {
+                if let Err(e) = list_skills().await {
+                    error!("Failed to list skills: {}", e);
+                }
+            }
+            SkillCmd::Run(skill_id) => {
+                if let Err(e) = run_skill(skill_id).await {
+                    error!("Failed to run skill: {}", e);
+                }
+            }
+        },
     }
 }
 
 fn print_help() {
-    println!("
-╔══════════════════════════════════════════════════════════════╗");
+    println!("\n╔══════════════════════════════════════════════════════════════╗");
     println!("║  NanoGPT-Claw CLI - Usage                                   ║");
     println!("╚══════════════════════════════════════════════════════════════╝");
-    println!("
-⚡ Basic Commands:");
+    println!("\n🚀 First Run:");
+    println!("  setup             First-time setup wizard (配置向导)");
+    println!("\n⚡ Basic Commands:");
     println!("  help              Display this help message");
     println!("  version           Display version information");
     println!("  status            Show system and daemon status");
     println!("  send \"message\"    Send a message to the agent");
-    println!("
-🐉 Daemon Commands:");
+    println!("\n🐉 Daemon Commands:");
     println!("  start             Start the background daemon");
     println!("  stop              Stop the background daemon");
-    println!("
-📦 Memory Commands:");
+    println!("\n📦 Memory Commands:");
     println!("  memory [show|stats|clear|purge]");
-    println!("
-📋 Task Management:");
+    println!("\n📋 Task Management:");
     println!("  task [add|list|get|cancel|worker]");
     println!("    add <type> <description> - Add a new task");
     println!("      Available types: todo, fix, research, benchmark");
@@ -133,37 +187,31 @@ fn print_help() {
     println!("    get <id>               - Get task details");
     println!("    cancel <id>            - Cancel a task");
     println!("    worker                 - Start background worker");
-    println!("
-🛠️  Skills:");
+    println!("\n🛠️  Skills:");
     println!("  skill [list|run <skill_id>]");
     println!("    list                   - List all available skills");
     println!("    run <skill_id>         - Run a specific skill");
     println!("      Available skills:");
     println!("        cargo-check, cargo-test, cargo-clippy, code-fix");
     println!("        echo, help, status");
-    println!("
-💡 Examples:");
+    println!("\n💡 Examples:");
     println!("  $ nano-gpt-claw send \"Hello, how are you?\"");
     println!("  $ nano-gpt-claw task add todo \"Test CLI interface\"");
     println!("  $ nano-gpt-claw task list");
     println!("  $ nano-gpt-claw skill list");
     println!("  $ nano-gpt-claw skill run cargo-check");
-    println!("
-");
+    println!("\n");
 }
 
 fn print_version() {
-    println!("
-╔══════════════════════════════════════════════════════════════╗");
+    println!("\n╔══════════════════════════════════════════════════════════════╗");
     println!("║  NanoGPT-Claw v0.9.1 (REAL Version)                        ║");
     println!("╚══════════════════════════════════════════════════════════════╝");
-    println!("
-📦 Version: 0.9.1 (not v3.0 fake!)");
+    println!("\n📦 Version: 0.9.1 (not v3.0 fake!)");
     println!("🦀 Rust:     1.70+");
     println!("🎯 Core:     Multi-LLM, CoT, Memory, Daemon");
     println!("💎 Status:   REAL FUNCTIONAL CODE (NOT FAKE!)");
-    println!("
-✅ Real Features:");
+    println!("\n✅ Real Features:");
     println!("  • Real LLM providers (OpenAI, Anthropic, Ollama)");
     println!("  • Real Chain-of-Thought (CoT) reasoning");
     println!("  • Real dual memory (session + persistent)");
@@ -171,6 +219,5 @@ fn print_version() {
     println!("  • Real task queue (parallel processing)");
     println!("  • Real skills system (cargo-check, cargo-test, etc)");
     println!("  • Real AutoResearch engine (self-evolution)");
-    println!("
-");
+    println!("\n");
 }

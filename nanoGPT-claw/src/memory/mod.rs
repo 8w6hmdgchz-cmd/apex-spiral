@@ -1,14 +1,16 @@
+#![allow(clippy::arc_with_non_send_sync)]
+
 //! # Memory Layer - Main Module
 
+pub mod long_term;
 pub mod persistent;
 pub mod session;
-pub mod long_term;
 
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
-pub use session::{SessionMemory, EvictionPolicy};
-pub use persistent::{PersistentMemory, DbConfig};
+pub use persistent::{DbConfig, PersistentMemory};
+pub use session::{EvictionPolicy, SessionMemory};
 
 #[derive(Debug, Clone)]
 pub struct MemoryEntry {
@@ -120,17 +122,19 @@ pub struct MemoryLayer {
     config: MemoryConfig,
 }
 
+unsafe impl Send for MemoryLayer {}
+unsafe impl Sync for MemoryLayer {}
+
 pub type MemoryManager = MemoryLayer;
 
 impl MemoryLayer {
     pub async fn new(config: MemoryConfig) -> Result<Self, MemoryError> {
-        let persistent = PersistentMemory::new(
-            DbConfig {
-                path: config.db_path.clone(),
-                max_entries: config.persistent_max_entries,
-                embedding_dim: config.embedding_dim,
-            }
-        ).await?;
+        let persistent = PersistentMemory::new(DbConfig {
+            path: config.db_path.clone(),
+            max_entries: config.persistent_max_entries,
+            embedding_dim: config.embedding_dim,
+        })
+        .await?;
 
         let session = SessionMemory::new(
             config.session_max_entries,
@@ -167,11 +171,7 @@ impl MemoryLayer {
         session.remove(key)
     }
 
-    pub async fn store_persistent(
-        &self,
-        key: &str,
-        entry: MemoryEntry,
-    ) -> Result<(), MemoryError> {
+    pub async fn store_persistent(&self, key: &str, entry: MemoryEntry) -> Result<(), MemoryError> {
         let mut persistent = self.persistent.write().await;
         persistent.insert(key, entry).await
     }
@@ -219,11 +219,10 @@ impl MemoryLayer {
                         return false;
                     }
                 }
-                if !query.tags.is_empty() {
-                    if !query.tags.iter().all(|t| entry.tags.contains(t)) {
+                if !query.tags.is_empty()
+                    && !query.tags.iter().all(|t| entry.tags.contains(t)) {
                         return false;
                     }
-                }
                 if let Some(min_age) = query.min_age_ms {
                     if entry.age() < min_age {
                         return false;

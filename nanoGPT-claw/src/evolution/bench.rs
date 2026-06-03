@@ -18,7 +18,7 @@ pub fn calculate_apex_fitness(bv: f64, av: f64, harm_rate: f64) -> f64 {
     let av_clamped = av.clamp(0.0, 1.0);
     let bv_clamped = bv.clamp(0.0, 1.0);
     let hr_clamped = harm_rate.clamp(0.0, 1.0);
-    
+
     let fitness = (av_clamped * (1.0 - hr_clamped)) + (bv_clamped * 0.1 * (1.0 - hr_clamped));
     fitness.clamp(0.0, 1.0)
 }
@@ -163,10 +163,12 @@ impl BenchmarkAnalyzer {
         for crit in &self.criteria {
             let (bv, av, harm_rate) = self.run_criteria_benchmark(crit);
             let fitness = calculate_apex_fitness(bv, av, harm_rate);
-            
+
             criteria_scores.insert(crit.name.clone(), fitness);
-            debug!("{} - BV: {:.3}, AV: {:.3}, Harm: {:.3}, Fitness: {:.3}", 
-                   crit.name, bv, av, harm_rate, fitness);
+            debug!(
+                "{} - BV: {:.3}, AV: {:.3}, Harm: {:.3}, Fitness: {:.3}",
+                crit.name, bv, av, harm_rate, fitness
+            );
 
             if fitness > 0.75 {
                 strengths.push(format!("{}: {:.3} (Φ_APEX*∞)", crit.name, fitness));
@@ -176,7 +178,8 @@ impl BenchmarkAnalyzer {
             }
         }
 
-        let overall_score = criteria_scores.values()
+        let overall_score = criteria_scores
+            .values()
             .zip(self.criteria.iter())
             .map(|(s, c)| s * c.weight)
             .sum();
@@ -191,7 +194,10 @@ impl BenchmarkAnalyzer {
             recommendations,
         };
 
-        info!("Benchmark complete. Overall Φ_APEX*∞ score: {:.3}", overall_score);
+        info!(
+            "Benchmark complete. Overall Φ_APEX*∞ score: {:.3}",
+            overall_score
+        );
         framework
     }
 
@@ -210,11 +216,11 @@ impl BenchmarkAnalyzer {
 
         // Actual Value (AV) based on implementation completeness
         let av = match criteria.name.as_str() {
-            "reasoning" => 0.75, // CoT implemented with retries
-            "memory" => 0.80, // Session + persistent SQLite
-            "autonomy" => 0.65, // Scheduler + task queue
-            "efficiency" => 0.90, // Async Tokio, retry with backoff
-            "reliability" => 0.75, // Enhanced error handling + FailoverStrategy
+            "reasoning" => 0.75,     // CoT implemented with retries
+            "memory" => 0.80,        // Session + persistent SQLite
+            "autonomy" => 0.65,      // Scheduler + task queue
+            "efficiency" => 0.90,    // Async Tokio, retry with backoff
+            "reliability" => 0.75,   // Enhanced error handling + FailoverStrategy
             "extensibility" => 0.80, // Provider trait, modular design
             _ => 0.60,
         };
@@ -243,7 +249,7 @@ impl BenchmarkAnalyzer {
             "crewai" => (0.82, 0.72, 0.12),
             _ => (0.70, 0.60, 0.15),
         };
-        
+
         calculate_apex_fitness(bv, av, hr)
     }
 
@@ -257,7 +263,10 @@ impl BenchmarkAnalyzer {
                 let gap = target - score;
                 suggestions.push(format!(
                     "{}: Current {:.3}, Target {:.3}, Gap {:.3} - {}",
-                    crit, score, target, gap,
+                    crit,
+                    score,
+                    target,
+                    gap,
                     Self::crit_recommendation(crit)
                 ));
             }

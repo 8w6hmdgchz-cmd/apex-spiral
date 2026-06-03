@@ -1,0 +1,32 @@
+{
+  "job_id": "dd1bbf2d-ce03-42a9-a577-af12a83a4f27",
+  "mode": "APEX V11 self-improve loop (cron auto + user override)",
+  "interval_minutes": 15,
+  "phase": "base",
+  "sequence_plan": ["21354", "12534", "21354", "12534", "21354"],
+  "current_round": 3,
+  "rounds_completed": [
+    {"round": 1, "mode": "21354", "source": "cron", "bugs_fixed": 3, "v11_dg": 37.02},
+    {"round": 2, "mode": "12534", "source": "cron", "bugs_fixed": 3, "v11_dg": 39.41},
+    {"round": 3, "mode": "21354", "source": "cron", "bugs_fixed": 1, "v11_dg": 63.24, "key_action": "dream discover_relations: hardcoded Semantic → all dims, 42 relations_added, graph 3→45"}
+  ],
+  "user_overrides": [
+    {"round": "R3-ULT", "source": "user", "action": "episodic 8 events + evolve 3 rounds", "ult_dg": "1.1654", "v11_dg": 89.16}
+  ],
+  "current_state": {
+    "apex_mem_total": 109,
+    "dimensions": {"declarative": 55, "working": 40, "episodic": 12, "semantic": 1, "procedural": 1},
+    "graph_nodes": 45,
+    "graph_edges": 45,
+    "apex_diagnose": {"delta_g": 0.49, "issues": 0},
+    "a2a_dg": 1737.46,
+    "v11_dg": 89.16,
+    "ult_dg": 1.1654,
+    "shortest_bottleneck": "32 dangling_graph_edge (R3 cron 已修一批但又产生), episodic=0 持续, compute_delta_g 不用 Φ_SPARK/Φ_AUTONOMOUS"
+  },
+  "next_round_candidates": [
+    "修 32 dangling_graph_edge（dream 时校验目标 id 是否在 SQLite）",
+    "episodic 维度 ingest 入口/时序触发器",
+    "compute_delta_g 集成 Φ_SPARK/Φ_AUTONOMOUS"
+  ]
+}

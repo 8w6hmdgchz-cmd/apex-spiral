@@ -161,7 +161,7 @@ impl SessionMemory {
         // First update hit/miss stats and access order using indices
         let key_owned = key.to_string();
         let key_exists = self.entries.contains_key(key);
-        
+
         if key_exists {
             self.hits += 1;
             self.remove_from_access_order(&key_owned);
@@ -170,7 +170,7 @@ impl SessionMemory {
         } else {
             self.misses += 1;
         }
-        
+
         // Now get mutable access to the entry
         if let Some(entry) = self.entries.get_mut(key) {
             entry.last_accessed = now_millis();
@@ -310,21 +310,17 @@ impl SessionMemory {
     /// Evicts one entry based on the configured eviction policy.
     fn evict_one(&mut self) {
         let victim = match self.eviction_policy {
-            EvictionPolicy::LRU => {
-                self.access_order.pop_back()
-            }
-            EvictionPolicy::FIFO => {
-                self.entries
-                    .iter()
-                    .min_by_key(|(_, e)| e.created_at)
-                    .map(|(k, _)| k.clone())
-            }
-            EvictionPolicy::LFU => {
-                self.access_counts
-                    .iter()
-                    .min_by_key(|(_, count)| *count)
-                    .map(|(k, _)| k.clone())
-            }
+            EvictionPolicy::LRU => self.access_order.pop_back(),
+            EvictionPolicy::FIFO => self
+                .entries
+                .iter()
+                .min_by_key(|(_, e)| e.created_at)
+                .map(|(k, _)| k.clone()),
+            EvictionPolicy::LFU => self
+                .access_counts
+                .iter()
+                .min_by_key(|(_, count)| *count)
+                .map(|(k, _)| k.clone()),
         };
 
         if let Some(key) = victim {

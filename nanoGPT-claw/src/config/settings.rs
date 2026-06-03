@@ -193,11 +193,29 @@ pub struct LarkConfig {
     pub allowed_groups: Vec<String>,
 }
 
+impl Default for LarkConfig {
+    fn default() -> Self {
+        Self {
+            enabled: false,
+            app_id: String::new(),
+            app_secret: String::new(),
+            bot_name: "NanoGPT-Claw Bot".to_string(),
+            webhook_url: String::new(),
+            verify_token: String::new(),
+            encrypt_key: None,
+            event_callback_url: "/webhook/lark".to_string(),
+            auto_reply: true,
+            allowed_groups: vec![],
+        }
+    }
+}
+
 /// GitHub configuration
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GithubConfig {
     pub enabled: bool,
     pub webhook_secret: String,
+    pub api_token: String,
     pub app_id: String,
     pub private_key: String,
     pub repository: String,
@@ -207,6 +225,29 @@ pub struct GithubConfig {
     pub auto_pr_enabled: bool,
     pub branches: Vec<String>,
     pub allowed_events: Vec<String>,
+}
+
+impl Default for GithubConfig {
+    fn default() -> Self {
+        Self {
+            enabled: false,
+            webhook_secret: String::new(),
+            api_token: String::new(),
+            app_id: String::new(),
+            private_key: String::new(),
+            repository: String::new(),
+            auto_scan_enabled: true,
+            scan_interval_hours: 24,
+            auto_commit_enabled: false,
+            auto_pr_enabled: false,
+            branches: vec!["main".to_string(), "master".to_string()],
+            allowed_events: vec![
+                "push".to_string(),
+                "pull_request".to_string(),
+                "issues".to_string(),
+            ],
+        }
+    }
 }
 
 /// Daemon configuration
@@ -270,7 +311,7 @@ pub struct PluginsConfig {
 impl Default for AppConfig {
     fn default() -> Self {
         use std::collections::HashMap;
-        
+
         Self {
             system: SystemConfig {
                 name: "NanoGPT-Claw".to_string(),
@@ -301,45 +342,49 @@ impl Default for AppConfig {
                     top_p: 0.9,
                     system_prompt: None,
                 },
-                auxiliary_models: vec![
-                    ModelConfig {
-                        id: "aux-code-1".to_string(),
-                        name: "Code Auditor".to_string(),
-                        role: ModelRole::CodeAudit,
-                        provider: "openai".to_string(),
-                        api_key: "".to_string(),
-                        base_url: "https://api.openai.com/v1".to_string(),
-                        model_name: "gpt-3.5-turbo".to_string(),
-                        max_tokens: 2048,
-                        temperature: 0.3,
-                        top_p: 0.85,
-                        system_prompt: None,
-                    },
-                ],
+                auxiliary_models: vec![ModelConfig {
+                    id: "aux-code-1".to_string(),
+                    name: "Code Auditor".to_string(),
+                    role: ModelRole::CodeAudit,
+                    provider: "openai".to_string(),
+                    api_key: "".to_string(),
+                    base_url: "https://api.openai.com/v1".to_string(),
+                    model_name: "gpt-3.5-turbo".to_string(),
+                    max_tokens: 2048,
+                    temperature: 0.3,
+                    top_p: 0.85,
+                    system_prompt: None,
+                }],
                 providers: {
                     let mut providers = HashMap::new();
-                    providers.insert("openai".to_string(), ProviderConfig {
-                        enabled: true,
-                        api_key: "${OPENAI_API_KEY}".to_string(),
-                        base_url: "https://api.openai.com/v1".to_string(),
-                        default_model: "gpt-4o".to_string(),
-                        max_tokens: Some(4096),
-                        temperature: Some(0.7),
-                        top_p: Some(0.9),
-                        timeout_secs: Some(120),
-                        priority: 1,
-                    });
-                    providers.insert("anthropic".to_string(), ProviderConfig {
-                        enabled: false,
-                        api_key: "${ANTHROPIC_API_KEY}".to_string(),
-                        base_url: "https://api.anthropic.com/v1".to_string(),
-                        default_model: "claude-3-opus".to_string(),
-                        max_tokens: Some(4096),
-                        temperature: Some(0.7),
-                        top_p: Some(0.9),
-                        timeout_secs: Some(120),
-                        priority: 2,
-                    });
+                    providers.insert(
+                        "openai".to_string(),
+                        ProviderConfig {
+                            enabled: true,
+                            api_key: String::new(),
+                            base_url: "https://api.openai.com/v1".to_string(),
+                            default_model: "gpt-4o".to_string(),
+                            max_tokens: Some(4096),
+                            temperature: Some(0.7),
+                            top_p: Some(0.9),
+                            timeout_secs: Some(120),
+                            priority: 1,
+                        },
+                    );
+                    providers.insert(
+                        "anthropic".to_string(),
+                        ProviderConfig {
+                            enabled: false,
+                            api_key: String::new(),
+                            base_url: "https://api.anthropic.com/v1".to_string(),
+                            default_model: "claude-3-opus".to_string(),
+                            max_tokens: Some(4096),
+                            temperature: Some(0.7),
+                            top_p: Some(0.9),
+                            timeout_secs: Some(120),
+                            priority: 2,
+                        },
+                    );
                     providers
                 },
                 request_timeout_secs: 120,
@@ -374,11 +419,11 @@ impl Default for AppConfig {
             },
             lark: Some(LarkConfig {
                 enabled: false,
-                app_id: "${FEISHU_APP_ID}".to_string(),
-                app_secret: "${FEISHU_APP_SECRET}".to_string(),
+                app_id: String::new(),
+                app_secret: String::new(),
                 bot_name: "NanoGPT-Claw Bot".to_string(),
-                webhook_url: "".to_string(),
-                verify_token: "${FEISHU_VERIFY_TOKEN}".to_string(),
+                webhook_url: String::new(),
+                verify_token: String::new(),
                 encrypt_key: None,
                 event_callback_url: "/webhook/lark".to_string(),
                 auto_reply: true,
@@ -386,16 +431,21 @@ impl Default for AppConfig {
             }),
             github: Some(GithubConfig {
                 enabled: false,
-                webhook_secret: "${GITHUB_WEBHOOK_SECRET}".to_string(),
-                app_id: "".to_string(),
-                private_key: "".to_string(),
-                repository: "".to_string(),
+                webhook_secret: String::new(),
+                api_token: String::new(),
+                app_id: String::new(),
+                private_key: String::new(),
+                repository: String::new(),
                 auto_scan_enabled: true,
                 scan_interval_hours: 24,
                 auto_commit_enabled: false,
                 auto_pr_enabled: false,
                 branches: vec!["main".to_string(), "master".to_string()],
-                allowed_events: vec!["push".to_string(), "pull_request".to_string(), "issues".to_string()],
+                allowed_events: vec![
+                    "push".to_string(),
+                    "pull_request".to_string(),
+                    "issues".to_string(),
+                ],
             }),
             gateway: GatewayConfig {
                 http_enabled: true,
@@ -459,23 +509,22 @@ impl AppConfig {
     pub fn load_from_file<P: AsRef<Path>>(path: P) -> Result<Self> {
         let content = std::fs::read_to_string(path.as_ref())
             .context(format!("Failed to read config file: {:?}", path.as_ref()))?;
-        
+
         debug!("Interpolating environment variables in config");
         let interpolated_content = interpolate_env_vars(&content);
-        
-        let config: AppConfig = serde_yaml::from_str(&interpolated_content)
-            .context("Failed to parse config YAML")?;
-        
+
+        let config: AppConfig =
+            serde_yaml::from_str(&interpolated_content).context("Failed to parse config YAML")?;
+
         Ok(config)
     }
-    
+
     pub fn save_to_file<P: AsRef<Path>>(&self, path: P) -> Result<()> {
-        let content = serde_yaml::to_string(self)
-            .context("Failed to serialize config to YAML")?;
-        
+        let content = serde_yaml::to_string(self).context("Failed to serialize config to YAML")?;
+
         std::fs::write(path.as_ref(), content)
             .context(format!("Failed to write config file: {:?}", path.as_ref()))?;
-        
+
         Ok(())
     }
 }

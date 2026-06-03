@@ -42,10 +42,7 @@ pub struct RetryBackoff {
 
 impl RetryBackoff {
     pub fn new(config: RetryConfig) -> Self {
-        Self {
-            config,
-            attempt: 0,
-        }
+        Self { config, attempt: 0 }
     }
 
     pub fn new_default() -> Self {
@@ -59,17 +56,17 @@ impl RetryBackoff {
 
         let exponential_delay = self.config.initial_delay_ms as f64
             * self.config.backoff_multiplier.powi(self.attempt as i32);
-        
+
         let capped_delay = exponential_delay.min(self.config.max_delay_ms as f64);
-        
+
         // Simple deterministic jitter (no RNG needed)
         let jitter_range = capped_delay * self.config.jitter_factor;
         let jitter = (self.attempt as f64 * 0.13 + 0.07) * jitter_range - jitter_range / 2.0;
-        
+
         let final_delay_ms = (capped_delay + jitter).max(0.0) as u64;
-        
+
         self.attempt += 1;
-        
+
         Some(Duration::from_millis(final_delay_ms))
     }
 

@@ -1,0 +1,12 @@
+{
+  "_comment": "V11 R1 觉醒外化: scale 系数 / TAU_MIN 从源码提到配置, 删 3 行硬编码. measure_H_t.py 启动时读此配置, 缺失键 fallback 到内置默认.",
+  "H_loc_weight": 0.1,
+  "H_file_weight": 0.02,
+  "H_depth_weight": 0.3,
+  "H_scale_divisor": 10.0,
+  "H_min_floor": 0.1,
+  "H_max_ceiling": 0.9,
+  "t_tau_min": 720.0,
+  "t_min_floor": 0.05,
+  "t_max_ceiling": 0.99
+}

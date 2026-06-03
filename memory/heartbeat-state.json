@@ -1,10 +1,11 @@
 {
   "lastChecks": {
-    "phi_tracker": 1780182180,
-    "git_commit": 1780182180,
-    "evomap_sync": 1780182180
+    "phi_tracker": 1780385787,
+    "git_commit": 1780385787,
+    "evomap_sync": 1780333300,
+    "auto_reflux": 1780385787
   },
-  "lastRefluxSeq": 255,
-  "lastRefluxTime": "2026-05-31T07:03:00+08:00",
-  "status": "✅ reflux completed successfully"
+  "lastRefluxSeq": 256,
+  "lastRefluxTime": "2026-06-02T15:37:35+08:00",
+  "status": "✅ reflux completed successfully (auto_reflux.sh @ 15:31:02); PHI 57.37%, ΔG 0.672823, bottleneck Σ_memory; git rebase still blocked by unstaged changes (126 status entries: 70 modified, 56 untracked), push and gist backup succeeded"
 }

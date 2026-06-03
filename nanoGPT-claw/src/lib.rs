@@ -1,13 +1,19 @@
 pub mod cli;
-pub mod scheduler;
-pub mod memory;
-pub mod gateway;
-pub mod cot;
-pub mod evolution;
-pub mod middleware;
-pub mod config;
-pub mod skill;
 pub mod code_assessment;
-pub mod webui;
-pub mod system;
+pub mod config;
+pub mod cot;
 pub mod daemon_service;
+pub mod evolution;
+pub mod gateway;
+pub mod gateway_lark;
+pub mod memory;
+pub mod middleware;
+pub mod scheduler;
+pub mod skill;
+pub mod system;
+pub mod webui;
+
+// ✅ New SDK Integration Modules
+pub mod cache;
+pub mod metrics;
+pub mod telemetry;
