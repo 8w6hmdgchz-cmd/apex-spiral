@@ -133,8 +133,15 @@ def a2a_horizon() -> dict:
     """
     log_path = _HORIZON_LOG_PATH
     snap = latest_a2a_state()
-    F_h = float(snap.get("F_hunt") or 0.0)
-    A_n = float(snap.get("A_net") or 0.0)
+    # FIX R9 bug-025: `or 0.0` 不能防 NaN (NaN truthy → 透传). 加 isnan 检查.
+    def _safe_float(x, default=0.0):
+        try:
+            v = float(x)
+        except (TypeError, ValueError):
+            return default
+        return default if (v != v) else v  # NaN: v != v 为真
+    F_h = _safe_float(snap.get("F_hunt"), 0.0)
+    A_n = _safe_float(snap.get("A_net"), 0.0)
     rec = {"ts": int(_now_a2a()), "F_hunt": round(F_h, 4), "A_net": round(A_n, 4)}
     try:
         log_path.parent.mkdir(parents=True, exist_ok=True)
@@ -156,6 +163,37 @@ def a2a_horizon() -> dict:
     # A_net 跨度归一: A_net 经验范围 [0, 50], F_hunt 已在 [0,1]
     horizon = max(0.0, min(1.0, 0.5 * F_span + 0.5 * (A_span / 50.0)))
     return {"O_horizon": round(horizon, 4), "samples": len(snaps)}
+
+
+# R9 补 O_horizon 短板: 把 a2a_horizon() 动态观察值写回 integration.json
+# 6_dim_self_check.O_horizon, 让 v11_with_a2a.load_6dim() 读到的 O 是真动态
+# 值而非盲设 0.86. samples<2 时不写 (单点归零会污染 v11 主公式).
+_INTEGRATION_PATH = Path("/Users/lihongxin/.openclaw/workspace/memory/a2a-v11-integration.json")
+
+
+def sync_o_horizon() -> dict:
+    """R9 O_horizon 补短: 时序观察值写回 integration.json 真源.
+
+    返回: 写回的 O_horizon 数值 + samples. samples<2 跳过写 (单点 horizon=0
+    会让 v11 主公式 O=0 拉低 system_delta_g, 反脆弱).
+    """
+    h = a2a_horizon()
+    if h.get("samples", 0) < 2:
+        return {"written": False, "O_horizon": h.get("O_horizon", 0.0),
+                "samples": h.get("samples", 0), "reason": "samples<2"}
+    try:
+        d = json.loads(_INTEGRATION_PATH.read_text())
+        sc = d.setdefault("6_dim_self_check", {})
+        sc["O_horizon"] = float(h["O_horizon"])
+        # 更新 timestamp, 让 v11 load_6dim 的 stale 检测用同一个时钟
+        from datetime import datetime, timezone, timedelta
+        tz = timezone(timedelta(hours=8))
+        sc["last_measured_at"] = datetime.now(tz).strftime("%Y-%m-%dT%H:%M:%S%z")
+        _INTEGRATION_PATH.write_text(json.dumps(d, ensure_ascii=False, indent=2))
+        return {"written": True, "O_horizon": h["O_horizon"], "samples": h["samples"]}
+    except Exception as e:
+        return {"written": False, "O_horizon": h.get("O_horizon", 0.0),
+                "samples": h.get("samples", 0), "error": str(e)[:80]}
 
 
 def _now_a2a() -> float:

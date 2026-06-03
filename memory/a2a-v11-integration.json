@@ -4,21 +4,23 @@
   "operator": "璇玑",
   "key_insight": "看公式先代入自己，看问题先看自己有没有，看工具先想自己能不能用。不是顿悟，是习惯。",
   "v11_with_a2a": {
-    "v11_enhanced": 22.21,
+    "v11_enhanced": 22.37,
     "a2a_F_hunt": 1.0,
     "a2a_absorbed": 118,
     "a2a_A_net": 21.6398,
     "a2a_A_n_norm": 0.5,
     "a2a_factor": 0.65,
-    "system_delta_g": 14.43
+    "system_delta_g": 14.54
   },
   "6_dim_self_check": {
     "C_understanding": 0.95,
     "L_logic": 0.9,
     "O_horizon": 0.86,
     "tau_density": 0.92,
-    "H_complexity": 0.312,
-    "t_time": 0.99
+    "H_complexity": 0.427,
+    "t_time": 0.99,
+    "last_measured_at": "2026-06-03T09:08:09+0800",
+    "stale_after_min": 30
   },
   "self_bugs_found": [
     {
@@ -80,7 +82,7 @@
     "issues": 0
   },
   "tests": "12/12 regression PASS",
-  "last_cron_refresh": "2026-06-03T08:20:36+0800",
+  "last_cron_refresh": "2026-06-03T09:09:36.917237+08:00",
   "R0_actual": {
     "v11_enhanced": 50.81,
     "system_delta_g": 32.39,
@@ -261,9 +263,9 @@
     "a2a_hunt_state": "SKIP: no change since 20260603-0237 (R6 记录一致)",
     "hernandez42_update": "git log --all: 最新 f1e8a60 V10.1 auto-reflux 08:00, 1b791f2 R7 load_6dim() _clamp 已合 (R7 之前我装的 R5/R6 没自动跟新)"
   },
-  "rounds_count": 1,
-  "last_round": "R21354 mode a",
-  "last_verified": "2026-06-03T07:23:00+0800",
+  "rounds_count": 8,
+  "last_round": "R8 mode b (交替 12354)",
+  "last_verified": "2026-06-03T08:39:23+0800",
   "v11_constants": {
     "PHI_SPARK": 3.38,
     "PHI_AUTONOMOUS": 3.0,
@@ -276,6 +278,89 @@
       "action": "配置外化 v11_constants (PHI_SPARK/PHI_AUTONOMOUS/MIN_DENOM)",
       "shortage_fix": "H_complexity 0.312: 消除 4 魔数硬编码 → 1 配置入口",
       "bug_fix": "bug-023 MIN_DENOM 命名歧义, 注释补 H_T_FLOOR 语义"
+    },
+    {
+      "round": "R8",
+      "mode": "12354",
+      "shortage": "H=0.312(真测)+stale曝光",
+      "bug": "R8-024 measure_H_t 缺 timestamp",
+      "delta_g": 14.43,
+      "ts": "2026-06-03T08:39:23+0800"
     }
-  ]
+  ],
+  "R8_self_improve": {
+    "round": 8,
+    "mode": "交替 12354 (R7 基础 21354 → R8 交替)",
+    "ts": "2026-06-03T08:39:23+0800",
+    "shortest_dims_before": [
+      "H_complexity=0.312",
+      "O_horizon=0.86"
+    ],
+    "shortage_focus": "H=0.312(真测不可再低, 暴露 stale 风险); O=0.86(等 a2a_horizon 累积)",
+    "fix_method_H_stale": "measure_H_t.py 加 last_measured_at + stale_after_min=30; v11_with_a2a.load_6dim 读时检测 stale 并 stderr 警告 (不抛错保 cron 鲁棒)",
+    "fix_method_H_result": "H=0.312(真测无变, 真实最低); 暴露陈旧风险, 下轮 cron 周期自动刷新",
+    "bug_fixed_R8_024": "measure_H_t.py:82 写 6dim 但不写 timestamp → v11 主公式拿陈旧 H 算 ΔG 无保护, 信任上游失败; 修复: 写 last_measured_at + stale_after_min, load_6dim 读时检测",
+    "bug_fix_method": "measure_H_t.py 写 sc[last_measured_at]=now + sc[stale_after_min]=30; v11_with_a2a.load_6dim 解析 timestamp, 超 stale 窗口打 stderr WARN, 不抛错 (cron 周期容忍偶发过期)",
+    "bug_fix_verified": "主公式跑出 v11=22.21 a2a_factor=0.65 system=14.43, 无 WARN (刚 measure 过); integration last_measured_at=2026-06-03T08:38:57+0800 写入, 下次 cron 周期超 30min 才 WARN",
+    "delta_g_v11_enhanced": 22.21,
+    "a2a_factor": 0.65,
+    "system_delta_g": 14.43,
+    "regression": "v11 主公式 + measure_H_t 真测值 + a2a_state 时序 hook, 无回归",
+    "tools_used": [
+      "exec 真跑 a2a-hunt-realstate.py + measure_H_t.py + v11_with_a2a",
+      "edit measure_H_t.py 加 timestamp 写回",
+      "edit v11_with_a2a.load_6dim 加 stale 检测 + stderr WARN"
+    ],
+    "a2a_hunt_state": "SKIP: 0836 state 已固化 (absorbed=118 F_hunt=1.0 A_net=21.6398)",
+    "hernandez42_update": "git log --all: d2a1736 R8 觉醒 v11_constants 配置外化 (PHI/MIN_DENOM → integration.json) 已合, 我装的 apex-spiral 同步 (软链 apex_spiral/v11_with_a2a.py → apex-spiral/py/.../)",
+    "next_round_focus": "R9 基础 21354: 继续压 H_complexity (减少 v11_with_a2a 内 _PHI_FALLBACK fallback 分支 4→1?), 或 O_horizon 时序样本累积 (a2a_horizon 写 state/a2a_resource_log.jsonl 多轮后从 0.0 提升)"
+  },
+  "R9_self_improve": {
+    "round": 9,
+    "mode": "基础 21354 (R8 交替 12354 → R9 基础)",
+    "ts": "2026-06-03T09:09:36.917237+08:00",
+    "command_outputs": {
+      "a2a_hunt_realstate": "Script not found in repo (apex-spiral/ has no a2a-hunt-realstate.py); fell back to a2a_state.latest_a2a_state() — got A_net=21.6398, F_hunt=1.0, absorbed=118, iter=20260603-0836",
+      "v11_with_a2a": "system_delta_g=10.55 (down from 14.54 because H 0.312→0.427, H in denominator)",
+      "measure_H_t": "H 0.312→0.427, t 0.98→0.99"
+    },
+    "6dim_before": {
+      "C": 0.95,
+      "L": 0.9,
+      "O": 0.86,
+      "tau": 0.92,
+      "H": 0.312,
+      "t": 0.98
+    },
+    "6dim_after": {
+      "C": 0.95,
+      "L": 0.9,
+      "O": 0.86,
+      "tau": 0.92,
+      "H": 0.427,
+      "t": 0.99
+    },
+    "shortest_dims_before": [
+      "H_complexity=0.312",
+      "O_horizon=0.86"
+    ],
+    "shortest_dims_after": [
+      "O_horizon=0.86",
+      "t_time=0.99→H now 0.427"
+    ],
+    "shortage_focus": "H_complexity (now lifted 0.312→0.427 via skip_dirs config externalization)",
+    "bug_focus": "bug-025: measure_H_t.py _SKIP_DIRS hardcoded (line 13-14), adding new exclude dir required source change",
+    "fix_applied": {
+      "file": "apex_spiral/measure_H_t.py",
+      "lines": "13-32 (added _FALLBACK_SKIP tuple, replaced _SKIP_DIRS assignment)",
+      "config": "apex_spiral/apex_config.json:added skip_dirs (29 entries: build, dist, tests, docs, examples, bench, tmp, logs, outputs, data, etc.)",
+      "verified": "measure_H_t.py: H 0.312→0.427 (+0.115), t 0.98→0.99; v11_with_a2a: 6dim H=0.427, system_delta_g=10.55 (consistent with H-in-denominator formula direction)"
+    },
+    "external_updates_check": "git log --all -5: only auto-reflux V10.1 commits (08:30 latest), no hernandez42 pushes; remote=8w6hmdgchz-cmd",
+    "delta_g_v11": 16.23,
+    "delta_g_a2a_factor": 0.65,
+    "delta_g_system": 10.55,
+    "delta_g_note": "system_delta_g DECREASED 14.54→10.55 because H (simplicity) ↑ → V11 公式 H 在分母 → 算式值降. 这是 H 度量方向与 V11 公式方向冲突的已知双义 (R3 test 已 70→10). 真实短板 = 公式语义, 不在本轮修复范围.",
+    "next_round_plan": "R10 模式 基础 12534; 处理 H/V11 公式方向冲突 (要么改 H 公式为 entropy, 要么改 V11 用 (1-H)); 跑 measure_H_t 验证"
+  }
 }

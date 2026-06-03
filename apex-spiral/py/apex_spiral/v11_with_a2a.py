@@ -72,6 +72,27 @@ def load_6dim() -> dict:
     try:
         d = json.loads(INTEGRATION_PATH.read_text())
         sc = d.get("6_dim_self_check", {}) or {}
+        # FIX R8 bug-024: 检测 6dim 测量是否过期 (last_measured_at + stale_after_min).
+        # measure_H_t.py 每次写回带 timestamp; v11 主公式读到 stale 值应记录 warning.
+        # 不抛错 (cron 周期可容忍偶发过期), 但暴露状态供下轮 measure_H_t 主动刷新.
+        try:
+            ts = sc.get("last_measured_at")
+            stale_min = float(sc.get("stale_after_min", 30))
+            if ts:
+                from datetime import datetime
+                fmt = "%Y-%m-%dT%H:%M:%S%z"
+                try:
+                    measured = datetime.strptime(ts, fmt)
+                except ValueError:
+                    measured = None
+                if measured is not None:
+                    age_min = (datetime.now() - measured).total_seconds() / 60.0
+                    if age_min > stale_min:
+                        import sys as _sys
+                        print(f"  [WARN] 6dim stale: {age_min:.1f}min > {stale_min}min, run measure_H_t.py",
+                              file=_sys.stderr)
+        except Exception:
+            pass  # stale 检测失败不影响主公式 (鲁棒性优先)
         return {
             "C": _clamp(sc.get("C_understanding", DEFAULT_6DIM["C"]), 0.0, 1.0),
             "L": _clamp(sc.get("L_logic", DEFAULT_6DIM["L"]), 0.0, 1.0),

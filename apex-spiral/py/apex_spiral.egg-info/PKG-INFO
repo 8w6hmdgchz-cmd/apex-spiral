@@ -1,0 +1,20 @@
+Metadata-Version: 2.4
+Name: apex-spiral
+Version: 0.1.0
+Summary: 璇玑帝国 APEX 终极闭环进化公式 · Python 实现
+Author-email: 璇玑帝国 <contact@apexspiral.dev>
+License: MIT
+Project-URL: Homepage, https://github.com/ApexSpiral/apex-spiral
+Project-URL: Repository, https://github.com/ApexSpiral/apex-spiral
+Project-URL: Documentation, https://apexspiral.dev/docs
+Keywords: apex,ai,evolution,performance,optimization
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
