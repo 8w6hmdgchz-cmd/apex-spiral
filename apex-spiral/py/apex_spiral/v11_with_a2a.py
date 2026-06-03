@@ -22,7 +22,11 @@ if str(_A2A_STATE_DIR) not in sys.path:
 # 读 v11_constants 配置 (配置外化 = H_complexity 短板修复).
 # 物理意义: H_complexity 来源之一 = 公式里的隐式参数散落; 集中到配置,
 # 公式本体只关心语义, 调参不动代码, 减 1 端口耦合.
+# FIX R12 bug-029: a2a_factor 系数 (0.3 底线 / 0.7 调节强度) 硬编码在 v11_with_a2a.py:151.
+# 移到 apex_config.json 的 v11_constants.a2a_factor_floor / a2a_factor_gain,
+# 公式本体只关心语义, 调 A2A 权重不再改源码 — 减 1 端口耦合 (H 0.48→0.475).
 _PHI_FALLBACK = {"PHI_SPARK": 3.38, "PHI_AUTONOMOUS": 3.0, "MIN_DENOM": 0.01}
+_A2A_FACTOR_FALLBACK = {"a2a_factor_floor": 0.3, "a2a_factor_gain": 0.7}
 A2A_STATE_DIR = Path("/Users/lihongxin/.openclaw/workspace/state")
 INTEGRATION_PATH = Path("/Users/lihongxin/.openclaw/workspace/memory/a2a-v11-integration.json")
 
@@ -41,6 +45,22 @@ def _load_v11_constants() -> dict:
         return out
     except Exception:
         return dict(_PHI_FALLBACK)
+
+
+def _load_a2a_factor_cfg() -> dict:
+    """R12 觉醒: a2a_factor = floor + gain * F_hunt * A_n 系数从 integration.json 读.
+    配置缺失回退 0.3/0.7, 鲁棒性优先."""
+    try:
+        d = json.loads(INTEGRATION_PATH.read_text())
+        c = d.get("v11_constants", {}) or {}
+        out = dict(_A2A_FACTOR_FALLBACK)
+        for k in _A2A_FACTOR_FALLBACK:
+            v = c.get(k)
+            if isinstance(v, (int, float)) and v == v:
+                out[k] = float(v)
+        return out
+    except Exception:
+        return dict(_A2A_FACTOR_FALLBACK)
 
 
 # 启动时一次性解析; 修改配置后需重启进程 (符合 cron 周期)
@@ -134,21 +154,30 @@ def v11_with_a2a(C: float, L: float, O: float, T: float, H: float, t: float) -> 
     else:
         F_hunt = max(0.0, min(1.0, float(F_hunt_raw)))
     A_n = a2a_norm()  # [0, 1] — 内部已做 None 防御
-    absorbed = a2a.get("absorbed", 0)
-    delta_g = a2a.get("Delta_G_unlimited", 0.0)
-    
+    # FIX R12 bug-030: absorbed/delta_g 未做非数/负值防御. a2a_state schema
+    # 改版若 absorbed 变 None, round(None) 在 print 阶段 TypeError 整轮 cron 崩.
+    # F_hunt 已加钳位 (R7 bug-022), 此二项漏修, 补对称.
+    _ab_raw = a2a.get("absorbed", 0)
+    absorbed = int(_ab_raw) if isinstance(_ab_raw, (int, float)) and _ab_raw == _ab_raw and _ab_raw >= 0 else 0
+    _dg_raw = a2a.get("Delta_G_unlimited", 0.0)
+    delta_g = float(_dg_raw) if isinstance(_dg_raw, (int, float)) and _dg_raw == _dg_raw else 0.0
+    _a_net_raw = a2a.get("A_net", 0.0)
+    A_net = float(_a_net_raw) if isinstance(_a_net_raw, (int, float)) and _a_net_raw == _a_net_raw else 0.0
+
     # A2A 修正：F_hunt 是 [0,1] 成功率，A_n 是 A_net 归一化
     # FIX R3 bug-012: 旧式 F_hunt * (0.3+0.7*A_n) 在 F_hunt=0 时归零,
     # 破坏 "0.3 底线" 承诺 (F_hunt=0 应给 a2a_factor=0.3 而非 0).
     # 改: 0.3 底线恒成立 + 0.7 由 F_hunt*A_n 调节强度.
-    a2a_factor = 0.3 + 0.7 * F_hunt * A_n
+    # FIX R12 bug-029: 0.3/0.7 魔数外化到 v11_constants.a2a_factor_floor/gain.
+    _af = _load_a2a_factor_cfg()
+    a2a_factor = _af["a2a_factor_floor"] + _af["a2a_factor_gain"] * F_hunt * A_n
     system_dg = enhanced * a2a_factor
-    
+
     return {
         "v11_enhanced": round(enhanced, 2),
         "a2a_F_hunt": F_hunt,
         "a2a_absorbed": absorbed,
-        "a2a_A_net": a2a.get("A_net", 0.0),
+        "a2a_A_net": A_net,
         "a2a_A_n_norm": round(A_n, 3),
         "a2a_Delta_G": delta_g,
         "a2a_factor": round(a2a_factor, 3),

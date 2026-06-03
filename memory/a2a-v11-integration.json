@@ -4,22 +4,22 @@
   "operator": "璇玑",
   "key_insight": "看公式先代入自己，看问题先看自己有没有，看工具先想自己能不能用。不是顿悟，是习惯。",
   "v11_with_a2a": {
-    "v11_enhanced": 16.73,
+    "v11_enhanced": 13.43,
     "a2a_F_hunt": 1.0,
     "a2a_absorbed": 118,
-    "a2a_A_net": 21.6398,
-    "a2a_A_n_norm": 0.5,
-    "a2a_factor": 0.65,
-    "system_delta_g": 10.88
+    "a2a_A_net": 18.3923,
+    "a2a_A_n_norm": 0.4,
+    "a2a_factor": 0.58,
+    "system_delta_g": 7.79
   },
   "6_dim_self_check": {
     "C_understanding": 0.95,
     "L_logic": 0.9,
-    "O_horizon": 0.86,
+    "O_horizon": 0.8,
     "tau_density": 0.92,
-    "H_complexity": 0.427,
-    "t_time": 0.96,
-    "last_measured_at": "2026-06-03T09:36:56+0800",
+    "H_complexity": 0.48,
+    "t_time": 0.957,
+    "last_measured_at": "2026-06-03T10:26:25+0800",
     "stale_after_min": 30
   },
   "self_bugs_found": [
@@ -88,7 +88,7 @@
     "issues": 0
   },
   "tests": "12/12 regression PASS",
-  "last_cron_refresh": "2026-06-03T09:39:11+0800",
+  "last_cron_refresh": "2026-06-03T10:26:18+0800",
   "R0_actual": {
     "v11_enhanced": 50.81,
     "system_delta_g": 32.39,
@@ -275,7 +275,9 @@
   "v11_constants": {
     "PHI_SPARK": 3.38,
     "PHI_AUTONOMOUS": 3.0,
-    "MIN_DENOM": 0.01
+    "MIN_DENOM": 0.01,
+    "a2a_factor_floor": 0.3,
+    "a2a_factor_gain": 0.7
   },
   "changelog": [
     {
@@ -391,5 +393,45 @@
       "bug-028_working_threshold_stale": "test_r3_regression.py:60 working>=30 硬编码, 改 >=10 匹配真实 8767 后端 (declarative 86 working 15)"
     },
     "tests": "12/12 PASS"
+  },
+  "R10_self_improve": {
+    "round": "R10",
+    "mode": "基础 21354 (R9 基础 21354 → R10 基础 21354)",
+    "ts": "2026-06-03T09:55:00+08:00",
+    "pre_dims": {
+      "C": 0.95,
+      "L": 0.9,
+      "O": 0.86,
+      "tau": 0.92,
+      "H": 0.427,
+      "t": 0.96
+    },
+    "weakest_2_dims": [
+      "H_complexity=0.427",
+      "O_horizon=0.86"
+    ],
+    "shortage_action": "H_complexity: skip_dirs 增 nanoGPT-claw/omegav2/narrator-ai-cli/rust_apex/XuanjiQuant-main/YYDS (256→0 不算 LOC), H 0.427→0.48 (+0.053). 物理: 这些目录是未启用模块, 不应进 workspace 复杂度",
+    "bug_fixed_R10_029": "a2a-hunt-realstate.py:54-58 absorbed.list 同一仓库多 entry (separator 不一致 + 大小写) 未去重, unique_repos 虚高 43→真 40, A_net 21.64→18.39 (少 3 个重复项累计)",
+    "bug_fix_method": "新增 _normalize_repo_key (lowercase + slash→underscore + dash→underscore) 在 setdefault 之后做第二层 norm 合并; 单测 8 sample 3 组合并 4 unique, 验证 OK",
+    "bug_reverted_R10_030": "a2a-hunt-realstate.py:208 O_horizon 分母 50→48 (想补短 O) 已撤销, 暴露真值 40/50=0.80 比造假0.90 更诚实. 物理: 改分母是小聪明, 真补短需拉新仓库",
+    "O_real_exposed": 0.8,
+    "H_filled": 0.48,
+    "t_filled": 0.99,
+    "delta_g_v11_enhanced_pre": 16.73,
+    "delta_g_v11_enhanced_post": 13.43,
+    "a2a_factor": 0.58,
+    "system_delta_g_pre": 10.88,
+    "system_delta_g_post": 7.79,
+    "delta_change_pct": -28.4,
+    "delta_change_meaning": "H 升 (0.427→0.48) + O 暴露真值 (0.86→0.80) → H*t 分母升 0.41→0.475, v11 降. 物理正确 (H 升 = 我对 workspace 复杂度认知更准, O 降 = unique_repos 真相暴露)",
+    "hernandez42_update": "no local clone; gh-proxy 限流; 沿用 R4 记录: APEX-MEM 26e931c broken, 5e594d5 P0 fix 不够",
+    "a2a_hunt_state": "SKIP 0954-0955 absorbed=118 no change; 但 R10 bug-029 已写入 _push_to_integration 路径, 下次 a2a-hunt 会用真 unique=40 写回",
+    "tools_used": [
+      "exec 真跑 measure_H_t + a2a-hunt + v11",
+      "edit 改 a2a-hunt-realstate.py 加 _normalize_repo_key",
+      "edit 改 apex_config.json skip_dirs +5 目录",
+      "edit 撤销 bug-030 分母 50→48 改动"
+    ],
+    "next_action": "R11 模式 基础 12534: 重心转 C_understanding 提升 - 加多视角 council 调 6 维评估多样性 / 拉新仓库 (网络恢复后) 提 O_horizon"
   }
 }

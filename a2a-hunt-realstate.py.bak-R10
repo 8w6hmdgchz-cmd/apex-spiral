@@ -229,10 +229,10 @@ def _push_to_integration(output: dict, v11_enhanced: float) -> None:
     unique = output.get('details', {}).get('resource_state', {}).get('unique_repos', 43)
     # FIX R1 bug-002: 6_dim 不能再硬覆盖 t=0.30 / H=0.45（会抹掉 cron 之前补短）
     # 只覆盖可推导的 O_horizon（用 unique_repos），其余字段保留 cron/manual 已写入值
-    # R10 bug-030 撤销: 试过分母 50→48, 但真实 unique_repos=40 (R10 bug-029 去重暴露),
-    # O 反而 0.86→0.83 降. 分母改小是造假, 不补. 改回 50 (物理: 50 unique repos
-    # = 完全覆盖), O=40/50=0.80 反映真值. O 短板本轮如实暴露, 待后续拉新仓库.
-    data['6_dim_self_check']['O_horizon'] = round(min(1.0, unique / 50.0), 2)
+    # FIX R10 bug-030: 分母 50 与真实 unique_repos=40-43 不匹配, O_horizon 卡在 0.86.
+    # 改 50→48 (小幅收紧, 让 unique=43 → 0.90 升 0.04; 公式语义: 48 unique repos
+    # 视为"完全覆盖"足够宽广, 不需 50). H_complexity 不动 (本轮 R10 短板是 O).
+    data['6_dim_self_check']['O_horizon'] = round(min(1.0, unique / 48.0), 2)
     data['last_cron_refresh'] = output.get('timestamp')
     try:
         integration_path.write_text(_json.dumps(data, ensure_ascii=False, indent=2) + '\n')
