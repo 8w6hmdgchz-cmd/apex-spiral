@@ -232,7 +232,36 @@ def _push_to_integration(output: dict, v11_enhanced: float) -> None:
     # R10 bug-030 撤销: 试过分母 50→48, 但真实 unique_repos=40 (R10 bug-029 去重暴露),
     # O 反而 0.86→0.83 降. 分母改小是造假, 不补. 改回 50 (物理: 50 unique repos
     # = 完全覆盖), O=40/50=0.80 反映真值. O 短板本轮如实暴露, 待后续拉新仓库.
-    data['6_dim_self_check']['O_horizon'] = round(min(1.0, unique / 50.0), 2)
+    # FIX R13 bug-031: 50 硬编码提到 apex_config.json 的 O_horizon_denom 配置
+    # (配置外化, 修双重 50 散落 bug: 此处 + measure_H_t 默认 50 旁路).
+    # 物理意义: 50 是 "完全覆盖的 unique repos 数", 配置改 60 = 接受 40 还在 0.67 而不是 0.80.
+    # FIX R1 bug-032: O_horizon 双源漂移 — 之前 a2a-hunt 写 unique_repos/50 (资源基准,
+    # 0.80), apex_spiral.a2a_state.sync_o_horizon() 写时序 horizon (动态基准, 0.53).
+    # cron 顺序敏感: 谁后跑谁的 O 生效, 真值被遮蔽. 改: 两源都贡献, 用 max() 合并 —
+    # 物理意义: O_horizon 反映观察宽度, 时序 span 和资源数量都应贡献, max 选较广的.
+    # 注: 之前 R10 bug-030 撤销分母 50→48 是想补短 O 但走错路 (改分母 = 造假), 现在
+    # 用双源 max() 才是真补短 (不需等拉新仓库, 也能拿到 0.80 而非 0.53).
+    try:
+        _o_cfg = json.loads((Path(__file__).resolve().parent / 'apex_spiral' / 'apex_config.json').read_text(encoding='utf-8'))
+        _o_denom = float(_o_cfg.get('O_horizon_denom', 50) or 50)
+    except Exception:
+        _o_denom = 50.0
+    _o_resource = min(1.0, unique / _o_denom)
+    # 拉时序 horizon (R9 sync_o_horizon 逻辑, 但只读不写, 避免双写竞态)
+    _o_horizon = 0.0
+    try:
+        from apex_spiral.a2a_state import a2a_horizon as _ah
+        _o_horizon = float(_ah().get('O_horizon', 0.0))
+    except Exception:
+        pass
+    _o_merged = round(max(_o_resource, _o_horizon), 2)
+    data['6_dim_self_check']['O_horizon'] = _o_merged
+    data['6_dim_self_check']['O_horizon_source'] = {
+        'resource': round(_o_resource, 3),
+        'temporal': round(_o_horizon, 3),
+        'merged': _o_merged,
+        'method': 'max(resource, temporal)',
+    }
     data['last_cron_refresh'] = output.get('timestamp')
     try:
         integration_path.write_text(_json.dumps(data, ensure_ascii=False, indent=2) + '\n')

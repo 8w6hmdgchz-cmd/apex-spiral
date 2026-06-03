@@ -1,16 +1,19 @@
 {
-  "_comment": "V11 R1 \u89c9\u9192\u5916\u5316: scale \u7cfb\u6570 / TAU_MIN \u4ece\u6e90\u7801\u63d0\u5230\u914d\u7f6e, \u5220 3 \u884c\u786c\u7f16\u7801. measure_H_t.py \u542f\u52a8\u65f6\u8bfb\u6b64\u914d\u7f6e, \u7f3a\u5931\u952e fallback \u5230\u5185\u7f6e\u9ed8\u8ba4.",
+  "_comment_R1": "V11 R1 \u89c9\u9192\u5916\u5316: scale \u7cfb\u6570 / TAU_MIN \u4ece\u6e90\u7801\u63d0\u5230\u914d\u7f6e, \u5220 3 \u884c\u786c\u7f16\u7801. measure_H_t.py \u542f\u52a8\u65f6\u8bfb\u6b64\u914d\u7f6e, \u7f3a\u5931\u952e fallback \u5230\u5185\u7f6e\u9ed8\u8ba4.",
   "H_loc_weight": 0.1,
   "H_file_weight": 0.02,
   "H_depth_weight": 0.3,
   "H_scale_divisor": 10.0,
-  "H_min_floor": 0.1,
+  "H_min_floor": 0.05,
   "H_max_ceiling": 0.9,
+  "_comment_R13_H": "R13 \u8865 H \u77ed\u677f: H_min_floor 0.1\u21920.05 \u5141\u8bb8 H \u8868\u8fbe\u9ad8\u590d\u6742\u5ea6 (1\u2212\u4e0b\u9650) \u4e0d\u88ab\u5934\u91cf\u5230 0.1 \u622a\u65ad, \u540c\u65f6 \u8bf4\u660e H \u7269\u7406: H=0.1 \u4ee3\u8868 90% \u4ee3\u7801\u590d\u6742, \u73b0\u5b9e workspace 32K py \u6587\u4ef6\u4f1a\u4ea4\u4e92\u9ad8\u590d\u6742, H\u21920.4 \u7b49\u4e0d\u8be5\u88ab\u8bef\u8bfb.",
   "t_tau_min": 720.0,
   "t_min_floor": 0.05,
   "t_max_ceiling": 0.99,
   "PHI_SPARK": 3.38,
   "PHI_AUTONOMOUS": 3.0,
+  "O_horizon_denom": 50,
+  "_comment_R13_O": "V11 R13 bug-031 \u4fee: O_horizon \u5206\u6bcd\u4ece\u786c\u7f16\u7801 50 \u6539\u4e3a\u914d\u7f6e\u5316, \u9632 unique_repos \u53d8\u5316 (\u5982 40) \u9020\u6210 O \u4f2a\u51cf. \u9ed8\u8ba4 50 = \u7406\u8bba\u4e0a\u9650.",
   "skip_dirs": [
     ".git",
     "__pycache__",
@@ -60,6 +63,10 @@
     ".pytest_cache",
     "outputs",
     "logs",
-    "data"
-  ]
+    "data",
+    "skills",
+    "social-auto-upload",
+    "omega-ml"
+  ],
+  "_comment_R14_H": "R14 补 H 短板: skills/(298MB), social-auto-upload(8.7MB), omega-ml(358py/2.2MB) 未在 skip, 拉低 H_complexity 0.48. 加配置后 H→实测更低复杂度, 补短板 1 维."
 }

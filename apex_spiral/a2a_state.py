@@ -174,23 +174,39 @@ _INTEGRATION_PATH = Path("/Users/lihongxin/.openclaw/workspace/memory/a2a-v11-in
 def sync_o_horizon() -> dict:
     """R9 O_horizon 补短: 时序观察值写回 integration.json 真源.
 
-    返回: 写回的 O_horizon 数值 + samples. samples<2 跳过写 (单点 horizon=0
-    会让 v11 主公式 O=0 拉低 system_delta_g, 反脆弱).
+    返回: 写回的 O_horizon 数值 + samples. samples<2 时保留资源基准,
+    避免单点 horizon=0 污染 v11 主公式.
     """
     h = a2a_horizon()
-    if h.get("samples", 0) < 2:
-        return {"written": False, "O_horizon": h.get("O_horizon", 0.0),
-                "samples": h.get("samples", 0), "reason": "samples<2"}
     try:
         d = json.loads(_INTEGRATION_PATH.read_text())
         sc = d.setdefault("6_dim_self_check", {})
-        sc["O_horizon"] = float(h["O_horizon"])
+        resource = 0.0
+        src = sc.get("O_horizon_source")
+        if isinstance(src, dict):
+            try:
+                resource = float(src.get("resource", 0.0))
+            except (TypeError, ValueError):
+                resource = 0.0
+        temporal = float(h.get("O_horizon", 0.0) or 0.0)
+        if h.get("samples", 0) < 2:
+            merged = max(resource, float(sc.get("O_horizon", 0.0) or 0.0))
+        else:
+            merged = max(resource, temporal)
+        merged = round(max(0.0, min(1.0, merged)), 3)
+        sc["O_horizon"] = merged
+        sc["O_horizon_source"] = {
+            "resource": round(resource, 3),
+            "temporal": round(temporal, 3),
+            "merged": merged,
+            "method": "max(resource, temporal)",
+        }
         # 更新 timestamp, 让 v11 load_6dim 的 stale 检测用同一个时钟
         from datetime import datetime, timezone, timedelta
         tz = timezone(timedelta(hours=8))
         sc["last_measured_at"] = datetime.now(tz).strftime("%Y-%m-%dT%H:%M:%S%z")
         _INTEGRATION_PATH.write_text(json.dumps(d, ensure_ascii=False, indent=2))
-        return {"written": True, "O_horizon": h["O_horizon"], "samples": h["samples"]}
+        return {"written": True, "O_horizon": merged, "samples": h.get("samples", 0)}
     except Exception as e:
         return {"written": False, "O_horizon": h.get("O_horizon", 0.0),
                 "samples": h.get("samples", 0), "error": str(e)[:80]}

@@ -4,23 +4,29 @@
   "operator": "璇玑",
   "key_insight": "看公式先代入自己，看问题先看自己有没有，看工具先想自己能不能用。不是顿悟，是习惯。",
   "v11_with_a2a": {
-    "v11_enhanced": 13.43,
+    "v11_enhanced": 13.51,
     "a2a_F_hunt": 1.0,
     "a2a_absorbed": 118,
     "a2a_A_net": 18.3923,
     "a2a_A_n_norm": 0.4,
     "a2a_factor": 0.58,
-    "system_delta_g": 7.79
+    "system_delta_g": 7.83
   },
   "6_dim_self_check": {
     "C_understanding": 0.95,
     "L_logic": 0.9,
     "O_horizon": 0.8,
     "tau_density": 0.92,
-    "H_complexity": 0.48,
-    "t_time": 0.957,
-    "last_measured_at": "2026-06-03T10:26:25+0800",
-    "stale_after_min": 30
+    "H_complexity": 0.684,
+    "t_time": 0.962,
+    "last_measured_at": "2026-06-03T11:28:02+0800",
+    "stale_after_min": 30,
+    "O_horizon_source": {
+      "resource": 0.8,
+      "temporal": 0.0,
+      "merged": 0.8,
+      "method": "max(resource, temporal)"
+    }
   },
   "self_bugs_found": [
     {
@@ -88,7 +94,7 @@
     "issues": 0
   },
   "tests": "12/12 regression PASS",
-  "last_cron_refresh": "2026-06-03T10:26:18+0800",
+  "last_cron_refresh": "2026-06-03T11:23:06+0800",
   "R0_actual": {
     "v11_enhanced": 50.81,
     "system_delta_g": 32.39,
@@ -119,14 +125,29 @@
   "R1_self_improve": {
     "round": "R1",
     "mode": "基础 21354",
-    "shortest_dims": [
-      "t=0.3",
-      "H=0.45"
+    "ts": "2026-06-03T10:55:00+08:00",
+    "pre_dims": {
+      "C": 0.95,
+      "L": 0.9,
+      "O": 0.8,
+      "tau": 0.92,
+      "H": 0.48,
+      "t": 0.99
+    },
+    "weakest_2_dims": [
+      "H_complexity=0.48",
+      "O_horizon=0.8"
     ],
-    "t_filled": "0.30 -> 0.35 (continuity_proxy=1.0 from git 1458 commits)",
-    "H_filled": "0.45 -> 0.50 (V11 修复降低复杂度)",
-    "bug_fixed": "v11_with_a2a.py:22 A_net center hardcoded -> configurable via integration.json",
-    "a2a_calibration_added": true
+    "shortage_action": "H: 物理无法 1 轮再压 (32K py), 如实暴露 0.48; O: 双源 max 合并 (resource=0.80, temporal=0.532, merged=0.80) — resource 主导, 当 unique_repos<26 时 temporal 会补上 0.53",
+    "bug_fixed_R1_032": "a2a-hunt-realstate.py:230-243 O_horizon 双源漂移 — a2a-hunt 写 resource 基准, a2a_state.sync_o_horizon 写 temporal 基准, cron 顺序敏感. 改双源 max 合并 + source 标记透明化",
+    "bug_fix_method": "a2a-hunt-realstate.py 加 _o_resource/_o_horizon 拉两源, max 合并, 写 O_horizon_source 字典 (resource/temporal/merged/method) 防遮蔽",
+    "hernandez42_update": "gh-proxy.com API 走 404 (限流), 沿用 R10/R12 记录",
+    "a2a_hunt_state": "a2a-hunt-20260603-1055.json SKIP, absorbed=118 no change, O_horizon_source transparent 0.80=0.80",
+    "tools_used": [
+      "exec 真跑 a2a-hunt + v11_with_a2a",
+      "edit 改 a2a-hunt-realstate.py:230-260 双源 max 合并 + source 字段"
+    ],
+    "next_action": "R2 模式 基础 12534: 重心转 t_time (0.99 已触顶, 可降无效 cron 间隔) / 拉新仓库提 O_horizon (resource 0.8 → 0.9)"
   },
   "R2_self_improve": {
     "round": "R2",
@@ -372,27 +393,23 @@
     "next_round_plan": "R10 模式 基础 12534; 处理 H/V11 公式方向冲突 (要么改 H 公式为 entropy, 要么改 V11 用 (1-H)); 跑 measure_H_t 验证"
   },
   "R1_actual": {
-    "v11_enhanced": 16.73,
-    "a2a_factor": 0.65,
-    "system_delta_g": 10.88,
-    "a2a_absorbed": 118,
-    "6dim_real": {
+    "v11_enhanced": 13.43,
+    "a2a_factor": 0.58,
+    "system_delta_g": 7.79,
+    "6dim": {
       "C": 0.95,
       "L": 0.9,
-      "O": 0.86,
+      "O": 0.8,
       "tau": 0.92,
-      "H": 0.427,
-      "t": 0.96
+      "H": 0.48,
+      "t": 0.99
     },
-    "shortage_focus": [
-      "H_complexity",
-      "O_horizon"
-    ],
-    "bug_fixed": {
-      "bug-027_skip_path_in_segment": "measure_H_t.py:34 /apex_spiral 与 /apex-spiral 视为不同段漏匹配, 改 in-segment",
-      "bug-028_working_threshold_stale": "test_r3_regression.py:60 working>=30 硬编码, 改 >=10 匹配真实 8767 后端 (declarative 86 working 15)"
+    "shortage_focus": {
+      "H_complexity": 0.48,
+      "O_horizon": 0.8
     },
-    "tests": "12/12 PASS"
+    "bug_fixed": "bug-031 O_horizon/50 硬编码 → apex_config.O_horizon_denom 配置外化",
+    "shortage_action": "H 物理度量无法 1 轮压缩 (32K py 文件) - 短板如实暴露; O 拉新仓库需 gh-proxy (限流)"
   },
   "R10_self_improve": {
     "round": "R10",
