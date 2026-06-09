@@ -14,19 +14,110 @@ import (
 // APEX_NEW(t+1) = APEX_CORE(t) ⊛ ΔG [规范收敛 ⊗ 纪律锁止 ⊗ 协同熵减]
 // ============================================================
 
-// --- 核心数据结构 ---
+// --- 核心数据结构 (V2: 14维语义注入) ---
 
-// APEXCore APEX原生内核状态
+// LlmAgentParams 单LLM多任务Agent效能参数 (替代原SpecConv)
+type LlmAgentParams struct {
+	LambdaSingleCall float64 `json:"lambda_single_call"` // λ 单次调用质量 [0,1]
+	MuMultiTask      float64 `json:"mu_multi_task"`      // μ 多任务并行 [0,1]
+	SigmaHighQuality float64 `json:"sigma_high_quality"`  // σ 高质量输出 [0,1]
+	GammaLlmCost     float64 `json:"gamma_llm_cost"`     // γ LLM成本 [0,1]
+}
+
+// CalculateTheta Θ = (λ × μ × σ) / (γ + 1)
+func (p *LlmAgentParams) CalculateTheta() float64 {
+	return (p.LambdaSingleCall * p.MuMultiTask * p.SigmaHighQuality) / (p.GammaLlmCost + 1.0)
+}
+
+// MasterParams 公式通解+技能全域掌握参数 (替代原Discipline)
+type MasterParams struct {
+	KCode       float64   `json:"k_code"`       // K_code 编码掌握系数
+	TauTransfer []float64 `json:"tau_transfer"`  // τ_transfer 跨域迁移系数
+	UpsilonApply float64  `json:"upsilon_apply"` // υ_apply 技能应用系数
+}
+
+// CalculateKMaster K_master = K_code × (1 + Σ(τ/(1-τ))) × υ_apply
+func (p *MasterParams) CalculateKMaster() float64 {
+	sumTau := 0.0
+	for _, t := range p.TauTransfer {
+		clamped := math.Min(math.Max(t, 0.0), 0.99)
+		sumTau += t / (1.0 - clamped)
+	}
+	return p.KCode * (1.0 + sumTau) * p.UpsilonApply
+}
+
+// SelfRepairParams 全场景自主深度修复参数 (替代原Fitness→ε)
+type SelfRepairParams struct {
+	GTarget         float64 `json:"g_target"`          // G_target 目标增益
+	GActual         float64 `json:"g_actual"`          // G_actual 实际增益
+	DeltaErrorLocate float64 `json:"delta_error_locate"` // δ 错误定位效率
+	PsiThoroughFix  float64 `json:"psi_thorough_fix"`  // ψ 彻底修复系数
+	KappaNoRepeat   float64 `json:"kappa_no_repeat"`   // κ 防复发系数
+}
+
+// CalculateEpsilon ε = 1 + |(Gt - Ga)/Ga| × δ × ψ × κ
+func (p *SelfRepairParams) CalculateEpsilon() float64 {
+	if p.GActual == 0 {
+		return 10.0 // 防除零
+	}
+	relErr := math.Abs((p.GTarget - p.GActual) / p.GActual)
+	return 1.0 + relErr * p.DeltaErrorLocate * p.PsiThoroughFix * p.KappaNoRepeat
+}
+
+// CalculateLambda Λ = Ga/Gt (实际/目标, 趋近1=健康)
+func (p *SelfRepairParams) CalculateLambda() float64 {
+	if p.GTarget == 0 {
+		return 0.5
+	}
+	return math.Min(1.0, p.GActual/p.GTarget)
+}
+
+// CycleParams 正向循环反馈增益参数 (替代原CollabEntropy→Φ)
+type CycleParams struct {
+	EtaSkillUp       float64 `json:"eta_skill_up"`       // η 技能提升系数
+	RhoResultFeedback float64 `json:"rho_result_feedback"` // ρ 结果反馈系数
+}
+
+// CalculatePhiCycle Φ_cycle = e^(η × ρ), 上限保护e^3≈20
+func (p *CycleParams) CalculatePhiCycle() float64 {
+	product := p.EtaSkillUp * p.RhoResultFeedback
+	product = math.Min(product, 3.0) // 上限保护
+	return math.Exp(product)
+}
+
+// HostHealthParams 主机全维度健康稳态参数 (用于Ψ)
+type HostHealthParams struct {
+	PsiMem   float64 `json:"psi_mem"`   // Ψ_mem 内存健康
+	PsiApp   float64 `json:"psi_app"`   // Ψ_app 应用健康
+	PsiDisk  float64 `json:"psi_disk"`  // Ψ_disk 磁盘健康
+	OmegaDawn float64 `json:"omega_dawn"` // Ω 启动就绪
+}
+
+// CalculatePsiHost Ψ_host = Ψ_mem × Ψ_app × Ψ_disk × Ω
+func (p *HostHealthParams) CalculatePsiHost() float64 {
+	return p.PsiMem * p.PsiApp * p.PsiDisk * p.OmegaDawn
+}
+
+// APEXCore APEX原生内核状态 (V2: 14维)
 type APEXCore struct {
 	T             int64   `json:"t"`              // 时间步
 	EV            float64 `json:"ev"`             // 进化值
 	GeneCount     int     `json:"gene_count"`     // 基因数
-	Fitness       float64 `json:"fitness"`        // 适应度
 	DeltaG        float64 `json:"delta_g"`        // 自由能差
-	SpecConv      float64 `json:"spec_conv"`      // 规范收敛度 [0,1]
-	Discipline    float64 `json:"discipline"`     // 纪律锁止度 [0,1]
-	CollabEntropy float64 `json:"collab_entropy"` // 协同熵减度 [0,1]
-	HashChain     string  `json:"hash_chain"`     // 链式哈希（可追溯）
+	HashChain     string  `json:"hash_chain"`     // 链式哈希
+
+	// V2: 14维子参数 (替代原Fitness/SpecConv/Discipline/CollabEntropy)
+	LlmAgent    LlmAgentParams    `json:"llm_agent"`     // Θ = (λ×μ×σ)/(γ+1)
+	Master      MasterParams      `json:"master"`        // K = K_code×(1+Στ)×υ
+	SelfRepair  SelfRepairParams  `json:"self_repair"`   // ε = 1+|(Gt-Ga)/Ga|×δ×ψ×κ
+	Cycle       CycleParams       `json:"cycle"`         // Φ = e^(η×ρ)
+	HostHealth  HostHealthParams  `json:"host_health"`   // Ψ = Ψ_mem×Ψ_app×Ψ_disk×Ω
+
+	// 兼容旧字段(由子参数推导, 不直接设置)
+	Fitness       float64 `json:"fitness"`        // = SelfRepair.CalculateLambda()
+	SpecConv      float64 `json:"spec_conv"`      // = LlmAgent.CalculateTheta()
+	Discipline    float64 `json:"discipline"`     // = Master.CalculateKMaster()
+	CollabEntropy float64 `json:"collab_entropy"` // = Cycle.CalculatePhiCycle() / 20
 }
 
 // DevourResult 吞噬融合结果
@@ -57,21 +148,48 @@ type FormulaEngine struct {
 	pendingPaths       int            // 待处理的路径探索数(Evolve时应用)
 	pendingQGPassed    bool           // 待处理的质量门禁通过(Evolve时应用)
 	qgPassCount        int            // QG通过次数(Bug#14: SpecConv累加floor)
+	totalReflections   int            // 总反思次数(V2: KappaNoRepeat演化)
 }
 
 // NewFormulaEngine 创建公式引擎
 func NewFormulaEngine() *FormulaEngine {
 	return &FormulaEngine{
 		core: &APEXCore{
-			T:             0,
-			EV:            1.0,
-			GeneCount:     5,     // 初始5个核心基因(Evolver/AutoResearch/SuperPowers/OpenHands/河图洛书)
-			Fitness:       0.5,
-			DeltaG:        0,
-			SpecConv:      0.5,
-			Discipline:    0.5,
-			CollabEntropy: 0.5,
-			HashChain:     "genesis",
+			T:         0,
+			EV:        1.0,
+			GeneCount: 5,
+			DeltaG:    0,
+			HashChain: "genesis",
+
+			// V2: 14维子参数初始化
+			LlmAgent: LlmAgentParams{
+				LambdaSingleCall: 0.90,  // λ 单次调用质量
+				MuMultiTask:      0.85,  // μ 多任务并行
+				SigmaHighQuality: 0.88,  // σ 高质量输出
+				GammaLlmCost:     0.10,  // γ LLM成本
+			},
+			Master: MasterParams{
+				KCode:        1.0,              // K_code 编码掌握
+				TauTransfer:  []float64{0.1, 0.05, 0.08}, // τ 跨域迁移
+				UpsilonApply: 0.9,              // υ 技能应用
+			},
+			SelfRepair: SelfRepairParams{
+				GTarget:          1.0,   // G_target 目标(满值1.0)
+				GActual:          0.5,   // G_actual 初始实际(50%)
+				DeltaErrorLocate: 1.0,   // δ 错误定位
+				PsiThoroughFix:   1.0,   // ψ 彻底修复
+				KappaNoRepeat:    0.5,   // κ 防复发(初始0.5, 反思后涨)
+			},
+			Cycle: CycleParams{
+				EtaSkillUp:        0.5, // η 技能提升
+				RhoResultFeedback: 0.5, // ρ 结果反馈
+			},
+			HostHealth: HostHealthParams{
+				PsiMem:    0.98, // Ψ_mem 内存健康
+				PsiApp:    0.99, // Ψ_app 应用健康
+				PsiDisk:   0.97, // Ψ_disk 磁盘健康
+				OmegaDawn: 1.00, // Ω 启动就绪
+			},
 		},
 		history: make([]APEXCore, 0),
 		devours: make([]DevourResult, 0),
@@ -95,22 +213,38 @@ func (fe *FormulaEngine) ComputeDeltaG() float64 {
 }
 
 // computeDeltaGCore 内部核心计算(不加锁, 供Evolve等已持锁方法调用)
+// V2: 14维语义注入 — Θ/K/Λ/ε/Ψ/Φ全部由子参数推导
 func (fe *FormulaEngine) computeDeltaGCore() float64 {
 	c := fe.core
-	// 上行六因子: Λ×Θ×K×ξ×Ψ×Φ
-	Lambda := c.Fitness                                          // Λ 根增益
-	Theta := c.SpecConv                                          // Θ LLM效能
-	K := c.Discipline                                            // K 技能掌握
-	Xi := c.CollabEntropy                                        // ξ 置信度
-	Psi := math.Min(1.0, c.EV/math.Max(1.0, float64(c.T)*0.5)) // Ψ 自我迭代(EV归一化)
-	Phi := math.Min(1.0, float64(c.GeneCount)/20.0)             // Φ 正反馈(基因数归一化)
+
+	// 上行六因子: Λ×Θ×K×ξ×Ψ×Φ (全部14维推导)
+	// Λ = EV增长率(而非GActual/GTarget, 那样差距太大ε会爆)
+	evNorm := math.Min(1.0, c.EV/math.Max(1.0, float64(c.T)*0.5+1.0))
+	Lambda := evNorm * c.SelfRepair.CalculateLambda()           // Λ = EV归一化 × 修复健康度
+	Theta := c.LlmAgent.CalculateTheta()                        // Θ = (λ×μ×σ)/(γ+1)
+	K := c.Master.CalculateKMaster()                            // K = K_code×(1+Στ)×υ
+	Xi := math.Min(1.0, c.Cycle.CalculatePhiCycle()/5.0)        // ξ = Φ_cycle归一化(除5而非10)
+	Psi := c.HostHealth.CalculatePsiHost()                      // Ψ = Ψ_mem×Ψ_app×Ψ_disk×Ω
+	Phi := math.Min(1.0, float64(c.GeneCount)/20.0)             // Φ = GeneCount/20
+
 	up := Lambda * Theta * K * Xi * Psi * Phi
 
-	// 下行三因子: H×T×ε (严格按文档)
-	H := math.Max(0.01, 1.0-c.SpecConv)           // H 熵(无序度)
-	T := math.Max(0.01, float64(c.T)/100.0)       // T 周期归一化
-	Epsilon := math.Max(0.01, 1.0-c.Fitness)       // ε 损失
+	// 下行三因子: H×T×ε (14维推导)
+	// ε用1+ΔG的对数衰减(而非GTarget/GActual差距, 那样太大)
+	H := math.Max(0.01, 1.0-c.LlmAgent.CalculateTheta())        // H = 1-Θ (LLM无序度)
+	T := math.Max(0.01, float64(c.T)/100.0)                      // T = 时间步归一化
+	// ε = SelfRepair基础 × (1 + log(1+EV衰减))
+	srEpsilon := c.SelfRepair.CalculateEpsilon()
+	// 限制ε到合理范围(不能超过10)
+	Epsilon := math.Max(0.01, math.Min(10.0, srEpsilon*0.1))
+
 	down := H * T * Epsilon
+
+	// 推导兼容字段(供旧代码/三函数使用)
+	c.Fitness = Lambda
+	c.SpecConv = Theta
+	c.Discipline = K / 5.0 // 归一化到[0,1]附近
+	c.CollabEntropy = Xi
 
 	return up / down
 }
@@ -311,6 +445,7 @@ func (fe *FormulaEngine) Evolve() APEXCore {
 		_ = fix // 保留拼装语义, 未来可拼接进 pendingReflections 详情
 		// 直接加 pendingReflections (跟原 ReflectOnFailure 同样的效果)
 		fe.pendingReflections++
+		fe.totalReflections++
 		// 哈希链记录
 		hashInput := fmt.Sprintf("%s:reflect:%s:%s", fe.core.HashChain, task, reason)
 		hash := sha256.Sum256([]byte(hashInput))
@@ -330,12 +465,33 @@ func (fe *FormulaEngine) Evolve() APEXCore {
 	fe.core.DeltaG = fe.computeDeltaGCore()
 
 	// 4. log阻尼进化 — 防止ΔG爆炸导致EV失控
-	// 原版: EV += ΔG*0.1 (太弱)
-	// 直接: EV += ΔG (会爆炸, 如测试所示10轮从4.5→27)
-	// 修复: EV += log(1+ΔG) — 增长有界但比原版快
 	dampedDG := math.Log(1.0 + fe.core.DeltaG)
 	fe.core.EV += dampedDG
-	fe.core.Fitness = math.Min(1.0, fe.core.Fitness+fe.core.DeltaG*0.05)
+
+	// 4b. V2: 14维子参数自动演化
+	// SelfRepair: GActual随成功进化增长(每次+0.02, 封顶GTarget)
+	if fe.core.DeltaG > 0 {
+		fe.core.SelfRepair.GActual = math.Min(fe.core.SelfRepair.GTarget, fe.core.SelfRepair.GActual+0.02)
+	}
+	// Cycle: η/ρ随ΔG增长(成功→技能+反馈都涨)
+	if fe.core.DeltaG > 0 {
+		fe.core.Cycle.EtaSkillUp = math.Min(1.0, fe.core.Cycle.EtaSkillUp+0.005)
+		fe.core.Cycle.RhoResultFeedback = math.Min(1.0, fe.core.Cycle.RhoResultFeedback+0.003)
+	}
+	// LlmAgent: λ/μ/σ随QualityGate通过次数提升
+	if fe.qgPassCount > 0 {
+		boost := math.Min(0.1, float64(fe.qgPassCount)*0.005)
+		fe.core.LlmAgent.LambdaSingleCall = math.Min(1.0, 0.90+boost)
+		fe.core.LlmAgent.SigmaHighQuality = math.Min(1.0, 0.88+boost)
+	}
+	// Master: KCode随教训库增长(经验积累)
+	if len(fe.lessons) > 0 {
+		fe.core.Master.KCode = math.Min(2.0, 1.0+float64(len(fe.lessons))*0.05)
+	}
+	// SelfRepair: KappaNoRepeat随反思次数增长
+	if fe.totalReflections > 0 {
+		fe.core.SelfRepair.KappaNoRepeat = math.Min(1.0, 0.5+float64(fe.totalReflections)*0.02)
+	}
 
 	// 5. [BUG#2修复] 应用三重熵减约束(含pending奖励注入) — 原版从未调用!
 	fe.applyEntropyTriangleUnsafe()
@@ -473,6 +629,7 @@ func (fe *FormulaEngine) ReflectOnFailure(task, reason, fix string) Lesson {
 
 	// 标记待处理反思(Evolve时在EntropyTriangle之后应用)
 	fe.pendingReflections++
+	fe.totalReflections++
 
 	// 哈希链记录
 	hashInput := fmt.Sprintf("%s:reflect:%s:%s", fe.core.HashChain, task, reason)
