@@ -68,6 +68,8 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 5. **执行巩固**：fitness≥0.7 的经验入 SWRs RingBuffer
 6. **迭代优化**：每轮自我迭代，ΔG 持续收敛
 
+**项目全景文档：`PROJECT.md`** — 架构/公式/Bug记录/设计模式/编译方法/Pitfall
+
 相关文档：`APEX_TOKEN_OPTIMIZATION_MD.md`
 
 - Don't exfiltrate private data. Ever.
