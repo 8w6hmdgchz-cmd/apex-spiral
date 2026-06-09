@@ -1,0 +1,147 @@
+{
+  "bugs": [
+    {
+      "id": "bug_apex_asi_engine.go_297",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 297,
+      "type": "placeholder",
+      "severity": "critical",
+      "description": "硬编码placeholder: Type: \"placeholder\", Severity: \"critical\",",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apex_asi_engine.go_298",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 298,
+      "type": "placeholder",
+      "severity": "critical",
+      "description": "硬编码placeholder: Description: fmt.Sprintf(\"硬编码placeholder: %s\", trimmed),",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apex_asi_engine.go_303",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 303,
+      "type": "placeholder",
+      "severity": "critical",
+      "description": "硬编码placeholder: if strings.Contains(trimmed, \"echo\") \u0026\u0026 strings.Contains(trimmed, \"placeholder\") {",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apex_asi_engine.go_303",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 303,
+      "type": "mock",
+      "severity": "critical",
+      "description": "模拟工具调用: if strings.Contains(trimmed, \"echo\") \u0026\u0026 strings.Contains(trimmed, \"placeholder\") {",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apexagi_orchestrator.go_106",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apexagi_orchestrator.go",
+      "line": 106,
+      "type": "placeholder",
+      "severity": "critical",
+      "description": "硬编码placeholder: o.tools[\"pi\"] = \u0026AgentTool{Name: \"Pi\", Command: \"echo\", Args: []string{\"pi-placeholder\"}}",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apexagi_orchestrator.go_106",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apexagi_orchestrator.go",
+      "line": 106,
+      "type": "mock",
+      "severity": "critical",
+      "description": "模拟工具调用: o.tools[\"pi\"] = \u0026AgentTool{Name: \"Pi\", Command: \"echo\", Args: []string{\"pi-placeholder\"}}",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apexagi_orchestrator.go_107",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apexagi_orchestrator.go",
+      "line": 107,
+      "type": "placeholder",
+      "severity": "critical",
+      "description": "硬编码placeholder: o.tools[\"dbexplain\"] = \u0026AgentTool{Name: \"dbexplain\", Command: \"echo\", Args: []string{\"dbexplain-placeholder\"}}",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apexagi_orchestrator.go_107",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apexagi_orchestrator.go",
+      "line": 107,
+      "type": "mock",
+      "severity": "critical",
+      "description": "模拟工具调用: o.tools[\"dbexplain\"] = \u0026AgentTool{Name: \"dbexplain\", Command: \"echo\", Args: []string{\"dbexplain-placeholder\"}}",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apexagi_orchestrator.go_108",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apexagi_orchestrator.go",
+      "line": 108,
+      "type": "placeholder",
+      "severity": "critical",
+      "description": "硬编码placeholder: o.tools[\"cubesandbox\"] = \u0026AgentTool{Name: \"CubeSandbox\", Command: \"echo\", Args: []string{\"cubesandbox-placeholder\"}}",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apexagi_orchestrator.go_108",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apexagi_orchestrator.go",
+      "line": 108,
+      "type": "mock",
+      "severity": "critical",
+      "description": "模拟工具调用: o.tools[\"cubesandbox\"] = \u0026AgentTool{Name: \"CubeSandbox\", Command: \"echo\", Args: []string{\"cubesandbox-placeholder\"}}",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apex_asi_engine.go_313",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 313,
+      "type": "hardcoded",
+      "severity": "major",
+      "description": "硬编码地址: if strings.Contains(trimmed, \"127.0.0.1:\") || strings.Contains(trimmed, \"localhost:\") {",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_diagnostics.go_142",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/third_party/secrets_gate/snapshot/gitleaks/gitleaks/cmd/diagnostics.go",
+      "line": 142,
+      "type": "hardcoded",
+      "severity": "major",
+      "description": "硬编码地址: logging.Error().Err(http.ListenAndServe(\"localhost:6060\", nil)).Send()",
+      "fixed": false,
+      "fix_hash": ""
+    }
+  ],
+  "genes": 0,
+  "history": 10,
+  "state": {
+    "t": 10,
+    "psi": 0.7034741035493123,
+    "k": 1,
+    "log_r": 1.791759469228055,
+    "free_energy": 0.2857142857142857,
+    "theta": 0.5,
+    "alpha": 1,
+    "i_self": 0.5,
+    "entropy_inv": 0.5,
+    "c_cosmos": 0.1,
+    "holo_causal": 0.03488154380888926,
+    "osk": 0.5,
+    "bdnf": 0.5,
+    "crispr": 0,
+    "hash_chain": "0682d0c7180520f2",
+    "ev": 1.0456039738875487,
+    "fitness": 0.5,
+    "gene_count": 0
+  },
+  "timestamp": "2026-06-08T15:17:17+08:00"
+}

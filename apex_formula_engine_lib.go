@@ -47,12 +47,15 @@ type EntropyTriangle struct {
 
 // FormulaEngine APEX公式引擎
 type FormulaEngine struct {
-	mu        sync.RWMutex
-	core      *APEXCore
-	history   []APEXCore
-	devours   []DevourResult
-	lessons   []Lesson       // 教训库(防复发)
-	maxHist   int
+	mu                 sync.RWMutex
+	core               *APEXCore
+	history            []APEXCore
+	devours            []DevourResult
+	lessons            []Lesson       // 教训库(防复发)
+	maxHist            int
+	pendingReflections int            // 待处理的反思数(Evolve时应用)
+	pendingPaths       int            // 待处理的路径探索数(Evolve时应用)
+	pendingQGPassed    bool           // 待处理的质量门禁通过(Evolve时应用)
 }
 
 // NewFormulaEngine 创建公式引擎
@@ -61,7 +64,7 @@ func NewFormulaEngine() *FormulaEngine {
 		core: &APEXCore{
 			T:             0,
 			EV:            1.0,
-			GeneCount:     0,
+			GeneCount:     5,     // 初始5个核心基因(Evolver/AutoResearch/SuperPowers/OpenHands/河图洛书)
 			Fitness:       0.5,
 			DeltaG:        0,
 			SpecConv:      0.5,
@@ -167,6 +170,7 @@ func (fe *FormulaEngine) ApplyEntropyTriangle() EntropyTriangle {
 
 // applyEntropyTriangleUnsafe 内部版(不加锁, 供Evolve调用)
 // 修复: 使用EMA(指数移动平均)平滑反馈, 防止ΔG振荡
+// 修复2: pending奖励注入EMA内部, 防止被覆盖
 func (fe *FormulaEngine) applyEntropyTriangleUnsafe() EntropyTriangle {
 	tri := EntropyTriangle{
 		SpecConvergence:    fe.computeSpecConvergence(),
@@ -175,11 +179,33 @@ func (fe *FormulaEngine) applyEntropyTriangleUnsafe() EntropyTriangle {
 	}
 
 	// EMA平滑: α=0.3, 新值权重30%, 旧值权重70%
-	// 防止奇偶轮ΔG剧烈振荡(原版直接覆写→振荡)
 	alpha := 0.3
-	fe.core.SpecConv = alpha*tri.SpecConvergence + (1-alpha)*fe.core.SpecConv
-	fe.core.Discipline = alpha*tri.DisciplineLock + (1-alpha)*fe.core.Discipline
-	fe.core.CollabEntropy = alpha*tri.CollaborativeReduce + (1-alpha)*fe.core.CollabEntropy
+
+	// SpecConv: 注入QG奖励到target值, 使EMA向更高目标收敛
+	// 注意: convergence基于EV标准差, EV指数增长时convergence趋近0
+	// 所以QG奖励必须是绝对值, 不能加在convergence上
+	specTarget := tri.SpecConvergence
+	if fe.pendingQGPassed {
+		specTarget = math.Max(specTarget, 0.6) // 保证target至少0.6
+		fe.pendingQGPassed = false
+	}
+	fe.core.SpecConv = alpha*specTarget + (1-alpha)*fe.core.SpecConv
+
+	// Discipline: 注入反思奖励到target值
+	discTarget := tri.DisciplineLock
+	if fe.pendingReflections > 0 {
+		discTarget = math.Min(1.0, discTarget+0.1*float64(fe.pendingReflections))
+		fe.pendingReflections = 0
+	}
+	fe.core.Discipline = alpha*discTarget + (1-alpha)*fe.core.Discipline
+
+	// CollabEntropy: 注入路径探索奖励到target值
+	collabTarget := tri.CollaborativeReduce
+	if fe.pendingPaths > 0 {
+		collabTarget = math.Min(1.0, collabTarget+0.02*float64(fe.pendingPaths))
+		fe.pendingPaths = 0
+	}
+	fe.core.CollabEntropy = alpha*collabTarget + (1-alpha)*fe.core.CollabEntropy
 
 	return tri
 }
@@ -282,7 +308,7 @@ func (fe *FormulaEngine) Evolve() APEXCore {
 	fe.core.EV += dampedDG
 	fe.core.Fitness = math.Min(1.0, fe.core.Fitness+fe.core.DeltaG*0.05)
 
-	// 5. [BUG#2修复] 应用三重熵减约束 — 原版从未调用!
+	// 5. [BUG#2修复] 应用三重熵减约束(含pending奖励注入) — 原版从未调用!
 	fe.applyEntropyTriangleUnsafe()
 
 	// 6. 哈希链延伸
@@ -392,8 +418,8 @@ func (fe *FormulaEngine) ReflectOnFailure(task, reason, fix string) Lesson {
 	// 存入教训库
 	fe.lessons = append(fe.lessons, lesson)
 
-	// 纪律微涨 — 反思本身就是纪律行为
-	fe.core.Discipline = math.Min(1.0, fe.core.Discipline+0.01)
+	// 标记待处理反思(Evolve时在EntropyTriangle之后应用)
+	fe.pendingReflections++
 
 	// 哈希链记录
 	hashInput := fmt.Sprintf("%s:reflect:%s:%s", fe.core.HashChain, task, reason)
@@ -490,8 +516,8 @@ func (fe *FormulaEngine) MultiPathDecide(paths []PathOption) (PathOption, []floa
 		}
 	}
 
-	// 记录路径探索行为 → CollabEntropy微涨(多路径=有序探索)
-	fe.core.CollabEntropy = math.Min(1.0, fe.core.CollabEntropy+0.005*float64(len(paths)))
+	// 记录路径探索行为 → 标记待处理(Evolve时在EntropyTriangle之后应用)
+	fe.pendingPaths += len(paths)
 
 	return paths[bestIdx], scores
 }
@@ -616,13 +642,13 @@ func (fe *FormulaEngine) QualityGate(output string) QualityGateResult {
 		Details: details,
 	}
 
-	// 规范行为奖励 — 通过门禁=规范收敛
+	// 标记规范行为(Evolve时在EntropyTriangle之后应用)
 	if allPassed {
-		fe.core.SpecConv = math.Min(1.0, fe.core.SpecConv+0.01)
+		fe.pendingQGPassed = true
 	} else {
-		// 未通过但得分>0.5, 部分奖励
+		// 未通过但得分>0.5, 部分奖励(直接应用, 太小不影响EMA)
 		if totalScore > 0.5 {
-			fe.core.SpecConv = math.Min(1.0, fe.core.SpecConv+0.003)
+			fe.core.SpecConv = math.Min(1.0, fe.core.SpecConv+0.003*(1.0-fe.core.SpecConv))
 		}
 	}
 

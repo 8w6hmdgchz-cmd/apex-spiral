@@ -1,0 +1,26 @@
+{
+  "agents": 31,
+  "ldrs": 6,
+  "phi": {
+    "phiBase": 0.024000000000000014,
+    "ev": 1,
+    "an": 0.7070000000000004,
+    "nv": 0.6472000000000003,
+    "harmRate": 0.14999999999999986,
+    "computed": 0.0732112640000002,
+    "level": "T2 BASIC",
+    "delta": 0.009987262734177257,
+    "sessions": 26,
+    "ldr": {
+      "cyclesComplete": 6,
+      "gapsFound": 0,
+      "fixesApplied": 6
+    },
+    "selfHealing": {
+      "runs": 0,
+      "fixes": 0,
+      "escalations": 0
+    }
+  },
+  "timestamp": "2026-06-08T16:01:43+08:00"
+}

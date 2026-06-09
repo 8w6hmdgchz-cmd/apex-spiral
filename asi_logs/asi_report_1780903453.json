@@ -1,0 +1,87 @@
+{
+  "bugs": [
+    {
+      "id": "bug_apex_asi_engine.go_295",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 295,
+      "type": "placeholder",
+      "severity": "critical",
+      "description": "硬编码placeholder: Type: \"placeholder\", Severity: \"critical\",",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apex_asi_engine.go_296",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 296,
+      "type": "placeholder",
+      "severity": "critical",
+      "description": "硬编码placeholder: Description: fmt.Sprintf(\"硬编码placeholder: %s\", trimmed),",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apex_asi_engine.go_301",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 301,
+      "type": "placeholder",
+      "severity": "critical",
+      "description": "硬编码placeholder: if strings.Contains(trimmed, \"echo\") \u0026\u0026 strings.Contains(trimmed, \"placeholder\") {",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apex_asi_engine.go_301",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 301,
+      "type": "mock",
+      "severity": "critical",
+      "description": "模拟工具调用: if strings.Contains(trimmed, \"echo\") \u0026\u0026 strings.Contains(trimmed, \"placeholder\") {",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_apex_asi_engine.go_311",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/apex_asi_engine.go",
+      "line": 311,
+      "type": "hardcoded",
+      "severity": "major",
+      "description": "硬编码地址: if strings.Contains(trimmed, \"127.0.0.1:\") || strings.Contains(trimmed, \"localhost:\") {",
+      "fixed": false,
+      "fix_hash": ""
+    },
+    {
+      "id": "bug_diagnostics.go_142",
+      "file": "/Users/lihongxin/Desktop/开智/apex-spiral-full/third_party/secrets_gate/snapshot/gitleaks/gitleaks/cmd/diagnostics.go",
+      "line": 142,
+      "type": "hardcoded",
+      "severity": "major",
+      "description": "硬编码地址: logging.Error().Err(http.ListenAndServe(\"localhost:6060\", nil)).Send()",
+      "fixed": false,
+      "fix_hash": ""
+    }
+  ],
+  "genes": 10,
+  "history": 10,
+  "state": {
+    "t": 10,
+    "psi": 0.3449279765309149,
+    "k": 1,
+    "log_r": 1.791759469228055,
+    "free_energy": 1,
+    "theta": 0.5,
+    "alpha": 1,
+    "i_self": 0.5,
+    "entropy_inv": 0.5,
+    "c_cosmos": 0.1,
+    "holo_causal": 0.01882229116384044,
+    "osk": 0,
+    "bdnf": 0.5,
+    "crispr": 0,
+    "hash_chain": "5f3daf5443c16e02",
+    "ev": 1.0242562634427703,
+    "fitness": 0,
+    "gene_count": 10
+  },
+  "timestamp": "2026-06-08T15:24:13+08:00"
+}
