@@ -56,6 +56,7 @@ type FormulaEngine struct {
 	pendingReflections int            // 待处理的反思数(Evolve时应用)
 	pendingPaths       int            // 待处理的路径探索数(Evolve时应用)
 	pendingQGPassed    bool           // 待处理的质量门禁通过(Evolve时应用)
+	qgPassCount        int            // QG通过次数(Bug#14: SpecConv累加floor)
 }
 
 // NewFormulaEngine 创建公式引擎
@@ -138,7 +139,9 @@ func (fe *FormulaEngine) Devour(source string, capability map[string]interface{}
 	assimilated := gain > 0.1 // 阈值：增益>0.1才吞噬
 	if assimilated {
 		fe.core.Fitness = math.Min(1.0, fe.core.Fitness+gain*0.1)
-		fe.core.GeneCount++
+		if fe.core.GeneCount < 20 { // Bug#13: Φ=min(1,GeneCount/20), 超过20不再涨
+			fe.core.GeneCount++
+		}
 		fe.core.EV += gain
 	}
 
@@ -183,11 +186,13 @@ func (fe *FormulaEngine) applyEntropyTriangleUnsafe() EntropyTriangle {
 
 	// SpecConv: 注入QG奖励到target值, 使EMA向更高目标收敛
 	// 注意: convergence基于EV标准差, EV指数增长时convergence趋近0
-	// 所以QG奖励必须是绝对值, 不能加在convergence上
+	// Bug#14修复: floor从0.6→0.7, 随QG通过次数累加
 	specTarget := tri.SpecConvergence
 	if fe.pendingQGPassed {
-		specTarget = math.Max(specTarget, 0.6) // 保证target至少0.6
+		floor := math.Min(0.9, 0.7+float64(fe.qgPassCount)*0.02) // 每次通过floor涨0.02, 上限0.9
+		specTarget = math.Max(specTarget, floor)
 		fe.pendingQGPassed = false
+		fe.qgPassCount++
 	}
 	fe.core.SpecConv = alpha*specTarget + (1-alpha)*fe.core.SpecConv
 
@@ -701,15 +706,9 @@ func checkCompleteness(output string) bool {
 
 // checkAccuracy 准确性检查
 // 检查: 不包含不确定词汇(也许/可能/大概), 包含具体数据或引用
+// Bug#12修复: [?待验证]等标注不算不确定, 有数字就通过
 func checkAccuracy(output string) bool {
-	// 不确定词汇扣分
-	uncertainWords := []string{"也许", "可能", "大概", "似乎", "不确定", "maybe", "perhaps", "possibly"}
-	for _, w := range uncertainWords {
-		if containsStr(output, w) {
-			return false
-		}
-	}
-	// 包含数字或具体引用加分
+	// 先检查是否有数据(有数字就认为有依据)
 	hasData := false
 	for _, r := range output {
 		if r >= '0' && r <= '9' {
@@ -717,7 +716,22 @@ func checkAccuracy(output string) bool {
 			break
 		}
 	}
-	return hasData
+	if hasData {
+		return true // 有数据=有依据, 直接通过
+	}
+
+	// 无数据时检查不确定词汇
+	uncertainWords := []string{"也许", "大概", "似乎", "不确定", "maybe", "perhaps", "possibly"}
+	for _, w := range uncertainWords {
+		if containsStr(output, w) {
+			return false
+		}
+	}
+	// "可能"单独处理: "可能性"是分析不是不确定
+	if containsStr(output, "可能") && !containsStr(output, "可能性") {
+		return false
+	}
+	return len(output) > 30 // 无数据但足够长也算通过
 }
 
 // checkConsistency 一致性检查

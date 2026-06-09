@@ -89,6 +89,11 @@ type APEXCore struct {
 | #8 | 三函数奖励被EntropyTriangle EMA覆盖 | pending机制注入EMA内部 |
 | #9 | SpecConv被EV高stddev压垮 | QG absolute floor 0.6 |
 | #10 | 奖励直接改参数撞上限 | 衰减因子(1-param)防爆 |
+| #11 | T语义混淆(cycle_age≠temperature) | 注释标记(OpenClaw发现) |
+| #12 | QualityGate误杀[?]标记 | 有数字直接通过, "可能性"不误伤(OpenClaw发现) |
+| #13 | GeneCount无上限 | Devour加cap<20(OpenClaw发现) |
+| #14 | SpecConv被EMA压住涨不动 | QG floor从0.6→0.7, 随通过次数累加上限0.9(OpenClaw发现) |
+| #15 | ΔG基线触发频率不一致 | 文档标注(OpenClaw发现) |
 
 ## 关键设计模式
 
