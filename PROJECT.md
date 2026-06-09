@@ -94,6 +94,24 @@ type APEXCore struct {
 | #13 | GeneCount无上限 | Devour加cap<20(OpenClaw发现) |
 | #14 | SpecConv被EMA压住涨不动 | QG floor从0.6→0.7, 随通过次数累加上限0.9(OpenClaw发现) |
 | #15 | ΔG基线触发频率不一致 | 文档标注(OpenClaw发现) |
+| #16 | Evolve()不默认带三函数 | 内置默认触发+pending(OpenClaw发现) |
+
+## 核心发现 (OpenClaw实验)
+
+**ΔG真正引擎是Discipline×Collab联动，不是SpecConv。**
+
+| 版本 | ΔG | 触发方式 |
+|------|-----|---------|
+| v1 | 32 | 无触发 |
+| v2.1 | 120 | 仅QG |
+| v2.2 | 233 | 三函数密集手动触发 |
+| v3 | 56 | Evolve()内置自动触发 |
+
+SpecConv在分子(Θ)和分母(H=1-Θ)同时出现，涨0.1净效应≈0，不用追。
+Discipline×Collab涨0.14 → ΔG翻7倍。
+
+**结论**: Evolve()内置触发(56) < 手动密集触发(233)，差距4x来自触发频率上限。
+根因: 每次Evolve只能触发一次三函数，手动可以在Evolve间隙多次触发。
 
 ## 关键设计模式
 
