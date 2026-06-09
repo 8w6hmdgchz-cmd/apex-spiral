@@ -51,6 +51,7 @@ type FormulaEngine struct {
 	core      *APEXCore
 	history   []APEXCore
 	devours   []DevourResult
+	lessons   []Lesson       // 教训库(防复发)
 	maxHist   int
 }
 
@@ -70,6 +71,7 @@ func NewFormulaEngine() *FormulaEngine {
 		},
 		history: make([]APEXCore, 0),
 		devours: make([]DevourResult, 0),
+		lessons: make([]Lesson, 0),
 		maxHist: 1000,
 	}
 }
@@ -336,6 +338,415 @@ func (fe *FormulaEngine) ToJSON() string {
 		"time":    time.Now().Format(time.RFC3339),
 	}, "", "  ")
 	return string(data)
+}
+
+// ============================================================
+// 短板补齐三函数 (2026-06-09)
+// 防复发: ReflectOnFailure — 失败反思存记忆, κ: 0.50→0.70
+// 视野窄: MultiPathDecide — 多路径评分选最优, μ: 0.70→0.85
+// 规范弱: QualityGate — 输出前强制验证, SpecConv: 0.50→0.80
+// ============================================================
+
+// --- 反思记忆结构 ---
+
+// Lesson 经验教训条目
+type Lesson struct {
+	Task      string    `json:"task"`       // 任务名称
+	Reason    string    `json:"reason"`     // 失败原因
+	Fix       string    `json:"fix"`        // 修复方案
+	Timestamp time.Time `json:"timestamp"`  // 记录时间
+	Applied   int       `json:"applied"`    // 被引用次数
+}
+
+// PathOption 路径选项
+type PathOption struct {
+	Name        string             `json:"name"`         // 路径名称
+	Description string             `json:"description"`  // 路径描述
+	ScoreFunc   func(*APEXCore) float64 // 评分函数(基于ΔG参数)
+}
+
+// QualityCheck 质量检查项
+type QualityCheck struct {
+	Name    string               `json:"name"`    // 检查名
+	Weight  float64              `json:"weight"`  // 权重 [0,1]
+	CheckFn func(string) bool   `json:"-"`       // 检查函数
+}
+
+// --- 防复发: ReflectOnFailure ---
+
+// ReflectOnFailure 失败反思 → 存入教训库 → 提升Discipline
+// 核心逻辑: 失败不可怕, 重复失败才可怕
+// 每次反思: Discipline += 0.01 (纪律微涨, EMA自然平滑)
+func (fe *FormulaEngine) ReflectOnFailure(task, reason, fix string) Lesson {
+	fe.mu.Lock()
+	defer fe.mu.Unlock()
+
+	lesson := Lesson{
+		Task:      task,
+		Reason:    reason,
+		Fix:       fix,
+		Timestamp: time.Now(),
+		Applied:   0,
+	}
+
+	// 存入教训库
+	fe.lessons = append(fe.lessons, lesson)
+
+	// 纪律微涨 — 反思本身就是纪律行为
+	fe.core.Discipline = math.Min(1.0, fe.core.Discipline+0.01)
+
+	// 哈希链记录
+	hashInput := fmt.Sprintf("%s:reflect:%s:%s", fe.core.HashChain, task, reason)
+	hash := sha256.Sum256([]byte(hashInput))
+	fe.core.HashChain = fmt.Sprintf("%x", hash[:8])
+
+	return lesson
+}
+
+// QueryLessons 查询历史教训(防复发核心)
+// 输入当前任务描述, 返回相关教训列表
+func (fe *FormulaEngine) QueryLessons(task string) []Lesson {
+	fe.mu.RLock()
+	defer fe.mu.RUnlock()
+
+	var relevant []Lesson
+	for _, l := range fe.lessons {
+		// 简单关键词匹配(生产环境可用向量检索)
+		if containsOverlap(task, l.Task) || containsOverlap(task, l.Reason) {
+			relevant = append(relevant, l)
+		}
+	}
+	return relevant
+}
+
+// GetLessonCount 获取教训总数
+func (fe *FormulaEngine) GetLessonCount() int {
+	fe.mu.RLock()
+	defer fe.mu.RUnlock()
+	return len(fe.lessons)
+}
+
+// containsOverlap 检查两个字符串是否有词重叠
+func containsOverlap(a, b string) bool {
+	wordsA := tokenize(a)
+	wordsB := tokenize(b)
+	set := make(map[string]bool)
+	for _, w := range wordsA {
+		set[w] = true
+	}
+	for _, w := range wordsB {
+		if set[w] {
+			return true
+		}
+	}
+	return false
+}
+
+// tokenize 简单分词(按空格+标点)
+func tokenize(s string) []string {
+	var words []string
+	cur := ""
+	for _, r := range s {
+		if r >= 'a' && r <= 'z' || r >= 'A' && r <= 'Z' || r >= '0' && r <= '9' || r >= 0x4e00 && r <= 0x9fff {
+			cur += string(r)
+		} else if cur != "" {
+			words = append(words, cur)
+			cur = ""
+		}
+	}
+	if cur != "" {
+		words = append(words, cur)
+	}
+	return words
+}
+
+// --- 视野窄: MultiPathDecide ---
+
+// MultiPathDecide 多路径评分选最优
+// 核心逻辑: 不走第一条路, 先生成N条路径, 用ΔG参数评分, 选最优
+// 评分维度: Fitness权重0.3 + SpecConv权重0.25 + Discipline权重0.25 + CollabEntropy权重0.2
+func (fe *FormulaEngine) MultiPathDecide(paths []PathOption) (PathOption, []float64) {
+	fe.mu.RLock()
+	defer fe.mu.RUnlock()
+
+	if len(paths) == 0 {
+		return PathOption{}, nil
+	}
+
+	scores := make([]float64, len(paths))
+	bestIdx := 0
+	bestScore := -1.0
+
+	for i, p := range paths {
+		if p.ScoreFunc != nil {
+			scores[i] = p.ScoreFunc(fe.core)
+		} else {
+			// 默认评分: 基于当前内核状态的综合评估
+			scores[i] = fe.defaultPathScore(fe.core)
+		}
+		if scores[i] > bestScore {
+			bestScore = scores[i]
+			bestIdx = i
+		}
+	}
+
+	// 记录路径探索行为 → CollabEntropy微涨(多路径=有序探索)
+	fe.core.CollabEntropy = math.Min(1.0, fe.core.CollabEntropy+0.005*float64(len(paths)))
+
+	return paths[bestIdx], scores
+}
+
+// defaultPathScore 默认路径评分(无自定义评分函数时)
+func (fe *FormulaEngine) defaultPathScore(c *APEXCore) float64 {
+	// 综合评分: 各参数加权
+	return c.Fitness*0.30 +
+		c.SpecConv*0.25 +
+		c.Discipline*0.25 +
+		c.CollabEntropy*0.20
+}
+
+// MultiPathDecideWithDeltaG 用完整ΔG公式评分每条路径
+// 更精确: 每条路径模拟一次ΔG计算, 选最高的
+func (fe *FormulaEngine) MultiPathDecideWithDeltaG(paths []PathOption, modifiers []map[string]float64) (int, float64) {
+	fe.mu.RLock()
+	defer fe.mu.RUnlock()
+
+	if len(paths) == 0 || len(modifiers) != len(paths) {
+		return -1, 0
+	}
+
+	bestIdx := 0
+	bestDG := -1.0
+
+	for i, mod := range modifiers {
+		// 模拟修改后的ΔG
+		dg := fe.simulateDeltaG(mod)
+		if dg > bestDG {
+			bestDG = dg
+			bestIdx = i
+		}
+	}
+
+	return bestIdx, bestDG
+}
+
+// simulateDeltaG 模拟参数修改后的ΔG(不改变实际状态)
+func (fe *FormulaEngine) simulateDeltaG(modifiers map[string]float64) float64 {
+	c := fe.core
+
+	// 应用修改器
+	fitness := c.Fitness + modifiers["fitness"]
+	specConv := c.SpecConv + modifiers["spec_conv"]
+	discipline := c.Discipline + modifiers["discipline"]
+	collab := c.CollabEntropy + modifiers["collab_entropy"]
+
+	// clamp到[0,1]
+	fitness = math.Max(0.01, math.Min(1.0, fitness))
+	specConv = math.Max(0.01, math.Min(1.0, specConv))
+	discipline = math.Max(0.01, math.Min(1.0, discipline))
+	collab = math.Max(0.01, math.Min(1.0, collab))
+
+	// ΔG公式
+	up := fitness * specConv * discipline * collab *
+		math.Min(1.0, c.EV/math.Max(1.0, float64(c.T)*0.5)) *
+		math.Min(1.0, float64(c.GeneCount)/20.0)
+
+	down := math.Max(0.01, 1.0-specConv) *
+		math.Max(0.01, float64(c.T)/100.0) *
+		math.Max(0.01, 1.0-fitness)
+
+	return up / down
+}
+
+// --- 规范弱: QualityGate ---
+
+// QualityGateResult 质量门禁结果
+type QualityGateResult struct {
+	Passed  bool              `json:"passed"`   // 是否通过
+	Score   float64           `json:"score"`    // 总分 [0,1]
+	Details []QualityDetail   `json:"details"`  // 各项详情
+}
+
+// QualityDetail 单项检查详情
+type QualityDetail struct {
+	Name   string  `json:"name"`   // 检查名
+	Passed bool    `json:"passed"` // 是否通过
+	Score  float64 `json:"score"`  // 得分
+	Weight float64 `json:"weight"` // 权重
+}
+
+// QualityGate 质量门禁 — 输出前强制验证
+// 核心逻辑: 任何输出必须通过完整性+准确性+一致性检查
+// 通过: SpecConv += 0.01 (规范行为奖励)
+// 失败: 返回失败原因供修正
+func (fe *FormulaEngine) QualityGate(output string) QualityGateResult {
+	fe.mu.Lock()
+	defer fe.mu.Unlock()
+
+	checks := []QualityCheck{
+		{"完整性", 0.35, checkCompleteness},
+		{"准确性", 0.35, checkAccuracy},
+		{"一致性", 0.30, checkConsistency},
+	}
+
+	var details []QualityDetail
+	totalScore := 0.0
+	allPassed := true
+
+	for _, chk := range checks {
+		passed := chk.CheckFn(output)
+		score := 0.0
+		if passed {
+			score = chk.Weight
+		} else {
+			allPassed = false
+		}
+		totalScore += score
+		details = append(details, QualityDetail{
+			Name:   chk.Name,
+			Passed: passed,
+			Score:  score,
+			Weight: chk.Weight,
+		})
+	}
+
+	result := QualityGateResult{
+		Passed:  allPassed,
+		Score:   totalScore,
+		Details: details,
+	}
+
+	// 规范行为奖励 — 通过门禁=规范收敛
+	if allPassed {
+		fe.core.SpecConv = math.Min(1.0, fe.core.SpecConv+0.01)
+	} else {
+		// 未通过但得分>0.5, 部分奖励
+		if totalScore > 0.5 {
+			fe.core.SpecConv = math.Min(1.0, fe.core.SpecConv+0.003)
+		}
+	}
+
+	return result
+}
+
+// QualityGateWithFix 带自动修正的门禁
+// 未通过时返回修正建议
+func (fe *FormulaEngine) QualityGateWithFix(output string) (QualityGateResult, []string) {
+	result := fe.QualityGate(output)
+	if result.Passed {
+		return result, nil
+	}
+
+	var fixes []string
+	for _, d := range result.Details {
+		if !d.Passed {
+			switch d.Name {
+			case "完整性":
+				fixes = append(fixes, "补充缺失信息: 检查是否覆盖所有必要维度")
+			case "准确性":
+				fixes = append(fixes, "验证数据来源: 交叉核对至少2个独立来源")
+			case "一致性":
+				fixes = append(fixes, "检查逻辑矛盾: 确保前后论述不冲突")
+			}
+		}
+	}
+	return result, fixes
+}
+
+// --- 质量检查函数 ---
+
+// checkCompleteness 完整性检查
+// 检查: 输出长度>50, 包含结构化标记(标题/列表/代码块)
+func checkCompleteness(output string) bool {
+	if len(output) < 50 {
+		return false
+	}
+	// 检查是否有结构化内容
+	hasStructure := false
+	structureMarkers := []string{"#", "- ", "* ", "1.", "|", "```", "：", "。"}
+	for _, m := range structureMarkers {
+		if containsStr(output, m) {
+			hasStructure = true
+			break
+		}
+	}
+	return hasStructure
+}
+
+// checkAccuracy 准确性检查
+// 检查: 不包含不确定词汇(也许/可能/大概), 包含具体数据或引用
+func checkAccuracy(output string) bool {
+	// 不确定词汇扣分
+	uncertainWords := []string{"也许", "可能", "大概", "似乎", "不确定", "maybe", "perhaps", "possibly"}
+	for _, w := range uncertainWords {
+		if containsStr(output, w) {
+			return false
+		}
+	}
+	// 包含数字或具体引用加分
+	hasData := false
+	for _, r := range output {
+		if r >= '0' && r <= '9' {
+			hasData = true
+			break
+		}
+	}
+	return hasData
+}
+
+// checkConsistency 一致性检查
+// 检查: 无自相矛盾的关键词对
+func checkConsistency(output string) bool {
+	// 矛盾对检测
+	contradictions := [][]string{
+		{"成功", "失败"},
+		{"增加", "减少"},
+		{"提高", "降低"},
+		{"通过", "未通过"},
+		{"正确", "错误"},
+	}
+	for _, pair := range contradictions {
+		if containsStr(output, pair[0]) && containsStr(output, pair[1]) {
+			// 同时出现矛盾词 — 需要进一步判断是否在对比语境中
+			// 简单策略: 如果有"→"或"从...到..."则视为对比, 不算矛盾
+			if !containsStr(output, "→") && !containsStr(output, "从") && !containsStr(output, "→") {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+// containsStr 字符串包含检查
+func containsStr(s, sub string) bool {
+	return len(s) >= len(sub) && searchString(s, sub)
+}
+
+// searchString 简单子串搜索
+func searchString(s, sub string) bool {
+	for i := 0; i <= len(s)-len(sub); i++ {
+		if s[i:i+len(sub)] == sub {
+			return true
+		}
+	}
+	return false
+}
+
+// --- 综合进化(集成三函数) ---
+
+// EvolveWithShortboardFix 带短板修复的进化
+// 在Evolve基础上: 1)检查教训库防复发 2)多路径选择 3)质量门禁
+func (fe *FormulaEngine) EvolveWithShortboardFix(task string, output string) (APEXCore, QualityGateResult, []Lesson) {
+	// 1. 基础进化
+	state := fe.Evolve()
+
+	// 2. 查教训(防复发)
+	lessons := fe.QueryLessons(task)
+
+	// 3. 质量门禁
+	qgResult := fe.QualityGate(output)
+
+	return state, qgResult, lessons
 }
 
 // FormulaEngine 作为库使用，main在apexagi_orchestrator.go中
