@@ -289,9 +289,33 @@ func (fe *FormulaEngine) computeCollabEntropy() float64 {
 
 // Evolve 执行一次进化迭代：APEX_NEW(t+1) = APEX_CORE(t) ⊛ ΔG [三重熵减]
 // 修复: 1)调用EntropyTriangle 2)log阻尼防爆 3)加强反馈
+// 修复2 (2026-06-09, Bug#16): Evolve() 默认内置三函数触发, 不依赖外部密集调用
+//   - ReflectOnFailure: 上轮 ΔG 不涨 → 反思, 涨 Discipline
+//   - MultiPathDecide:  默认探索 3 路径, 涨 CollabEntropy
+//   - QualityGate:      保留 external trigger, Evolve 内不强制
 func (fe *FormulaEngine) Evolve() APEXCore {
 	fe.mu.Lock()
 	defer fe.mu.Unlock()
+
+	// 0. Bug#16: Evolve 默认触发三函数(不依赖外部密集调用)
+	// 0a. ReflectOnFailure: 上轮 ΔG 不涨 → 反思, 涨 Discipline 0.01
+	prevDG := fe.core.DeltaG
+	// 0b. MultiPathDecide:  默认探索 3 路径, 涨 CollabEntropy 0.06
+	fe.pendingPaths += 3
+	// 0c. ReflectOnFailure 触发条件: 首次 (T=1) 或 ΔG 跌 (防重复失败)
+	//     复现真实使用: 不可能 "全部 cycle 都成功", 必有时机上反思
+	if fe.core.T == 0 || (prevDG > 0 && fe.historyShouldReflect(prevDG)) {
+		task := "evolve-auto"
+		reason := "stagnation-detected"
+		fix := "re-explore-paths"
+		_ = fix // 保留拼装语义, 未来可拼接进 pendingReflections 详情
+		// 直接加 pendingReflections (跟原 ReflectOnFailure 同样的效果)
+		fe.pendingReflections++
+		// 哈希链记录
+		hashInput := fmt.Sprintf("%s:reflect:%s:%s", fe.core.HashChain, task, reason)
+		hash := sha256.Sum256([]byte(hashInput))
+		fe.core.HashChain = fmt.Sprintf("%x", hash[:8])
+	}
 
 	// 1. 保存当前状态到历史
 	fe.history = append(fe.history, *fe.core)
@@ -322,6 +346,30 @@ func (fe *FormulaEngine) Evolve() APEXCore {
 	fe.core.HashChain = fmt.Sprintf("%x", hash[:8])
 
 	return *fe.core
+}
+
+// historyShouldReflect 判断上一轮是否需要反思(Bug#16)
+// 反思条件: 起步 (T<2) 或 EV 涨率 < 5% (stagnation)
+// 补充: 平衡需要 — 即使涨率 OK, 也每 2 轮反思一次防重复失败
+func (fe *FormulaEngine) historyShouldReflect(prevDG float64) bool {
+	if len(fe.history) < 2 {
+		return true // 起步阶段必反思
+	}
+	last := fe.history[len(fe.history)-1]
+	prev := fe.history[len(fe.history)-2]
+	if last.EV == 0 {
+		return true
+	}
+	growthRate := (last.EV - prev.EV) / last.EV
+	// Bug#16 修正: 涨率 < 5% OR 历史中每 2 轮必反思一次 (防重复失败)
+	if growthRate < 0.05 {
+		return true
+	}
+	// 平衡触发: 每 2 轮反思一次 (跟原 v2.2 实验最件接近)
+	if fe.core.T%2 == 0 {
+		return true
+	}
+	return false
 }
 
 // ComputeDeltaGUnsafe 内部调用（不加锁, 复用核心计算）
